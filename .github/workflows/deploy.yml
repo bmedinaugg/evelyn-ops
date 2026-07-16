@@ -1,12 +1,12 @@
 name: Deploy to Azure
 
 # Builds the image in ACR (cloud build) and rolls it out to the Container App.
-#
-# Manual-trigger only for now (Actions tab → "Run workflow"). Before it will
-# work you must set the repo Secret AZURE_CREDENTIALS and the Variables
-# AZURE_RESOURCE_GROUP / AZURE_ACR_NAME / AZURE_APP_NAME (see DEPLOY.md Option B).
-# Once configured, add `push: { branches: [main] }` back here for auto-deploy.
+# Needs repo Secret AZURE_CREDENTIALS and Variables AZURE_RESOURCE_GROUP /
+# AZURE_ACR_NAME / AZURE_APP_NAME (see DEPLOY.md Option B). Until those are set
+# and Azure is provisioned, runs will fail at the Azure-login step — expected.
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
