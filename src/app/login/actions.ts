@@ -10,7 +10,10 @@ export async function signInWithMicrosoft(formData: FormData) {
   const next = String(formData.get("next") || "/dashboard");
 
   const h = await headers();
-  const host = h.get("host") ?? "localhost:3000";
+  // Prefer the forwarded host — behind App Service the plain `host` header is
+  // the internal localhost:PORT, while x-forwarded-host is the public URL.
+  const host =
+    h.get("x-forwarded-host") ?? h.get("host") ?? "localhost:3000";
   const proto =
     h.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
   const origin = `${proto}://${host}`;
