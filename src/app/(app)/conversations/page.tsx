@@ -7,6 +7,7 @@ import {
   OUTCOME_TONE,
 } from "@/lib/format";
 import type { Outcome } from "@/lib/types";
+import { ConversationFilters } from "./ConversationFilters";
 
 export const dynamic = "force-dynamic";
 
@@ -25,107 +26,78 @@ export default async function ConversationsPage({
     date?: string;
     outcome?: string;
     state?: string;
-    q?: string;
+    member?: string;
+    preview?: string;
+    ticket?: string;
   }>;
 }) {
   const sp = await searchParams;
   const date = normaliseDate(sp.date);
-  const outcomeFilter = sp.outcome || "";
-  const stateFilter = sp.state || "";
-  const q = (sp.q || "").trim().toLowerCase();
+  const f = {
+    outcome: sp.outcome || "",
+    state: sp.state || "",
+    member: sp.member || "",
+    preview: sp.preview || "",
+    ticket: sp.ticket || "",
+  };
 
   const details = await getDigestDetails(date);
 
-  // Outcome counts for the whole day (drive the chip labels).
+  // Per-outcome counts for the whole day (shown in the outcome dropdown).
   const counts = details.sessions.reduce<Record<string, number>>((acc, s) => {
     acc[s.outcome] = (acc[s.outcome] || 0) + 1;
     return acc;
   }, {});
+  const outcomeOptions = OUTCOMES.map((o) => ({
+    value: o,
+    label: OUTCOME_LABELS[o],
+    count: counts[o] || 0,
+  }));
 
-  // Distinct states present that day, for the state dropdown.
   const states = [
     ...new Set(details.sessions.map((s) => s.state).filter(Boolean)),
   ].sort() as string[];
 
-  let rows = details.sessions;
-  if (outcomeFilter) rows = rows.filter((s) => s.outcome === outcomeFilter);
-  if (stateFilter) rows = rows.filter((s) => s.state === stateFilter);
-  if (q) {
-    rows = rows.filter(
-      (s) =>
-        s.customer.toLowerCase().includes(q) ||
-        (s.user_sample || "").toLowerCase().includes(q) ||
-        (s.state || "").toLowerCase().includes(q),
-    );
-  }
+  const memberQ = f.member.toLowerCase();
+  const previewQ = f.preview.toLowerCase();
+  const rows = details.sessions.filter((s) => {
+    if (f.outcome && s.outcome !== f.outcome) return false;
+    if (f.state && s.state !== f.state) return false;
+    if (memberQ && !s.customer.toLowerCase().includes(memberQ)) return false;
+    if (previewQ && !(s.user_sample || "").toLowerCase().includes(previewQ))
+      return false;
+    if (f.ticket === "has" && !s.ticket) return false;
+    if (f.ticket === "none" && s.ticket) return false;
+    if (f.ticket === "unsynced" && !(s.ticket && !s.ticket.fd_id)) return false;
+    return true;
+  });
 
-  // Build a /conversations URL preserving the current filters, overriding some.
-  const href = (over: Record<string, string | undefined>) => {
-    const merged = { date, outcome: outcomeFilter, state: stateFilter, q: sp.q, ...over };
-    const p = new URLSearchParams();
-    Object.entries(merged).forEach(([k, v]) => {
-      if (v) p.set(k, v);
-    });
-    return `/conversations?${p.toString()}`;
-  };
+  const anyFilter = Boolean(
+    f.outcome || f.state || f.member || f.preview || f.ticket,
+  );
 
   return (
     <>
       <div className="pagehead">
         <h1>Conversations</h1>
         <form className="controls" method="get">
+          <label className="muted">Day</label>
           <input type="date" name="date" defaultValue={date} />
-          {/* keep the active outcome when changing date/state/search */}
-          <input type="hidden" name="outcome" value={outcomeFilter} />
-          <select name="state" defaultValue={stateFilter}>
-            <option value="">All states</option>
-            {states.map((st) => (
-              <option key={st} value={st}>
-                {st}
-              </option>
-            ))}
-          </select>
-          <input
-            type="search"
-            name="q"
-            placeholder="Search name / message"
-            defaultValue={sp.q || ""}
-          />
           <button type="submit" className="secondary">
-            Filter
+            Go
           </button>
         </form>
       </div>
 
-      {/* Outcome quick-filters — click to show only that status */}
-      <div className="controls" style={{ marginBottom: 12 }}>
-        <Link
-          href={href({ outcome: undefined })}
-          className={`btn secondary${!outcomeFilter ? " active" : ""}`}
-        >
-          All ({details.sessions.length})
-        </Link>
-        {OUTCOMES.map((o) => (
-          <Link
-            key={o}
-            href={href({ outcome: o })}
-            className={`btn secondary${outcomeFilter === o ? " active" : ""}`}
-          >
-            {OUTCOME_LABELS[o]} ({counts[o] || 0})
-          </Link>
-        ))}
-      </div>
-
       <p className="muted">
         {rows.length} of {details.sessions.length} conversations on {date}
-        {outcomeFilter ? ` · outcome: ${OUTCOME_LABELS[outcomeFilter as Outcome]}` : ""}
-        {stateFilter ? ` · state: ${stateFilter}` : ""}
-        {(outcomeFilter || stateFilter || q) && (
+        {anyFilter && (
           <>
             {" · "}
             <Link href={`/conversations?date=${date}`}>clear filters</Link>
           </>
         )}
+        <span style={{ marginLeft: 8 }}>· filter within the columns below</span>
       </p>
 
       <div className="panel table-scroll">
@@ -140,6 +112,13 @@ export default async function ConversationsPage({
               <th>Ticket</th>
               <th>Preview</th>
             </tr>
+            <ConversationFilters
+              key={`${date}|${f.outcome}|${f.state}|${f.member}|${f.preview}|${f.ticket}`}
+              date={date}
+              values={f}
+              states={states}
+              outcomeOptions={outcomeOptions}
+            />
           </thead>
           <tbody>
             {rows.map((s) => {

@@ -150,6 +150,10 @@ tbody tr:hover { background: var(--panel-2); }
 td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
 .table-scroll { overflow-x: auto; }
 
+/* In-table column filter row */
+.filter-row th { padding: 6px 8px; background: var(--panel); border-bottom: 1px solid var(--border); text-transform: none; letter-spacing: 0; }
+.filter-row input, .filter-row select { width: 100%; min-width: 90px; padding: 5px 7px; font-size: 12px; }
+
 /* Badges */
 .badge { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; }
 .badge.red { background: var(--red-bg); color: var(--red); }
