@@ -24,18 +24,32 @@ export default async function ConversationsPage({
   searchParams: Promise<{
     date?: string;
     outcome?: string;
+    state?: string;
     q?: string;
   }>;
 }) {
   const sp = await searchParams;
   const date = normaliseDate(sp.date);
   const outcomeFilter = sp.outcome || "";
+  const stateFilter = sp.state || "";
   const q = (sp.q || "").trim().toLowerCase();
 
   const details = await getDigestDetails(date);
 
+  // Outcome counts for the whole day (drive the chip labels).
+  const counts = details.sessions.reduce<Record<string, number>>((acc, s) => {
+    acc[s.outcome] = (acc[s.outcome] || 0) + 1;
+    return acc;
+  }, {});
+
+  // Distinct states present that day, for the state dropdown.
+  const states = [
+    ...new Set(details.sessions.map((s) => s.state).filter(Boolean)),
+  ].sort() as string[];
+
   let rows = details.sessions;
   if (outcomeFilter) rows = rows.filter((s) => s.outcome === outcomeFilter);
+  if (stateFilter) rows = rows.filter((s) => s.state === stateFilter);
   if (q) {
     rows = rows.filter(
       (s) =>
@@ -45,24 +59,36 @@ export default async function ConversationsPage({
     );
   }
 
+  // Build a /conversations URL preserving the current filters, overriding some.
+  const href = (over: Record<string, string | undefined>) => {
+    const merged = { date, outcome: outcomeFilter, state: stateFilter, q: sp.q, ...over };
+    const p = new URLSearchParams();
+    Object.entries(merged).forEach(([k, v]) => {
+      if (v) p.set(k, v);
+    });
+    return `/conversations?${p.toString()}`;
+  };
+
   return (
     <>
       <div className="pagehead">
         <h1>Conversations</h1>
         <form className="controls" method="get">
           <input type="date" name="date" defaultValue={date} />
-          <select name="outcome" defaultValue={outcomeFilter}>
-            <option value="">All outcomes</option>
-            {OUTCOMES.map((o) => (
-              <option key={o} value={o}>
-                {OUTCOME_LABELS[o]}
+          {/* keep the active outcome when changing date/state/search */}
+          <input type="hidden" name="outcome" value={outcomeFilter} />
+          <select name="state" defaultValue={stateFilter}>
+            <option value="">All states</option>
+            {states.map((st) => (
+              <option key={st} value={st}>
+                {st}
               </option>
             ))}
           </select>
           <input
             type="search"
             name="q"
-            placeholder="Search name / message / state"
+            placeholder="Search name / message"
             defaultValue={sp.q || ""}
           />
           <button type="submit" className="secondary">
@@ -71,8 +97,35 @@ export default async function ConversationsPage({
         </form>
       </div>
 
+      {/* Outcome quick-filters — click to show only that status */}
+      <div className="controls" style={{ marginBottom: 12 }}>
+        <Link
+          href={href({ outcome: undefined })}
+          className={`btn secondary${!outcomeFilter ? " active" : ""}`}
+        >
+          All ({details.sessions.length})
+        </Link>
+        {OUTCOMES.map((o) => (
+          <Link
+            key={o}
+            href={href({ outcome: o })}
+            className={`btn secondary${outcomeFilter === o ? " active" : ""}`}
+          >
+            {OUTCOME_LABELS[o]} ({counts[o] || 0})
+          </Link>
+        ))}
+      </div>
+
       <p className="muted">
         {rows.length} of {details.sessions.length} conversations on {date}
+        {outcomeFilter ? ` · outcome: ${OUTCOME_LABELS[outcomeFilter as Outcome]}` : ""}
+        {stateFilter ? ` · state: ${stateFilter}` : ""}
+        {(outcomeFilter || stateFilter || q) && (
+          <>
+            {" · "}
+            <Link href={`/conversations?date=${date}`}>clear filters</Link>
+          </>
+        )}
       </p>
 
       <div className="panel table-scroll">
@@ -94,9 +147,7 @@ export default async function ConversationsPage({
               return (
                 <tr key={s.session_id}>
                   <td className="mono">
-                    <Link
-                      href={`/conversations/${s.session_id}?date=${date}`}
-                    >
+                    <Link href={`/conversations/${s.session_id}?date=${date}`}>
                       {s.first_at}–{s.last_at}
                     </Link>
                   </td>
