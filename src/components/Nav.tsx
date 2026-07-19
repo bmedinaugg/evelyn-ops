@@ -3,18 +3,34 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const LINKS = [
-  { href: "/dashboard", label: "Dashboard" },
-  { href: "/conversations", label: "Conversations" },
-  { href: "/evaluation", label: "Bot evaluation" },
-  { href: "/feedback", label: "Feedback" },
-  { href: "/board", label: "Board" },
-  { href: "/tickets", label: "Tickets" },
-  { href: "/failures", label: "Dev fails" },
-  { href: "/faq-proposals", label: "FAQ proposals" },
-];
+type NavItem = { href: string; label: string; icon: string };
 
-const SOON: string[] = [];
+const SECTIONS: { title: string | null; items: NavItem[] }[] = [
+  {
+    title: null,
+    items: [{ href: "/dashboard", label: "Dashboard", icon: "📊" }],
+  },
+  {
+    title: "Review",
+    items: [
+      { href: "/conversations", label: "Conversations", icon: "💬" },
+      { href: "/evaluation", label: "Bot evaluation", icon: "🎯" },
+      { href: "/tickets", label: "Tickets", icon: "🎫" },
+    ],
+  },
+  {
+    title: "Team",
+    items: [
+      { href: "/feedback", label: "Feedback", icon: "📥" },
+      { href: "/board", label: "Board", icon: "🗂️" },
+      { href: "/faq-proposals", label: "FAQ proposals", icon: "💡" },
+    ],
+  },
+  {
+    title: "Developer",
+    items: [{ href: "/failures", label: "Dev fails", icon: "⚠️" }],
+  },
+];
 
 export function Nav({ email }: { email: string }) {
   const pathname = usePathname();
@@ -24,23 +40,26 @@ export function Nav({ email }: { email: string }) {
         Evelyn Ops
         <small>TrainMore · Member Care</small>
       </div>
-      {LINKS.map((l) => {
-        const active =
-          pathname === l.href || pathname.startsWith(l.href + "/");
-        return (
-          <Link
-            key={l.href}
-            href={l.href}
-            className={`navlink${active ? " active" : ""}`}
-          >
-            {l.label}
-          </Link>
-        );
-      })}
-      {SOON.map((s) => (
-        <span key={s} className="navlink soon" title="Coming in a later phase">
-          {s} <span className="muted">· soon</span>
-        </span>
+      {SECTIONS.map((section, i) => (
+        <div key={i}>
+          {section.title && (
+            <div className="nav-section">{section.title}</div>
+          )}
+          {section.items.map((l) => {
+            const active =
+              pathname === l.href || pathname.startsWith(l.href + "/");
+            return (
+              <Link
+                key={l.href}
+                href={l.href}
+                className={`navlink${active ? " active" : ""}`}
+              >
+                <span className="icon">{l.icon}</span>
+                {l.label}
+              </Link>
+            );
+          })}
+        </div>
       ))}
       <div className="spacer" />
       <div className="who">
