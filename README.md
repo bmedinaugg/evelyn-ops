@@ -37,6 +37,8 @@ Fill `.env.local` from **Supabase dashboard → Project Settings → API**:
 | `STAFF_EMAIL_DOMAIN` | `urbangymgroup.com` |
 | `STAFF_ALLOWLIST` | optional CSV to restrict to specific emails |
 | `ANTHROPIC_API_KEY` | powers the AI fix suggestions on the Feedback inbox (server-only) |
+| `FRESHDESK_API_KEY` | powers manual ticket creation from a conversation (server-only) |
+| `FRESHDESK_DOMAIN` | optional; defaults to `urbangymgroup.freshdesk.com` |
 
 ### Microsoft SSO setup (one-time)
 

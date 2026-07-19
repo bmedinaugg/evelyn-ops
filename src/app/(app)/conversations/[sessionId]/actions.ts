@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import {
   createConversationFeedback,
   createFaqProposal,
+  createManualTicket,
 } from "@/lib/queries";
 
 export type FeedbackState = { error?: string; ok?: boolean };
@@ -68,4 +69,42 @@ export async function proposeFaq(
 
   if (sessionId) revalidatePath(`/conversations/${sessionId}`);
   return { ok: true };
+}
+
+export type CreateTicketState = { error?: string; fdId?: string };
+
+export async function createTicket(
+  _prev: CreateTicketState,
+  formData: FormData,
+): Promise<CreateTicketState> {
+  const sessionId = String(formData.get("session_id") || "");
+  const email = String(formData.get("email") || "").trim();
+  const subject = String(formData.get("subject") || "").trim();
+  const description = String(formData.get("description") || "").trim();
+  const priorityRaw = String(formData.get("priority") || "medium");
+  const priority = ["low", "medium", "high", "urgent"].includes(priorityRaw)
+    ? priorityRaw
+    : "medium";
+
+  if (!sessionId) return { error: "Missing session id." };
+  if (!email || !email.includes("@"))
+    return { error: "A valid member email is required." };
+  if (!subject) return { error: "A subject is required." };
+  if (!description) return { error: "A description is required." };
+
+  try {
+    const fdId = await createManualTicket({
+      sessionId,
+      email,
+      subject,
+      description,
+      priority,
+    });
+    revalidatePath(`/conversations/${sessionId}`);
+    return { fdId };
+  } catch (e) {
+    return {
+      error: e instanceof Error ? e.message : "Failed to create the ticket.",
+    };
+  }
 }

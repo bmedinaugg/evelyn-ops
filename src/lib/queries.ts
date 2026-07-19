@@ -2,6 +2,7 @@ import "server-only";
 import { requireStaff } from "@/lib/auth";
 import { dataClient } from "@/lib/supabase/data-client";
 import { FEEDBACK_TAG_VALUES } from "@/lib/feedback-tags";
+import { createFreshdeskTicket } from "@/lib/freshdesk";
 import type {
   BoardItem,
   BoardItemView,
@@ -309,6 +310,65 @@ export async function createFaqProposal(input: {
       status: "draft",
     });
   if (error) throw new Error(`create faq proposal failed: ${error.message}`);
+}
+
+// --- Manual ticket creation (agent escalation from a conversation) ---------
+
+// Creates the ticket in Freshdesk, then records it in bot.tickets so it shows
+// up in the app's Tickets/Evaluation views exactly like bot-created tickets.
+// Purely additive data — the bot's own flow is untouched.
+export async function createManualTicket(input: {
+  sessionId: string;
+  email: string;
+  subject: string;
+  description: string;
+  priority: string;
+}): Promise<string> {
+  const staff = await requireStaff();
+  const client = dataClient();
+
+  // Session gives us the required FK columns (channel_user_id is NOT NULL).
+  const { data: session, error: sErr } = await client
+    .from("sessions")
+    .select("id, channel_user_id, customer_id, customer:customers(display_name)")
+    .eq("id", input.sessionId)
+    .maybeSingle();
+  if (sErr) throw new Error(`session lookup failed: ${sErr.message}`);
+  if (!session) throw new Error("Conversation not found.");
+
+  const customerName =
+    (session as unknown as { customer: { display_name: string | null } | null })
+      .customer?.display_name ?? null;
+
+  const description = `${input.description}\n\n—\nTicket created manually by ${staff.email} via Evelyn Ops (bot did not open one).`;
+
+  const fdId = await createFreshdeskTicket({
+    email: input.email,
+    name: customerName,
+    subject: input.subject,
+    description,
+    priority: input.priority,
+  });
+
+  const { error } = await client.from("tickets").insert({
+    external_ticket_id: fdId,
+    session_id: input.sessionId,
+    channel_user_id: (session as unknown as { channel_user_id: string })
+      .channel_user_id,
+    customer_id:
+      (session as unknown as { customer_id: string | null }).customer_id,
+    subject: input.subject,
+    description,
+    priority: input.priority,
+    status: "open",
+  });
+  if (error) {
+    // Ticket exists in Freshdesk but the record failed — surface loudly.
+    throw new Error(
+      `Freshdesk ticket #${fdId} was created, but recording it failed: ${error.message}. Add it manually or retry later.`,
+    );
+  }
+  return fdId;
 }
 
 // --- Tickets & Failures (read-only base-table views) -----------------------

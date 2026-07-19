@@ -29,6 +29,12 @@ export const env = {
   get anthropicApiKey() {
     return required("ANTHROPIC_API_KEY");
   },
+  get freshdeskDomain() {
+    return process.env.FRESHDESK_DOMAIN || "urbangymgroup.freshdesk.com";
+  },
+  get freshdeskApiKey() {
+    return required("FRESHDESK_API_KEY");
+  },
   get staffDomain() {
     return (process.env.STAFF_EMAIL_DOMAIN || "urbangymgroup.com").toLowerCase();
   },

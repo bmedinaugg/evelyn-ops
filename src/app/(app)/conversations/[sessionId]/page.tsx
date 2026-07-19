@@ -3,6 +3,7 @@ import { getConversation, listConversationFeedback } from "@/lib/queries";
 import { freshdeskUrl, normaliseDate } from "@/lib/format";
 import { FeedbackPanel } from "./FeedbackPanel";
 import { ProposeFaqForm } from "./ProposeFaqForm";
+import { CreateTicketForm } from "./CreateTicketForm";
 
 export const dynamic = "force-dynamic";
 
@@ -109,6 +110,21 @@ export default async function ConversationDetailPage({
             <span className="muted">No ticket for this conversation.</span>
           )}
         </div>
+      </div>
+
+      <div style={{ marginBottom: 18 }}>
+        <CreateTicketForm
+          sessionId={sessionId}
+          memberEmail={s.customer_email}
+          transcriptText={(conv.messages || [])
+            .filter((m) => m.role === "user" || m.role === "assistant")
+            .map(
+              (m) =>
+                `${m.role === "user" ? "Member" : "Evelyn"} [${m.at}]: ${m.content ?? ""}`,
+            )
+            .join("\n")}
+          hasTicket={!!ticket}
+        />
       </div>
 
       <FeedbackPanel sessionId={sessionId} items={feedback} />
