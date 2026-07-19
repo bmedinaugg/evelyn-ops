@@ -35,6 +35,12 @@ export const env = {
   get freshdeskApiKey() {
     return required("FRESHDESK_API_KEY");
   },
+  get appBaseUrl() {
+    return (
+      process.env.APP_BASE_URL ||
+      "https://evelyn-ops-g4btdwcheaftcmbj.westeurope-01.azurewebsites.net"
+    );
+  },
   get staffDomain() {
     return (process.env.STAFF_EMAIL_DOMAIN || "urbangymgroup.com").toLowerCase();
   },

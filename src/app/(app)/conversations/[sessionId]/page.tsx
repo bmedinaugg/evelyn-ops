@@ -1,5 +1,9 @@
 import Link from "next/link";
-import { getConversation, listConversationFeedback } from "@/lib/queries";
+import {
+  getConversation,
+  getFormSchemas,
+  listConversationFeedback,
+} from "@/lib/queries";
 import { freshdeskUrl, normaliseDate } from "@/lib/format";
 import { FeedbackPanel } from "./FeedbackPanel";
 import { ProposeFaqForm } from "./ProposeFaqForm";
@@ -27,9 +31,10 @@ export default async function ConversationDetailPage({
   const { date: rawDate } = await searchParams;
   const date = normaliseDate(rawDate);
 
-  const [conv, feedback] = await Promise.all([
+  const [conv, feedback, formSchemas] = await Promise.all([
     getConversation(sessionId),
     listConversationFeedback(sessionId),
+    getFormSchemas(),
   ]);
 
   const backLink = `/conversations?date=${date}`;
@@ -124,6 +129,7 @@ export default async function ConversationDetailPage({
             )
             .join("\n")}
           hasTicket={!!ticket}
+          formSchemas={formSchemas}
         />
       </div>
 

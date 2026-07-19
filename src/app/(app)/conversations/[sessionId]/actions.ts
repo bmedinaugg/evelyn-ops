@@ -5,6 +5,7 @@ import {
   createConversationFeedback,
   createFaqProposal,
   createManualTicket,
+  getFormSchemas,
 } from "@/lib/queries";
 
 export type FeedbackState = { error?: string; ok?: boolean };
@@ -86,19 +87,73 @@ export async function createTicket(
     ? priorityRaw
     : "medium";
 
+  const formKey = String(formData.get("form_key") || "");
+
   if (!sessionId) return { error: "Missing session id." };
   if (!email || !email.includes("@"))
     return { error: "A valid member email is required." };
   if (!subject) return { error: "A subject is required." };
   if (!description) return { error: "A description is required." };
+  if (!formKey) return { error: "Select which form should have been used." };
 
   try {
+    // Resolve the selected form's field definitions so values are typed
+    // correctly for Freshdesk (checkboxes → booleans) and we can build a
+    // readable answers summary for the ticket body.
+    const schema = (await getFormSchemas()).filter(
+      (f) => f.form_key === formKey,
+    );
+    if (schema.length === 0) return { error: "Unknown form selected." };
+
+    const customFields: Record<string, string | boolean> = {};
+    const answers: { question: string; answer: string }[] = [];
+
+    // All dynamic inputs are named cf:<freshdesk_field_name>.
+    for (const [key, value] of formData.entries()) {
+      if (!key.startsWith("cf:")) continue;
+      const name = key.slice(3);
+      const v = String(value).trim();
+      if (v) customFields[name] = v;
+    }
+
+    for (const field of schema) {
+      if (field.field_type === "custom_checkbox") {
+        // Unchecked boxes are absent from FormData — send explicit booleans.
+        const checked = customFields[field.field_key] === "on";
+        customFields[field.field_key] = checked;
+        answers.push({
+          question: field.question.slice(0, 80),
+          answer: checked ? "Yes" : "No",
+        });
+      } else if (field.field_type === "nested_field") {
+        const parts = [
+          customFields[field.field_key],
+          ...(field.options?.nested_ticket_fields ?? [])
+            .sort((a, b) => a.level - b.level)
+            .map((nf) => customFields[nf.name]),
+        ].filter((p): p is string => typeof p === "string" && p.length > 0);
+        if (parts.length)
+          answers.push({ question: field.question, answer: parts.join(" → ") });
+        if (field.required && !customFields[field.field_key])
+          return { error: `"${field.question}" is required for this form.` };
+      } else {
+        const v = customFields[field.field_key];
+        if (typeof v === "string" && v)
+          answers.push({ question: field.question, answer: v });
+        if (field.required && field.field_type !== "custom_text" && !v)
+          return { error: `"${field.question}" is required for this form.` };
+      }
+    }
+
     const fdId = await createManualTicket({
       sessionId,
       email,
       subject,
       description,
       priority,
+      formKey,
+      customFields,
+      answers,
     });
     revalidatePath(`/conversations/${sessionId}`);
     return { fdId };

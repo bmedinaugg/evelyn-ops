@@ -136,6 +136,29 @@ export interface BoardItemView extends BoardItem {
   images: { path: string; url: string | null }[];
 }
 
+// A field definition from bot.form_schemas (synced from Freshdesk admin).
+export type NestedChoices = Record<string, Record<string, string[]>>;
+
+export interface FormSchemaField {
+  form_key: string;
+  field_key: string;
+  question: string;
+  field_type:
+    | "custom_dropdown"
+    | "custom_text"
+    | "custom_checkbox"
+    | "nested_field"
+    | string;
+  required: boolean;
+  position: number;
+  options: {
+    choices: string[] | NestedChoices | null;
+    nested_ticket_fields:
+      | { name: string; level: number; label_in_portal: string | null }[]
+      | null;
+  } | null;
+}
+
 export type FaqStatus = "draft" | "approved" | "published" | "rejected";
 
 export interface FaqProposal {

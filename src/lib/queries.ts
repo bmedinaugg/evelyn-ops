@@ -3,6 +3,8 @@ import { requireStaff } from "@/lib/auth";
 import { dataClient } from "@/lib/supabase/data-client";
 import { FEEDBACK_TAG_VALUES } from "@/lib/feedback-tags";
 import { createFreshdeskTicket } from "@/lib/freshdesk";
+import { formCategory, formLabel } from "@/lib/forms";
+import { env } from "@/lib/env";
 import type {
   BoardItem,
   BoardItemView,
@@ -15,6 +17,7 @@ import type {
   FaqProposal,
   FaqStatus,
   FeedbackItem,
+  FormSchemaField,
   TicketRow,
   WorkflowErrorRow,
 } from "@/lib/types";
@@ -314,6 +317,18 @@ export async function createFaqProposal(input: {
 
 // --- Manual ticket creation (agent escalation from a conversation) ---------
 
+// Field definitions for the 4 Freshdesk ticket forms (synced by the bot).
+export async function getFormSchemas(): Promise<FormSchemaField[]> {
+  await requireStaff();
+  const { data, error } = await dataClient()
+    .from("form_schemas")
+    .select("form_key, field_key, question, field_type, required, position, options")
+    .order("form_key")
+    .order("position");
+  if (error) throw new Error(`form schemas failed: ${error.message}`);
+  return (data ?? []) as FormSchemaField[];
+}
+
 // Creates the ticket in Freshdesk, then records it in bot.tickets so it shows
 // up in the app's Tickets/Evaluation views exactly like bot-created tickets.
 // Purely additive data — the bot's own flow is untouched.
@@ -323,42 +338,73 @@ export async function createManualTicket(input: {
   subject: string;
   description: string;
   priority: string;
+  formKey: string;
+  customFields: Record<string, string | boolean>;
+  answers: { question: string; answer: string }[];
 }): Promise<string> {
   const staff = await requireStaff();
   const client = dataClient();
 
-  // Session gives us the required FK columns (channel_user_id is NOT NULL).
+  // Session gives us the required FK columns (channel_user_id is NOT NULL)
+  // plus context for the ticket body.
   const { data: session, error: sErr } = await client
     .from("sessions")
-    .select("id, channel_user_id, customer_id, customer:customers(display_name)")
+    .select(
+      "id, state, last_message_at, channel_user_id, customer_id, customer:customers(display_name, email)",
+    )
     .eq("id", input.sessionId)
     .maybeSingle();
   if (sErr) throw new Error(`session lookup failed: ${sErr.message}`);
   if (!session) throw new Error("Conversation not found.");
 
-  const customerName =
-    (session as unknown as { customer: { display_name: string | null } | null })
-      .customer?.display_name ?? null;
+  const s = session as unknown as {
+    state: string | null;
+    last_message_at: string | null;
+    channel_user_id: string;
+    customer_id: string | null;
+    customer: { display_name: string | null; email: string | null } | null;
+  };
 
-  const description = `${input.description}\n\n—\nTicket created manually by ${staff.email} via Evelyn Ops (bot did not open one).`;
+  const { count: msgCount } = await client
+    .from("conversation_messages")
+    .select("*", { count: "exact", head: true })
+    .eq("session_id", input.sessionId);
+
+  const answersBlock = input.answers.length
+    ? `\nForm: ${formLabel(input.formKey)}\n` +
+      input.answers.map((a) => `• ${a.question}: ${a.answer}`).join("\n")
+    : `\nForm: ${formLabel(input.formKey)}`;
+
+  const contextBlock = [
+    "",
+    "— Conversation context (Evelyn Ops) —",
+    `Member: ${s.customer?.display_name ?? "(not authenticated)"} <${input.email}>`,
+    `Bot session state: ${s.state ?? "unknown"} · ${msgCount ?? "?"} messages · last message ${s.last_message_at ?? "unknown"}`,
+    answersBlock,
+    "",
+    `Created manually by ${staff.email} via Evelyn Ops — the bot did not open this ticket.`,
+    `Transcript & details: ${env.appBaseUrl}/conversations/${input.sessionId}`,
+  ].join("\n");
+
+  const description = `${input.description}\n${contextBlock}`;
 
   const fdId = await createFreshdeskTicket({
     email: input.email,
-    name: customerName,
+    name: s.customer?.display_name ?? null,
     subject: input.subject,
     description,
     priority: input.priority,
+    customFields: input.customFields,
   });
 
   const { error } = await client.from("tickets").insert({
     external_ticket_id: fdId,
     session_id: input.sessionId,
-    channel_user_id: (session as unknown as { channel_user_id: string })
-      .channel_user_id,
-    customer_id:
-      (session as unknown as { customer_id: string | null }).customer_id,
+    channel_user_id: s.channel_user_id,
+    customer_id: s.customer_id,
     subject: input.subject,
     description,
+    category: formCategory(input.formKey),
     priority: input.priority,
     status: "open",
   });

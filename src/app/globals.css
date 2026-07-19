@@ -219,6 +219,12 @@ textarea { background: var(--panel); border: 1px solid var(--border); color: var
 .board-meta { font-size: 11px; margin: 6px 0; }
 .board-actions button { padding: 4px 8px; font-size: 12px; }
 
+/* Manual ticket form */
+.ticket-fields { display: flex; flex-direction: column; gap: 12px; border: 1px dashed var(--border); border-radius: 8px; padding: 12px; }
+.field-label { font-size: 13px; font-weight: 600; }
+.consent-row { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; cursor: pointer; }
+.consent-row input { margin-top: 2px; }
+
 /* AI fix suggestions */
 .ai-row td { background: var(--panel-2); }
 .ai-suggestion { padding: 4px 6px; max-width: 900px; }

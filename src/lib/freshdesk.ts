@@ -18,6 +18,7 @@ export async function createFreshdeskTicket(input: {
   subject: string;
   description: string; // plain text; converted to HTML here
   priority: string; // low | medium | high | urgent
+  customFields?: Record<string, string | boolean>;
 }): Promise<string> {
   const auth = Buffer.from(`${env.freshdeskApiKey}:X`).toString("base64");
 
@@ -40,7 +41,12 @@ export async function createFreshdeskTicket(input: {
       description: html,
       status: 2, // open
       priority: PRIORITY_MAP[input.priority] ?? 2,
-      tags: ["evelyn-ops-manual"],
+      // evelyn-bot = came from the Evelyn flow; evelyn-ops-manual = created
+      // afterwards by an agent (the bot failed to open it).
+      tags: ["evelyn-bot", "evelyn-ops-manual"],
+      ...(input.customFields && Object.keys(input.customFields).length > 0
+        ? { custom_fields: input.customFields }
+        : {}),
     }),
   });
 
