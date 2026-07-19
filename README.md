@@ -36,6 +36,7 @@ Fill `.env.local` from **Supabase dashboard → Project Settings → API**:
 | `SUPABASE_SERVICE_ROLE_KEY` | the `service_role` secret (server-only) |
 | `STAFF_EMAIL_DOMAIN` | `urbangymgroup.com` |
 | `STAFF_ALLOWLIST` | optional CSV to restrict to specific emails |
+| `ANTHROPIC_API_KEY` | powers the AI fix suggestions on the Feedback inbox (server-only) |
 
 ### Microsoft SSO setup (one-time)
 

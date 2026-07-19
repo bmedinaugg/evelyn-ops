@@ -19,6 +19,7 @@ export async function submitFeedback(
   const rating =
     ratingRaw === "good" || ratingRaw === "bad" ? ratingRaw : null;
   const comment = String(formData.get("comment") || "").trim() || null;
+  const detail = String(formData.get("detail") || "").trim() || null;
   const tags = formData.getAll("tags").map(String);
 
   if (!rating && !comment && tags.length === 0) {
@@ -26,7 +27,13 @@ export async function submitFeedback(
   }
 
   try {
-    await createConversationFeedback({ sessionId, rating, comment, tags });
+    await createConversationFeedback({
+      sessionId,
+      rating,
+      comment,
+      tags,
+      detail,
+    });
   } catch (e) {
     return { error: e instanceof Error ? e.message : "Failed to save." };
   }

@@ -73,6 +73,7 @@ export async function createConversationFeedback(input: {
   rating: "good" | "bad" | null;
   comment: string | null;
   tags: string[];
+  detail: string | null;
 }): Promise<void> {
   const staff = await requireStaff();
   const tags = input.tags.filter((t) =>
@@ -86,8 +87,37 @@ export async function createConversationFeedback(input: {
       rating: input.rating,
       comment: input.comment,
       tags,
+      detail: input.detail,
     });
   if (error) throw new Error(`create feedback failed: ${error.message}`);
+}
+
+export async function getFeedbackById(
+  id: string,
+): Promise<ConversationFeedback | null> {
+  await requireStaff();
+  const { data, error } = await dataClient()
+    .from("conversation_feedback")
+    .select("*")
+    .eq("id", id)
+    .maybeSingle();
+  if (error) throw new Error(`get feedback failed: ${error.message}`);
+  return (data ?? null) as ConversationFeedback | null;
+}
+
+export async function saveAiSuggestion(
+  feedbackId: string,
+  suggestion: unknown,
+): Promise<void> {
+  await requireStaff();
+  const { error } = await dataClient()
+    .from("conversation_feedback")
+    .update({
+      ai_suggestion: suggestion,
+      ai_suggested_at: new Date().toISOString(),
+    })
+    .eq("id", feedbackId);
+  if (error) throw new Error(`save suggestion failed: ${error.message}`);
 }
 
 // --- Team board (bot.board_items + Storage) --------------------------------

@@ -26,6 +26,9 @@ export const env = {
   get supabaseServiceRoleKey() {
     return required("SUPABASE_SERVICE_ROLE_KEY");
   },
+  get anthropicApiKey() {
+    return required("ANTHROPIC_API_KEY");
+  },
   get staffDomain() {
     return (process.env.STAFF_EMAIL_DOMAIN || "urbangymgroup.com").toLowerCase();
   },

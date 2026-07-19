@@ -57,6 +57,20 @@ export interface ConversationMessage {
 
 export type FeedbackStatus = "open" | "resolved" | "dismissed";
 
+// Claude-generated fix suggestion stored on a feedback item.
+export interface AiSuggestion {
+  diagnosis: string;
+  fix_type:
+    | "missing_faq"
+    | "faq_content_fix"
+    | "bot_behavior"
+    | "prompt_change"
+    | "no_fix_needed"
+    | "other";
+  suggested_action: string;
+  proposed_faq: { question: string; answer: string } | null;
+}
+
 export interface ConversationFeedback {
   id: string;
   session_id: string;
@@ -65,6 +79,9 @@ export interface ConversationFeedback {
   rating: "good" | "bad" | null;
   comment: string | null;
   tags: string[];
+  detail: string | null;
+  ai_suggestion: AiSuggestion | null;
+  ai_suggested_at: string | null;
   status: FeedbackStatus;
   resolved_by: string | null;
   resolved_at: string | null;

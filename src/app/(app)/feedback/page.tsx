@@ -1,8 +1,19 @@
 import Link from "next/link";
+import React from "react";
 import { listFeedback, feedbackAuthorSummary } from "@/lib/queries";
 import { amsterdamDateTime } from "@/lib/format";
 import { feedbackTagLabel } from "@/lib/feedback-tags";
-import { changeFeedbackStatus } from "./actions";
+import { changeFeedbackStatus, saveSuggestedFaq } from "./actions";
+import { SuggestFixButton } from "./SuggestFixButton";
+
+const FIX_TYPE_LABELS: Record<string, string> = {
+  missing_faq: "Missing FAQ",
+  faq_content_fix: "FAQ content fix",
+  bot_behavior: "Bot behavior",
+  prompt_change: "Prompt change",
+  no_fix_needed: "No fix needed",
+  other: "Other",
+};
 
 export const dynamic = "force-dynamic";
 
@@ -125,7 +136,8 @@ export default async function FeedbackPage({
           </thead>
           <tbody>
             {items.map((f) => (
-              <tr key={f.id}>
+              <React.Fragment key={f.id}>
+              <tr>
                 <td className="mono">{amsterdamDateTime(f.created_at)}</td>
                 <td>
                   {f.rating === "good" && (
@@ -143,7 +155,10 @@ export default async function FeedbackPage({
                     ))}
                   </div>
                 </td>
-                <td style={{ maxWidth: 300 }}>{f.comment ?? "—"}</td>
+                <td style={{ maxWidth: 300 }}>
+                  {f.detail && <div className="muted">↳ {f.detail}</div>}
+                  {f.comment ?? (f.detail ? null : "—")}
+                </td>
                 <td>{f.session?.customer?.display_name ?? <span className="muted">—</span>}</td>
                 <td className="mono">
                   {f.author_email}
@@ -169,9 +184,56 @@ export default async function FeedbackPage({
                     ) : (
                       <ActionButton id={f.id} status="open" label="Reopen" secondary />
                     )}
+                    <SuggestFixButton
+                      feedbackId={f.id}
+                      hasSuggestion={!!f.ai_suggestion}
+                    />
                   </div>
                 </td>
               </tr>
+              {f.ai_suggestion && (
+                <tr className="ai-row">
+                  <td colSpan={8}>
+                    <div className="ai-suggestion">
+                      <div className="ai-head">
+                        <span className="badge blue">✨ AI fix suggestion</span>
+                        <span className={`badge ${f.ai_suggestion.fix_type === "no_fix_needed" ? "green" : "amber"}`}>
+                          {FIX_TYPE_LABELS[f.ai_suggestion.fix_type] ?? f.ai_suggestion.fix_type}
+                        </span>
+                        <span className="muted" style={{ marginLeft: "auto", fontSize: 11 }}>
+                          {f.ai_suggested_at ? amsterdamDateTime(f.ai_suggested_at) : ""}
+                        </span>
+                      </div>
+                      <p>
+                        <strong>Diagnosis:</strong> {f.ai_suggestion.diagnosis}
+                      </p>
+                      <p>
+                        <strong>Suggested fix:</strong>{" "}
+                        {f.ai_suggestion.suggested_action}
+                      </p>
+                      {f.ai_suggestion.proposed_faq && (
+                        <div className="ai-faq">
+                          <div>
+                            <strong>Q:</strong>{" "}
+                            {f.ai_suggestion.proposed_faq.question}
+                          </div>
+                          <div>
+                            <strong>A:</strong>{" "}
+                            {f.ai_suggestion.proposed_faq.answer}
+                          </div>
+                          <form action={saveSuggestedFaq} style={{ marginTop: 8 }}>
+                            <input type="hidden" name="feedback_id" value={f.id} />
+                            <button type="submit">
+                              Save as FAQ proposal
+                            </button>
+                          </form>
+                        </div>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              )}
+              </React.Fragment>
             ))}
             {items.length === 0 && (
               <tr>
