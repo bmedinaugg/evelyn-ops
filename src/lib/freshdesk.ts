@@ -12,6 +12,14 @@ const PRIORITY_MAP: Record<string, number> = {
   urgent: 4,
 };
 
+// Freshdesk email config the ticket sends/replies from. Member-facing mail
+// must come from "Member Care" <membercare@trainmore.com> — NOT the default
+// "Customer Care" config. Override with FRESHDESK_EMAIL_CONFIG_ID if it ever
+// changes.
+const MEMBER_CARE_EMAIL_CONFIG_ID = Number(
+  process.env.FRESHDESK_EMAIL_CONFIG_ID || 103000139454,
+);
+
 export async function createFreshdeskTicket(input: {
   email: string;
   name: string | null;
@@ -41,6 +49,7 @@ export async function createFreshdeskTicket(input: {
       description: html,
       status: 2, // open
       priority: PRIORITY_MAP[input.priority] ?? 2,
+      email_config_id: MEMBER_CARE_EMAIL_CONFIG_ID,
       // evelyn-bot = came from the Evelyn flow; evelyn-ops-manual = created
       // afterwards by an agent (the bot failed to open it).
       tags: ["evelyn-bot", "evelyn-ops-manual"],
