@@ -20,6 +20,43 @@ const MEMBER_CARE_EMAIL_CONFIG_ID = Number(
   process.env.FRESHDESK_EMAIL_CONFIG_ID || 103000139454,
 );
 
+export interface FreshdeskSearchTicket {
+  id: number;
+  subject: string;
+  created_at: string;
+  status: number; // 2 open, 3 pending, 4 resolved, 5 closed
+  priority: number; // 1..4
+  tags: string[];
+}
+
+// Non-member enquiries are created by the bot directly in Freshdesk (tagged
+// 'non-member') and never recorded in bot.tickets — so we list them live from
+// the Freshdesk search API. Search returns 30/page, max 10 pages.
+export async function searchNonMemberTickets(): Promise<FreshdeskSearchTicket[]> {
+  const auth = Buffer.from(`${env.freshdeskApiKey}:X`).toString("base64");
+  const out: FreshdeskSearchTicket[] = [];
+  for (let page = 1; page <= 10; page++) {
+    const url = `https://${env.freshdeskDomain}/api/v2/search/tickets?query=${encodeURIComponent(`"tag:'non-member'"`)}&page=${page}`;
+    const res = await fetch(url, {
+      headers: { Authorization: `Basic ${auth}` },
+      cache: "no-store",
+    });
+    if (!res.ok) {
+      const body = await res.text().catch(() => "");
+      throw new Error(
+        `Freshdesk search failed (HTTP ${res.status}): ${body.slice(0, 200)}`,
+      );
+    }
+    const data = (await res.json()) as {
+      total: number;
+      results: FreshdeskSearchTicket[];
+    };
+    out.push(...data.results);
+    if (out.length >= data.total || data.results.length === 0) break;
+  }
+  return out.sort((a, b) => b.created_at.localeCompare(a.created_at));
+}
+
 export async function createFreshdeskTicket(input: {
   email: string;
   name: string | null;

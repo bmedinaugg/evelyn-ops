@@ -2,7 +2,11 @@ import "server-only";
 import { requireStaff } from "@/lib/auth";
 import { dataClient } from "@/lib/supabase/data-client";
 import { FEEDBACK_TAG_VALUES } from "@/lib/feedback-tags";
-import { createFreshdeskTicket } from "@/lib/freshdesk";
+import {
+  createFreshdeskTicket,
+  searchNonMemberTickets,
+  type FreshdeskSearchTicket,
+} from "@/lib/freshdesk";
 import { formCategory, formLabel } from "@/lib/forms";
 import { env } from "@/lib/env";
 import type {
@@ -459,6 +463,13 @@ export async function reviewedSessionIds(): Promise<Set<string>> {
     .select("session_id");
   if (error) throw new Error(`reviewed sessions failed: ${error.message}`);
   return new Set((data ?? []).map((r) => (r as { session_id: string }).session_id));
+}
+
+// Non-member tickets live only in Freshdesk (the bot doesn't record them in
+// bot.tickets) — fetched live via the search API.
+export async function listNonMemberTickets(): Promise<FreshdeskSearchTicket[]> {
+  await requireStaff();
+  return searchNonMemberTickets();
 }
 
 export async function listWorkflowErrors(): Promise<WorkflowErrorRow[]> {
