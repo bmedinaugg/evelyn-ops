@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import {
   createBoardItem,
+  createBoardComment,
   setBoardItemStatus,
   setBoardItemPriority,
 } from "@/lib/queries";
@@ -33,6 +34,28 @@ export async function addBoardItem(
     await createBoardItem({ title, description, priority, files });
   } catch (e) {
     return { error: e instanceof Error ? e.message : "Failed to add item." };
+  }
+  revalidatePath("/board");
+  return { ok: true };
+}
+
+export async function addBoardComment(
+  _prev: AddState,
+  formData: FormData,
+): Promise<AddState> {
+  const boardItemId = String(formData.get("board_item_id") || "");
+  const body = String(formData.get("body") || "").trim() || null;
+  const files = formData
+    .getAll("images")
+    .filter((x): x is File => x instanceof File && x.size > 0);
+
+  if (!boardItemId) return { error: "Missing board item." };
+  if (!body && !files.length) return { error: "Add a comment or an image." };
+
+  try {
+    await createBoardComment({ boardItemId, body, files });
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Failed to add comment." };
   }
   revalidatePath("/board");
   return { ok: true };

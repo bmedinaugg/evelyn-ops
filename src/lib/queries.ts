@@ -10,6 +10,8 @@ import {
 import { formCategory, formLabel } from "@/lib/forms";
 import { env } from "@/lib/env";
 import type {
+  BoardComment,
+  BoardCommentView,
   BoardItem,
   BoardItemView,
   BoardPriority,
@@ -27,6 +29,49 @@ import type {
 } from "@/lib/types";
 
 const BOARD_BUCKET = "board-attachments";
+
+// Resolve short-lived signed URLs for a set of storage paths (board images).
+async function signBoardImages(
+  client: ReturnType<typeof dataClient>,
+  paths: string[],
+): Promise<{ path: string; url: string | null }[]> {
+  if (!paths?.length) return [];
+  const { data: signed } = await client.storage
+    .from(BOARD_BUCKET)
+    .createSignedUrls(paths, 3600);
+  return (signed ?? []).map((s) => ({
+    path: s.path ?? "",
+    url: s.signedUrl ?? null,
+  }));
+}
+
+// Validate + upload image files to the board bucket; returns stored paths.
+async function uploadBoardImages(
+  client: ReturnType<typeof dataClient>,
+  files: File[],
+): Promise<string[]> {
+  const paths: string[] = [];
+  for (const f of files) {
+    if (!f || f.size === 0) continue;
+    if (!f.type.startsWith("image/")) {
+      throw new Error(`"${f.name}" is not an image.`);
+    }
+    if (f.size > 8 * 1024 * 1024) {
+      throw new Error(`"${f.name}" is larger than 8MB.`);
+    }
+    const ext = (f.name.split(".").pop() || "bin")
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, "");
+    const path = `${new Date().toISOString().slice(0, 10)}/${crypto.randomUUID()}.${ext}`;
+    const buffer = await f.arrayBuffer();
+    const { error: upErr } = await client.storage
+      .from(BOARD_BUCKET)
+      .upload(path, buffer, { contentType: f.type, upsert: false });
+    if (upErr) throw new Error(`image upload failed: ${upErr.message}`);
+    paths.push(path);
+  }
+  return paths;
+}
 
 // Every export here calls requireStaff() first: no data leaves Supabase unless
 // an allow-listed staff member is asking. The service-role client is only
@@ -142,19 +187,36 @@ export async function listBoardItems(): Promise<BoardItemView[]> {
   if (error) throw new Error(`list board items failed: ${error.message}`);
 
   const items = (data ?? []) as BoardItem[];
+
+  // Fetch all comments for the listed items in one query (oldest-first), then
+  // group them per item and resolve signed URLs for any comment images.
+  const ids = items.map((i) => i.id);
+  const commentsByItem = new Map<string, BoardCommentView[]>();
+  if (ids.length) {
+    const { data: cData, error: cErr } = await client
+      .from("board_comments")
+      .select("*")
+      .in("board_item_id", ids)
+      .order("created_at", { ascending: true });
+    if (cErr) throw new Error(`list board comments failed: ${cErr.message}`);
+    for (const c of (cData ?? []) as BoardComment[]) {
+      const view: BoardCommentView = {
+        ...c,
+        images: await signBoardImages(client, c.image_paths),
+      };
+      const arr = commentsByItem.get(c.board_item_id) ?? [];
+      arr.push(view);
+      commentsByItem.set(c.board_item_id, arr);
+    }
+  }
+
   const out: BoardItemView[] = [];
   for (const it of items) {
-    let images: { path: string; url: string | null }[] = [];
-    if (it.image_paths?.length) {
-      const { data: signed } = await client.storage
-        .from(BOARD_BUCKET)
-        .createSignedUrls(it.image_paths, 3600);
-      images = (signed ?? []).map((s) => ({
-        path: s.path ?? "",
-        url: s.signedUrl ?? null,
-      }));
-    }
-    out.push({ ...it, images });
+    out.push({
+      ...it,
+      images: await signBoardImages(client, it.image_paths),
+      comments: commentsByItem.get(it.id) ?? [],
+    });
   }
   return out;
 }
@@ -168,26 +230,7 @@ export async function createBoardItem(input: {
   const staff = await requireStaff();
   const client = dataClient();
 
-  const paths: string[] = [];
-  for (const f of input.files) {
-    if (!f || f.size === 0) continue;
-    if (!f.type.startsWith("image/")) {
-      throw new Error(`"${f.name}" is not an image.`);
-    }
-    if (f.size > 8 * 1024 * 1024) {
-      throw new Error(`"${f.name}" is larger than 8MB.`);
-    }
-    const ext = (f.name.split(".").pop() || "bin")
-      .toLowerCase()
-      .replace(/[^a-z0-9]/g, "");
-    const path = `${new Date().toISOString().slice(0, 10)}/${crypto.randomUUID()}.${ext}`;
-    const buffer = await f.arrayBuffer();
-    const { error: upErr } = await client.storage
-      .from(BOARD_BUCKET)
-      .upload(path, buffer, { contentType: f.type, upsert: false });
-    if (upErr) throw new Error(`image upload failed: ${upErr.message}`);
-    paths.push(path);
-  }
+  const paths = await uploadBoardImages(client, input.files);
 
   const { error } = await client.from("board_items").insert({
     title: input.title,
@@ -198,6 +241,28 @@ export async function createBoardItem(input: {
     status: "open",
   });
   if (error) throw new Error(`create board item failed: ${error.message}`);
+}
+
+export async function createBoardComment(input: {
+  boardItemId: string;
+  body: string | null;
+  files: File[];
+}): Promise<void> {
+  const staff = await requireStaff();
+  const client = dataClient();
+
+  const paths = await uploadBoardImages(client, input.files);
+  if (!input.body && !paths.length) {
+    throw new Error("Add a comment or an image.");
+  }
+
+  const { error } = await client.from("board_comments").insert({
+    board_item_id: input.boardItemId,
+    author_email: staff.email,
+    body: input.body,
+    image_paths: paths,
+  });
+  if (error) throw new Error(`add board comment failed: ${error.message}`);
 }
 
 export async function setBoardItemStatus(

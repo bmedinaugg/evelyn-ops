@@ -387,6 +387,18 @@ details.panel > summary:hover { background: var(--panel-2); }
 .board-meta { font-size: 11px; margin: 6px 0; }
 .board-actions button { padding: 4px 10px; font-size: 12px; }
 
+/* Board comments (per-card thread + reply form) */
+.board-comments { border-top: 1px solid var(--border); margin-top: 10px; padding-top: 8px; }
+.board-comment-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px; }
+.board-comment { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; }
+.board-comment-body { font-size: 13px; white-space: pre-wrap; word-break: break-word; }
+.board-comment-meta { font-size: 11px; margin-top: 4px; }
+.board-comment-form { display: flex; flex-direction: column; gap: 6px; }
+.board-comment-form textarea { font-size: 13px; }
+.board-comment-controls { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.board-comment-controls input[type="file"] { font-size: 11px; max-width: 60%; }
+.board-comment-controls button { padding: 4px 12px; font-size: 12px; }
+
 /* ------------------------------------------------------ Manual ticket form */
 .ticket-fields { display: flex; flex-direction: column; gap: 12px; border: 1px dashed var(--border); border-radius: var(--radius-sm); padding: 14px; background: rgba(255, 255, 255, 0.015); }
 .field-label { font-size: 13px; font-weight: 600; }

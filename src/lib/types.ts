@@ -134,9 +134,25 @@ export interface BoardItem {
   updated_at: string;
 }
 
-// Board item with signed URLs resolved for its images (for rendering).
+export interface BoardComment {
+  id: string;
+  board_item_id: string;
+  author_email: string;
+  body: string | null;
+  image_paths: string[];
+  created_at: string;
+}
+
+// Board comment with signed URLs resolved for its images (for rendering).
+export interface BoardCommentView extends BoardComment {
+  images: { path: string; url: string | null }[];
+}
+
+// Board item with signed URLs resolved for its images (for rendering),
+// plus its comment thread (each comment's images signed too).
 export interface BoardItemView extends BoardItem {
   images: { path: string; url: string | null }[];
+  comments: BoardCommentView[];
 }
 
 // A field definition from bot.form_schemas (synced from Freshdesk admin).

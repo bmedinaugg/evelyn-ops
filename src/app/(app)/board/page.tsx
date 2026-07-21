@@ -3,6 +3,7 @@ import { listBoardItems } from "@/lib/queries";
 import { amsterdamDateTime } from "@/lib/format";
 import type { BoardItemView, BoardPriority, BoardStatus } from "@/lib/types";
 import { AddBoardItemForm } from "./AddBoardItemForm";
+import { CommentForm } from "./CommentForm";
 import { moveBoardItem } from "./actions";
 
 export const dynamic = "force-dynamic";
@@ -67,6 +68,44 @@ function Card({ item }: { item: BoardItemView }) {
       <div className="board-meta muted">
         {item.author_email} · {amsterdamDateTime(item.created_at)}
       </div>
+
+      <div className="board-comments">
+        {item.comments.length > 0 && (
+          <div className="board-comment-list">
+            {item.comments.map((c) => (
+              <div key={c.id} className="board-comment">
+                <div className="board-comment-body">{c.body}</div>
+                {c.images.length > 0 && (
+                  <div className="board-thumbs">
+                    {c.images.map((img) =>
+                      img.url ? (
+                        <a
+                          key={img.path}
+                          href={img.url}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={img.url}
+                            alt="attachment"
+                            className="board-thumb"
+                          />
+                        </a>
+                      ) : null,
+                    )}
+                  </div>
+                )}
+                <div className="board-comment-meta muted">
+                  {c.author_email} · {amsterdamDateTime(c.created_at)}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+        <CommentForm boardItemId={item.id} />
+      </div>
+
       <div className="board-actions faq-actions">
         {item.status !== "open" && (
           <MoveButton id={item.id} status="open" label="Reopen" secondary />
