@@ -29,6 +29,7 @@ export default async function ConversationsPage({
     member?: string;
     preview?: string;
     ticket?: string;
+    noreply?: string;
   }>;
 }) {
   const sp = await searchParams;
@@ -39,9 +40,11 @@ export default async function ConversationsPage({
     member: sp.member || "",
     preview: sp.preview || "",
     ticket: sp.ticket || "",
+    noreply: sp.noreply === "1",
   };
 
   const details = await getDigestDetails(date);
+  const noReplyCount = details.sessions.filter((s) => s.no_reply).length;
 
   // Per-outcome counts for the whole day (shown in the outcome dropdown).
   const counts = details.sessions.reduce<Record<string, number>>((acc, s) => {
@@ -69,11 +72,12 @@ export default async function ConversationsPage({
     if (f.ticket === "has" && !s.ticket) return false;
     if (f.ticket === "none" && s.ticket) return false;
     if (f.ticket === "unsynced" && !(s.ticket && !s.ticket.fd_id)) return false;
+    if (f.noreply && !s.no_reply) return false;
     return true;
   });
 
   const anyFilter = Boolean(
-    f.outcome || f.state || f.member || f.preview || f.ticket,
+    f.outcome || f.state || f.member || f.preview || f.ticket || f.noreply,
   );
 
   return (
@@ -99,6 +103,23 @@ export default async function ConversationsPage({
         )}
         <span style={{ marginLeft: 8 }}>· filter within the columns below</span>
       </p>
+
+      {noReplyCount > 0 && (
+        <p>
+          <span className="badge red">⚠ {noReplyCount} no reply</span>{" "}
+          <span className="muted">
+            — the bot received the member&apos;s last message but never sent a
+            reply (an “&lt;Empty Response&gt;” in chat).{" "}
+          </span>
+          {f.noreply ? (
+            <Link href={`/conversations?date=${date}`}>show all</Link>
+          ) : (
+            <Link href={`/conversations?date=${date}&noreply=1`}>
+              show only these
+            </Link>
+          )}
+        </p>
+      )}
 
       <div className="panel table-scroll">
         <table>
@@ -132,7 +153,20 @@ export default async function ConversationsPage({
                   </td>
                   <td>{s.customer}</td>
                   <td className="num">{s.msg_count}</td>
-                  <td className="muted">{s.state ?? "—"}</td>
+                  <td className="muted">
+                    {s.state ?? "—"}
+                    {s.no_reply && (
+                      <>
+                        {" "}
+                        <span
+                          className="badge red"
+                          title="The bot never replied to the member's last message"
+                        >
+                          ⚠ no reply
+                        </span>
+                      </>
+                    )}
+                  </td>
                   <td>
                     <span className={`badge ${OUTCOME_TONE[s.outcome]}`}>
                       {OUTCOME_LABELS[s.outcome]}

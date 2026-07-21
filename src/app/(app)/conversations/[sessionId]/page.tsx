@@ -60,6 +60,17 @@ export default async function ConversationDetailPage({
   const ticket = conv.ticket;
   const ticketUrl = freshdeskUrl(ticket?.fd_id);
 
+  // "No reply generated": the bot replies to every turn, so if the member sent
+  // one or more messages after the bot's last reply (or the bot never replied
+  // at all), the final turn went unanswered — an "<Empty Response>" in chat.
+  const msgs = conv.messages || [];
+  const lastAssistantIdx = msgs
+    .map((m) => m.role)
+    .lastIndexOf("assistant");
+  const noReply = msgs
+    .slice(lastAssistantIdx + 1)
+    .some((m) => m.role === "user");
+
   return (
     <>
       <div className="pagehead">
@@ -68,6 +79,19 @@ export default async function ConversationDetailPage({
           ← Back to list
         </Link>
       </div>
+
+      {noReply && (
+        <div
+          className="callout"
+          style={{ borderLeftColor: "var(--red)", marginBottom: 18 }}
+        >
+          <strong>⚠ No reply generated.</strong> Evelyn received the member’s
+          last message but never sent a reply — the member saw an “&lt;Empty
+          Response&gt;” in chat. This usually means the turn errored before a
+          response was produced (e.g. ticket creation). The inbound message is
+          logged below; check the day’s workflow errors for the cause.
+        </div>
+      )}
 
       <div className="panel" style={{ padding: 16, marginBottom: 18 }}>
         <div className="member-box">
@@ -153,9 +177,17 @@ export default async function ConversationDetailPage({
               <div className="content">{m.content}</div>
             </div>
           ))}
-          {(conv.messages || []).length === 0 && (
-            <div className="muted">No messages.</div>
+          {noReply && (
+            <div className="msg assistant" style={{ opacity: 0.85 }}>
+              <div className="meta">
+                <span style={{ color: "var(--red)" }}>⚠ no reply</span>
+              </div>
+              <div className="content muted">
+                Evelyn never replied to the message above.
+              </div>
+            </div>
           )}
+          {msgs.length === 0 && <div className="muted">No messages.</div>}
         </div>
       </div>
     </>

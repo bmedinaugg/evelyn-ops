@@ -33,6 +33,9 @@ export interface DigestSession {
   user_sample: string | null;
   ticket: { fd_id: string | null; subject: string | null } | null;
   outcome: Outcome;
+  // True when the conversation's last message is from the member — i.e. the bot
+  // never produced a reply to the final turn (an "<Empty Response>" in chat).
+  no_reply?: boolean;
 }
 
 export interface DigestError {
