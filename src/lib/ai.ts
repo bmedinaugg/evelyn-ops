@@ -110,24 +110,30 @@ export async function generateFixSuggestion(
     .filter(Boolean)
     .join("\n");
 
-  const response = await client.messages.create({
-    model: "claude-opus-4-8",
-    max_tokens: 16000,
-    thinking: { type: "adaptive" },
-    system: `You are the maintainer's assistant for the Evelyn support chatbot. Your job: given a conversation transcript and the support team's feedback on it, diagnose what went wrong and propose the most concrete, minimal fix.\n\n${BOT_CONTEXT}`,
-    messages: [
-      {
-        role: "user",
-        content: `The support team flagged this conversation.\n\n## Team feedback\n${feedbackDesc || "(no structured feedback — infer from the transcript)"}\n\n## Conversation transcript\n${transcriptText(conv)}\n\n## Member\n${conv.session?.customer ?? "unknown"} (state at end: ${conv.session?.state ?? "unknown"})\n\nDiagnose the failure and propose a fix. If the right fix is a new or corrected FAQ, draft it fully so the team only has to review it.`,
+  // Stream + reassemble via finalMessage() so the connection stays alive and
+  // the request can't be dropped by an idle/platform timeout (Azure cuts idle
+  // connections ~230s). max_tokens capped to bound latency + worst-case cost;
+  // the JSON answer is small and adaptive thinking has ample room within it.
+  const response = await client.messages
+    .stream({
+      model: "claude-opus-4-8",
+      max_tokens: 6000,
+      thinking: { type: "adaptive" },
+      system: `You are the maintainer's assistant for the Evelyn support chatbot. Your job: given a conversation transcript and the support team's feedback on it, diagnose what went wrong and propose the most concrete, minimal fix.\n\n${BOT_CONTEXT}`,
+      messages: [
+        {
+          role: "user",
+          content: `The support team flagged this conversation.\n\n## Team feedback\n${feedbackDesc || "(no structured feedback — infer from the transcript)"}\n\n## Conversation transcript\n${transcriptText(conv)}\n\n## Member\n${conv.session?.customer ?? "unknown"} (state at end: ${conv.session?.state ?? "unknown"})\n\nDiagnose the failure and propose a fix. If the right fix is a new or corrected FAQ, draft it fully so the team only has to review it.`,
+        },
+      ],
+      output_config: {
+        format: {
+          type: "json_schema",
+          schema: SUGGESTION_SCHEMA,
+        },
       },
-    ],
-    output_config: {
-      format: {
-        type: "json_schema",
-        schema: SUGGESTION_SCHEMA,
-      },
-    },
-  });
+    })
+    .finalMessage();
 
   if (response.stop_reason === "refusal") {
     throw new Error("The AI declined to analyze this conversation.");
