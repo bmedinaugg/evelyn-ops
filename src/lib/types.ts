@@ -194,6 +194,31 @@ export interface FaqProposal {
   updated_at: string;
 }
 
+export type TicketDraftStatus =
+  | "collecting"
+  | "ready_for_confirmation"
+  | "submitted"
+  | "abandoned";
+
+// A ticket the bot drafted during a chat (bot.ticket_drafts). Referenced by
+// bot.sessions.current_ticket_draft_id while the draft is in progress or
+// awaiting confirmation.
+export interface TicketDraft {
+  id: string;
+  session_id: string;
+  channel_user_id: string;
+  customer_id: string | null;
+  subject: string | null;
+  description: string | null;
+  category: string | null;
+  priority: string | null;
+  extra_fields: Record<string, unknown>;
+  status: TicketDraftStatus;
+  rate_name: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface Conversation {
   found: boolean;
   session_id?: string;

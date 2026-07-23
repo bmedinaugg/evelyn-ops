@@ -1,5 +1,6 @@
 import Link from "next/link";
 import {
+  getAbandonedTicketDraft,
   getConversation,
   getFormSchemas,
   listConversationFeedback,
@@ -8,6 +9,7 @@ import { freshdeskUrl, normaliseDate } from "@/lib/format";
 import { FeedbackPanel } from "./FeedbackPanel";
 import { ProposeFaqForm } from "./ProposeFaqForm";
 import { CreateTicketForm } from "./CreateTicketForm";
+import { SubmitDraftButton } from "./SubmitDraftButton";
 
 export const dynamic = "force-dynamic";
 
@@ -31,10 +33,11 @@ export default async function ConversationDetailPage({
   const { date: rawDate } = await searchParams;
   const date = normaliseDate(rawDate);
 
-  const [conv, feedback, formSchemas] = await Promise.all([
+  const [conv, feedback, formSchemas, abandonedDraft] = await Promise.all([
     getConversation(sessionId),
     listConversationFeedback(sessionId),
     getFormSchemas(),
+    getAbandonedTicketDraft(sessionId),
   ]);
 
   const backLink = `/conversations?date=${date}`;
@@ -140,6 +143,10 @@ export default async function ConversationDetailPage({
           )}
         </div>
       </div>
+
+      {abandonedDraft && (
+        <SubmitDraftButton sessionId={sessionId} draft={abandonedDraft} />
+      )}
 
       <div style={{ marginBottom: 18 }}>
         <CreateTicketForm

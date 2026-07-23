@@ -6,6 +6,7 @@ import {
   createFaqProposal,
   createManualTicket,
   getFormSchemas,
+  submitAbandonedDraftTicket,
 } from "@/lib/queries";
 
 export type FeedbackState = { error?: string; ok?: boolean };
@@ -160,6 +161,26 @@ export async function createTicket(
   } catch (e) {
     return {
       error: e instanceof Error ? e.message : "Failed to create the ticket.",
+    };
+  }
+}
+
+export type SubmitDraftState = { error?: string; fdId?: string };
+
+export async function submitAbandonedDraft(
+  _prev: SubmitDraftState,
+  formData: FormData,
+): Promise<SubmitDraftState> {
+  const sessionId = String(formData.get("session_id") || "");
+  if (!sessionId) return { error: "Missing conversation." };
+
+  try {
+    const fdId = await submitAbandonedDraftTicket(sessionId);
+    revalidatePath(`/conversations/${sessionId}`);
+    return { fdId };
+  } catch (e) {
+    return {
+      error: e instanceof Error ? e.message : "Failed to submit ticket.",
     };
   }
 }

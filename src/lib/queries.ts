@@ -24,6 +24,7 @@ import type {
   FaqStatus,
   FeedbackItem,
   FormSchemaField,
+  TicketDraft,
   TicketRow,
   WorkflowErrorRow,
 } from "@/lib/types";
@@ -483,6 +484,125 @@ export async function createManualTicket(input: {
       `Freshdesk ticket #${fdId} was created, but recording it failed: ${error.message}. Add it manually or retry later.`,
     );
   }
+  return fdId;
+}
+
+// --- Abandoned ticket drafts (bot.ticket_drafts) ----------------------------
+//
+// The bot sometimes shows a member a complete ticket preview and the member
+// never confirms it — the draft just sits on bot.sessions.current_ticket_draft_id
+// forever. This does NOT call bot.submit_ticket_from_draft: that RPC only
+// inserts a bot.tickets row and relies on a separate n8n step to actually
+// create the Freshdesk ticket, which would never happen for a draft submitted
+// out-of-band here — it would just become another permanently-unsynced ticket.
+// Instead this mirrors createManualTicket's proven direct-to-Freshdesk path.
+
+// Only surfaces a draft that's actually sitting at a shown-but-unconfirmed
+// preview — never 'collecting' (incomplete) or already 'submitted'/'abandoned'.
+export async function getAbandonedTicketDraft(
+  sessionId: string,
+): Promise<TicketDraft | null> {
+  await requireStaff();
+  const client = dataClient();
+
+  const { data: session, error: sErr } = await client
+    .from("sessions")
+    .select("current_ticket_draft_id")
+    .eq("id", sessionId)
+    .maybeSingle();
+  if (sErr) throw new Error(`session lookup failed: ${sErr.message}`);
+  if (!session?.current_ticket_draft_id) return null;
+
+  const { data: draft, error: dErr } = await client
+    .from("ticket_drafts")
+    .select("*")
+    .eq("id", session.current_ticket_draft_id)
+    .maybeSingle();
+  if (dErr) throw new Error(`draft lookup failed: ${dErr.message}`);
+  if (!draft || (draft as TicketDraft).status !== "ready_for_confirmation") {
+    return null;
+  }
+  return draft as TicketDraft;
+}
+
+// Submits the bot's own drafted ticket to Freshdesk exactly as shown to the
+// member, then marks the draft submitted and clears the session's pointer to
+// it (mirrors the non-Freshdesk side effects of bot.submit_ticket_from_draft).
+export async function submitAbandonedDraftTicket(
+  sessionId: string,
+): Promise<string> {
+  const staff = await requireStaff();
+  const client = dataClient();
+
+  const draft = await getAbandonedTicketDraft(sessionId); // re-check, avoid double-submit
+  if (!draft) {
+    throw new Error("No abandoned ticket draft found for this conversation.");
+  }
+  if (!draft.subject || !draft.description) {
+    throw new Error("Draft is incomplete.");
+  }
+
+  const { data: session, error: sErr } = await client
+    .from("sessions")
+    .select("channel_user_id, customer_id, customer:customers(display_name, email)")
+    .eq("id", sessionId)
+    .maybeSingle();
+  if (sErr) throw new Error(`session lookup failed: ${sErr.message}`);
+  if (!session) throw new Error("Conversation not found.");
+  const s = session as unknown as {
+    channel_user_id: string;
+    customer_id: string | null;
+    customer: { display_name: string | null; email: string | null } | null;
+  };
+  if (!s.customer?.email) throw new Error("No email on file for this member.");
+
+  const contextBlock = [
+    "",
+    "— Conversation context (Evelyn Ops) —",
+    "This ticket was drafted by Evelyn during the chat but never confirmed by the member.",
+    `Submitted manually by ${staff.email} via Evelyn Ops.`,
+    `Transcript & details: ${env.appBaseUrl}/conversations/${sessionId}`,
+  ].join("\n");
+
+  const fdId = await createFreshdeskTicket({
+    email: s.customer.email,
+    name: s.customer.display_name,
+    subject: draft.subject,
+    description: `${draft.description}\n${contextBlock}`,
+    priority: draft.priority ?? "medium",
+  });
+
+  const { error: tErr } = await client.from("tickets").insert({
+    external_ticket_id: fdId,
+    session_id: sessionId,
+    channel_user_id: s.channel_user_id,
+    customer_id: s.customer_id,
+    subject: draft.subject,
+    description: draft.description,
+    category: draft.category,
+    priority: draft.priority ?? "medium",
+    status: "open",
+  });
+  if (tErr) {
+    throw new Error(
+      `Freshdesk ticket #${fdId} was created, but recording it failed: ${tErr.message}. Add it manually or retry later.`,
+    );
+  }
+
+  await client
+    .from("ticket_drafts")
+    .update({ status: "submitted", updated_at: new Date().toISOString() })
+    .eq("id", draft.id);
+  await client
+    .from("sessions")
+    .update({
+      current_ticket_draft_id: null,
+      state: "authenticated_idle",
+      state_updated_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", sessionId);
+
   return fdId;
 }
 
