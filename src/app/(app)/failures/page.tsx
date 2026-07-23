@@ -1,5 +1,6 @@
 import { listWorkflowErrors } from "@/lib/queries";
-import { amsterdamDateTime } from "@/lib/format";
+import { amsterdamDateTime, relativeTime } from "@/lib/format";
+import { summarizeWorkflowError } from "@/lib/errorSummary";
 
 export const dynamic = "force-dynamic";
 
@@ -27,8 +28,8 @@ export default async function FailuresPage() {
       </div>
 
       <div className="callout" style={{ marginBottom: 16 }}>
-        Developer / maintainer view — raw n8n workflow errors. Not needed for
-        bot evaluation.
+        Developer / maintainer view — n8n workflow errors, summarized in plain
+        language. Not needed for bot evaluation.
       </div>
 
       {errors.length === 0 ? (
@@ -43,7 +44,7 @@ export default async function FailuresPage() {
                   <div className="k">{name}</div>
                   <div className="v">{s.count}</div>
                   <div className="muted" style={{ fontSize: 12 }}>
-                    last {amsterdamDateTime(s.last)}
+                    last {relativeTime(s.last)} ({amsterdamDateTime(s.last)})
                   </div>
                 </div>
               ))}
@@ -52,26 +53,37 @@ export default async function FailuresPage() {
 
           <div className="section">
             <h2>Recent errors</h2>
-            <p className="muted">Click an error to see details and its execution id.</p>
+            <p className="muted">
+              Plain-language summary first; click an error for the full raw
+              message and execution id.
+            </p>
             <div className="fail-list">
-              {errors.map((e) => (
-                <details key={e.id} className="fail-item">
-                  <summary>
-                    <span className="mono">{amsterdamDateTime(e.created_at)}</span>
-                    <span className="fail-wf">{e.workflow_name ?? "(unknown)"}</span>
-                    {e.node_name && (
-                      <span className="muted">· {e.node_name}</span>
-                    )}
-                  </summary>
-                  <div className="fail-body">
-                    <div className="fail-msg">{e.error_message ?? "(no message)"}</div>
-                    <div className="fail-exec">
-                      Execution ID:{" "}
-                      <span className="mono">{e.execution_id ?? "—"}</span>
+              {errors.map((e) => {
+                const friendly = summarizeWorkflowError(e.error_message);
+                return (
+                  <details key={e.id} className="fail-item">
+                    <summary>
+                      <span className={`badge ${friendly.tone}`}>{friendly.category}</span>
+                      <span className="fail-wf">{e.workflow_name ?? "(unknown)"}</span>
+                      {e.node_name && <span className="muted">· {e.node_name}</span>}
+                      <span className="muted">· {relativeTime(e.created_at)}</span>
+                    </summary>
+                    <div className="fail-body">
+                      <div className="fail-msg" style={{ color: "var(--text)", fontFamily: "inherit" }}>
+                        {friendly.headline}
+                      </div>
+                      <div className="muted" style={{ fontSize: 12, marginTop: 10 }}>
+                        Raw message
+                      </div>
+                      <div className="fail-msg">{friendly.detail || "(no message)"}</div>
+                      <div className="fail-exec">
+                        {amsterdamDateTime(e.created_at)} · Execution ID:{" "}
+                        <span className="mono">{e.execution_id ?? "—"}</span>
+                      </div>
                     </div>
-                  </div>
-                </details>
-              ))}
+                  </details>
+                );
+              })}
             </div>
           </div>
         </>
