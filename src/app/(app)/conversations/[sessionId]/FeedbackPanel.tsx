@@ -123,6 +123,12 @@ export function FeedbackPanel({
                     {feedbackTagLabel(t)}
                   </span>
                 ))}
+                {f.status === "resolved" && (
+                  <span className="badge green">✅ worked on</span>
+                )}
+                {f.status === "dismissed" && (
+                  <span className="badge grey">dismissed</span>
+                )}
                 <span className="muted" style={{ marginLeft: "auto" }}>
                   {f.author_email} · {whenLocal(f.created_at)}
                 </span>
@@ -131,6 +137,28 @@ export function FeedbackPanel({
                 <div className="fb-comment muted">↳ {f.detail}</div>
               )}
               {f.comment && <div className="fb-comment">{f.comment}</div>}
+              {f.status !== "open" && f.resolved_by && (
+                <div
+                  className="fb-comment"
+                  style={{
+                    borderLeft: "3px solid var(--green, #2e7d32)",
+                    paddingLeft: 10,
+                    marginTop: 6,
+                  }}
+                >
+                  {f.resolution_note ? (
+                    <>
+                      <strong>What was done:</strong> {f.resolution_note}
+                      <br />
+                    </>
+                  ) : null}
+                  <span className="muted" style={{ fontSize: 12 }}>
+                    {f.status === "resolved" ? "Worked on" : "Dismissed"} by{" "}
+                    {f.resolved_by}
+                    {f.resolved_at ? <> · {whenLocal(f.resolved_at)}</> : null}
+                  </span>
+                </div>
+              )}
             </div>
           ))}
         </div>

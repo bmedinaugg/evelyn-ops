@@ -88,6 +88,7 @@ export interface ConversationFeedback {
   status: FeedbackStatus;
   resolved_by: string | null;
   resolved_at: string | null;
+  resolution_note: string | null;
   created_at: string;
 }
 
@@ -192,6 +193,31 @@ export interface FaqProposal {
   published_at: string | null;
   created_at: string;
   updated_at: string;
+}
+
+export interface RegressionFixture {
+  id: string;
+  key: string;
+  title: string;
+  description: string;
+  input_payload: Record<string, unknown>;
+  expected_result: Record<string, unknown>;
+  created_at: string;
+}
+
+export interface RegressionRun {
+  id: string;
+  fixture_key: string;
+  ran_by: string;
+  ran_at: string;
+  passed: boolean;
+  actual_result: Record<string, unknown>;
+  notes: string | null;
+}
+
+// A fixture plus its most recent run, for the list view.
+export interface RegressionFixtureView extends RegressionFixture {
+  last_run: RegressionRun | null;
 }
 
 export type TicketDraftStatus =

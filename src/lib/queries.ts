@@ -9,6 +9,7 @@ import {
 } from "@/lib/freshdesk";
 import { formCategory, formLabel } from "@/lib/forms";
 import { env } from "@/lib/env";
+import { runHarnessFixture } from "@/lib/n8n";
 import type {
   BoardComment,
   BoardCommentView,
@@ -24,6 +25,9 @@ import type {
   FaqStatus,
   FeedbackItem,
   FormSchemaField,
+  RegressionFixture,
+  RegressionFixtureView,
+  RegressionRun,
   TicketDraft,
   TicketRow,
   WorkflowErrorRow,
@@ -144,34 +148,6 @@ export async function createConversationFeedback(input: {
       detail: input.detail,
     });
   if (error) throw new Error(`create feedback failed: ${error.message}`);
-}
-
-export async function getFeedbackById(
-  id: string,
-): Promise<ConversationFeedback | null> {
-  await requireStaff();
-  const { data, error } = await dataClient()
-    .from("conversation_feedback")
-    .select("*")
-    .eq("id", id)
-    .maybeSingle();
-  if (error) throw new Error(`get feedback failed: ${error.message}`);
-  return (data ?? null) as ConversationFeedback | null;
-}
-
-export async function saveAiSuggestion(
-  feedbackId: string,
-  suggestion: unknown,
-): Promise<void> {
-  await requireStaff();
-  const { error } = await dataClient()
-    .from("conversation_feedback")
-    .update({
-      ai_suggestion: suggestion,
-      ai_suggested_at: new Date().toISOString(),
-    })
-    .eq("id", feedbackId);
-  if (error) throw new Error(`save suggestion failed: ${error.message}`);
 }
 
 // --- Team board (bot.board_items + Storage) --------------------------------
@@ -346,18 +322,38 @@ export async function countOpenFeedback(): Promise<number> {
 export async function setFeedbackStatus(
   id: string,
   status: "open" | "resolved" | "dismissed",
+  resolutionNote?: string,
 ): Promise<void> {
   const staff = await requireStaff();
   const resolving = status === "resolved" || status === "dismissed";
+  const note = resolutionNote?.trim() || null;
   const { error } = await dataClient()
     .from("conversation_feedback")
     .update({
       status,
       resolved_by: resolving ? staff.email : null,
       resolved_at: resolving ? new Date().toISOString() : null,
+      resolution_note: resolving ? note : null,
     })
     .eq("id", id);
   if (error) throw new Error(`update feedback status failed: ${error.message}`);
+}
+
+// Recently actioned feedback that carries a "what we did" note — powers the
+// "What we've done with your feedback" section on the feedback page.
+export async function listRecentlyWorkedOn(
+  limit = 6,
+): Promise<FeedbackItem[]> {
+  await requireStaff();
+  const { data, error } = await dataClient()
+    .from("conversation_feedback")
+    .select("*, session:sessions(id, customer:customers(display_name))")
+    .eq("status", "resolved")
+    .not("resolution_note", "is", null)
+    .order("resolved_at", { ascending: false })
+    .limit(limit);
+  if (error) throw new Error(`list worked-on feedback failed: ${error.message}`);
+  return (data ?? []) as unknown as FeedbackItem[];
 }
 
 // --- Phase 3: FAQ proposals (bot.faq_proposals) ----------------------------
@@ -666,6 +662,68 @@ export async function listWorkflowErrors(): Promise<WorkflowErrorRow[]> {
     .limit(1000);
   if (error) throw new Error(`list workflow errors failed: ${error.message}`);
   return (data ?? []) as WorkflowErrorRow[];
+}
+
+// --- Regression-test harness (bot.regression_fixtures/runs) ---------------
+
+export async function listRegressionFixtures(): Promise<RegressionFixtureView[]> {
+  await requireStaff();
+  const client = dataClient();
+  const { data, error } = await client
+    .from("regression_fixtures")
+    .select("*")
+    .order("created_at", { ascending: true });
+  if (error) throw new Error(`list regression fixtures failed: ${error.message}`);
+  const fixtures = (data ?? []) as RegressionFixture[];
+
+  const out: RegressionFixtureView[] = [];
+  for (const f of fixtures) {
+    const { data: runs, error: rErr } = await client
+      .from("regression_runs")
+      .select("*")
+      .eq("fixture_key", f.key)
+      .order("ran_at", { ascending: false })
+      .limit(1);
+    if (rErr) throw new Error(`list regression runs failed: ${rErr.message}`);
+    out.push({ ...f, last_run: ((runs ?? [])[0] as RegressionRun) ?? null });
+  }
+  return out;
+}
+
+export async function runRegressionFixture(
+  fixtureKey: string,
+): Promise<RegressionRun> {
+  const staff = await requireStaff();
+  const client = dataClient();
+
+  const { data: fixture, error } = await client
+    .from("regression_fixtures")
+    .select("*")
+    .eq("key", fixtureKey)
+    .maybeSingle();
+  if (error) throw new Error(`fixture lookup failed: ${error.message}`);
+  if (!fixture) throw new Error(`Unknown fixture: ${fixtureKey}`);
+  const f = fixture as RegressionFixture;
+
+  const result = await runHarnessFixture({
+    fixture_key: f.key,
+    input_payload: f.input_payload,
+    expected_result: f.expected_result,
+  });
+
+  const { data: run, error: insertErr } = await client
+    .from("regression_runs")
+    .insert({
+      fixture_key: f.key,
+      ran_by: staff.email,
+      passed: result.passed,
+      actual_result: result.actual_result,
+      notes: result.notes ?? null,
+    })
+    .select()
+    .single();
+  if (insertErr) throw new Error(`record regression run failed: ${insertErr.message}`);
+  return run as RegressionRun;
 }
 
 export async function listFaqProposals(

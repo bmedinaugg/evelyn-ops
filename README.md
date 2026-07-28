@@ -39,6 +39,8 @@ Fill `.env.local` from **Supabase dashboard → Project Settings → API**:
 | `ANTHROPIC_API_KEY` | powers the AI fix suggestions on the Feedback inbox (server-only) |
 | `FRESHDESK_API_KEY` | powers manual ticket creation from a conversation (server-only) |
 | `FRESHDESK_DOMAIN` | optional; defaults to `urbangymgroup.freshdesk.com` |
+| `N8N_HARNESS_WEBHOOK_URL` | webhook URL of the "Bot - Regression Test Harness" n8n workflow, powers Developer > Regression tests |
+| `N8N_HARNESS_SECRET` | shared secret matching that webhook's Header Auth credential (`X-Harness-Secret`) |
 
 ### Microsoft SSO setup (one-time)
 

@@ -28,7 +28,10 @@ const SECTIONS: { title: string | null; items: NavItem[] }[] = [
   },
   {
     title: "Developer",
-    items: [{ href: "/failures", label: "Dev fails", icon: "⚠️" }],
+    items: [
+      { href: "/failures", label: "Dev fails", icon: "⚠️" },
+      { href: "/regression-tests", label: "Regression tests", icon: "🧪" },
+    ],
   },
 ];
 

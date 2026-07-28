@@ -1,19 +1,13 @@
 import Link from "next/link";
 import React from "react";
-import { listFeedback, feedbackAuthorSummary } from "@/lib/queries";
+import {
+  listFeedback,
+  feedbackAuthorSummary,
+  listRecentlyWorkedOn,
+} from "@/lib/queries";
 import { amsterdamDateTime } from "@/lib/format";
 import { feedbackTagLabel } from "@/lib/feedback-tags";
-import { changeFeedbackStatus, saveSuggestedFaq } from "./actions";
-import { SuggestFixButton } from "./SuggestFixButton";
-
-const FIX_TYPE_LABELS: Record<string, string> = {
-  missing_faq: "Missing FAQ",
-  faq_content_fix: "FAQ content fix",
-  bot_behavior: "Bot behavior",
-  prompt_change: "Prompt change",
-  no_fix_needed: "No fix needed",
-  other: "Other",
-};
+import { changeFeedbackStatus } from "./actions";
 
 export const dynamic = "force-dynamic";
 
@@ -53,6 +47,29 @@ function ActionButton({
   );
 }
 
+// Resolve with an optional "what we did" note — the note feeds the
+// "What we've done with your feedback" section so contributors see
+// their input turned into action.
+function ResolveForm({ id }: { id: string }) {
+  return (
+    <form
+      action={changeFeedbackStatus}
+      style={{ display: "flex", gap: 6, alignItems: "center" }}
+    >
+      <input type="hidden" name="id" value={id} />
+      <input type="hidden" name="status" value="resolved" />
+      <input
+        type="text"
+        name="note"
+        placeholder="What did we do about it?"
+        style={{ width: 190 }}
+        maxLength={300}
+      />
+      <button type="submit">Resolve</button>
+    </form>
+  );
+}
+
 export default async function FeedbackPage({
   searchParams,
 }: {
@@ -62,9 +79,10 @@ export default async function FeedbackPage({
   const active = status ?? "open";
   const effectiveStatus = active === "all" ? undefined : active;
 
-  const [items, authors] = await Promise.all([
+  const [items, authors, workedOn] = await Promise.all([
     listFeedback(effectiveStatus, author),
     feedbackAuthorSummary(),
+    listRecentlyWorkedOn(),
   ]);
 
   return (
@@ -108,6 +126,38 @@ export default async function FeedbackPage({
         ))}
       </div>
 
+      {workedOn.length > 0 && (
+        <div className="panel" style={{ padding: 16, marginBottom: 18 }}>
+          <h2 style={{ marginTop: 0 }}>✅ What we&apos;ve done with your feedback</h2>
+          <p className="muted" style={{ marginTop: 0 }}>
+            Recently actioned items — thanks for flagging these.
+          </p>
+          <div style={{ display: "grid", gap: 10 }}>
+            {workedOn.map((f) => (
+              <div
+                key={f.id}
+                style={{
+                  borderLeft: "3px solid var(--green, #2e7d32)",
+                  paddingLeft: 12,
+                }}
+              >
+                <div>
+                  <strong>{f.resolution_note}</strong>
+                </div>
+                <div className="muted" style={{ fontSize: 13 }}>
+                  {f.comment ? <>“{f.comment}” — </> : null}
+                  flagged by {f.author_email}
+                  {f.resolved_by ? <> · worked on by {f.resolved_by}</> : null}
+                  {f.resolved_at ? <> · {amsterdamDateTime(f.resolved_at)}</> : null}
+                  {" · "}
+                  <Link href={`/conversations/${f.session_id}`}>chat</Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       <p className="muted">
         {author ? (
           <>
@@ -117,7 +167,8 @@ export default async function FeedbackPage({
           <>All team feedback across conversations. </>
         )}
         Work items to <strong>Resolved</strong> or <strong>Dismissed</strong> as
-        you action them.
+        you action them — add a short note of what you did so it shows up in the
+        section above.
       </p>
 
       <div className="panel table-scroll">
@@ -168,6 +219,11 @@ export default async function FeedbackPage({
                       <span className={`badge ${f.status === "resolved" ? "green" : "grey"}`}>
                         {f.status} · {f.resolved_by}
                       </span>
+                      {f.resolution_note ? (
+                        <div className="muted" style={{ fontSize: 12, marginTop: 2 }}>
+                          ↳ {f.resolution_note}
+                        </div>
+                      ) : null}
                     </>
                   ) : null}
                 </td>
@@ -178,61 +234,15 @@ export default async function FeedbackPage({
                   <div className="faq-actions">
                     {f.status === "open" ? (
                       <>
-                        <ActionButton id={f.id} status="resolved" label="Resolve" />
+                        <ResolveForm id={f.id} />
                         <ActionButton id={f.id} status="dismissed" label="Dismiss" secondary />
                       </>
                     ) : (
                       <ActionButton id={f.id} status="open" label="Reopen" secondary />
                     )}
-                    <SuggestFixButton
-                      feedbackId={f.id}
-                      hasSuggestion={!!f.ai_suggestion}
-                    />
                   </div>
                 </td>
               </tr>
-              {f.ai_suggestion && (
-                <tr className="ai-row">
-                  <td colSpan={8}>
-                    <div className="ai-suggestion">
-                      <div className="ai-head">
-                        <span className="badge blue">✨ AI fix suggestion</span>
-                        <span className={`badge ${f.ai_suggestion.fix_type === "no_fix_needed" ? "green" : "amber"}`}>
-                          {FIX_TYPE_LABELS[f.ai_suggestion.fix_type] ?? f.ai_suggestion.fix_type}
-                        </span>
-                        <span className="muted" style={{ marginLeft: "auto", fontSize: 11 }}>
-                          {f.ai_suggested_at ? amsterdamDateTime(f.ai_suggested_at) : ""}
-                        </span>
-                      </div>
-                      <p>
-                        <strong>Diagnosis:</strong> {f.ai_suggestion.diagnosis}
-                      </p>
-                      <p>
-                        <strong>Suggested fix:</strong>{" "}
-                        {f.ai_suggestion.suggested_action}
-                      </p>
-                      {f.ai_suggestion.proposed_faq && (
-                        <div className="ai-faq">
-                          <div>
-                            <strong>Q:</strong>{" "}
-                            {f.ai_suggestion.proposed_faq.question}
-                          </div>
-                          <div>
-                            <strong>A:</strong>{" "}
-                            {f.ai_suggestion.proposed_faq.answer}
-                          </div>
-                          <form action={saveSuggestedFaq} style={{ marginTop: 8 }}>
-                            <input type="hidden" name="feedback_id" value={f.id} />
-                            <button type="submit">
-                              Save as FAQ proposal
-                            </button>
-                          </form>
-                        </div>
-                      )}
-                    </div>
-                  </td>
-                </tr>
-              )}
               </React.Fragment>
             ))}
             {items.length === 0 && (

@@ -35,6 +35,12 @@ export const env = {
   get freshdeskApiKey() {
     return required("FRESHDESK_API_KEY");
   },
+  get n8nHarnessWebhookUrl() {
+    return required("N8N_HARNESS_WEBHOOK_URL");
+  },
+  get n8nHarnessSecret() {
+    return required("N8N_HARNESS_SECRET");
+  },
   get appBaseUrl() {
     return (
       process.env.APP_BASE_URL ||
