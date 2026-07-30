@@ -653,6 +653,26 @@ export async function listNonMemberTickets(): Promise<FreshdeskSearchTicket[]> {
   return searchNonMemberTickets();
 }
 
+// Map Freshdesk ticket ids -> bot conversation session ids (for tickets the
+// bot created, incl. non-member ones). Lets the Tickets page link each
+// Freshdesk-sourced row to its Ops conversation, where comments/feedback live.
+export async function mapTicketSessions(
+  externalIds: string[],
+): Promise<Record<string, string>> {
+  await requireStaff();
+  if (externalIds.length === 0) return {};
+  const { data, error } = await dataClient()
+    .from("tickets")
+    .select("external_ticket_id, session_id")
+    .in("external_ticket_id", externalIds);
+  if (error) throw new Error(`map ticket sessions failed: ${error.message}`);
+  const out: Record<string, string> = {};
+  for (const row of (data ?? []) as { external_ticket_id: string | null; session_id: string | null }[]) {
+    if (row.external_ticket_id && row.session_id) out[row.external_ticket_id] = row.session_id;
+  }
+  return out;
+}
+
 export async function listWorkflowErrors(): Promise<WorkflowErrorRow[]> {
   await requireStaff();
   const { data, error } = await dataClient()

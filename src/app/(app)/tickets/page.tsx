@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { listTickets, listNonMemberTickets } from "@/lib/queries";
+import { listTickets, listNonMemberTickets, mapTicketSessions } from "@/lib/queries";
 import { amsterdamDateTime, freshdeskUrl } from "@/lib/format";
 import type { FreshdeskSearchTicket } from "@/lib/freshdesk";
 
@@ -18,7 +18,13 @@ const FD_PRIORITY: Record<number, string> = {
   4: "Urgent",
 };
 
-function NonMemberTable({ tickets }: { tickets: FreshdeskSearchTicket[] }) {
+function NonMemberTable({
+  tickets,
+  sessions,
+}: {
+  tickets: FreshdeskSearchTicket[];
+  sessions: Record<string, string>;
+}) {
   return (
     <div className="panel table-scroll">
       <table>
@@ -28,6 +34,7 @@ function NonMemberTable({ tickets }: { tickets: FreshdeskSearchTicket[] }) {
             <th>Subject</th>
             <th>Status</th>
             <th>Priority</th>
+            <th>Chat</th>
             <th>Freshdesk</th>
           </tr>
         </thead>
@@ -43,6 +50,13 @@ function NonMemberTable({ tickets }: { tickets: FreshdeskSearchTicket[] }) {
                 </td>
                 <td className="muted">{FD_PRIORITY[t.priority] ?? t.priority}</td>
                 <td>
+                  {sessions[String(t.id)] ? (
+                    <Link href={`/conversations/${sessions[String(t.id)]}`}>view</Link>
+                  ) : (
+                    <span className="muted" title="No bot conversation linked to this ticket">—</span>
+                  )}
+                </td>
+                <td>
                   <a
                     href={freshdeskUrl(String(t.id)) ?? "#"}
                     target="_blank"
@@ -56,7 +70,7 @@ function NonMemberTable({ tickets }: { tickets: FreshdeskSearchTicket[] }) {
           })}
           {tickets.length === 0 && (
             <tr>
-              <td colSpan={5} className="muted" style={{ padding: 18 }}>
+              <td colSpan={6} className="muted" style={{ padding: 18 }}>
                 No non-member tickets found.
               </td>
             </tr>
@@ -81,10 +95,14 @@ export default async function TicketsPage({
   const rows = unsyncedOnly ? all.filter((t) => !t.external_ticket_id) : all;
 
   let nonMemberTickets: FreshdeskSearchTicket[] = [];
+  let nonMemberSessions: Record<string, string> = {};
   let nonMemberError: string | null = null;
   if (nonMember) {
     try {
       nonMemberTickets = await listNonMemberTickets();
+      nonMemberSessions = await mapTicketSessions(
+        nonMemberTickets.map((t) => String(t.id)),
+      );
     } catch (e) {
       nonMemberError = e instanceof Error ? e.message : "Failed to load.";
     }
@@ -121,7 +139,8 @@ export default async function TicketsPage({
           <p className="muted">
             Enquiries from people who aren't members — the bot files these
             straight into Freshdesk (tagged <span className="mono">non-member</span>),
-            so they're listed live from Freshdesk
+            so they're listed live from Freshdesk. Use <strong>view</strong> to open the
+            bot conversation and add comments/feedback there
             {nonMemberTickets.length > 0 && <> · {nonMemberTickets.length} found</>}.
           </p>
           {nonMemberError ? (
@@ -129,7 +148,7 @@ export default async function TicketsPage({
               Couldn't load from Freshdesk: {nonMemberError}
             </div>
           ) : (
-            <NonMemberTable tickets={nonMemberTickets} />
+            <NonMemberTable tickets={nonMemberTickets} sessions={nonMemberSessions} />
           )}
         </>
       ) : (
