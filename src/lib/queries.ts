@@ -727,6 +727,7 @@ export async function runRegressionFixture(
 
   const result = await runHarnessFixture({
     fixture_key: f.key,
+    target_workflow_id: f.target_workflow_id,
     input_payload: f.input_payload,
     expected_result: f.expected_result,
   });

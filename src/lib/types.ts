@@ -200,6 +200,9 @@ export interface RegressionFixture {
   key: string;
   title: string;
   description: string;
+  // null = legacy fixture replaying hand-ported logic in the harness workflow.
+  // set = the harness drives this live n8n sub-workflow via Execute Sub-workflow.
+  target_workflow_id: string | null;
   input_payload: Record<string, unknown>;
   expected_result: Record<string, unknown>;
   created_at: string;

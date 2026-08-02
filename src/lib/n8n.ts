@@ -2,9 +2,15 @@ import "server-only";
 import { env } from "@/lib/env";
 
 // Minimal client for the "Bot - Regression Test Harness" n8n workflow — a
-// small, isolated workflow (webhook -> Code node -> respond) that re-runs a
-// hand-ported copy of a fixed bug's logic against fixture data and reports
-// pass/fail. Shares no nodes/credentials with the live bot workflows.
+// small, isolated workflow (webhook -> router -> respond) that reports
+// pass/fail for a fixture.
+//
+// Two fixture modes, selected by target_workflow_id:
+//   - null: the harness re-runs a hand-ported copy of a fixed bug's logic
+//     (legacy path; shares no nodes/credentials with the live bot).
+//   - set : the harness routes to an Execute Sub-workflow node that calls the
+//     named live n8n sub-workflow with input_payload and returns its output as
+//     actual_result — a genuine pre-prod gate against the real node.
 
 export interface HarnessResult {
   passed: boolean;
@@ -14,6 +20,7 @@ export interface HarnessResult {
 
 export async function runHarnessFixture(input: {
   fixture_key: string;
+  target_workflow_id: string | null;
   input_payload: Record<string, unknown>;
   expected_result: Record<string, unknown>;
 }): Promise<HarnessResult> {
