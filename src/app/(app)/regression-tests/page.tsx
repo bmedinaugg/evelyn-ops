@@ -15,12 +15,13 @@ export default async function RegressionTestsPage() {
       </div>
 
       <div className="callout" style={{ marginBottom: 16 }}>
-        Developer tool — replays a past bot bug against a small, isolated n8n
-        test-harness workflow (pure re-implementation of the fix, no real
-        Magicline/Freshdesk/OTP calls) and records pass/fail. The harness logic
-        is hand-ported from the real fix, so it can drift if the real node
-        changes later without updating its harness copy too — treat this as a
-        developer aid, not a CI gate.
+        Developer tool. <strong>Live</strong> fixtures drive the real n8n
+        sub-workflow through the harness (a genuine pre-prod gate — a green suite
+        is the approval artifact for editing that node). <strong>Ported</strong>{" "}
+        fixtures replay a hand-ported copy of a past fix against an isolated
+        harness workflow (no real Magicline/Freshdesk/OTP calls); those can drift
+        if the real node changes without updating the copy, so treat them as a
+        developer aid.
       </div>
 
       {fixtures.length === 0 ? (
@@ -36,10 +37,16 @@ export default async function RegressionTestsPage() {
             ) : (
               <span className="badge red">fail</span>
             );
+            const kindBadge = f.target_workflow_id ? (
+              <span className="badge blue">live</span>
+            ) : (
+              <span className="badge grey">ported</span>
+            );
             return (
               <details key={f.id} className="fail-item">
                 <summary>
                   <span className="fail-wf">{f.title}</span>
+                  {kindBadge}
                   {badge}
                   {run && (
                     <span className="muted">
