@@ -339,6 +339,21 @@ export async function setFeedbackStatus(
   if (error) throw new Error(`update feedback status failed: ${error.message}`);
 }
 
+// Save a progress note on an item WITHOUT actioning it — lets the team record
+// "what we're doing / current status" on OPEN feedback (shown inline on the
+// open row). Does not touch status/resolved_by/resolved_at.
+export async function saveFeedbackNote(
+  id: string,
+  note: string,
+): Promise<void> {
+  await requireStaff();
+  const { error } = await dataClient()
+    .from("conversation_feedback")
+    .update({ resolution_note: note.trim() || null })
+    .eq("id", id);
+  if (error) throw new Error(`save feedback note failed: ${error.message}`);
+}
+
 // Recently actioned feedback that carries a "what we did" note — powers the
 // "What we've done with your feedback" section on the feedback page.
 export async function listRecentlyWorkedOn(

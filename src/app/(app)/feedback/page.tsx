@@ -7,7 +7,7 @@ import {
 } from "@/lib/queries";
 import { amsterdamDateTime } from "@/lib/format";
 import { feedbackTagLabel } from "@/lib/feedback-tags";
-import { changeFeedbackStatus } from "./actions";
+import { changeFeedbackStatus, saveFeedbackNoteAction } from "./actions";
 
 export const dynamic = "force-dynamic";
 
@@ -50,7 +50,7 @@ function ActionButton({
 // Resolve with an optional "what we did" note — the note feeds the
 // "What we've done with your feedback" section so contributors see
 // their input turned into action.
-function ResolveForm({ id }: { id: string }) {
+function ResolveForm({ id, note }: { id: string; note?: string | null }) {
   return (
     <form
       action={changeFeedbackStatus}
@@ -61,11 +61,36 @@ function ResolveForm({ id }: { id: string }) {
       <input
         type="text"
         name="note"
+        defaultValue={note ?? ""}
         placeholder="What did we do about it?"
         style={{ width: 190 }}
         maxLength={300}
       />
       <button type="submit">Resolve</button>
+    </form>
+  );
+}
+
+// Save a "working on it / status" note WITHOUT resolving — so open items can
+// carry a visible progress note. Prefilled with the current note if any.
+function NoteForm({ id, note }: { id: string; note?: string | null }) {
+  return (
+    <form
+      action={saveFeedbackNoteAction}
+      style={{ display: "flex", gap: 6, alignItems: "center" }}
+    >
+      <input type="hidden" name="id" value={id} />
+      <input
+        type="text"
+        name="note"
+        defaultValue={note ?? ""}
+        placeholder="Progress / working-on-it note…"
+        style={{ width: 190 }}
+        maxLength={300}
+      />
+      <button type="submit" className="secondary">
+        Save note
+      </button>
     </form>
   );
 }
@@ -226,6 +251,15 @@ export default async function FeedbackPage({
                       ) : null}
                     </>
                   ) : null}
+                  {f.status === "open" && f.resolution_note ? (
+                    <>
+                      <br />
+                      <span className="badge grey">📝 in progress</span>
+                      <div className="muted" style={{ fontSize: 12, marginTop: 2 }}>
+                        ↳ {f.resolution_note}
+                      </div>
+                    </>
+                  ) : null}
                 </td>
                 <td>
                   <Link href={`/conversations/${f.session_id}`}>view</Link>
@@ -234,7 +268,8 @@ export default async function FeedbackPage({
                   <div className="faq-actions">
                     {f.status === "open" ? (
                       <>
-                        <ResolveForm id={f.id} />
+                        <ResolveForm id={f.id} note={f.resolution_note} />
+                        <NoteForm id={f.id} note={f.resolution_note} />
                         <ActionButton id={f.id} status="dismissed" label="Dismiss" secondary />
                       </>
                     ) : (
