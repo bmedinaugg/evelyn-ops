@@ -10,6 +10,7 @@ import {
 } from "@/lib/format";
 import type { Outcome, DigestSession } from "@/lib/types";
 import { ConversationFilters } from "./ConversationFilters";
+import { DateRangePicker } from "./DateRangePicker";
 
 // A session tagged with the day it came from (for a multi-day window).
 type Row = DigestSession & { _day: string };
@@ -128,15 +129,19 @@ export default async function ConversationsPage({
       <div className="pagehead">
         <h1>Conversations</h1>
         <div className="controls">
-          <form className="controls" method="get" style={{ margin: 0 }}>
-            <label className="muted">From</label>
-            <input type="date" name="from" defaultValue={from} max={today} />
-            <label className="muted">to</label>
-            <input type="date" name="to" defaultValue={to} max={today} />
-            <button type="submit" className="secondary">
-              Go
-            </button>
-          </form>
+          <DateRangePicker
+            from={from}
+            to={to}
+            max={today}
+            preserved={{
+              outcome: f.outcome,
+              state: f.state,
+              member: f.member,
+              preview: f.preview,
+              ticket: f.ticket,
+              noreply: f.noreply ? "1" : "",
+            }}
+          />
         </div>
       </div>
 
