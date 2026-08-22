@@ -14,6 +14,7 @@ const SECTIONS: { title: string | null; items: NavItem[] }[] = [
     title: "Review",
     items: [
       { href: "/conversations", label: "Conversations", icon: "💬" },
+      { href: "/helped", label: "Bot helped", icon: "✅" },
       { href: "/evaluation", label: "Bot evaluation", icon: "🎯" },
       { href: "/tickets", label: "Tickets", icon: "🎫" },
     ],
