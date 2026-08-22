@@ -1,7 +1,16 @@
 import Link from "next/link";
 import { getDigestStats, getDigestDetails } from "@/lib/queries";
-import { normaliseDate, addDays, freshdeskUrl } from "@/lib/format";
+import {
+  normaliseDate,
+  addDays,
+  amsterdamToday,
+  rangeDays,
+  freshdeskUrl,
+} from "@/lib/format";
 import type { Outcome } from "@/lib/types";
+import { DateRangePicker } from "@/components/DateRangePicker";
+
+const MAX_DAYS = 7;
 
 export const dynamic = "force-dynamic";
 
@@ -22,11 +31,6 @@ function Tile({
   );
 }
 
-const RANGES = [
-  { value: "1", label: "1 day" },
-  { value: "7", label: "7 days" },
-];
-
 const ZERO_OUTCOMES: Record<Outcome, number> = {
   ticket_created: 0,
   ticket_not_synced: 0,
@@ -38,15 +42,28 @@ const ZERO_OUTCOMES: Record<Outcome, number> = {
 export default async function DashboardPage({
   searchParams,
 }: {
-  searchParams: Promise<{ date?: string; range?: string }>;
+  searchParams: Promise<{
+    from?: string;
+    to?: string;
+    date?: string;
+    range?: string;
+  }>;
 }) {
-  const { date: rawDate, range: rawRange } = await searchParams;
-  const date = normaliseDate(rawDate); // window END (inclusive)
-  const range = rawRange === "7" ? "7" : "1";
-  const days = range === "7" ? 7 : 1;
+  const sp = await searchParams;
 
-  // Dates in the window, oldest → newest (endDate is `date`).
-  const dates = Array.from({ length: days }, (_, i) => addDays(date, -(days - 1 - i)));
+  // Window is [from, to] inclusive, capped at MAX_DAYS.
+  // Back-compat: old links use `date` (window end) + `range` (1|7).
+  let to = normaliseDate(sp.to || sp.date);
+  let from = sp.from
+    ? normaliseDate(sp.from)
+    : addDays(to, -((sp.range === "7" ? MAX_DAYS : 1) - 1));
+  if (from > to) [from, to] = [to, from];
+  if (rangeDays(from, to) > MAX_DAYS) from = addDays(to, -(MAX_DAYS - 1));
+  const days = rangeDays(from, to);
+  const today = amsterdamToday();
+
+  // Dates in the window, oldest → newest (endDate is `to`).
+  const dates = Array.from({ length: days }, (_, i) => addDays(from, i));
 
   const perDay = await Promise.all(
     dates.map(async (d) => {
@@ -91,39 +108,30 @@ export default async function DashboardPage({
 
   const single = perDay[perDay.length - 1]; // the end date
   const windowLabel =
-    days === 1 ? date : `${dates[0]} → ${dates[dates.length - 1]} (7 days)`;
-  const rangeHref = (r: string) => `/dashboard?date=${date}&range=${r}`;
-  const convLink = (extra: string) => `/conversations?date=${date}&${extra}`;
+    days === 1 ? from : `${from} → ${to} (${days} days)`;
+  const convLink = (extra: string) =>
+    `/conversations?from=${from}&to=${to}&${extra}`;
 
   return (
     <>
       <div className="pagehead">
         <h1>Dashboard</h1>
         <div className="controls">
-          {RANGES.map((r) => (
-            <Link
-              key={r.value}
-              href={rangeHref(r.value)}
-              className={`btn secondary${range === r.value ? " active" : ""}`}
-            >
-              {r.label}
-            </Link>
-          ))}
-          <form className="controls" method="get" style={{ margin: 0 }}>
-            <input type="date" name="date" defaultValue={date} />
-            <input type="hidden" name="range" value={range} />
-            <button type="submit" className="secondary">
-              Go
-            </button>
-          </form>
+          <DateRangePicker
+            from={from}
+            to={to}
+            max={today}
+            basePath="/dashboard"
+            maxDays={MAX_DAYS}
+          />
         </div>
       </div>
 
       <p className="muted" style={{ marginTop: -4 }}>
         {days === 1 ? (
-          <>Showing {date}.</>
+          <>Showing {from}.</>
         ) : (
-          <>Totals across {windowLabel}, ending {date}.</>
+          <>Totals across {windowLabel}.</>
         )}
       </p>
 
@@ -137,7 +145,7 @@ export default async function DashboardPage({
       </div>
 
       <div className="section">
-        <h2>Needs attention{days > 1 ? " (7-day total)" : ""}</h2>
+        <h2>Needs attention{days > 1 ? ` (${days}-day total)` : ""}</h2>
         <div className="grid tiles">
           <Tile
             k="Unsynced tickets"
@@ -198,7 +206,7 @@ export default async function DashboardPage({
                   return (
                     <tr key={d}>
                       <td className="mono">
-                        <Link href={`/dashboard?date=${d}&range=1`}>{d}</Link>
+                        <Link href={`/dashboard?from=${d}&to=${d}`}>{d}</Link>
                       </td>
                       <td>{stats.active_sessions}</td>
                       <td>{stats.messages_total}</td>
@@ -230,7 +238,7 @@ export default async function DashboardPage({
         <h2>Workflow errors ({errorsAll.length})</h2>
         {errorsAll.length === 0 ? (
           <div className="callout">
-            No workflow errors {days === 1 ? `on ${date}` : `over ${windowLabel}`}. 🎉
+            No workflow errors {days === 1 ? `on ${from}` : `over ${windowLabel}`}. 🎉
           </div>
         ) : (
           <div className="panel table-scroll">
@@ -262,7 +270,7 @@ export default async function DashboardPage({
 
       {days === 1 && single.stats.tickets_list.length > 0 && (
         <div className="section">
-          <h2>Tickets on {date}</h2>
+          <h2>Tickets on {from}</h2>
           <div className="panel table-scroll">
             <table>
               <thead>

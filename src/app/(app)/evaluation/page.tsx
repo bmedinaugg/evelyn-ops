@@ -8,6 +8,7 @@ import {
   freshdeskUrl,
   normaliseDate,
 } from "@/lib/format";
+import { DateRangePicker } from "@/components/DateRangePicker";
 
 export const dynamic = "force-dynamic";
 
@@ -37,15 +38,14 @@ export default async function EvaluationPage({
     <>
       <div className="pagehead">
         <h1>Bot evaluation</h1>
-        <form className="controls" method="get">
-          <label className="muted">From</label>
-          <input type="date" name="from" defaultValue={from} max={amsterdamToday()} />
-          <label className="muted">To</label>
-          <input type="date" name="to" defaultValue={to} max={amsterdamToday()} />
-          <button type="submit" className="secondary">
-            Go
-          </button>
-        </form>
+        <div className="controls">
+          <DateRangePicker
+            from={from}
+            to={to}
+            max={amsterdamToday()}
+            basePath="/evaluation"
+          />
+        </div>
       </div>
 
       <p className="muted">
