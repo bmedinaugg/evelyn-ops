@@ -53,15 +53,30 @@ export function DateRangePicker({
   const initial = parse(to);
   const [view, setView] = useState({ y: initial.y, m: initial.m });
 
-  // Close on outside click or Escape.
+  // Keep the pending selection in sync with the applied window (e.g. after
+  // navigation updates the from/to props).
+  useEffect(() => {
+    setStart(from);
+    setEnd(to);
+  }, [from, to]);
+
+  // Discard any unconfirmed selection and close.
+  const closeReset = () => {
+    setOpen(false);
+    setStart(from);
+    setEnd(to);
+    setHover(null);
+  };
+
+  // Close on outside click or Escape (discarding an unconfirmed selection).
   useEffect(() => {
     if (!open) return;
     const onDown = (e: MouseEvent) => {
       if (wrapRef.current && !wrapRef.current.contains(e.target as Node))
-        setOpen(false);
+        closeReset();
     };
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape") closeReset();
     };
     document.addEventListener("mousedown", onDown);
     document.addEventListener("keydown", onKey);
@@ -69,12 +84,14 @@ export function DateRangePicker({
       document.removeEventListener("mousedown", onDown);
       document.removeEventListener("keydown", onKey);
     };
-  }, [open]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, from, to]);
 
-  const apply = (a: string, b: string) => {
+  const apply = () => {
+    if (!start || !end) return;
     const params = new URLSearchParams();
-    params.set("from", a);
-    params.set("to", b);
+    params.set("from", start);
+    params.set("to", end);
     for (const [k, v] of Object.entries(preserved)) if (v) params.set(k, v);
     setOpen(false);
     router.push(`${basePath}?${params.toString()}`);
@@ -92,7 +109,7 @@ export function DateRangePicker({
     if (ordinal(b) < ordinal(a)) [a, b] = [b, a];
     setStart(a);
     setEnd(b);
-    apply(a, b);
+    // Wait for the user to confirm with Apply.
   };
 
   const selecting = start !== null && end === null; // choosing the end
@@ -141,7 +158,7 @@ export function DateRangePicker({
       <button
         type="button"
         className="secondary"
-        onClick={() => setOpen((o) => !o)}
+        onClick={() => (open ? closeReset() : setOpen(true))}
         aria-expanded={open}
       >
         📅 {label}
@@ -204,10 +221,29 @@ export function DateRangePicker({
             )}
           </div>
 
-          <p className="cal-hint muted">
-            {selecting ? "Pick the end day" : "Pick a start day"}
-            {maxDays !== undefined ? ` · up to ${maxDays} days` : ""}
-          </p>
+          <div className="cal-foot">
+            <span className="cal-sel muted">
+              {start && end ? (
+                start === end ? (
+                  start
+                ) : (
+                  `${start} → ${end}`
+                )
+              ) : selecting ? (
+                "Pick the end day"
+              ) : (
+                "Pick a start day"
+              )}
+              {maxDays !== undefined ? ` · up to ${maxDays} days` : ""}
+            </span>
+            <button
+              type="button"
+              onClick={apply}
+              disabled={!start || !end}
+            >
+              Apply
+            </button>
+          </div>
         </div>
       )}
     </div>
