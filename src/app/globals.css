@@ -194,6 +194,40 @@ button.secondary:hover, .btn.secondary:hover { background: var(--panel-3); borde
 button:disabled { opacity: 0.5; cursor: default; transform: none; }
 .btn.secondary.active { border-color: var(--accent); color: #fff; background: var(--accent-soft); font-weight: 600; }
 
+/* ------------------------------------------------ Date-range calendar */
+.rangepick { position: relative; }
+.cal {
+  position: absolute;
+  z-index: 50;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 268px;
+  padding: 12px;
+  box-shadow: var(--shadow);
+}
+.cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.cal-title { font-weight: 600; font-size: 13px; }
+.cal-nav { padding: 4px 10px; font-size: 15px; line-height: 1; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+.cal-dow { margin-bottom: 4px; }
+.cal-dow-cell { text-align: center; font-size: 11px; color: var(--muted); padding: 2px 0; }
+.cal-day {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text);
+  font-weight: 500;
+  padding: 0;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  font-size: 12.5px;
+}
+.cal-day:hover:not(:disabled) { background: var(--panel-3); color: #fff; }
+.cal-day:disabled { opacity: 0.28; cursor: default; }
+.cal-day.inrange { background: var(--accent-soft); border-radius: 0; }
+.cal-day.sel { background: var(--accent); color: #fff; border-radius: var(--radius-sm); }
+.cal-day.sel:hover { background: var(--accent-hover); }
+.cal-hint { margin: 8px 0 0; font-size: 11px; }
+
 /* --------------------------------------------------------- Cards / tiles */
 .grid { display: grid; gap: 12px; }
 .tiles { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
