@@ -70,6 +70,12 @@ export function addDays(dateStr: string, days: number): string {
   return d.toISOString().slice(0, 10);
 }
 
+/** Inclusive count of calendar days between two YYYY-MM-DD strings. */
+export function rangeDays(from: string, to: string): number {
+  const ms = Date.parse(`${to}T00:00:00Z`) - Date.parse(`${from}T00:00:00Z`);
+  return Math.round(ms / 86_400_000) + 1;
+}
+
 /** [start, end) UTC ISO bounds covering the Amsterdam days from..to inclusive. */
 export function amsterdamRangeIso(from: string, to: string) {
   return {

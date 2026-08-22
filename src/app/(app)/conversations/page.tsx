@@ -4,13 +4,14 @@ import {
   normaliseDate,
   addDays,
   amsterdamToday,
+  rangeDays,
   freshdeskUrl,
   OUTCOME_LABELS,
   OUTCOME_TONE,
 } from "@/lib/format";
 import type { Outcome, DigestSession } from "@/lib/types";
 import { ConversationFilters } from "./ConversationFilters";
-import { DateRangePicker } from "./DateRangePicker";
+import { DateRangePicker } from "@/components/DateRangePicker";
 
 // A session tagged with the day it came from (for a multi-day window).
 type Row = DigestSession & { _day: string };
@@ -18,13 +19,6 @@ type Row = DigestSession & { _day: string };
 export const dynamic = "force-dynamic";
 
 const MAX_DAYS = 7;
-
-// Whole days between two YYYY-MM-DD strings (inclusive of both ends).
-function spanDays(from: string, to: string): number {
-  const ms =
-    Date.parse(`${to}T00:00:00Z`) - Date.parse(`${from}T00:00:00Z`);
-  return Math.round(ms / 86_400_000) + 1;
-}
 
 const OUTCOMES: Outcome[] = [
   "ticket_created",
@@ -59,9 +53,9 @@ export default async function ConversationsPage({
     ? normaliseDate(sp.from)
     : addDays(to, -((sp.range === "7" ? MAX_DAYS : 1) - 1));
   if (from > to) [from, to] = [to, from]; // ISO strings sort chronologically
-  const clamped = spanDays(from, to) > MAX_DAYS;
+  const clamped = rangeDays(from, to) > MAX_DAYS;
   if (clamped) from = addDays(to, -(MAX_DAYS - 1));
-  const days = clamped ? MAX_DAYS : spanDays(from, to);
+  const days = clamped ? MAX_DAYS : rangeDays(from, to);
   const today = amsterdamToday();
 
   const f = {
@@ -133,6 +127,8 @@ export default async function ConversationsPage({
             from={from}
             to={to}
             max={today}
+            basePath="/conversations"
+            maxDays={MAX_DAYS}
             preserved={{
               outcome: f.outcome,
               state: f.state,

@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
-const MAX_DAYS = 7;
 const WEEKDAYS = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 const MONTHS = [
   "January", "February", "March", "April", "May", "June",
@@ -24,19 +23,25 @@ const ordinal = (k: string) => {
 
 /**
  * Single-popover calendar range picker. Click a start day, then an end day.
- * The window is capped at MAX_DAYS: once a start is chosen, days more than
- * MAX_DAYS-1 away are disabled, as are future days beyond `max`.
+ * When `maxDays` is set the window is capped: once a start is chosen, days
+ * more than maxDays-1 away are disabled. Future days beyond `max` (today)
+ * are always disabled. Navigates to `basePath` with from/to (+ any
+ * `preserved` query params kept intact).
  */
 export function DateRangePicker({
   from,
   to,
   max,
-  preserved,
+  basePath,
+  preserved = {},
+  maxDays,
 }: {
   from: string;
   to: string;
   max: string; // today (YYYY-MM-DD) — no future selection past this
-  preserved: Record<string, string>;
+  basePath: string; // route to navigate to, e.g. "/conversations"
+  preserved?: Record<string, string>;
+  maxDays?: number; // optional cap; omit for no cap
 }) {
   const router = useRouter();
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -72,7 +77,7 @@ export function DateRangePicker({
     params.set("to", b);
     for (const [k, v] of Object.entries(preserved)) if (v) params.set(k, v);
     setOpen(false);
-    router.push(`/conversations?${params.toString()}`);
+    router.push(`${basePath}?${params.toString()}`);
   };
 
   const pick = (k: string) => {
@@ -93,8 +98,12 @@ export function DateRangePicker({
   const selecting = start !== null && end === null; // choosing the end
   const dayDisabled = (k: string) => {
     if (ordinal(k) > ordinal(max)) return true; // no future
-    if (selecting && Math.abs(ordinal(k) - ordinal(start!)) > MAX_DAYS - 1)
-      return true; // beyond the 7-day cap
+    if (
+      selecting &&
+      maxDays !== undefined &&
+      Math.abs(ordinal(k) - ordinal(start!)) > maxDays - 1
+    )
+      return true; // beyond the cap
     return false;
   };
 
@@ -196,8 +205,8 @@ export function DateRangePicker({
           </div>
 
           <p className="cal-hint muted">
-            {selecting ? "Pick the end day" : "Pick a start day"} · up to{" "}
-            {MAX_DAYS} days
+            {selecting ? "Pick the end day" : "Pick a start day"}
+            {maxDays !== undefined ? ` · up to ${maxDays} days` : ""}
           </p>
         </div>
       )}
