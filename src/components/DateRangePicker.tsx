@@ -88,10 +88,12 @@ export function DateRangePicker({
   }, [open, from, to]);
 
   const apply = () => {
-    if (!start || !end) return;
+    if (!start) return;
+    const a = start;
+    const b = end ?? start; // a lone start day = a 1-day window
     const params = new URLSearchParams();
-    params.set("from", start);
-    params.set("to", end);
+    params.set("from", a);
+    params.set("to", b);
     for (const [k, v] of Object.entries(preserved)) if (v) params.set(k, v);
     setOpen(false);
     router.push(`${basePath}?${params.toString()}`);
@@ -223,24 +225,15 @@ export function DateRangePicker({
 
           <div className="cal-foot">
             <span className="cal-sel muted">
-              {start && end ? (
-                start === end ? (
-                  start
-                ) : (
-                  `${start} → ${end}`
-                )
-              ) : selecting ? (
-                "Pick the end day"
-              ) : (
-                "Pick a start day"
-              )}
-              {maxDays !== undefined ? ` · up to ${maxDays} days` : ""}
+              {!start
+                ? "Pick a day"
+                : !end
+                  ? `${start} · 1 day — pick another for a range`
+                  : ordinal(end) - ordinal(start) + 1 === 1
+                    ? `${start} · 1 day`
+                    : `${start} → ${end} · ${ordinal(end) - ordinal(start) + 1} days`}
             </span>
-            <button
-              type="button"
-              onClick={apply}
-              disabled={!start || !end}
-            >
+            <button type="button" onClick={apply} disabled={!start}>
               Apply
             </button>
           </div>
