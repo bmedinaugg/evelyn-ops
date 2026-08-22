@@ -118,11 +118,6 @@ export default async function ConversationsPage({
 
   const windowQuery = `from=${from}&to=${to}`;
   const clearHref = `/conversations?${windowQuery}`;
-  // Quick presets, both anchored to today.
-  const shortcuts = [
-    { label: "Today", from: today, to: today },
-    { label: "Last 7 days", from: addDays(today, -(MAX_DAYS - 1)), to: today },
-  ];
   const windowLabel =
     from === to
       ? from
@@ -133,18 +128,6 @@ export default async function ConversationsPage({
       <div className="pagehead">
         <h1>Conversations</h1>
         <div className="controls">
-          {shortcuts.map((s) => {
-            const active = from === s.from && to === s.to;
-            return (
-              <Link
-                key={s.label}
-                href={`/conversations?from=${s.from}&to=${s.to}`}
-                className={`btn secondary${active ? " active" : ""}`}
-              >
-                {s.label}
-              </Link>
-            );
-          })}
           <form className="controls" method="get" style={{ margin: 0 }}>
             <label className="muted">From</label>
             <input type="date" name="from" defaultValue={from} max={today} />
