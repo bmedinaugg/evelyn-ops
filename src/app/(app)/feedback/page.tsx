@@ -71,9 +71,22 @@ function ResolveForm({ id, note }: { id: string; note?: string | null }) {
   );
 }
 
-// Save a "working on it / status" note WITHOUT resolving — so open items can
-// carry a visible progress note. Prefilled with the current note if any.
-function NoteForm({ id, note }: { id: string; note?: string | null }) {
+// Save a note WITHOUT changing status — reused for two cases:
+//  - OPEN items: a "working on it / progress" note.
+//  - RESOLVED / DISMISSED items: record "what was done" after review, kept
+//    on the same feedback item (updates the resolution note in place).
+// Prefilled with the current note if any.
+function NoteForm({
+  id,
+  note,
+  placeholder = "Progress / working-on-it note…",
+  label = "Save note",
+}: {
+  id: string;
+  note?: string | null;
+  placeholder?: string;
+  label?: string;
+}) {
   return (
     <form
       action={saveFeedbackNoteAction}
@@ -84,12 +97,12 @@ function NoteForm({ id, note }: { id: string; note?: string | null }) {
         type="text"
         name="note"
         defaultValue={note ?? ""}
-        placeholder="Progress / working-on-it note…"
+        placeholder={placeholder}
         style={{ width: 190 }}
         maxLength={300}
       />
       <button type="submit" className="secondary">
-        Save note
+        {label}
       </button>
     </form>
   );
@@ -273,7 +286,15 @@ export default async function FeedbackPage({
                         <ActionButton id={f.id} status="dismissed" label="Dismiss" secondary />
                       </>
                     ) : (
-                      <ActionButton id={f.id} status="open" label="Reopen" secondary />
+                      <>
+                        <NoteForm
+                          id={f.id}
+                          note={f.resolution_note}
+                          placeholder="What was done after review…"
+                          label="Save"
+                        />
+                        <ActionButton id={f.id} status="open" label="Reopen" secondary />
+                      </>
                     )}
                   </div>
                 </td>
