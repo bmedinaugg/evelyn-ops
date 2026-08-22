@@ -11,14 +11,14 @@ type Values = {
 };
 
 export function ConversationFilters({
-  date,
-  range,
+  from,
+  to,
   values,
   states,
   outcomeOptions,
 }: {
-  date: string;
-  range?: string;
+  from: string;
+  to: string;
   values: Values;
   states: string[];
   outcomeOptions: { value: string; label: string; count: number }[];
@@ -27,8 +27,8 @@ export function ConversationFilters({
 
   const apply = (patch: Values) => {
     const merged: Record<string, string | undefined> = {
-      date,
-      range: range === "7" ? "7" : undefined,
+      from,
+      to,
       ...values,
       ...patch,
     };

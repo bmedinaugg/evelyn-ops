@@ -3,6 +3,7 @@ import { getDigestDetails } from "@/lib/queries";
 import {
   normaliseDate,
   addDays,
+  amsterdamToday,
   freshdeskUrl,
   OUTCOME_LABELS,
   OUTCOME_TONE,
@@ -10,10 +11,19 @@ import {
 import type { Outcome, DigestSession } from "@/lib/types";
 import { ConversationFilters } from "./ConversationFilters";
 
-// A session tagged with the day it came from (for the 7-day view).
+// A session tagged with the day it came from (for a multi-day window).
 type Row = DigestSession & { _day: string };
 
 export const dynamic = "force-dynamic";
+
+const MAX_DAYS = 7;
+
+// Whole days between two YYYY-MM-DD strings (inclusive of both ends).
+function spanDays(from: string, to: string): number {
+  const ms =
+    Date.parse(`${to}T00:00:00Z`) - Date.parse(`${from}T00:00:00Z`);
+  return Math.round(ms / 86_400_000) + 1;
+}
 
 const OUTCOMES: Outcome[] = [
   "ticket_created",
@@ -27,6 +37,8 @@ export default async function ConversationsPage({
   searchParams,
 }: {
   searchParams: Promise<{
+    from?: string;
+    to?: string;
     date?: string;
     range?: string;
     outcome?: string;
@@ -38,9 +50,19 @@ export default async function ConversationsPage({
   }>;
 }) {
   const sp = await searchParams;
-  const date = normaliseDate(sp.date); // window END (inclusive)
-  const range = sp.range === "7" ? "7" : "1";
-  const days = range === "7" ? 7 : 1;
+
+  // Window is [from, to] inclusive Amsterdam days, capped at MAX_DAYS.
+  // Back-compat: old links use `date` (window end) + `range` (1|7).
+  let to = normaliseDate(sp.to || sp.date);
+  let from = sp.from
+    ? normaliseDate(sp.from)
+    : addDays(to, -((sp.range === "7" ? MAX_DAYS : 1) - 1));
+  if (from > to) [from, to] = [to, from]; // ISO strings sort chronologically
+  const clamped = spanDays(from, to) > MAX_DAYS;
+  if (clamped) from = addDays(to, -(MAX_DAYS - 1));
+  const days = clamped ? MAX_DAYS : spanDays(from, to);
+  const today = amsterdamToday();
+
   const f = {
     outcome: sp.outcome || "",
     state: sp.state || "",
@@ -51,7 +73,7 @@ export default async function ConversationsPage({
   };
 
   // Fetch each day in the window and tag every session with its day.
-  const dates = Array.from({ length: days }, (_, i) => addDays(date, -i)); // newest → oldest
+  const dates = Array.from({ length: days }, (_, i) => addDays(to, -i)); // newest → oldest
   const perDay = await Promise.all(
     dates.map(async (d) => ({ d, details: await getDigestDetails(d) })),
   );
@@ -94,33 +116,40 @@ export default async function ConversationsPage({
     f.outcome || f.state || f.member || f.preview || f.ticket || f.noreply,
   );
 
-  const rangeSuffix = range === "7" ? "&range=7" : "";
-  const clearHref = `/conversations?date=${date}${rangeSuffix}`;
-  const rangeHref = (r: string) => `/conversations?date=${date}&range=${r}`;
+  const windowQuery = `from=${from}&to=${to}`;
+  const clearHref = `/conversations?${windowQuery}`;
+  // Quick presets, both anchored to today.
+  const shortcuts = [
+    { label: "Today", from: today, to: today },
+    { label: "Last 7 days", from: addDays(today, -(MAX_DAYS - 1)), to: today },
+  ];
   const windowLabel =
-    days === 1 ? date : `${dates[dates.length - 1]} → ${dates[0]} (7 days)`;
+    from === to
+      ? from
+      : `${from} → ${to} (${days} day${days > 1 ? "s" : ""})`;
 
   return (
     <>
       <div className="pagehead">
         <h1>Conversations</h1>
         <div className="controls">
-          {[
-            { value: "1", label: "1 day" },
-            { value: "7", label: "7 days" },
-          ].map((r) => (
-            <Link
-              key={r.value}
-              href={rangeHref(r.value)}
-              className={`btn secondary${range === r.value ? " active" : ""}`}
-            >
-              {r.label}
-            </Link>
-          ))}
+          {shortcuts.map((s) => {
+            const active = from === s.from && to === s.to;
+            return (
+              <Link
+                key={s.label}
+                href={`/conversations?from=${s.from}&to=${s.to}`}
+                className={`btn secondary${active ? " active" : ""}`}
+              >
+                {s.label}
+              </Link>
+            );
+          })}
           <form className="controls" method="get" style={{ margin: 0 }}>
-            <label className="muted">{days === 1 ? "Day" : "Ending"}</label>
-            <input type="date" name="date" defaultValue={date} />
-            <input type="hidden" name="range" value={range} />
+            <label className="muted">From</label>
+            <input type="date" name="from" defaultValue={from} max={today} />
+            <label className="muted">to</label>
+            <input type="date" name="to" defaultValue={to} max={today} />
             <button type="submit" className="secondary">
               Go
             </button>
@@ -130,7 +159,12 @@ export default async function ConversationsPage({
 
       <p className="muted">
         {rows.length} of {allSessions.length} conversations{" "}
-        {days === 1 ? `on ${date}` : `over ${windowLabel}`}
+        {from === to ? `on ${from}` : `over ${windowLabel}`}
+        {clamped && (
+          <span className="badge amber" style={{ marginLeft: 6 }}>
+            capped at {MAX_DAYS} days
+          </span>
+        )}
         {anyFilter && (
           <>
             {" · "}
@@ -168,9 +202,9 @@ export default async function ConversationsPage({
               <th>Preview</th>
             </tr>
             <ConversationFilters
-              key={`${date}|${range}|${f.outcome}|${f.state}|${f.member}|${f.preview}|${f.ticket}`}
-              date={date}
-              range={range}
+              key={`${from}|${to}|${f.outcome}|${f.state}|${f.member}|${f.preview}|${f.ticket}`}
+              from={from}
+              to={to}
               values={f}
               states={states}
               outcomeOptions={outcomeOptions}
