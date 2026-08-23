@@ -194,6 +194,32 @@ button.secondary:hover, .btn.secondary:hover { background: var(--panel-3); borde
 button:disabled { opacity: 0.5; cursor: default; transform: none; }
 .btn.secondary.active { border-color: var(--accent); color: #fff; background: var(--accent-soft); font-weight: 600; }
 
+/* ---------------------------------------------- Loading skeletons */
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--panel-2) 0%,
+    var(--panel-3) 50%,
+    var(--panel-2) 100%
+  );
+  background-size: 200% 100%;
+  border-radius: var(--radius-sm);
+  animation: skeleton-shimmer 1.3s ease-in-out infinite;
+}
+.sk-line { height: 14px; }
+.sk-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--border-soft);
+}
+.sk-row:last-child { border-bottom: 0; }
+
 /* ------------------------------------------------ Date-range calendar */
 .rangepick { position: relative; }
 .cal {
