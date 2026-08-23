@@ -110,7 +110,9 @@ export default async function FeedbackPage({
   searchParams: Promise<{ status?: string; author?: string }>;
 }) {
   const { status, author } = await searchParams;
-  const active = status ?? "open";
+  // Default to "all" so resolved/dismissed items (with their "What was done"
+  // note) stay visible, not just open ones.
+  const active = status ?? "all";
   const effectiveStatus = active === "all" ? undefined : active;
 
   const [items, authors] = await Promise.all([
