@@ -1,10 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import {
-  listFeedback,
-  feedbackAuthorSummary,
-  listRecentlyWorkedOn,
-} from "@/lib/queries";
+import { listFeedback, feedbackAuthorSummary } from "@/lib/queries";
 import { amsterdamDateTime } from "@/lib/format";
 import { feedbackTagLabel } from "@/lib/feedback-tags";
 import { changeFeedbackStatus, saveFeedbackNoteAction } from "./actions";
@@ -117,10 +113,9 @@ export default async function FeedbackPage({
   const active = status ?? "open";
   const effectiveStatus = active === "all" ? undefined : active;
 
-  const [items, authors, workedOn] = await Promise.all([
+  const [items, authors] = await Promise.all([
     listFeedback(effectiveStatus, author),
     feedbackAuthorSummary(),
-    listRecentlyWorkedOn(),
   ]);
 
   return (
@@ -164,38 +159,6 @@ export default async function FeedbackPage({
         ))}
       </div>
 
-      {workedOn.length > 0 && (
-        <div className="panel" style={{ padding: 16, marginBottom: 18 }}>
-          <h2 style={{ marginTop: 0 }}>✅ What we&apos;ve done with your feedback</h2>
-          <p className="muted" style={{ marginTop: 0 }}>
-            Recently actioned items — thanks for flagging these.
-          </p>
-          <div style={{ display: "grid", gap: 10 }}>
-            {workedOn.map((f) => (
-              <div
-                key={f.id}
-                style={{
-                  borderLeft: "3px solid var(--green, #2e7d32)",
-                  paddingLeft: 12,
-                }}
-              >
-                <div>
-                  <strong>{f.resolution_note}</strong>
-                </div>
-                <div className="muted" style={{ fontSize: 13 }}>
-                  {f.comment ? <>“{f.comment}” — </> : null}
-                  flagged by {f.author_email}
-                  {f.resolved_by ? <> · worked on by {f.resolved_by}</> : null}
-                  {f.resolved_at ? <> · {amsterdamDateTime(f.resolved_at)}</> : null}
-                  {" · "}
-                  <Link href={`/conversations/${f.session_id}`}>chat</Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
       <p className="muted">
         {author ? (
           <>
@@ -205,8 +168,8 @@ export default async function FeedbackPage({
           <>All team feedback across conversations. </>
         )}
         Work items to <strong>Resolved</strong> or <strong>Dismissed</strong> as
-        you action them — add a short note of what you did so it shows up in the
-        section above.
+        you action them — add a short note of what you did in the{" "}
+        <strong>What was done</strong> column so it stays on the item.
       </p>
 
       <div className="panel table-scroll">
@@ -219,6 +182,7 @@ export default async function FeedbackPage({
               <th>Comment</th>
               <th>Member</th>
               <th>Added by</th>
+              <th>What was done</th>
               <th>Chat</th>
               <th>Action</th>
             </tr>
@@ -257,22 +221,21 @@ export default async function FeedbackPage({
                       <span className={`badge ${f.status === "resolved" ? "green" : "grey"}`}>
                         {f.status} · {f.resolved_by}
                       </span>
-                      {f.resolution_note ? (
-                        <div className="muted" style={{ fontSize: 12, marginTop: 2 }}>
-                          ↳ {f.resolution_note}
-                        </div>
-                      ) : null}
                     </>
                   ) : null}
                   {f.status === "open" && f.resolution_note ? (
                     <>
                       <br />
                       <span className="badge grey">📝 in progress</span>
-                      <div className="muted" style={{ fontSize: 12, marginTop: 2 }}>
-                        ↳ {f.resolution_note}
-                      </div>
                     </>
                   ) : null}
+                </td>
+                <td style={{ maxWidth: 260 }}>
+                  {f.resolution_note ? (
+                    <span className="muted">{f.resolution_note}</span>
+                  ) : (
+                    <span className="muted">—</span>
+                  )}
                 </td>
                 <td>
                   <Link href={`/conversations/${f.session_id}`}>view</Link>
@@ -303,7 +266,7 @@ export default async function FeedbackPage({
             ))}
             {items.length === 0 && (
               <tr>
-                <td colSpan={8} className="muted" style={{ padding: 18 }}>
+                <td colSpan={9} className="muted" style={{ padding: 18 }}>
                   {active === "open"
                     ? "No open feedback here. 🎉"
                     : "No feedback matches these filters."}
