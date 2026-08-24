@@ -125,7 +125,14 @@ function Card({ item }: { item: BoardItemView }) {
   );
 }
 
-export default async function BoardPage() {
+const COLUMN_PREVIEW = 8; // cards shown per column before "Show all"
+
+export default async function BoardPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ expand?: string }>;
+}) {
+  const { expand } = await searchParams;
   const items = await listBoardItems();
   const byStatus = (s: BoardStatus) => items.filter((i) => i.status === s);
 
@@ -152,16 +159,33 @@ export default async function BoardPage() {
       <div className="board-columns">
         {COLUMNS.map((col) => {
           const colItems = byStatus(col.status);
+          const isExpanded = expand === col.status;
+          const shown =
+            isExpanded ? colItems : colItems.slice(0, COLUMN_PREVIEW);
+          const hidden = colItems.length - shown.length;
           return (
             <div key={col.status} className="board-col">
               <h2 className="board-col-head">
                 {col.label} <span className="muted">({colItems.length})</span>
               </h2>
-              {colItems.map((item) => (
+              {shown.map((item) => (
                 <Card key={item.id} item={item} />
               ))}
               {colItems.length === 0 && (
                 <div className="muted board-empty">Nothing here.</div>
+              )}
+              {hidden > 0 && (
+                <Link
+                  href={`/board?expand=${col.status}`}
+                  className="btn secondary board-showmore"
+                >
+                  Show {hidden} more ↓
+                </Link>
+              )}
+              {isExpanded && colItems.length > COLUMN_PREVIEW && (
+                <Link href="/board" className="btn secondary board-showmore">
+                  Show fewer ↑
+                </Link>
               )}
             </div>
           );
