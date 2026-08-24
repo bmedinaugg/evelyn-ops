@@ -1,5 +1,7 @@
 import "server-only";
+import { unstable_cache } from "next/cache";
 import { requireStaff } from "@/lib/auth";
+import { amsterdamToday } from "@/lib/format";
 import { dataClient } from "@/lib/supabase/data-client";
 import { FEEDBACK_TAG_VALUES } from "@/lib/feedback-tags";
 import {
@@ -82,22 +84,61 @@ async function uploadBoardImages(
 // an allow-listed staff member is asking. The service-role client is only
 // touched after that check passes.
 
-export async function getDigestStats(date: string): Promise<DigestStats> {
-  await requireStaff();
+// The daily digest RPCs each aggregate a full day (~66ms + ~20k buffer pages
+// server-side). Conversations/Dashboard/Helped fan out one call per day in the
+// window and re-fetch overlapping days on every navigation. We cache the raw
+// RPC results (service-role, no per-user data) with unstable_cache so repeat
+// and cross-page navigation reuses them instead of re-hitting the DB.
+//
+// Two tiers: past days are immutable → cache for an hour; the current day is
+// still accumulating → cache briefly so numbers stay fresh. The date argument
+// is part of the cache key; keyParts differ so a day that rolls from "today"
+// into "past" re-keys into the stable tier cleanly.
+const STABLE_TTL = 3600; // seconds — past days won't change
+const FRESH_TTL = 30; // seconds — today is still in progress
+
+const fetchDigestStats = async (date: string): Promise<DigestStats> => {
   const { data, error } = await dataClient().rpc("daily_digest_stats", {
     p_date: date,
   });
   if (error) throw new Error(`daily_digest_stats failed: ${error.message}`);
   return data as DigestStats;
-}
+};
+const statsStable = unstable_cache(fetchDigestStats, ["digest-stats-stable"], {
+  revalidate: STABLE_TTL,
+  tags: ["digest"],
+});
+const statsFresh = unstable_cache(fetchDigestStats, ["digest-stats-fresh"], {
+  revalidate: FRESH_TTL,
+  tags: ["digest"],
+});
 
-export async function getDigestDetails(date: string): Promise<DigestDetails> {
-  await requireStaff();
+const fetchDigestDetails = async (date: string): Promise<DigestDetails> => {
   const { data, error } = await dataClient().rpc("daily_digest_details", {
     p_date: date,
   });
   if (error) throw new Error(`daily_digest_details failed: ${error.message}`);
   return data as DigestDetails;
+};
+const detailsStable = unstable_cache(
+  fetchDigestDetails,
+  ["digest-details-stable"],
+  { revalidate: STABLE_TTL, tags: ["digest"] },
+);
+const detailsFresh = unstable_cache(
+  fetchDigestDetails,
+  ["digest-details-fresh"],
+  { revalidate: FRESH_TTL, tags: ["digest"] },
+);
+
+export async function getDigestStats(date: string): Promise<DigestStats> {
+  await requireStaff();
+  return (date >= amsterdamToday() ? statsFresh : statsStable)(date);
+}
+
+export async function getDigestDetails(date: string): Promise<DigestDetails> {
+  await requireStaff();
+  return (date >= amsterdamToday() ? detailsFresh : detailsStable)(date);
 }
 
 export async function getConversation(
