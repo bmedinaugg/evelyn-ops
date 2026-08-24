@@ -1,12 +1,16 @@
 import Link from "next/link";
 import { listBoardItems } from "@/lib/queries";
-import { amsterdamDateTime } from "@/lib/format";
+import { amsterdamDateTime, amsterdamToday, addDays, normaliseDate } from "@/lib/format";
 import type { BoardItemView, BoardPriority, BoardStatus } from "@/lib/types";
 import { AddBoardItemForm } from "./AddBoardItemForm";
 import { CommentForm } from "./CommentForm";
 import { moveBoardItem } from "./actions";
+import { DateRangePicker } from "@/components/DateRangePicker";
 
 export const dynamic = "force-dynamic";
+
+// Default window: the last 4 weeks of board items (by created date).
+const DEFAULT_WEEKS = 4;
 
 const PRIORITY_TONE: Record<BoardPriority, string> = {
   low: "grey",
@@ -139,11 +143,24 @@ const COLUMN_PREVIEW = 8; // cards shown per column before "Show all"
 export default async function BoardPage({
   searchParams,
 }: {
-  searchParams: Promise<{ expand?: string }>;
+  searchParams: Promise<{ expand?: string; from?: string; to?: string }>;
 }) {
-  const { expand } = await searchParams;
-  const items = await listBoardItems();
+  const sp = await searchParams;
+  const { expand } = sp;
+
+  // Week-range view: items created within [from, to]. Default = last 4 weeks.
+  const today = amsterdamToday();
+  let to = normaliseDate(sp.to || today);
+  let from = sp.from
+    ? normaliseDate(sp.from)
+    : addDays(to, -(DEFAULT_WEEKS * 7 - 1));
+  if (from > to) [from, to] = [to, from];
+
+  const items = await listBoardItems(from, to);
   const byStatus = (s: BoardStatus) => items.filter((i) => i.status === s);
+
+  // Preserve the active window (and expansion) across show-more / picker links.
+  const win = `from=${from}&to=${to}`;
 
   return (
     <>
@@ -153,11 +170,18 @@ export default async function BoardPage({
           <Link href="/feedback" className="btn secondary">
             ← Conversation feedback
           </Link>
+          <DateRangePicker
+            from={from}
+            to={to}
+            max={today}
+            basePath="/board"
+          />
         </div>
       </div>
 
       <p className="muted">
-        Team board for issues and requests (not tied to a conversation). Add
+        Team board for issues and requests (not tied to a conversation). Showing
+        items created <strong>{from}</strong> → <strong>{to}</strong>. Add
         priority and image attachments.
       </p>
 
@@ -185,14 +209,14 @@ export default async function BoardPage({
               )}
               {hidden > 0 && (
                 <Link
-                  href={`/board?expand=${col.status}`}
+                  href={`/board?${win}&expand=${col.status}`}
                   className="btn secondary board-showmore"
                 >
                   Show {hidden} more ↓
                 </Link>
               )}
               {isExpanded && colItems.length > COLUMN_PREVIEW && (
-                <Link href="/board" className="btn secondary board-showmore">
+                <Link href={`/board?${win}`} className="btn secondary board-showmore">
                   Show fewer ↑
                 </Link>
               )}
