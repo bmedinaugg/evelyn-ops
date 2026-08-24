@@ -703,10 +703,18 @@ export async function reviewedSessionIds(): Promise<Set<string>> {
 }
 
 // Non-member tickets live only in Freshdesk (the bot doesn't record them in
-// bot.tickets) — fetched live via the search API.
+// bot.tickets) — fetched live via the search API. That's an external HTTP
+// round-trip, so cache the result briefly (shared data, no per-user state):
+// repeat visits to the non-member tab are instant and we don't hammer the
+// Freshdesk API (which is also rate-limited).
+const cachedNonMemberTickets = unstable_cache(
+  async (): Promise<FreshdeskSearchTicket[]> => searchNonMemberTickets(),
+  ["freshdesk-nonmember-tickets"],
+  { revalidate: 60, tags: ["freshdesk"] },
+);
 export async function listNonMemberTickets(): Promise<FreshdeskSearchTicket[]> {
   await requireStaff();
-  return searchNonMemberTickets();
+  return cachedNonMemberTickets();
 }
 
 // Map Freshdesk ticket ids -> bot conversation session ids (for tickets the

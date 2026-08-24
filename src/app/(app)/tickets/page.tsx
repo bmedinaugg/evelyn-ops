@@ -90,23 +90,29 @@ export default async function TicketsPage({
   const unsyncedOnly = filter === "unsynced";
   const nonMember = filter === "nonmember";
 
-  const all = await listTickets();
-  const unsyncedCount = all.filter((t) => !t.external_ticket_id).length;
-  const rows = unsyncedOnly ? all.filter((t) => !t.external_ticket_id) : all;
-
   let nonMemberTickets: FreshdeskSearchTicket[] = [];
   let nonMemberSessions: Record<string, string> = {};
   let nonMemberError: string | null = null;
-  if (nonMember) {
-    try {
-      nonMemberTickets = await listNonMemberTickets();
-      nonMemberSessions = await mapTicketSessions(
-        nonMemberTickets.map((t) => String(t.id)),
-      );
-    } catch (e) {
-      nonMemberError = e instanceof Error ? e.message : "Failed to load.";
-    }
-  }
+
+  // Fetch the member tickets (Supabase) and, on the non-member tab, the
+  // Freshdesk search in parallel — they don't depend on each other.
+  const [all] = await Promise.all([
+    listTickets(),
+    (async () => {
+      if (!nonMember) return;
+      try {
+        nonMemberTickets = await listNonMemberTickets();
+        nonMemberSessions = await mapTicketSessions(
+          nonMemberTickets.map((t) => String(t.id)),
+        );
+      } catch (e) {
+        nonMemberError = e instanceof Error ? e.message : "Failed to load.";
+      }
+    })(),
+  ]);
+
+  const unsyncedCount = all.filter((t) => !t.external_ticket_id).length;
+  const rows = unsyncedOnly ? all.filter((t) => !t.external_ticket_id) : all;
 
   return (
     <>
