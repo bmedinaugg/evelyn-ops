@@ -78,9 +78,16 @@ export default async function HelpedPage({
         </div>
       </div>
 
-      <p className="muted" style={{ marginTop: -4 }}>
+      <p style={{ marginTop: -4 }}>
+        <strong>{rows.length}</strong> helped{" "}
+        {rows.length === 1 ? "conversation" : "conversations"}{" "}
+        <span className="muted">
+          {from === to ? `on ${from}` : `over ${windowLabel}`}
+        </span>
+      </p>
+      <p className="muted" style={{ marginTop: 0 }}>
         Conversations the bot resolved on its own — it answered the member in
-        chat, with no ticket needed. {from === to ? `On ${from}.` : `Over ${windowLabel}.`}
+        chat, with no ticket needed.
       </p>
       <p className="muted" style={{ marginTop: 0 }}>
         Reviewing? If the bot genuinely helped, mark{" "}
