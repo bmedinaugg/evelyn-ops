@@ -312,20 +312,27 @@ export async function setBoardItemPriority(
 export async function listFeedback(
   status?: string,
   author?: string,
-): Promise<FeedbackItem[]> {
+  page = 1,
+  pageSize = 20,
+): Promise<{ items: FeedbackItem[]; total: number }> {
   await requireStaff();
+  const fromIdx = Math.max(0, (page - 1) * pageSize);
+  const toIdx = fromIdx + pageSize - 1;
   let query = dataClient()
     .from("conversation_feedback")
-    .select(
-      "*, session:sessions(id, customer:customers(display_name))",
-    )
+    .select("*, session:sessions(id, customer:customers(display_name))", {
+      count: "exact",
+    })
     .order("created_at", { ascending: false })
-    .limit(500);
+    .range(fromIdx, toIdx);
   if (status) query = query.eq("status", status);
   if (author) query = query.eq("author_email", author);
-  const { data, error } = await query;
+  const { data, error, count } = await query;
   if (error) throw new Error(`list feedback failed: ${error.message}`);
-  return (data ?? []) as unknown as FeedbackItem[];
+  return {
+    items: (data ?? []) as unknown as FeedbackItem[],
+    total: count ?? 0,
+  };
 }
 
 // Who has added feedback, with totals and how many are still open.

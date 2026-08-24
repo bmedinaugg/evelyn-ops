@@ -447,6 +447,7 @@ details.panel > summary:hover { background: var(--panel-2); }
 .board-col { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; display: flex; flex-direction: column; gap: 10px; box-shadow: var(--shadow); }
 .board-col-head { font-size: 12px; margin: 0 0 4px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
 .board-empty { padding: 8px; font-size: 13px; }
+.board-showmore { width: 100%; text-align: center; margin-top: 2px; }
 .board-card { background: var(--panel-2); border: 1px solid var(--border); border-radius: 10px; padding: 12px; transition: border-color 0.15s ease; }
 .board-card:hover { border-color: #303a47; }
 .board-card-head { display: flex; align-items: center; gap: 8px; }

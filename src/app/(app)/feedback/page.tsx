@@ -14,10 +14,15 @@ const FILTERS = [
   { value: "all", label: "All" },
 ];
 
-function qs(status: string, author?: string): string {
+const PAGE_SIZE = 20;
+
+// Build a /feedback URL. Changing status/author resets to page 1 (omit page);
+// pass a page to move within the current filter.
+function qs(status: string, author?: string, page?: number): string {
   const p = new URLSearchParams();
   p.set("status", status);
   if (author) p.set("author", author);
+  if (page && page > 1) p.set("page", String(page));
   return `/feedback?${p.toString()}`;
 }
 
@@ -107,18 +112,23 @@ function NoteForm({
 export default async function FeedbackPage({
   searchParams,
 }: {
-  searchParams: Promise<{ status?: string; author?: string }>;
+  searchParams: Promise<{ status?: string; author?: string; page?: string }>;
 }) {
-  const { status, author } = await searchParams;
+  const { status, author, page: pageParam } = await searchParams;
   // Default to "all" so resolved/dismissed items (with their "What was done"
   // note) stay visible, not just open ones.
   const active = status ?? "all";
   const effectiveStatus = active === "all" ? undefined : active;
+  const page = Math.max(1, Number(pageParam) || 1);
 
-  const [items, authors] = await Promise.all([
-    listFeedback(effectiveStatus, author),
+  const [{ items, total }, authors] = await Promise.all([
+    listFeedback(effectiveStatus, author, page, PAGE_SIZE),
     feedbackAuthorSummary(),
   ]);
+
+  const pageCount = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  const firstRow = total === 0 ? 0 : (page - 1) * PAGE_SIZE + 1;
+  const lastRow = Math.min(page * PAGE_SIZE, total);
 
   return (
     <>
@@ -164,11 +174,17 @@ export default async function FeedbackPage({
       <p className="muted">
         {author ? (
           <>
-            Showing feedback added by <strong>{author}</strong>.{" "}
+            Feedback added by <strong>{author}</strong>.{" "}
           </>
         ) : (
           <>All team feedback across conversations. </>
         )}
+        {total > 0 ? (
+          <>
+            Showing <strong>{firstRow}–{lastRow}</strong> of{" "}
+            <strong>{total}</strong>.{" "}
+          </>
+        ) : null}
         Work items to <strong>Resolved</strong> or <strong>Dismissed</strong> as
         you action them — add a short note of what you did in the{" "}
         <strong>What was done</strong> column so it stays on the item.
@@ -278,6 +294,37 @@ export default async function FeedbackPage({
           </tbody>
         </table>
       </div>
+
+      {pageCount > 1 && (
+        <div
+          className="controls"
+          style={{ marginTop: 14, justifyContent: "space-between" }}
+        >
+          {page > 1 ? (
+            <Link
+              href={qs(active, author, page - 1)}
+              className="btn secondary"
+            >
+              ← Newer
+            </Link>
+          ) : (
+            <span />
+          )}
+          <span className="muted">
+            Page {page} of {pageCount}
+          </span>
+          {page < pageCount ? (
+            <Link
+              href={qs(active, author, page + 1)}
+              className="btn secondary"
+            >
+              Older →
+            </Link>
+          ) : (
+            <span />
+          )}
+        </div>
+      )}
     </>
   );
 }
