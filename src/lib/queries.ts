@@ -1,7 +1,7 @@
 import "server-only";
 import { unstable_cache } from "next/cache";
 import { requireStaff } from "@/lib/auth";
-import { amsterdamToday } from "@/lib/format";
+import { amsterdamToday, amsterdamRangeIso } from "@/lib/format";
 import { dataClient } from "@/lib/supabase/data-client";
 import { FEEDBACK_TAG_VALUES } from "@/lib/feedback-tags";
 import {
@@ -193,13 +193,21 @@ export async function createConversationFeedback(input: {
 
 // --- Team board (bot.board_items + Storage) --------------------------------
 
-export async function listBoardItems(): Promise<BoardItemView[]> {
+export async function listBoardItems(
+  from?: string,
+  to?: string,
+): Promise<BoardItemView[]> {
   await requireStaff();
   const client = dataClient();
-  const { data, error } = await client
+  let query = client
     .from("board_items")
     .select("*")
-    .neq("status", "dismissed")
+    .neq("status", "dismissed");
+  if (from && to) {
+    const { startISO, endISO } = amsterdamRangeIso(from, to);
+    query = query.gte("created_at", startISO).lt("created_at", endISO);
+  }
+  const { data, error } = await query
     .order("created_at", { ascending: false })
     .limit(500);
   if (error) throw new Error(`list board items failed: ${error.message}`);
