@@ -191,6 +191,38 @@ export async function createConversationFeedback(input: {
   if (error) throw new Error(`create feedback failed: ${error.message}`);
 }
 
+// Record a review from the "Bot helped" page. If the reviewer says it did NOT
+// help, we file a `bad` feedback item (with their explanation) that lands in
+// the Feedback inbox as OPEN for the team to action. If it did help, we store
+// a `good` item already marked resolved, so it's a record but doesn't add to
+// the open feedback workload.
+export async function reviewHelpedSession(input: {
+  sessionId: string;
+  helped: boolean;
+  explanation: string | null;
+}): Promise<void> {
+  const staff = await requireStaff();
+  const row: Record<string, unknown> = {
+    session_id: input.sessionId,
+    author_email: staff.email,
+    rating: input.helped ? "good" : "bad",
+    comment: input.explanation?.trim() || null,
+    tags: [],
+    detail: null,
+    status: input.helped ? "resolved" : "open",
+  };
+  if (input.helped) {
+    row.resolved_by = staff.email;
+    row.resolved_at = new Date().toISOString();
+    row.resolution_note =
+      "Reviewed from Bot helped — confirmed the bot helped the customer.";
+  }
+  const { error } = await dataClient()
+    .from("conversation_feedback")
+    .insert(row);
+  if (error) throw new Error(`review helped session failed: ${error.message}`);
+}
+
 // --- Team board (bot.board_items + Storage) --------------------------------
 
 export async function listBoardItems(

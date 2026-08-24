@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getDigestDetails } from "@/lib/queries";
+import { getDigestDetails, reviewedSessionIds } from "@/lib/queries";
 import {
   normaliseDate,
   addDays,
@@ -8,6 +8,7 @@ import {
 } from "@/lib/format";
 import type { DigestSession } from "@/lib/types";
 import { DateRangePicker } from "@/components/DateRangePicker";
+import { markHelpedAction, markNotHelpedAction } from "./actions";
 
 export const dynamic = "force-dynamic";
 
@@ -48,22 +49,16 @@ export default async function HelpedPage({
   const today = amsterdamToday();
 
   const dates = Array.from({ length: days }, (_, i) => addDays(to, -i)); // newest → oldest
-  const perDay = await Promise.all(
-    dates.map(async (d) => ({ d, details: await getDigestDetails(d) })),
-  );
+  const [perDay, reviewed] = await Promise.all([
+    Promise.all(
+      dates.map(async (d) => ({ d, details: await getDigestDetails(d) })),
+    ),
+    reviewedSessionIds(),
+  ]);
   const allSessions: Row[] = perDay.flatMap(({ d, details }) =>
     details.sessions.map((s) => ({ ...s, _day: d })),
   );
-
   const rows = allSessions.filter(helped);
-  const total = allSessions.length;
-  const rate = total > 0 ? Math.round((rows.length / total) * 100) : 0;
-  const avgMsgs =
-    rows.length > 0
-      ? Math.round(
-          (rows.reduce((a, s) => a + s.msg_count, 0) / rows.length) * 10,
-        ) / 10
-      : 0;
 
   const windowLabel =
     from === to ? from : `${from} → ${to} (${days} day${days > 1 ? "s" : ""})`;
@@ -87,57 +82,92 @@ export default async function HelpedPage({
         Conversations the bot resolved on its own — it answered the member in
         chat, with no ticket needed. {from === to ? `On ${from}.` : `Over ${windowLabel}.`}
       </p>
+      <p className="muted" style={{ marginTop: 0 }}>
+        Reviewing? If the bot genuinely helped, mark{" "}
+        <strong>👍 Helped</strong>. If it didn&apos;t, add a short explanation
+        of what went wrong and it&apos;ll be sent to the{" "}
+        <Link href="/feedback">Feedback inbox</Link> for the team to fix.
+      </p>
 
-      <div className="grid tiles">
-        <div className="tile">
-          <div className="k">Helped</div>
-          <div className="v">{rows.length}</div>
-        </div>
-        <div className="tile">
-          <div className="k">Of all conversations</div>
-          <div className="v">{rate}%</div>
-        </div>
-        <div className="tile">
-          <div className="k">Avg messages</div>
-          <div className="v">{avgMsgs}</div>
-        </div>
-      </div>
-
-      <div className="section">
-        <div className="panel table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th>Time</th>
-                <th>Member</th>
-                <th className="num">Msgs</th>
-                <th>What they asked</th>
+      <div className="panel table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Member</th>
+              <th className="num">Msgs</th>
+              <th>What they asked</th>
+              <th>Review</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((s) => (
+              <tr key={s.session_id}>
+                <td className="mono">
+                  <Link href={`/conversations/${s.session_id}?date=${s._day}`}>
+                    {days > 1 ? `${s._day} ` : ""}
+                    {s.first_at}–{s.last_at}
+                  </Link>
+                </td>
+                <td>{s.customer}</td>
+                <td className="num">{s.msg_count}</td>
+                <td className="truncate muted">{s.user_sample ?? ""}</td>
+                <td>
+                  {reviewed.has(s.session_id) ? (
+                    <span className="muted">
+                      ✓ reviewed ·{" "}
+                      <Link href="/feedback">see Feedback</Link>
+                    </span>
+                  ) : (
+                    <div
+                      className="faq-actions"
+                      style={{ gap: 6, alignItems: "center" }}
+                    >
+                      <form action={markHelpedAction}>
+                        <input
+                          type="hidden"
+                          name="session_id"
+                          value={s.session_id}
+                        />
+                        <button type="submit" className="secondary">
+                          👍 Helped
+                        </button>
+                      </form>
+                      <form
+                        action={markNotHelpedAction}
+                        style={{ display: "flex", gap: 6, alignItems: "center" }}
+                      >
+                        <input
+                          type="hidden"
+                          name="session_id"
+                          value={s.session_id}
+                        />
+                        <input
+                          type="text"
+                          name="explanation"
+                          placeholder="Why it didn't help…"
+                          style={{ width: 180 }}
+                          maxLength={300}
+                          required
+                        />
+                        <button type="submit" className="secondary">
+                          👎 Didn&apos;t help → Feedback
+                        </button>
+                      </form>
+                    </div>
+                  )}
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {rows.map((s) => (
-                <tr key={s.session_id}>
-                  <td className="mono">
-                    <Link href={`/conversations/${s.session_id}?date=${s._day}`}>
-                      {days > 1 ? `${s._day} ` : ""}
-                      {s.first_at}–{s.last_at}
-                    </Link>
-                  </td>
-                  <td>{s.customer}</td>
-                  <td className="num">{s.msg_count}</td>
-                  <td className="truncate muted">{s.user_sample ?? ""}</td>
-                </tr>
-              ))}
-              {rows.length === 0 && (
-                <tr>
-                  <td colSpan={4} className="muted" style={{ padding: 18 }}>
-                    No self-service resolutions in this window.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+            ))}
+            {rows.length === 0 && (
+              <tr>
+                <td colSpan={5} className="muted" style={{ padding: 18 }}>
+                  No self-service resolutions in this window.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     </>
   );
