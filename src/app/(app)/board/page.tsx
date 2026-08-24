@@ -143,10 +143,16 @@ const COLUMN_PREVIEW = 8; // cards shown per column before "Show all"
 export default async function BoardPage({
   searchParams,
 }: {
-  searchParams: Promise<{ expand?: string; from?: string; to?: string }>;
+  searchParams: Promise<{
+    expand?: string;
+    from?: string;
+    to?: string;
+    all?: string;
+  }>;
 }) {
   const sp = await searchParams;
   const { expand } = sp;
+  const allMode = sp.all === "1"; // ignore the week range, list everything
 
   // Week-range view: items created within [from, to]. Default = last 4 weeks.
   const today = amsterdamToday();
@@ -156,11 +162,13 @@ export default async function BoardPage({
     : addDays(to, -(DEFAULT_WEEKS * 7 - 1));
   if (from > to) [from, to] = [to, from];
 
-  const items = await listBoardItems(from, to);
+  const items = allMode
+    ? await listBoardItems()
+    : await listBoardItems(from, to);
   const byStatus = (s: BoardStatus) => items.filter((i) => i.status === s);
 
   // Preserve the active window (and expansion) across show-more / picker links.
-  const win = `from=${from}&to=${to}`;
+  const win = allMode ? "all=1" : `from=${from}&to=${to}`;
 
   return (
     <>
@@ -176,13 +184,26 @@ export default async function BoardPage({
             max={today}
             basePath="/board"
           />
+          <Link
+            href="/board?all=1"
+            className={`btn secondary${allMode ? " active" : ""}`}
+          >
+            All
+          </Link>
         </div>
       </div>
 
       <p className="muted">
-        Team board for issues and requests (not tied to a conversation). Showing
-        items created <strong>{from}</strong> → <strong>{to}</strong>. Add
-        priority and image attachments.
+        Team board for issues and requests (not tied to a conversation).{" "}
+        {allMode ? (
+          <>Showing all items.</>
+        ) : (
+          <>
+            Showing items created <strong>{from}</strong> →{" "}
+            <strong>{to}</strong>.
+          </>
+        )}{" "}
+        Add priority and image attachments.
       </p>
 
       <div style={{ marginBottom: 16 }}>
