@@ -70,7 +70,15 @@ function Card({ item }: { item: BoardItemView }) {
       </div>
 
       <div className="board-comments">
-        {item.comments.length > 0 && (
+        <details className="board-replies">
+          <summary className="board-replies-summary">
+            {item.comments.length > 0
+              ? `💬 ${item.comments.length} ${
+                  item.comments.length === 1 ? "reply" : "replies"
+                }`
+              : "💬 Add a reply"}
+          </summary>
+          {item.comments.length > 0 && (
           <div className="board-comment-list">
             {item.comments.map((c) => (
               <div key={c.id} className="board-comment">
@@ -102,8 +110,9 @@ function Card({ item }: { item: BoardItemView }) {
               </div>
             ))}
           </div>
-        )}
-        <CommentForm boardItemId={item.id} />
+          )}
+          <CommentForm boardItemId={item.id} />
+        </details>
       </div>
 
       <div className="board-actions faq-actions">
