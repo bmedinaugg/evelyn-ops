@@ -36,6 +36,11 @@ export interface DigestSession {
   // True when the conversation's last message is from the member — i.e. the bot
   // never produced a reply to the final turn (an "<Empty Response>" in chat).
   no_reply?: boolean;
+  // True when the member thanked the bot after it had already answered at
+  // least once. Computed in daily_digest_details; deliberately narrow — a short
+  // closing message, never the opening turn, and not a brush-off ("thanks
+  // anyway"). See the "Bot helped" page.
+  thanked?: boolean;
 }
 
 export interface DigestError {

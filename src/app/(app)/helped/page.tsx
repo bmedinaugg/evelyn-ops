@@ -17,11 +17,16 @@ const MAX_DAYS = 7;
 // A session tagged with the day it came from.
 type Row = DigestSession & { _day: string };
 
-// "The bot helped" = it handled the conversation in chat without needing a
-// ticket (chat_only), it actually replied to the member (not a no-reply),
-// and there was a real exchange (at least a question and an answer).
+// "The bot helped" = a genuine success, on two counts:
+//  1. no ticket was created — the bot handled it in chat (chat_only), it
+//     actually replied (not a no-reply), and there was a real exchange, and
+//  2. the member thanked it afterwards (see `thanked` in daily_digest_details).
+// The second condition is what separates "didn't need a ticket" from "actually
+// helped": plenty of chat_only conversations simply fizzle out.
 function helped(s: DigestSession): boolean {
-  return s.outcome === "chat_only" && !s.no_reply && s.msg_count >= 2;
+  return (
+    s.outcome === "chat_only" && !s.no_reply && s.msg_count >= 2 && !!s.thanked
+  );
 }
 
 export default async function HelpedPage({
@@ -86,8 +91,11 @@ export default async function HelpedPage({
         </span>
       </p>
       <p className="muted" style={{ marginTop: 0 }}>
-        Conversations the bot resolved on its own — it answered the member in
-        chat, with no ticket needed.
+        Successful conversations only: the bot answered in chat with{" "}
+        <strong>no ticket created</strong>, and the member{" "}
+        <strong>thanked it</strong> afterwards. Chats that ended without a
+        ticket but also without a thank-you aren&apos;t counted here — you can
+        still find them under <Link href="/conversations">Conversations</Link>.
       </p>
       <p className="muted" style={{ marginTop: 0 }}>
         Reviewing? If the bot genuinely helped, mark{" "}
@@ -169,7 +177,8 @@ export default async function HelpedPage({
             {rows.length === 0 && (
               <tr>
                 <td colSpan={5} className="muted" style={{ padding: 18 }}>
-                  No self-service resolutions in this window.
+                  No conversations in this window where the bot resolved it in
+                  chat and the member said thanks.
                 </td>
               </tr>
             )}
