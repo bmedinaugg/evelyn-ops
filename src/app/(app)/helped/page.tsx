@@ -17,15 +17,26 @@ const MAX_DAYS = 7;
 // A session tagged with the day it came from.
 type Row = DigestSession & { _day: string };
 
-// "The bot helped" = a genuine success, on two counts:
+// "The bot helped" = a genuine success, on three counts:
 //  1. no ticket was created — the bot handled it in chat (chat_only), it
-//     actually replied (not a no-reply), and there was a real exchange, and
-//  2. the member thanked it afterwards (see `thanked` in daily_digest_details).
-// The second condition is what separates "didn't need a ticket" from "actually
-// helped": plenty of chat_only conversations simply fizzle out.
+//     actually replied (not a no-reply), and there was a real exchange,
+//  2. the member thanked it afterwards (see `thanked` in daily_digest_details),
+//  3. it didn't merely hand over a self-service form URL.
+// The second condition separates "didn't need a ticket" from "actually helped":
+// plenty of chat_only conversations simply fizzle out.
+// The third comes from Nelly Palikara (26 Aug): pasting the change/extension
+// form link "didn't really solve anything, nor saved the team from a ticket" —
+// the member still files it themselves, so it lands on Member Care regardless.
+// Her exception is honoured: if the bot answered something real in the same
+// chat (answered_count >= 1), it still counts.
 function helped(s: DigestSession): boolean {
+  const linkOnly = !!s.self_service_link && (s.answered_count ?? 0) < 1;
   return (
-    s.outcome === "chat_only" && !s.no_reply && s.msg_count >= 2 && !!s.thanked
+    s.outcome === "chat_only" &&
+    !s.no_reply &&
+    s.msg_count >= 2 &&
+    !!s.thanked &&
+    !linkOnly
   );
 }
 

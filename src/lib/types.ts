@@ -41,6 +41,15 @@ export interface DigestSession {
   // closing message, never the opening turn, and not a brush-off ("thanks
   // anyway"). See the "Bot helped" page.
   thanked?: boolean;
+  // True when the bot handed over a self-service form URL (membership change,
+  // extension, or early cancellation). Nelly Palikara, 26 Aug: those chats
+  // "didn't really solve anything, nor saved the team from a ticket" — the
+  // member still files the request themselves.
+  self_service_link?: boolean;
+  // Substantive assistant turns: not the form link, not auth/greeting
+  // boilerplate, not a closing pleasantry. Used for Nelly's exception — a chat
+  // still counts if the bot actually answered something alongside the link.
+  answered_count?: number;
 }
 
 export interface DigestError {
