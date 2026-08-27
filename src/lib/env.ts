@@ -56,14 +56,27 @@ export const env = {
       .map((e) => e.trim().toLowerCase())
       .filter(Boolean);
   },
+  get staffExtraEmails() {
+    return (process.env.STAFF_EXTRA_EMAILS || "")
+      .split(",")
+      .map((e) => e.trim().toLowerCase())
+      .filter(Boolean);
+  },
 };
 
 /** True if this email is allowed to use Evelyn Ops. */
 export function isAllowedStaffEmail(email: string | undefined | null): boolean {
   if (!email) return false;
   const e = email.trim().toLowerCase();
-  const domainOk = e.endsWith("@" + env.staffDomain);
-  if (!domainOk) return false;
+
+  // Named individuals, granted regardless of mailbox domain. Needed because
+  // brand staff (TrainMore, High Studios) sign in with a real
+  // @urbangymgroup.com Entra account, but Entra's `email` claim carries their
+  // *mail* attribute (e.g. @trainmore.nl) — so they can never satisfy the
+  // domain check below no matter what STAFF_ALLOWLIST says.
+  if (env.staffExtraEmails.includes(e)) return true;
+
+  if (!e.endsWith("@" + env.staffDomain)) return false;
   if (env.staffAllowlist.length > 0) return env.staffAllowlist.includes(e);
   return true;
 }
