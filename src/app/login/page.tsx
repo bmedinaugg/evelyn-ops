@@ -3,7 +3,7 @@ import { signInWithMicrosoft } from "./actions";
 const ERRORS: Record<string, string> = {
   oauth: "Sign-in failed. Please try again.",
   not_allowed:
-    "That Microsoft account isn't authorised for Evelyn Ops. Use your @urbangymgroup.com account.",
+    "That account isn't authorised for Evelyn Ops. Sign in with your work Microsoft account, or ask the Evelyn team to add you.",
 };
 
 export default async function LoginPage({

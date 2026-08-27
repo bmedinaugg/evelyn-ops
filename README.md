@@ -36,6 +36,7 @@ Fill `.env.local` from **Supabase dashboard → Project Settings → API**:
 | `SUPABASE_SERVICE_ROLE_KEY` | the `service_role` secret (server-only) |
 | `STAFF_EMAIL_DOMAIN` | `urbangymgroup.com` |
 | `STAFF_ALLOWLIST` | optional CSV to restrict to specific emails |
+| `STAFF_EXTRA_EMAILS` | optional CSV of named individuals allowed regardless of mailbox domain (see below) |
 | `ANTHROPIC_API_KEY` | powers the AI fix suggestions on the Feedback inbox (server-only) |
 | `FRESHDESK_API_KEY` | powers manual ticket creation from a conversation (server-only) |
 | `FRESHDESK_DOMAIN` | optional; defaults to `urbangymgroup.freshdesk.com` |
@@ -69,6 +70,21 @@ Domain restriction to `@urbangymgroup.com` is enforced in the app
 (`/auth/callback`); tighten further with `STAFF_ALLOWLIST` if you want a fixed
 list of emails.
 
+**Brand staff (TrainMore / High Studios) need `STAFF_EXTRA_EMAILS`.** ~400
+people in the tenant are full Entra Members with a `@urbangymgroup.com` UPN but
+a brand mailbox (`Max.Smillie@urbangymgroup.com` → `Max.Smillie@trainmore.nl`).
+Entra's `email` claim carries the **mail attribute**, not the UPN, so Supabase
+stores them as `@trainmore.nl` and the domain check rejects them — and
+`STAFF_ALLOWLIST` can't help, because the domain check runs first. Grant them
+by name instead:
+
+```
+STAFF_EXTRA_EMAILS=max.smillie@trainmore.nl
+```
+
+Use the address as it appears in `auth.users.email` (the mail attribute,
+lowercased), not the UPN they type at the Microsoft prompt.
+
 ## Layout
 
 ```
@@ -90,8 +106,9 @@ a Node server — **not** Azure Static Web Apps (static/edge only).
 **Option A — App Service (Linux, Node 20).** Simplest.
 - `npm run build`, then run `npm run start` (App Service startup command).
 - Put `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`,
-  `STAFF_EMAIL_DOMAIN`, `STAFF_ALLOWLIST` in **Configuration → Application
-  settings** (ideally as **Key Vault references** for the two keys).
+  `STAFF_EMAIL_DOMAIN`, `STAFF_ALLOWLIST`, `STAFF_EXTRA_EMAILS` in
+  **Configuration → Application settings** (ideally as **Key Vault
+  references** for the two keys).
 - Restrict access at the platform edge too (App Service Authentication / Entra
   ID, or IP allow-list) for defence-in-depth on top of the app's own gate.
 
