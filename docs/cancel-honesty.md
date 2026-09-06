@@ -150,3 +150,118 @@ membership"` never touches Rule A.
   Freshdesk by requester at collection time — worth doing, not done.
 - **Ticket 632968 is still open** and Dina believes it was cancelled. That needs
   a human to close it and tell her.
+
+---
+
+# Addendum, 6 Sep — the club-before-access-level fix (Rule D)
+
+Feedback `961b8b8b` + `625c0a71`, session `066e40d6` (Lucas, 31 Aug), plus
+`c8571739` (Gregory, 2 Sep) which turned out to be already fixed.
+
+## What I got wrong first
+
+I diagnosed this as an origin/destination bug in the club matcher: Lucas wrote
+"van bussum naar amsterdam" and I assumed the matcher had latched onto **Bussum**
+— his own club — as the destination. There is even an origin-exclusion in
+`Build Priced Options` that only runs when more than one club matches, which
+made the theory look right.
+
+**Replaying it disproved that.** I ran the real inputs through both the node as
+it stands today and the version live on 1 Sep. Both produced the correct output:
+
+```
+CLUB PICKER — Amsterdam (30 locations). Present the block below EXACTLY as your
+📝 question — verbatim, keep the numbering, ONE location per line …
+  1)  Amstelveenseweg
+  2)  Beethovenstraat
+  …
+```
+
+So the picker was there, numbered and ready, on the day it failed. The matcher
+was never the problem.
+
+## The actual cause: prompt precedence
+
+`Change Options Briefing 2026-08-26` is prepended **above** the club picker, and
+whenever the target access level is unknown it states:
+
+> Ask ONE short question for the single missing detail — **the access level**,
+> taken from the club options below — and nothing else.
+
+That sentence is unconditional. It never considers that the missing detail might
+be the **club**. So the model did as it was told: asked for the access level,
+twice, while a 30-item club list sat unread further down. The ticket was filed as
+*"Bussum → Amsterdam"* with no club in it, and when Lucas later asked "so it
+switches to the one on the Singel?" the bot said yes — confirming a club that
+appears nowhere in the request.
+
+## The fix
+
+Rule D in `Cancel Honesty 2026-09-04`, live `65830d19`. It fires only when the
+briefing actually emitted that sentence **and** `resolved_club` is empty, then
+tells the model the missing detail is the club, to use the picker verbatim, that
+a city is not a club, and never to confirm a club that is not in the description.
+
+**Why there and not in the briefing itself.** The briefing is 25KB of
+regex-dense code I did not write, and any edit means re-transmitting the whole
+node. Keying off the briefing's own output instead means the two classifiers in
+this workflow — documented as COUPLED, and known to have drifted — do not get a
+third copy. If that sentence ever changes, Rule D goes silent rather than
+contradicting something that is no longer said.
+
+34/34 unit tests, mutation-verified; replay over 11,101 real turns unchanged at
+1.18%.
+
+## `c8571739` was already fixed — proven, not assumed
+
+Gregory asked to move Noordermarkt → Rembrandtpark and was offered
+"1. Basic 2. Premium 3. Home+". **Rembrandtpark only sells PREMIUM**, and there
+is no "Basic" anywhere. Replaying his inputs:
+
+- **1 Sep code**: renders a one-item list and *asks* which level he wants.
+- **Current code**: "Amsterdam Rembrandtpark (Red Label) offers exactly ONE
+  access level … do NOT ask them to pick an access level … do not offer or
+  invent any alternative", then goes to the term step.
+
+Asking a one-answer question is what gave the model room to invent. The 3 Sep
+fix removed the question, so the conversation cannot recur.
+
+---
+
+# Addendum — the app claim, and a correction to my own fix
+
+`625c0a71`. The Public FAQ prompt said *"members manage everything ONLY via the
+app"*, and the model extended "everything" to contract changes. Six pre-login
+replies between 1 Aug and 6 Sep told members a home club change is self-service
+in the app (`73f6e815`, `066e40d6`, `ee153a41`, `8c9de9e9`, `7d035b80`,
+`0b27e170`). The bot contradicts itself elsewhere — `f5977483`: *"Dit kan niet
+direct via de app."*
+
+**My first fix was wrong and I had to correct it.** I listed cancelling and
+freezing alongside home club and access level as things the app cannot do. Our
+own authoritative logged-in policy (`Format Home Club Context`) says the
+opposite: members cancel in the app under *Studio > Self-service*, and request a
+medical freeze under *Self-service > Idle Period*. The wrong version was live for
+about three minutes. Corrected in `79cd0324`, which is now precise in both
+directions — CAN: notice of cancellation, medical idle period; CANNOT: home club,
+access level. Early cancellation still uses the form.
+
+The lesson is the same one that caused the original bug: **the failure mode here
+is generalising about the app.** I did exactly what the bot did.
+
+---
+
+# Still open
+
+- **`f9a7cf3e`** — the dates are Magicline's, not invented. Magicline has that
+  member on `contractEndDate` 2026-10-12, `contractCancelled` false, so the bot
+  read her as in contract and 12 Sep is that date minus one month's notice. Same
+  shape as `b0d7c046`, which Lowri retracted as *"an issue on magicline"* — both
+  B2B. Waiting on confirmation of whether she is genuinely out of contract.
+  Separately the bot did contradict itself ("no fixed end date" while using the
+  end date) and computed a cancel-by date its own rules already forbid.
+- **`21d1681e`** — the premise does not match the live prices. Coolsingel HOME+
+  is €69 per 4 weeks, Delftse Poort HOME+ is €75, so the same-level move is
+  dearer, not cheaper. Asked Thallia where the lower fee is coming from, and
+  whether proof of relocation should be required for every home club change or
+  only alongside a downgrade.
