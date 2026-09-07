@@ -31,6 +31,9 @@ import type {
   RegressionFixtureView,
   RegressionRun,
   TicketDraft,
+  NegativeSentimentRow,
+  SentimentDailyRow,
+  SentimentMetrics,
   TicketRow,
   WorkflowErrorRow,
 } from "@/lib/types";
@@ -890,4 +893,61 @@ export async function setFaqProposalStatus(
     })
     .eq("id", id);
   if (error) throw new Error(`update faq proposal failed: ${error.message}`);
+}
+
+// ---- Sentiment ------------------------------------------------------------
+
+// Totals, mix, coverage and the chat-only vs ticket split for a date range.
+// One RPC rather than several queries so the "a conversation belongs to the day
+// of its FIRST message" rule is defined once, in SQL, next to the view that
+// uses the same rule.
+export async function getSentimentMetrics(
+  from: string,
+  to: string,
+): Promise<SentimentMetrics> {
+  await requireStaff();
+  const { data, error } = await dataClient().rpc("sentiment_metrics", {
+    p_from: from,
+    p_to: to,
+  });
+  if (error) throw new Error(`sentiment metrics failed: ${error.message}`);
+  return data as unknown as SentimentMetrics;
+}
+
+// Per-day rows for the table. Reads bot.sentiment_daily, which carries its own
+// coverage columns; the page needs those to decide what it is allowed to imply.
+export async function listSentimentDaily(
+  from: string,
+  to: string,
+): Promise<SentimentDailyRow[]> {
+  await requireStaff();
+  const { data, error } = await dataClient()
+    .from("sentiment_daily")
+    .select("*")
+    .gte("day", from)
+    .lte("day", to)
+    .order("day", { ascending: false });
+  if (error) throw new Error(`sentiment daily failed: ${error.message}`);
+  return (data ?? []) as unknown as SentimentDailyRow[];
+}
+
+// The most negative conversations in the range, for the "read these" list.
+// Ranged in SQL on the CONVERSATION's date, not on when it was scored — the
+// latter looked correct while backfilling (everything was scored today) but
+// would surface month-old chats for a "last 7 days" view. The rationale comes
+// with it because a score with no evidence behind it cannot be argued with,
+// and Member Care will want to judge it themselves.
+export async function listNegativeSentiment(
+  from: string,
+  to: string,
+  limit = 25,
+): Promise<NegativeSentimentRow[]> {
+  await requireStaff();
+  const { data, error } = await dataClient().rpc("sentiment_worst", {
+    p_from: from,
+    p_to: to,
+    p_limit: limit,
+  });
+  if (error) throw new Error(`negative sentiment failed: ${error.message}`);
+  return (data ?? []) as unknown as NegativeSentimentRow[];
 }
