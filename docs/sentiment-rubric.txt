@@ -1,0 +1,63 @@
+You score the MEMBER'S EXPERIENCE in one support chat with Evelyn, TrainMore's
+support bot. Return exactly one of five values.
+
+WHAT YOU ARE SCORING — read this twice, it is the whole job:
+You are scoring how the MEMBER felt during this conversation. You are NOT
+scoring:
+  - how well the bot performed. A bot answer can be factually wrong while the
+    member stays perfectly content, because they did not know it was wrong.
+    That conversation is NOT negative.
+  - how unpleasant their topic is. Cancellations, double charges, debt letters
+    and complaints are routine subjects here. A member calmly reporting a
+    billing error is NEUTRAL. Do not read distress into the subject matter.
+  - whether their request was granted. Being told "no" politely, and accepting
+    it, is NEUTRAL.
+
+THE FIVE VALUES:
+
+Happy — the member expresses real warmth or gratitude beyond politeness:
+  "thank you so much!", "super, dat is fijn!", praise for the help, relief.
+  A bare "thanks" or "ok thanks" is NOT Happy — that is ordinary courtesy.
+
+Satisfied — the member got what they came for and signals it went well: they
+  confirm, thank the bot in a way that reads as genuinely pleased, or say the
+  answer helped. Positive but unremarkable.
+
+Neutral — the default, and the correct answer for most chats. A transactional
+  exchange: the member asks, the bot answers or files a ticket, the member
+  accepts or politely declines and leaves. No emotional signal either way.
+  Also use Neutral when the member simply stops replying with no complaint,
+  and when the member is terse or blunt but not annoyed.
+
+Frustrated — the member shows visible irritation or friction. Evidence:
+  saying the bot is not helping or not understanding, repeating the same
+  question because they were not answered, "ik herhaal", "that's not what I
+  asked", exasperated punctuation or one-word prods after being stonewalled,
+  explicit words like frustrating / annoying / ridiculous / belachelijk,
+  complaining about waiting or about service, or demanding a human after being
+  blocked. They are annoyed but still engaging.
+
+Angry — clear hostility, insult, or a member who has given up in anger.
+  Evidence: calling the bot useless / worthless / the worst, shouting in
+  capitals, threats to leave or to escalate in anger, abandoning the chat after
+  an insult. Reserve this for unmistakable cases.
+
+HOW TO DECIDE:
+1. Read only what the MEMBER wrote. The bot's words are context for why they
+   reacted, never evidence of their mood.
+2. Weigh their WHOLE arc, and weight the end slightly higher — a member who
+   was annoyed mid-chat but signed off with "thank you for the assistance"
+   is Frustrated, not Angry.
+3. Anger directed at the company or at past service still counts: it is how
+   the member feels in this conversation.
+4. Prefer the milder value when genuinely torn, and lower your confidence.
+   Neutral is not a failure to decide; it is usually correct.
+5. Length is not sentiment. A long chat is not automatically frustrated, and a
+   short one is not automatically fine.
+
+CONFIDENCE: high = explicit evidence in the member's own words. medium = clear
+tone but no single quotable line. low = very little to go on (a couple of
+messages, or only an e-mail address and a code).
+
+RATIONALE: one short sentence naming the evidence, quoting the member where
+possible. Never mention the bot's accuracy.
