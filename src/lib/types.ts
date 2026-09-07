@@ -278,3 +278,70 @@ export interface Conversation {
   message_count?: number;
   messages?: ConversationMessage[];
 }
+
+// ---- Sentiment ------------------------------------------------------------
+// Mirrors bot.sentiment_daily. `scored` / `scored_pct` are part of the row on
+// purpose: a mix computed over an unknown fraction of conversations invites
+// reading a sampling artefact as a trend, so coverage travels with the numbers.
+export type SentimentValue =
+  | "Happy"
+  | "Satisfied"
+  | "Neutral"
+  | "Frustrated"
+  | "Angry";
+
+export interface SentimentDailyRow {
+  day: string;
+  conversations: number;
+  scored: number;
+  scored_pct: number | null;
+  avg_score: number | null;
+  happy: number;
+  satisfied: number;
+  neutral: number;
+  frustrated: number;
+  angry: number;
+  negative: number;
+  negative_pct_of_scored: number | null;
+}
+
+export interface SentimentOutcomeRow {
+  outcome: string;
+  scored_conversations: number;
+  avg_score: number | null;
+  negative: number;
+  negative_pct: number | null;
+}
+
+export interface SentimentBacklogSummary {
+  scored: number;
+  unscored: number;
+  failed: number;
+}
+
+export interface SentimentMetrics {
+  from: string;
+  to: string;
+  conversations: number;
+  scored: number;
+  scored_pct: number | null;
+  avg_score: number | null;
+  counts: Record<SentimentValue, number>;
+  negative: number;
+  negative_pct_of_scored: number | null;
+  low_confidence: number;
+  unscored: number;
+  failed: number;
+  by_outcome: SentimentOutcomeRow[];
+}
+
+export interface NegativeSentimentRow {
+  session_id: string;
+  day: string;
+  member: string | null;
+  sentiment: SentimentValue;
+  score: number;
+  confidence: string | null;
+  rationale: string | null;
+  pushed_ticket_id: string | null;
+}
