@@ -335,7 +335,7 @@ export interface SentimentMetrics {
   by_outcome: SentimentOutcomeRow[];
 }
 
-export interface NegativeSentimentRow {
+export interface SentimentConversationRow {
   session_id: string;
   day: string;
   member: string | null;
@@ -344,4 +344,5 @@ export interface NegativeSentimentRow {
   confidence: string | null;
   rationale: string | null;
   pushed_ticket_id: string | null;
+  has_feedback: boolean;
 }
