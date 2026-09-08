@@ -194,6 +194,57 @@ button.secondary:hover, .btn.secondary:hover { background: var(--panel-3); borde
 button:disabled { opacity: 0.5; cursor: default; transform: none; }
 .btn.secondary.active { border-color: var(--accent); color: #fff; background: var(--accent-soft); font-weight: 600; }
 
+/* --------------------------------------- Sentiment filter buttons (pills)
+   Reuses the badge colour language so the filter row scans the same way as
+   the mix bar and the per-row badges: red = Angry through green = Happy.
+   Each pill keeps its colour dot while inactive so the row stays readable at
+   a glance, and the selected one fills with THAT colour rather than the
+   generic red accent — otherwise "showing Happy" looks like an alert. */
+.sfilter {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  border-radius: 999px;
+  padding: 6px 13px;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.sfilter::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--tone, var(--muted));
+}
+.sfilter:hover {
+  background: var(--panel-3);
+  border-color: #303a47;
+  color: var(--text);
+  text-decoration: none;
+}
+.sfilter:focus-visible { outline: none; box-shadow: var(--ring); }
+/* The count is supporting information, not the label. */
+.sfilter .n { font-weight: 500; opacity: 0.6; font-variant-numeric: tabular-nums; }
+.sfilter.active {
+  background: var(--tone-bg, var(--accent-soft));
+  border-color: var(--tone, var(--accent));
+  color: var(--tone, var(--text));
+}
+.sfilter.active .n { opacity: 0.85; }
+/* A pill with no count reads as a mode, not a value. */
+.sfilter.tone-red { --tone: var(--red); --tone-bg: var(--red-bg); }
+.sfilter.tone-amber { --tone: var(--amber); --tone-bg: var(--amber-bg); }
+.sfilter.tone-grey { --tone: var(--grey); --tone-bg: var(--grey-bg); }
+.sfilter.tone-blue { --tone: var(--blue); --tone-bg: var(--blue-bg); }
+.sfilter.tone-green { --tone: var(--green); --tone-bg: var(--green-bg); }
+.sfilter.tone-accent { --tone: var(--accent); --tone-bg: var(--accent-soft); }
+
 /* ---------------------------------------------- Loading skeletons */
 @keyframes skeleton-shimmer {
   0% { background-position: 200% 0; }
