@@ -290,21 +290,6 @@ export type SentimentValue =
   | "Frustrated"
   | "Angry";
 
-export interface SentimentDailyRow {
-  day: string;
-  conversations: number;
-  scored: number;
-  scored_pct: number | null;
-  avg_score: number | null;
-  happy: number;
-  satisfied: number;
-  neutral: number;
-  frustrated: number;
-  angry: number;
-  negative: number;
-  negative_pct_of_scored: number | null;
-}
-
 export interface SentimentOutcomeRow {
   outcome: string;
   scored_conversations: number;

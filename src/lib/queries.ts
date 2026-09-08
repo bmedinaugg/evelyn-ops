@@ -32,7 +32,6 @@ import type {
   RegressionRun,
   TicketDraft,
   SentimentConversationRow,
-  SentimentDailyRow,
   SentimentMetrics,
   TicketRow,
   WorkflowErrorRow,
@@ -912,23 +911,6 @@ export async function getSentimentMetrics(
   });
   if (error) throw new Error(`sentiment metrics failed: ${error.message}`);
   return data as unknown as SentimentMetrics;
-}
-
-// Per-day rows for the table. Reads bot.sentiment_daily, which carries its own
-// coverage columns; the page needs those to decide what it is allowed to imply.
-export async function listSentimentDaily(
-  from: string,
-  to: string,
-): Promise<SentimentDailyRow[]> {
-  await requireStaff();
-  const { data, error } = await dataClient()
-    .from("sentiment_daily")
-    .select("*")
-    .gte("day", from)
-    .lte("day", to)
-    .order("day", { ascending: false });
-  if (error) throw new Error(`sentiment daily failed: ${error.message}`);
-  return (data ?? []) as unknown as SentimentDailyRow[];
 }
 
 // Scored conversations in the range for the dashboard list, optionally

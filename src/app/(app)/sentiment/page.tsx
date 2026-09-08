@@ -1,7 +1,6 @@
 import Link from "next/link";
 import {
   getSentimentMetrics,
-  listSentimentDaily,
   listSentimentConversations,
 } from "@/lib/queries";
 import {
@@ -42,9 +41,9 @@ const BADGE: Record<SentimentValue, string> = {
   Happy: "green",
 };
 
-// Below this, a percentage over the range is not worth reading as anything.
-// While the 30-day backfill runs, older days sit in single digits and one day
-// briefly showed "100% negative" off two conversations.
+// Below this, a percentage over the range is not worth reading as anything, so
+// the page says so instead of implying a trend. Learned the hard way: mid
+// backfill one day briefly read "100% negative" off two conversations.
 const TRUSTWORTHY_COVERAGE = 60;
 
 // One-sentence hint next to a label.
@@ -152,8 +151,10 @@ export default async function SentimentPage({
 }) {
   const sp = await searchParams;
   const to = normaliseDate(sp.to);
+  // Default: the last 7 days inclusive, same convention as /evaluation. Was 30,
+  // which is the backfill window, not a useful default for reading.
   const from =
-    sp.from && /^\d{4}-\d{2}-\d{2}$/.test(sp.from) ? sp.from : addDays(to, -29);
+    sp.from && /^\d{4}-\d{2}-\d{2}$/.test(sp.from) ? sp.from : addDays(to, -6);
 
   // `s` filters the conversation list: unset = negative only (triage), "all",
   // or one sentiment value. It does not affect the tiles or the per-day table,
@@ -162,9 +163,8 @@ export default async function SentimentPage({
   const filter: string | null =
     rawS === "all" || (ORDER as string[]).includes(rawS) ? rawS : null;
 
-  const [metrics, daily, rows] = await Promise.all([
+  const [metrics, rows] = await Promise.all([
     getSentimentMetrics(from, to),
-    listSentimentDaily(from, to),
     listSentimentConversations(from, to, filter, 50),
   ]);
 
@@ -426,84 +426,6 @@ export default async function SentimentPage({
           </table>
         </div>
       )}
-
-      <div className="panel table-scroll" style={{ marginTop: 14 }}>
-        <table>
-          <thead>
-            <tr>
-              <th>Day</th>
-              <th style={{ textAlign: "right" }}>
-                Conversations
-                <Info text="Every Evelyn conversation that STARTED that day, scored or not. A chat is counted on the day of its first message, so one spanning midnight belongs to the day it began." />
-              </th>
-              <th style={{ textAlign: "right" }}>
-                Scored
-                <Info text="How many of that day's conversations have a sentiment yet, and what share that is. The gap between this and Conversations is still queued — which is why the Mix and Negative on each row describe Scored, not Conversations." />
-              </th>
-              <th style={{ minWidth: 140 }}>Mix</th>
-              <th style={{ textAlign: "right" }}>Avg</th>
-              <th style={{ textAlign: "right" }}>
-                Negative
-                <Info
-                  align="right"
-                  text="Frustrated or Angry as a share of that day's SCORED conversations. Shown as a dash until coverage passes 60%, because a percentage off a handful of chats reads as a finding and is not one."
-                />
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {daily.map((d) => {
-              const dayCounts = {
-                Angry: d.angry,
-                Frustrated: d.frustrated,
-                Neutral: d.neutral,
-                Satisfied: d.satisfied,
-                Happy: d.happy,
-              } as Record<SentimentValue, number>;
-              const dayThin = (d.scored_pct ?? 0) < TRUSTWORTHY_COVERAGE;
-              return (
-                <tr key={d.day}>
-                  <td className="mono">{d.day}</td>
-                  <td style={{ textAlign: "right" }} className="mono">
-                    {d.conversations}
-                  </td>
-                  <td style={{ textAlign: "right" }} className="mono">
-                    {d.scored}{" "}
-                    <span className={dayThin ? "badge amber" : "badge green"}>
-                      {d.scored_pct ?? 0}%
-                    </span>
-                  </td>
-                  <td>
-                    <MixBar counts={dayCounts} total={d.scored} />
-                  </td>
-                  <td style={{ textAlign: "right" }} className="mono">
-                    {d.avg_score ?? "—"}
-                  </td>
-                  <td style={{ textAlign: "right" }} className="mono">
-                    {/* Suppressed on thin days on purpose: a percentage off a
-                        handful of conversations reads as a finding and is not
-                        one. */}
-                    {d.scored === 0 || dayThin ? (
-                      <span className="muted" title="coverage too low to report">
-                        —
-                      </span>
-                    ) : (
-                      `${d.negative_pct_of_scored ?? 0}%`
-                    )}
-                  </td>
-                </tr>
-              );
-            })}
-            {daily.length === 0 && (
-              <tr>
-                <td colSpan={6} className="muted" style={{ padding: 18 }}>
-                  No conversations in this range.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
 
       <div className="panel table-scroll" style={{ marginTop: 14 }}>
         <div style={{ padding: "14px 16px 0" }}>
