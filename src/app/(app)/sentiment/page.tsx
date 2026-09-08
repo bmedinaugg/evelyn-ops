@@ -432,10 +432,13 @@ export default async function SentimentPage({
           <thead>
             <tr>
               <th>Day</th>
-              <th style={{ textAlign: "right" }}>Convos</th>
+              <th style={{ textAlign: "right" }}>
+                Conversations
+                <Info text="Every Evelyn conversation that STARTED that day, scored or not. A chat is counted on the day of its first message, so one spanning midnight belongs to the day it began." />
+              </th>
               <th style={{ textAlign: "right" }}>
                 Scored
-                <Info text="Scored so far that day, and the share of that day's conversations it covers." />
+                <Info text="How many of that day's conversations have a sentiment yet, and what share that is. The gap between this and Conversations is still queued — which is why the Mix and Negative on each row describe Scored, not Conversations." />
               </th>
               <th style={{ minWidth: 140 }}>Mix</th>
               <th style={{ textAlign: "right" }}>Avg</th>
