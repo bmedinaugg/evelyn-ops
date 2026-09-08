@@ -334,6 +334,13 @@ button:disabled { opacity: 0.5; cursor: default; transform: none; }
 .tile.alert .v { color: var(--red); }
 .tile.warn { border-color: rgba(255, 181, 71, 0.45); background: linear-gradient(180deg, var(--amber-bg), var(--panel)); }
 .tile.warn .v { color: var(--amber); }
+/* Compact tiles: three headline numbers, not a wall of them. Capped max track
+   so a short row stays left-aligned instead of stretching each tile across a
+   third of the screen. */
+.tiles.compact { grid-template-columns: repeat(auto-fill, minmax(146px, 186px)); }
+.tiles.compact .tile { padding: 11px 13px; }
+.tiles.compact .tile .k { font-size: 10.5px; }
+.tiles.compact .tile .v { font-size: 21px; margin-top: 2px; }
 
 .section { margin-top: 28px; }
 .section h2 { font-size: 14px; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.01em; }
