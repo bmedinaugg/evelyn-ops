@@ -32,6 +32,7 @@ import type {
   RegressionRun,
   TicketDraft,
   SentimentConversationRow,
+  ScenarioLibrary,
   SentimentMetrics,
   TicketRow,
   WorkflowErrorRow,
@@ -939,4 +940,17 @@ export async function listSentimentConversations(
   });
   if (error) throw new Error(`sentiment conversations failed: ${error.message}`);
   return (data ?? []) as unknown as SentimentConversationRow[];
+}
+
+// ---- Scenario library -----------------------------------------------------
+
+// One generated document describing what each bot recogniser matches, with real
+// member messages as evidence. Read-only: the page renders whatever the
+// generator last wrote, and surfaces `generated_at` so a stale library is
+// visible rather than silently trusted.
+export async function getScenarioLibrary(): Promise<ScenarioLibrary | null> {
+  await requireStaff();
+  const { data, error } = await dataClient().rpc("get_scenario_library");
+  if (error) throw new Error(`scenario library failed: ${error.message}`);
+  return (data as unknown as ScenarioLibrary) ?? null;
 }

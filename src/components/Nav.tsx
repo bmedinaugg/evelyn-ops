@@ -18,6 +18,7 @@ const SECTIONS: { title: string | null; items: NavItem[] }[] = [
       { href: "/helped", label: "Bot helped", icon: "✅" },
       { href: "/evaluation", label: "Bot evaluation", icon: "🎯" },
       { href: "/tickets", label: "Tickets", icon: "🎫" },
+      { href: "/scenarios", label: "Scenario library", icon: "📖" },
     ],
   },
   {

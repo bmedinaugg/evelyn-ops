@@ -331,3 +331,55 @@ export interface SentimentConversationRow {
   pushed_ticket_id: string | null;
   has_feedback: boolean;
 }
+
+// ---- Scenario library -----------------------------------------------------
+
+export interface ScenarioExample {
+  text: string;
+  session_id: string;
+  at: string;
+}
+
+// A subject the recogniser catches but does not mean. `pct` is of the
+// scenario's own matches, and is a floor: the probes are narrow on purpose.
+export interface ScenarioMisfire {
+  label: string;
+  why: string;
+  messages: number;
+  pct: number;
+  examples: string[];
+}
+
+export interface ScenarioEntry {
+  key: string;
+  label: string;
+  // What the recogniser means in plain language, written for Member Care.
+  plain: string;
+  // The live n8n node the pattern was copied out of, so a reader can go and
+  // check it rather than taking this page's word for it.
+  source: string;
+  matches: number;
+  sessions: number;
+  examples: ScenarioExample[];
+  misfires?: ScenarioMisfire[];
+}
+
+// Two recognisers matching the same message. `handled_as` is filled in only
+// where the scenarios compete inside one first-match-wins classifier; where
+// they feed different code paths there is no single winner and it stays null.
+export interface ScenarioOverlap {
+  a: string;
+  b: string;
+  messages: number;
+  handled_as: string | null;
+  sample: string | null;
+}
+
+export interface ScenarioLibrary {
+  doc: { scenarios: ScenarioEntry[]; overlaps: ScenarioOverlap[] };
+  generated_at: string;
+  window_from: string | null;
+  window_to: string | null;
+  messages_scanned: number | null;
+  age_days: number;
+}
