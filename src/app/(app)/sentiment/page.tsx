@@ -156,13 +156,107 @@ export default async function SentimentPage({
         </div>
       </div>
 
-      <p className="muted">
+      <p className="muted" style={{ marginBottom: 10 }}>
         How the <strong>member</strong> came across in each conversation,{" "}
-        {from} → {to}. Scored automatically once a chat has been quiet for ten
-        minutes. This measures the member&apos;s experience, not whether the bot
-        was correct — a wrong answer the member never noticed is Neutral, and a
-        billing complaint handled well can be Happy.
+        {from} → {to}.
       </p>
+
+      <details className="panel" style={{ marginBottom: 12 }}>
+        <summary>What these values mean, and how they are decided</summary>
+        <div style={{ padding: "0 16px 14px", fontSize: 13, lineHeight: 1.55 }}>
+          <p className="muted" style={{ marginTop: 0 }}>
+            Each value describes <strong>how the member felt in the chat</strong>
+            . It is deliberately <em>not</em> a score for the bot, and not a
+            score for how unpleasant the topic was:
+          </p>
+          <ul className="muted" style={{ marginTop: 0, paddingLeft: 18 }}>
+            <li>
+              A wrong answer the member never noticed is{" "}
+              <span className="badge grey">Neutral</span> — they left content.
+              Use <Link href="/feedback">Feedback</Link> to judge the bot.
+            </li>
+            <li>
+              A billing complaint handled well can be{" "}
+              <span className="badge green">Happy</span>. Cancellations and
+              double charges are routine here, so the subject alone is not
+              distress.
+            </li>
+            <li>Being told &ldquo;no&rdquo; politely, and accepting it, is Neutral.</li>
+          </ul>
+
+          <table style={{ marginTop: 4 }}>
+            <tbody>
+              <tr>
+                <td style={{ width: 110 }}>
+                  <span className="badge green">Happy</span>
+                </td>
+                <td>
+                  Real warmth or gratitude beyond politeness —{" "}
+                  &ldquo;thank you so much!&rdquo;, praise, relief. A bare
+                  &ldquo;thanks&rdquo; is not enough.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span className="badge blue">Satisfied</span>
+                </td>
+                <td>
+                  Says something positive about the outcome or the help. A
+                  polite &ldquo;no thanks&rdquo; close is <em>not</em>
+                  satisfaction.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span className="badge grey">Neutral</span>
+                </td>
+                <td>
+                  The default, and correct for most chats — a transactional
+                  exchange, or someone who simply stops replying without
+                  complaint. Terse is not the same as annoyed.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span className="badge amber">Frustrated</span>
+                </td>
+                <td>
+                  Visible friction: repeating a question because they were not
+                  answered, &ldquo;that&apos;s not what I asked&rdquo;,
+                  complaining about waiting, demanding a human after being
+                  blocked. Annoyed but still engaging.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span className="badge red">Angry</span>
+                </td>
+                <td>
+                  Hostility or giving up in anger — calling the bot useless,
+                  shouting, abandoning the chat after an insult. Reserved for
+                  unmistakable cases.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p className="muted" style={{ marginBottom: 0 }}>
+            <strong>How it is decided.</strong> Ten minutes after a chat goes
+            quiet, a language model reads the transcript and returns one value,
+            a confidence, and the one-line reason shown in the list below. It
+            weighs only what the <strong>member</strong> wrote — the bot&apos;s
+            replies are context for why they reacted, never evidence of their
+            mood — and weights the end of the conversation slightly higher, so
+            someone annoyed mid-chat who signs off warmly is Frustrated rather
+            than Angry. <strong>Confidence</strong> is <em>high</em> when there
+            is a quotable line, <em>medium</em> for clear tone without one, and{" "}
+            <em>low</em> when there is very little to go on. Where the model
+            returns nothing usable the conversation is left{" "}
+            <strong>unscored</strong> rather than guessed at, which is why
+            coverage matters more than the mix on a partly scored range.
+          </p>
+        </div>
+      </details>
 
       {thin && (
         <div className="panel" style={{ padding: 14, marginBottom: 14 }}>
