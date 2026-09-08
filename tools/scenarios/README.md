@@ -41,3 +41,34 @@ node tools/scenarios/generate.js     # writes library.json (+ caches messages.js
 Then upsert `library.json` into `bot.scenario_library` (single row, `id = 1`).
 Delete `messages.json` to force a fresh pull; the window is set in the query
 inside `generate.js`.
+
+## The PDF
+
+```sh
+node tools/scenarios/generate.js
+node tools/scenarios/pdf.js          # writes docs/evelyn-scenario-library.print.html
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --headless --disable-gpu --no-pdf-header-footer \
+  --print-to-pdf="docs/evelyn-scenario-library.pdf" \
+  "file://$PWD/docs/evelyn-scenario-library.print.html"
+```
+
+`/scenarios` needs a login; Esther, Nelly and Lowri read things in Teams and
+e-mail. Same document, portable.
+
+**The PDF is not just a print of the page**, because a PDF gets forwarded:
+
+- **Contact details are masked** — e-mail addresses, phone numbers, IBANs and
+  membership numbers. Two member e-mail addresses reached the first draft. This
+  is a mask, not a choice of example, because the next regeneration picks
+  different examples and the exposure would come straight back.
+- **Health and hardship disclosures are avoided** by preferring another real
+  quote from the pool of 14. Nothing is paraphrased; a scenario that has nothing
+  else still shows the honest quote.
+- **Known misfires are excluded from the main example list**, so the top quotes
+  are what a scenario legitimately catches and the "Also trips on" block is what
+  it catches wrongly. Otherwise the same quote appeared twice on one page.
+
+The app page deliberately does *not* mask: it is login-gated staff tooling that
+links straight through to the full transcript, so masking there would be
+theatre.

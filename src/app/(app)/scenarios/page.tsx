@@ -60,7 +60,9 @@ function Scenario({ s }: { s: ScenarioEntry }) {
         <span className="mono">{s.source}</span>
       </div>
       <ul className="examples">
-        {s.examples.map((ex, i) => (
+        {/* The generator stores a wide pool (14) so the PDF builder can choose
+            from it; six is as many as reads usefully on screen. */}
+        {s.examples.slice(0, 6).map((ex, i) => (
           <li key={i}>
             <span className="quote">“{ex.text}”</span>
             <Link href={`/conversations/${ex.session_id}`} className="exlink">

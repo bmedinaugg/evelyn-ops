@@ -59,7 +59,7 @@ function get(path) {
       if (t.length < 12 || t.length > 180 || seen.has(k)) continue;
       seen.add(k);
       examples.push({ text: t, session_id: h.session_id, at: h.created_at.slice(0,10) });
-      if (examples.length >= 6) break;
+      if (examples.length >= 14) break;
     }
     // Known misfires, measured on this scenario's own match set so the
     // percentage is "of what it caught", not "of all messages".
@@ -105,6 +105,17 @@ function get(path) {
     `  ${o.a} + ${o.b}`.padEnd(38) + String(o.messages).padStart(5) + ' msgs' +
     (o.handled_as ? `  -> handled as ${o.handled_as}` : '  -> different code paths')));
 
-  fs.writeFileSync(__dirname + '/library.json', JSON.stringify({ scenarios: out, overlaps }, null, 1));
+    // Metadata travels WITH the document. The PDF builder and bot.scenario_library
+  // must not disagree about when this was generated or what window it covers —
+  // a wrong date on a shared PDF is worse than no date.
+  const WINDOW_FROM = '2026-08-09';
+  const meta = {
+    generated_at: new Date().toISOString(),
+    window_from: WINDOW_FROM,
+    window_to: new Date().toISOString().slice(0, 10),
+    messages_scanned: all.length,
+  };
+  fs.writeFileSync(__dirname + '/library.json',
+    JSON.stringify({ ...meta, scenarios: out, overlaps }, null, 1));
   console.log('\nwrote library.json');
 })();
