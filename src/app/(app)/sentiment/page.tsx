@@ -363,23 +363,23 @@ export default async function SentimentPage({
           <div className="controls" style={{ marginBottom: 4 }}>
             <Link
               href={qs(null)}
-              className={`btn secondary${filter === null ? " active" : ""}`}
+              className={`sfilter tone-red${filter === null ? " active" : ""}`}
             >
-              Negative
+              Negative <span className="n">{metrics.negative}</span>
             </Link>
             <Link
               href={qs("all")}
-              className={`btn secondary${filter === "all" ? " active" : ""}`}
+              className={`sfilter tone-accent${filter === "all" ? " active" : ""}`}
             >
-              All
+              All <span className="n">{metrics.scored}</span>
             </Link>
             {ORDER.map((v) => (
               <Link
                 key={v}
                 href={qs(v)}
-                className={`btn secondary${filter === v ? " active" : ""}`}
+                className={`sfilter tone-${BADGE[v]}${filter === v ? " active" : ""}`}
               >
-                {v} {counts[v] ?? 0}
+                {v} <span className="n">{counts[v] ?? 0}</span>
               </Link>
             ))}
           </div>
