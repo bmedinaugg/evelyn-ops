@@ -181,17 +181,19 @@ export default async function SentimentPage({
         </div>
       )}
 
-      <div className="tiles">
+      {/* Three headline numbers only. The per-value counts used to be five more
+          tiles here, but they now appear twice below — on the mix legend and on
+          the filter pills — so a third copy was just taking up the screen.
+          NOTE: needs "grid" as well as "tiles"; .tiles only sets
+          grid-template-columns, so without it the tiles render as full-width
+          stacked blocks. */}
+      <div className="grid tiles compact">
         <Tile
           k="Scored"
           v={metrics.scored.toLocaleString()}
-          sub={`of ${metrics.conversations.toLocaleString()} · ${coverage}% coverage`}
+          sub={`of ${metrics.conversations.toLocaleString()} · ${coverage}%`}
         />
-        <Tile
-          k="Avg score"
-          v={metrics.avg_score ?? "—"}
-          sub="1 Angry → 5 Happy"
-        />
+        <Tile k="Avg score" v={metrics.avg_score ?? "—"} sub="1 low → 5 high" />
         <Tile
           k="Negative"
           v={
@@ -199,7 +201,7 @@ export default async function SentimentPage({
               ? `${metrics.negative_pct_of_scored}%`
               : "—"
           }
-          sub={`${metrics.negative} Frustrated or Angry`}
+          sub={`${metrics.negative} of ${metrics.scored}`}
           tone={
             (metrics.negative_pct_of_scored ?? 0) >= 20
               ? "alert"
@@ -208,23 +210,19 @@ export default async function SentimentPage({
                 : undefined
           }
         />
-        <Tile
-          k="Angry"
-          v={counts.Angry ?? 0}
-          tone={(counts.Angry ?? 0) > 0 ? "alert" : undefined}
-        />
-        <Tile k="Frustrated" v={counts.Frustrated ?? 0} />
-        <Tile k="Neutral" v={counts.Neutral ?? 0} />
-        <Tile k="Satisfied" v={counts.Satisfied ?? 0} />
-        <Tile k="Happy" v={counts.Happy ?? 0} />
       </div>
 
-      <div className="panel" style={{ padding: 16, marginTop: 14 }}>
-        <div style={{ marginBottom: 10, fontWeight: 650 }}>
-          Mix across the range
-        </div>
+      <div className="panel" style={{ padding: 14, marginTop: 12 }}>
         <MixBar counts={counts} total={metrics.scored} />
-        <div style={{ marginTop: 10, display: "flex", gap: 10, flexWrap: "wrap" }}>
+        <div
+          style={{
+            marginTop: 9,
+            display: "flex",
+            gap: 8,
+            flexWrap: "wrap",
+            alignItems: "center",
+          }}
+        >
           {ORDER.map((s) => (
             <span key={s} className={`badge ${BADGE[s]}`}>
               {s} {counts[s] ?? 0}
