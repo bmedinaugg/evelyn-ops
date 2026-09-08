@@ -245,6 +245,40 @@ button:disabled { opacity: 0.5; cursor: default; transform: none; }
 .sfilter.tone-green { --tone: var(--green); --tone-bg: var(--green-bg); }
 .sfilter.tone-accent { --tone: var(--accent); --tone-bg: var(--accent-soft); }
 
+/* ------------------------------------------------- Inline info icons
+   A one-sentence hint next to a label. Not a replacement for the explainer
+   panel: the tooltip says what a number means, the panel carries the full
+   definitions. Native title= so it needs no JS, plus tabindex so it is
+   reachable by keyboard rather than hover-only. */
+.info {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  margin-left: 5px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  color: var(--muted);
+  font-size: 9.5px;
+  font-weight: 700;
+  font-style: normal;
+  line-height: 1;
+  cursor: help;
+  vertical-align: middle;
+  user-select: none;
+  flex: none;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.info:hover, .info:focus-visible {
+  color: var(--text);
+  border-color: #303a47;
+  outline: none;
+}
+/* Table headers are uppercase and tight; keep the icon from stretching the row. */
+th .info { margin-left: 4px; }
+
 /* ---------------------------------------------- Loading skeletons */
 @keyframes skeleton-shimmer {
   0% { background-position: 200% 0; }

@@ -47,20 +47,41 @@ const BADGE: Record<SentimentValue, string> = {
 // briefly showed "100% negative" off two conversations.
 const TRUSTWORTHY_COVERAGE = 60;
 
+// One-sentence hint next to a label. tabIndex so it is reachable by keyboard
+// and not hover-only; aria-label because the visible "i" carries no meaning.
+function Info({ text }: { text: string }) {
+  return (
+    <span
+      className="info"
+      title={text}
+      aria-label={text}
+      role="img"
+      tabIndex={0}
+    >
+      i
+    </span>
+  );
+}
+
 function Tile({
   k,
   v,
   tone,
   sub,
+  info,
 }: {
   k: string;
   v: number | string;
   tone?: "alert" | "warn";
   sub?: string;
+  info?: string;
 }) {
   return (
     <div className={`tile${tone ? " " + tone : ""}`}>
-      <div className="k">{k}</div>
+      <div className="k">
+        {k}
+        {info && <Info text={info} />}
+      </div>
       <div className="v">{v}</div>
       {sub && (
         <div className="muted" style={{ fontSize: 11.5, marginTop: 4 }}>
@@ -286,8 +307,14 @@ export default async function SentimentPage({
           k="Scored"
           v={metrics.scored.toLocaleString()}
           sub={`of ${metrics.conversations.toLocaleString()} · ${coverage}%`}
+          info="How many conversations in this range have a sentiment yet. Everything else is still queued, so percentages describe the scored subset — not the range."
         />
-        <Tile k="Avg score" v={metrics.avg_score ?? "—"} sub="1 low → 5 high" />
+        <Tile
+          k="Avg score"
+          v={metrics.avg_score ?? "—"}
+          sub="1 low → 5 high"
+          info="Mean of the five values scored 1-5: Angry 1, Frustrated 2, Neutral 3, Satisfied 4, Happy 5. Most chats are Neutral, so expect it to sit near 3."
+        />
         <Tile
           k="Negative"
           v={
@@ -296,6 +323,7 @@ export default async function SentimentPage({
               : "—"
           }
           sub={`${metrics.negative} of ${metrics.scored}`}
+          info="Share of scored conversations that came out Frustrated or Angry. Amber from 10%, red from 20%."
           tone={
             (metrics.negative_pct_of_scored ?? 0) >= 20
               ? "alert"
@@ -307,6 +335,13 @@ export default async function SentimentPage({
       </div>
 
       <div className="panel" style={{ padding: 14, marginTop: 12 }}>
+        <div
+          className="muted"
+          style={{ fontSize: 11.5, fontWeight: 600, marginBottom: 7, textTransform: "uppercase", letterSpacing: "0.05em" }}
+        >
+          Mix
+          <Info text="Every scored conversation in this range, worst on the left. Hover the bar for the exact counts." />
+        </div>
         <MixBar counts={counts} total={metrics.scored} />
         <div
           style={{
@@ -383,10 +418,16 @@ export default async function SentimentPage({
             <tr>
               <th>Day</th>
               <th style={{ textAlign: "right" }}>Convos</th>
-              <th style={{ textAlign: "right" }}>Scored</th>
+              <th style={{ textAlign: "right" }}>
+                Scored
+                <Info text="Scored so far that day, and the share of that day's conversations it covers." />
+              </th>
               <th style={{ minWidth: 140 }}>Mix</th>
               <th style={{ textAlign: "right" }}>Avg</th>
-              <th style={{ textAlign: "right" }}>Negative</th>
+              <th style={{ textAlign: "right" }}>
+                Negative
+                <Info text="Frustrated or Angry as a share of that day's SCORED conversations. Shown as a dash until coverage passes 60%, because a percentage off a handful of chats reads as a finding and is not one." />
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -488,10 +529,22 @@ export default async function SentimentPage({
             <tr>
               <th>Day</th>
               <th>Member</th>
-              <th>Sentiment</th>
-              <th>Why</th>
-              <th>Ticket</th>
-              <th>Feedback</th>
+              <th>
+                Sentiment
+                <Info text="How the member came across — not whether the bot was right. See the explainer at the top of the page." />
+              </th>
+              <th>
+                Why
+                <Info text="The one-line reason the model gave, quoting the member where it could. If you disagree with a score, this is what to argue with." />
+              </th>
+              <th>
+                Ticket
+                <Info text="The Freshdesk ticket this chat produced, if any. Most conversations never file one." />
+              </th>
+              <th>
+                Feedback
+                <Info text="Files this conversation on the Feedback page for the team. It does NOT rate the bot — a low sentiment score is about the member, so the reviewer still makes that call." />
+              </th>
               <th>Chat</th>
             </tr>
           </thead>
