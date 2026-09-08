@@ -47,13 +47,28 @@ const BADGE: Record<SentimentValue, string> = {
 // briefly showed "100% negative" off two conversations.
 const TRUSTWORTHY_COVERAGE = 60;
 
-// One-sentence hint next to a label. tabIndex so it is reachable by keyboard
-// and not hover-only; aria-label because the visible "i" carries no meaning.
-function Info({ text }: { text: string }) {
+// One-sentence hint next to a label.
+//
+// The text goes in data-tip and is drawn by CSS, NOT via the native title
+// attribute — title was in the markup and still showed nothing useful on
+// hover, because native tooltips wait about a second, cannot be styled, and
+// never appear on touch. aria-label carries the same text for screen readers,
+// since a bare "i" means nothing, and tabIndex makes it focusable so the hint
+// is reachable without a mouse.
+//
+// `align="right"` pins the tooltip to the icon instead of centring it, for
+// icons close to the right edge of a panel.
+function Info({
+  text,
+  align,
+}: {
+  text: string;
+  align?: "right";
+}) {
   return (
     <span
-      className="info"
-      title={text}
+      className={`info${align === "right" ? " tip-right" : ""}`}
+      data-tip={text}
       aria-label={text}
       role="img"
       tabIndex={0}
@@ -426,7 +441,10 @@ export default async function SentimentPage({
               <th style={{ textAlign: "right" }}>Avg</th>
               <th style={{ textAlign: "right" }}>
                 Negative
-                <Info text="Frustrated or Angry as a share of that day's SCORED conversations. Shown as a dash until coverage passes 60%, because a percentage off a handful of chats reads as a finding and is not one." />
+                <Info
+                  align="right"
+                  text="Frustrated or Angry as a share of that day's SCORED conversations. Shown as a dash until coverage passes 60%, because a percentage off a handful of chats reads as a finding and is not one."
+                />
               </th>
             </tr>
           </thead>
@@ -543,7 +561,10 @@ export default async function SentimentPage({
               </th>
               <th>
                 Feedback
-                <Info text="Files this conversation on the Feedback page for the team. It does NOT rate the bot — a low sentiment score is about the member, so the reviewer still makes that call." />
+                <Info
+                  align="right"
+                  text="Files this conversation on the Feedback page for the team. It does NOT rate the bot — a low sentiment score is about the member, so the reviewer still makes that call."
+                />
               </th>
               <th>Chat</th>
             </tr>
