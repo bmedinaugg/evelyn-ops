@@ -246,11 +246,16 @@ button:disabled { opacity: 0.5; cursor: default; transform: none; }
 .sfilter.tone-accent { --tone: var(--accent); --tone-bg: var(--accent-soft); }
 
 /* ------------------------------------------------- Inline info icons
-   A one-sentence hint next to a label. Not a replacement for the explainer
-   panel: the tooltip says what a number means, the panel carries the full
-   definitions. Native title= so it needs no JS, plus tabindex so it is
-   reachable by keyboard rather than hover-only. */
+   Own tooltip rather than the native title attribute. title= renders (it is
+   in the markup) but it is unreliable as a UI: ~1s delay, unstyleable, and
+   nothing at all on touch — reported as "hovering shows nothing".
+
+   Opens DOWNWARDS on purpose. These icons sit in table headers inside
+   .table-scroll, which needs overflow for narrow screens, and CSS overflow
+   cannot be visible on one axis only — so anything drawn above the header
+   would be clipped. Below the header there is a whole table's worth of room. */
 .info {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -273,10 +278,46 @@ button:disabled { opacity: 0.5; cursor: default; transform: none; }
 }
 .info:hover, .info:focus-visible {
   color: var(--text);
-  border-color: #303a47;
+  border-color: var(--accent);
   outline: none;
 }
-/* Table headers are uppercase and tight; keep the icon from stretching the row. */
+.info::after {
+  content: attr(data-tip);
+  position: absolute;
+  top: calc(100% + 7px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-3px);
+  width: max-content;
+  max-width: 260px;
+  padding: 8px 10px;
+  background: var(--panel-3);
+  border: 1px solid #303a47;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.45;
+  letter-spacing: normal;
+  text-transform: none;
+  text-align: left;
+  white-space: normal;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 40;
+  transition: opacity 0.12s ease, transform 0.12s ease, visibility 0.12s;
+}
+.info:hover::after, .info:focus-visible::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+/* Near the right edge a centred tooltip would overflow the panel; these
+   variants pin it to the icon instead. */
+.info.tip-right::after { left: auto; right: 0; transform: translateX(0) translateY(-3px); }
+.info.tip-right:hover::after, .info.tip-right:focus-visible::after { transform: translateX(0) translateY(0); }
 th .info { margin-left: 4px; }
 
 /* ---------------------------------------------- Loading skeletons */
