@@ -2,7 +2,7 @@ import Link from "next/link";
 import {
   getSentimentMetrics,
   listSentimentDaily,
-  listNegativeSentiment,
+  listSentimentConversations,
 } from "@/lib/queries";
 import {
   amsterdamToday,
@@ -12,6 +12,7 @@ import {
 } from "@/lib/format";
 import { DateRangePicker } from "@/components/DateRangePicker";
 import type { SentimentValue } from "@/lib/types";
+import { RaiseFeedbackButton } from "./RaiseFeedbackButton";
 
 export const dynamic = "force-dynamic";
 
@@ -111,18 +112,31 @@ function MixBar({
 export default async function SentimentPage({
   searchParams,
 }: {
-  searchParams: Promise<{ from?: string; to?: string }>;
+  searchParams: Promise<{ from?: string; to?: string; s?: string }>;
 }) {
   const sp = await searchParams;
   const to = normaliseDate(sp.to);
   const from =
     sp.from && /^\d{4}-\d{2}-\d{2}$/.test(sp.from) ? sp.from : addDays(to, -29);
 
-  const [metrics, daily, worst] = await Promise.all([
+  // `s` filters the conversation list: unset = negative only (triage), "all",
+  // or one sentiment value. It does not affect the tiles or the per-day table,
+  // which always describe the whole range.
+  const rawS = String(sp.s || "").trim();
+  const filter: string | null =
+    rawS === "all" || (ORDER as string[]).includes(rawS) ? rawS : null;
+
+  const [metrics, daily, rows] = await Promise.all([
     getSentimentMetrics(from, to),
     listSentimentDaily(from, to),
-    listNegativeSentiment(from, to),
+    listSentimentConversations(from, to, filter, 50),
   ]);
+
+  const qs = (s: string | null) => {
+    const p = new URLSearchParams({ from, to });
+    if (s) p.set("s", s);
+    return `/sentiment?${p.toString()}`;
+  };
 
   const coverage = metrics.scored_pct ?? 0;
   const thin = coverage < TRUSTWORTHY_COVERAGE;
@@ -338,8 +352,44 @@ export default async function SentimentPage({
       </div>
 
       <div className="panel table-scroll" style={{ marginTop: 14 }}>
-        <div style={{ padding: "14px 16px 0", fontWeight: 650 }}>
-          Worth reading — most negative in this range
+        <div style={{ padding: "14px 16px 0" }}>
+          <div style={{ fontWeight: 650, marginBottom: 8 }}>
+            {filter === null
+              ? "Worth reading — most negative in this range"
+              : filter === "all"
+                ? "All scored conversations in this range"
+                : `${filter} conversations in this range`}
+          </div>
+          <div className="controls" style={{ marginBottom: 4 }}>
+            <Link
+              href={qs(null)}
+              className={`btn secondary${filter === null ? " active" : ""}`}
+            >
+              Negative
+            </Link>
+            <Link
+              href={qs("all")}
+              className={`btn secondary${filter === "all" ? " active" : ""}`}
+            >
+              All
+            </Link>
+            {ORDER.map((v) => (
+              <Link
+                key={v}
+                href={qs(v)}
+                className={`btn secondary${filter === v ? " active" : ""}`}
+              >
+                {v} {counts[v] ?? 0}
+              </Link>
+            ))}
+          </div>
+          <p className="muted" style={{ fontSize: 12, marginTop: 8 }}>
+            Newest first, except the Negative view which is worst first.
+            &ldquo;Raise&rdquo; files this conversation on the{" "}
+            <Link href="/feedback">Feedback</Link> page for the team to review
+            — it does <strong>not</strong> rate the bot, since a low sentiment
+            score is about the member, not about whether the answer was right.
+          </p>
         </div>
         <table>
           <thead>
@@ -349,11 +399,12 @@ export default async function SentimentPage({
               <th>Sentiment</th>
               <th>Why</th>
               <th>Ticket</th>
+              <th>Feedback</th>
               <th>Chat</th>
             </tr>
           </thead>
           <tbody>
-            {worst.map((w) => {
+            {rows.map((w) => {
               const url = freshdeskUrl(w.pushed_ticket_id);
               return (
                 <tr key={w.session_id}>
@@ -370,7 +421,7 @@ export default async function SentimentPage({
                       </span>
                     )}
                   </td>
-                  <td style={{ maxWidth: 460 }}>
+                  <td style={{ maxWidth: 420 }}>
                     {w.rationale ?? <span className="muted">—</span>}
                   </td>
                   <td>
@@ -383,15 +434,31 @@ export default async function SentimentPage({
                     )}
                   </td>
                   <td>
+                    {w.has_feedback ? (
+                      <Link href="/feedback" className="badge green">
+                        raised
+                      </Link>
+                    ) : (
+                      <RaiseFeedbackButton
+                        sessionId={w.session_id}
+                        sentiment={w.sentiment}
+                        confidence={w.confidence}
+                        rationale={w.rationale}
+                      />
+                    )}
+                  </td>
+                  <td>
                     <Link href={`/conversations/${w.session_id}`}>open</Link>
                   </td>
                 </tr>
               );
             })}
-            {worst.length === 0 && (
+            {rows.length === 0 && (
               <tr>
-                <td colSpan={6} className="muted" style={{ padding: 18 }}>
-                  Nothing scored Frustrated or Angry in this range.
+                <td colSpan={7} className="muted" style={{ padding: 18 }}>
+                  {filter === null
+                    ? "Nothing scored Frustrated or Angry in this range."
+                    : `No ${filter === "all" ? "scored" : filter} conversations in this range.`}
                 </td>
               </tr>
             )}

@@ -31,7 +31,7 @@ import type {
   RegressionFixtureView,
   RegressionRun,
   TicketDraft,
-  NegativeSentimentRow,
+  SentimentConversationRow,
   SentimentDailyRow,
   SentimentMetrics,
   TicketRow,
@@ -931,23 +931,30 @@ export async function listSentimentDaily(
   return (data ?? []) as unknown as SentimentDailyRow[];
 }
 
-// The most negative conversations in the range, for the "read these" list.
+// Scored conversations in the range for the dashboard list, optionally
+// filtered to one sentiment. `sentiment` is null for the default negative-only
+// triage list, 'all' for everything, or a single value.
+//
 // Ranged in SQL on the CONVERSATION's date, not on when it was scored — the
 // latter looked correct while backfilling (everything was scored today) but
 // would surface month-old chats for a "last 7 days" view. The rationale comes
 // with it because a score with no evidence behind it cannot be argued with,
-// and Member Care will want to judge it themselves.
-export async function listNegativeSentiment(
+// and Member Care will want to judge it themselves. has_feedback is computed
+// in SQL so the page can show "raised" without pulling every feedback
+// session_id into the app.
+export async function listSentimentConversations(
   from: string,
   to: string,
-  limit = 25,
-): Promise<NegativeSentimentRow[]> {
+  sentiment: string | null,
+  limit = 50,
+): Promise<SentimentConversationRow[]> {
   await requireStaff();
-  const { data, error } = await dataClient().rpc("sentiment_worst", {
+  const { data, error } = await dataClient().rpc("sentiment_conversations", {
     p_from: from,
     p_to: to,
+    p_sentiment: sentiment,
     p_limit: limit,
   });
-  if (error) throw new Error(`negative sentiment failed: ${error.message}`);
-  return (data ?? []) as unknown as NegativeSentimentRow[];
+  if (error) throw new Error(`sentiment conversations failed: ${error.message}`);
+  return (data ?? []) as unknown as SentimentConversationRow[];
 }
