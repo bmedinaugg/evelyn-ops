@@ -1,0 +1,4 @@
+# 39,000 real member messages, and the generated document. Neither belongs in
+# git: the first is member PII, the second lives in bot.scenario_library.
+messages.json
+library.json

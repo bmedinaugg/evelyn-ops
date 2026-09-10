@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<title>Evelyn scenario library</title>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">TrainMore · Member Care · internal</div>
+    <h1>What Evelyn recognises</h1>
+    <p class="standfirst">
+      Every quote in this document is a real member message that actually matched
+      the pattern the live bot uses — including the ones that matched by mistake.
+    </p>
+    <div class="meta">
+      Generated 2026-09-08 from
+      39,002 member messages sent between 2026-08-09 and 2026-09-08.
+    </div>
+  </header>
+
+  <div class="note">
+    <b>How to read this, and what it is not.</b>
+    Evelyn does not record “I decided this was a cancellation”, so this is not a
+    log of decisions. Each pattern was taken out of the live automation and
+    replayed over real messages, so what follows is what the patterns
+    <i>do</i> — not what we intended them to do. The difference is the useful
+    part. Matching a pattern is also only the first step: the AI still reads the
+    whole message, so a match does not guarantee how the conversation ends up
+    being handled.
+  </div>
+
+  
+  <section>
+    <div class="sec-head">
+      <h2>Contract changes</h2>
+      <p class="sec-blurb">These four share one classifier, checked in a fixed order. If a message looks like two of them at once, the earlier check wins — see “When two scenarios collide”.</p>
+    </div>
+    
+  <div class="scen">
+    <div class="scen-head">
+      <h3>Early cancellation / wants to leave</h3>
+      <span class="key">cancellation</span>
+    </div>
+    <p class="plain">Member wants to end their membership. The word "cancel" is enough on its own.</p>
+    <div class="counts">
+      <b>1,774</b> messages ·
+      <b>1,320</b> conversations ·
+      recognised in <span class="mono">Build Priced Options + Change Options Briefing — shared requestType classifier</span>
+    </div>
+    <div class="quotes">
+      <div class="q"><span class="qt">Hi evelyn, i recently made a membership, but I was only trying to check the conditions for the "free until 2027". Now I have a membership which I do not need, help me cancel it</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">abbonnement voor contract einde stopzeggen door onverwachte verhuizing</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">I already requested a trial.once but cancelled it</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">The increase in June 2026 from the early cancellation form</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">Ik heb net een abonnement afgesloten maar ik heb dat verkeerd gedaan en wil hem opzeggen</span><span class="qd">2026-09-07</span></div>
+    </div>
+    <div class="mis">
+      <div class="mis-h">Also trips on <span class="mis-sub">— 160 of 1,774 matches are about something else. These are the ones we could measure, so treat it as a floor.</span></div>
+      <div class="mis-row">
+          <div class="mis-top"><b>Already cancelled — talking about the past</b><span class="mis-n">65 · 3.7%</span></div>
+          <div class="mis-why">The member has ALREADY left, or cancelled and now regrets it. Treating this as a fresh cancellation request answers a question nobody asked.</div>
+          <div class="q slim"><span class="qt">I just cancelled my subscription but I would actually like to extend it</span></div>
+        </div><div class="mis-row">
+          <div class="mis-top"><b>Asking how or whether, not asking to do it</b><span class="mis-n">49 · 2.8%</span></div>
+          <div class="mis-why">A policy question. The member wants to understand the rules, not trigger them.</div>
+          <div class="q slim"><span class="qt">What is the cancellation with price increase about</span></div>
+        </div><div class="mis-row">
+          <div class="mis-top"><b>Cancelling a class or booking, not the membership</b><span class="mis-n">26 · 1.5%</span></div>
+          <div class="mis-why">The recogniser fires on the word "cancel" alone, so a member cancelling a Sunday class reads the same as one leaving TrainMore.</div>
+          <div class="q slim"><span class="qt">Can I please make a ticket to cancel my reservation at 8 am on Sunday at coolsingel?</span></div>
+        </div><div class="mis-row">
+          <div class="mis-top"><b>Cancelling a free trial or a brand-new signup</b><span class="mis-n">20 · 1.1%</span></div>
+          <div class="mis-why">Not a contract to end — often someone who has not started yet.</div>
+          <div class="q slim"><span class="qt">Ok. So tomorrow’s free trial is cancelled?</span></div>
+        </div>
+    </div>
+  </div>
+  <div class="scen">
+    <div class="scen-head">
+      <h3>Extension / renewal</h3>
+      <span class="key">extension</span>
+    </div>
+    <p class="plain">Member wants to extend or renew, before the classifier considers anything else.</p>
+    <div class="counts">
+      <b>485</b> messages ·
+      <b>344</b> conversations ·
+      recognised in <span class="mono">Build Priced Options + Change Options Briefing — checked FIRST, so it wins over "change"</span>
+    </div>
+    <div class="quotes">
+      <div class="q"><span class="qt">I just cancelled my subscription but I would actually like to extend it</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">Aanbieding om mijn abonnement te verlengen</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">I have a 1-year contract, how can I extend it for a 2-year contract with the same conditions?</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">Hi, I'd like to switch my homeclub to Amsterdam Westerpark but keep my original contract without extending the period or changing the price. could you help me to do that?</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">I would like then to extend my contract for 1 year with the TrainMore Amsterdam Oost Premium option. I got an email with a promotion</span><span class="qd">2026-09-07</span></div>
+    </div>
+    
+  </div>
+  <div class="scen">
+    <div class="scen-head">
+      <h3>Membership change (club or access level)</h3>
+      <span class="key">change</span>
+    </div>
+    <p class="plain">Switching club, moving home club, or changing access level.</p>
+    <div class="counts">
+      <b>3,272</b> messages ·
+      <b>2,144</b> conversations ·
+      recognised in <span class="mono">Build Priced Options + Change Options Briefing</span>
+    </div>
+    <div class="quotes">
+      <div class="q"><span class="qt">wat to change my gym due to address change</span><span class="qd">2026-09-08</span></div><div class="q"><span class="qt">but i can change my home gym, and go to another red label, but pay the same amount a month?</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">i want to change my red label gym from papaverweg to kraspoor. i have 1 year left on my papaververg offer, currently paying 72 a mknth</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">No I want to switch from home club</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">Hi I want to switch from membership to TrainMore rijnhaven</span><span class="qd">2026-09-07</span></div>
+    </div>
+    <div class="mis">
+      <div class="mis-h">Also trips on <span class="mis-sub">— 25 of 3,272 matches are about something else. These are the ones we could measure, so treat it as a floor.</span></div>
+      <div class="mis-row">
+          <div class="mis-top"><b>Changing details, not the membership</b><span class="mis-n">24 · 0.7%</span></div>
+          <div class="mis-why">E-mail, password, phone, bank or card. Self-service in the app, and nothing to do with the contract.</div>
+          <div class="q slim"><span class="qt">I want to change my email</span></div>
+        </div><div class="mis-row">
+          <div class="mis-top"><b>Changing a booked class time</b><span class="mis-n">1 · &lt;0.1%</span></div>
+          <div class="mis-why">A booking, not a contract.</div>
+          <div class="q slim"><span class="qt">Hi evelyn, i would like to ask train more Singel to change my class from 18:00 to 17:00 is that possible?</span></div>
+        </div>
+    </div>
+  </div>
+  <div class="scen">
+    <div class="scen-head">
+      <h3>Freeze / put on hold (idle period)</h3>
+      <span class="key">freeze</span>
+    </div>
+    <p class="plain">Pausing the membership. Medical only — travel does not qualify.</p>
+    <div class="counts">
+      <b>357</b> messages ·
+      <b>265</b> conversations ·
+      recognised in <span class="mono">Feedback Overrides 2026-08-26 — FREEZE_RE</span>
+    </div>
+    <div class="quotes">
+      <div class="q"><span class="qt">i want to freez my membership becouse im leaving the country</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">Hoi, kan ik mijn abonnement voor een maand pauzeren ivm verblijf in het buitenland?</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">I would like to either cancel my subscription or freeze it as I moved to Australia for 3 months. my name is Adriaan Broerse and I train in Bussum.</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">I want to pause the membership due to long trip from Sep 8 to Nov 28.</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">Hoe kan ik lidmaatschap vroeg stopzetten</span><span class="qd">2026-09-07</span></div>
+    </div>
+    
+  </div>
+  </section>
+  <section>
+    <div class="sec-head">
+      <h2>Money</h2>
+      <p class="sec-blurb">Recognised well enough to answer, or to open a payments ticket.</p>
+    </div>
+    
+  <div class="scen">
+    <div class="scen-head">
+      <h3>Direct-debit date change</h3>
+      <span class="key">payment_date</span>
+    </div>
+    <p class="plain">Wants the collection date moved. It cannot be changed — 13 periods of 4 weeks.</p>
+    <div class="counts">
+      <b>12</b> messages ·
+      <b>10</b> conversations ·
+      recognised in <span class="mono">Feedback Overrides 2026-08-26 — PAYDATE_RE</span>
+    </div>
+    <div class="quotes">
+      <div class="q"><span class="qt">Kan ik de afschrijfdatum wijzigen want 22 september komt mij niet uit</span><span class="qd">2026-09-03</span></div><div class="q"><span class="qt">I want to make sure my membership ends the 12/11/2026. And to knwo when will be the last payment date</span><span class="qd">2026-08-26</span></div><div class="q"><span class="qt">Ik wil de betaaldatum van mijn abonnement veranderen</span><span class="qd">2026-08-20</span></div><div class="q"><span class="qt">Hi! Ik wil de betaaldatum van mijn abonnement veranderen</span><span class="qd">2026-08-20</span></div><div class="q"><span class="qt">Hey i can we change the payment date to the 26th?</span><span class="qd">2026-08-19</span></div>
+    </div>
+    
+  </div>
+  <div class="scen">
+    <div class="scen-head">
+      <h3>Outstanding payment / debt</h3>
+      <span class="key">owes_money</span>
+    </div>
+    <p class="plain">An unpaid amount, arrears or a collection agency.</p>
+    <div class="counts">
+      <b>274</b> messages ·
+      <b>209</b> conversations ·
+      recognised in <span class="mono">Feedback Overrides 2026-08-26 — OWES_RE</span>
+    </div>
+    <div class="quotes">
+      <div class="q"><span class="qt">I paid all outstanding balance and there is still charge in September</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">Ja. Ik betaal uiteraard met liefde het abonnement maar de dunning fee vind ik niet fair</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">Ik moet een bedrag betalen, anders gaat het naar de incasso. Maar ik wil dit bedrag in termijnen. Betalen</span><span class="qd">2026-09-05</span></div><div class="q"><span class="qt">Hoi, ik heb een incasso gekregen, maar ik zal hem graag intermen willen betalen</span><span class="qd">2026-09-05</span></div><div class="q"><span class="qt">we hebben een aanmaning ontvangen terwijl alle lidmaatschappen waren opgezegd in verband met de overgang naar het muntgebouw</span><span class="qd">2026-09-04</span></div>
+    </div>
+    
+  </div>
+  <div class="scen">
+    <div class="scen-head">
+      <h3>Invoice request</h3>
+      <span class="key">invoice</span>
+    </div>
+    <p class="plain">Wants an invoice. Needs a period, or the request cannot be actioned.</p>
+    <div class="counts">
+      <b>324</b> messages ·
+      <b>229</b> conversations ·
+      recognised in <span class="mono">Bot - Ticket creation — Refine Group Routing</span>
+    </div>
+    <div class="quotes">
+      <div class="q"><span class="qt">Ja ik bedoel je factuur die in september is afgeschreven</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">I want an invoice of the past few months to be able to declare the costs at my Employer</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">Ik wil graag een factuur opvragen, maar de stappen die op de webstite staan werken niet. Als ik naar het contactformulier ga, krijg ik namelijk niet de benodigde opties</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">Hey, i want the invoice of my last payment</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">Hi I would like to request the VAT invoice</span><span class="qd">2026-09-07</span></div>
+    </div>
+    
+  </div>
+  </section>
+  <section>
+    <div class="sec-head">
+      <h2>Clubs &amp; classes</h2>
+      <p class="sec-blurb">Answered from the FAQ and club data, usually without a ticket.</p>
+    </div>
+    
+  <div class="scen">
+    <div class="scen-head">
+      <h3>Class or appointment (not the membership)</h3>
+      <span class="key">class_booking</span>
+    </div>
+    <p class="plain">A class, booking or appointment. Must NOT be read as a membership cancellation.</p>
+    <div class="counts">
+      <b>815</b> messages ·
+      <b>558</b> conversations ·
+      recognised in <span class="mono">Guardrail Patches 2026-08-26 — Patch G (CLASS_OBJ_RE)</span>
+    </div>
+    <div class="quotes">
+      <div class="q"><span class="qt">I would like to request a free trial session</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">Reactie op mijn vraag over hoe last minute reservering annuleren bijvoorbeeld door vertraagde trein</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">Reservering verwijderen kan alleen ruim van te voren. Soms is het last minute. Dan wil ik dat ook laten weten maar weet niet hoe</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">Welke lessen worden gegeven bij amsterdam zeilstraat?</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">Hoe koop ik credits voor de lessen bij clubsportive?</span><span class="qd">2026-09-07</span></div>
+    </div>
+    
+  </div>
+  <div class="scen">
+    <div class="scen-head">
+      <h3>No-show / attendance dispute</h3>
+      <span class="key">attendance</span>
+    </div>
+    <p class="plain">Disputes a missed class or a no-show warning.</p>
+    <div class="counts">
+      <b>210</b> messages ·
+      <b>168</b> conversations ·
+      recognised in <span class="mono">Feedback Overrides 2026-08-26 — ATTEND_RE</span>
+    </div>
+    <div class="quotes">
+      <div class="q"><span class="qt">2 jaar, met 35% korting en check in korting</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">I couldnt not check in in trianmore because the gate was broken how do i register it to get the 1€ duscount</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">Die is niet aanwezig, ik ben bewindvoerder</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">Hi, the scanner for yhe checkin shows i was at the gym for only 1 minute yesterday. But I was there from 10:20 till around 10:55. Could you please help with this?</span><span class="qd">2026-09-06</span></div><div class="q"><span class="qt">Yes please submit it for those 4 days that I couldn’t check in</span><span class="qd">2026-09-06</span></div>
+    </div>
+    
+  </div>
+  </section>
+  <section>
+    <div class="sec-head">
+      <h2>Routing signals</h2>
+      <p class="sec-blurb">Not member requests — these change how the conversation is handled at all.</p>
+    </div>
+    
+  <div class="scen">
+    <div class="scen-head">
+      <h3>14-day cooling-off</h3>
+      <span class="key">cooling_off</span>
+    </div>
+    <p class="plain">Just signed up and changed their mind. Charge depends on visits.</p>
+    <div class="counts">
+      <b>191</b> messages ·
+      <b>155</b> conversations ·
+      recognised in <span class="mono">Build Priced Options — cancellation sub-check</span>
+    </div>
+    <div class="quotes">
+      <div class="q"><span class="qt">Hello , one week ago i did a subscription and now i need to cancel it and i am still in the 14 days, i can not find my subscription jn the app</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">Hi, i have tried to cancel my membership within the 14 day cooloff period, but I dont know if it is being processed correctly</span><span class="qd">2026-09-05</span></div><div class="q"><span class="qt">Ik wil mijn 14 dagen bedenktijd gebruiken</span><span class="qd">2026-09-04</span></div><div class="q"><span class="qt">Ik wil mijn account stopzetten binnen de 14 dagen wachtperiode. Ik heb ingeschreven voor de verkeerde gym</span><span class="qd">2026-09-04</span></div><div class="q"><span class="qt">Cancel contract within 14 days withdrawal right</span><span class="qd">2026-09-04</span></div>
+    </div>
+    
+  </div>
+  <div class="scen">
+    <div class="scen-head">
+      <h3>Not a member / no account</h3>
+      <span class="key">not_a_member</span>
+    </div>
+    <p class="plain">Says they have no membership. Should be answered, never sent to the login gate.</p>
+    <div class="counts">
+      <b>516</b> messages ·
+      <b>412</b> conversations ·
+      recognised in <span class="mono">Bot - Authenticate — Answer Before Ticket? (notMember)</span>
+    </div>
+    <div class="quotes">
+      <div class="q"><span class="qt">Ik wil graag dat het team contact met me opneemt, maar ik heb geen account en ik wil geen account</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">Ik heb geen account, maar je kan reageren op [e-mail]</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">Ik heb via classpass geboekt, ik heb geen account</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">ik heb geen account. ik wil lid worden. open een ticket met dat emailadres</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">Ik heb geen account en ik wil iemand spreken</span><span class="qd">2026-09-07</span></div>
+    </div>
+    
+  </div>
+  <div class="scen">
+    <div class="scen-head">
+      <h3>Wants to speak to a person</h3>
+      <span class="key">wants_human</span>
+    </div>
+    <p class="plain">Asks for a human, a colleague or a phone call.</p>
+    <div class="counts">
+      <b>931</b> messages ·
+      <b>699</b> conversations ·
+      recognised in <span class="mono">Bot - Authenticate — Answer Before Ticket? early-return list</span>
+    </div>
+    <div class="quotes">
+      <div class="q"><span class="qt">Dag Evelyn, ik wil iemand spreken die over contracten gaat.</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">ik zou graag dat iemand van het team contact met mij opneemt</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">kan ik in contact komen met een medewerker?</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">Nee dit wil ik niet. Dit is niet waarnaar ik op zoek ben. Ik wil een medewerker spreken</span><span class="qd">2026-09-07</span></div><div class="q"><span class="qt">Ik wil niet van locatie veranderen, dit is niet waarnaar ik op zoek ben. Kan ik met een medewerker spreken</span><span class="qd">2026-09-07</span></div>
+    </div>
+    
+  </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>When two scenarios collide</h2>
+      <p class="sec-blurb">
+        This is where “the bot got it wrong” usually comes from. Plenty of
+        messages match more than one pattern, and the contract-change classifier
+        stops at the first one it finds — in the order
+        <b>extension → cancellation → change</b>. So a member who mentions both
+        is handled as whichever comes first, even when the other one is what they
+        actually wanted. Where a pair is <i>not</i> marked with a winner below,
+        the two live in different parts of the automation and both can apply,
+        depending on where the conversation has got to.
+      </p>
+    </div>
+    
+    <div class="col">
+      <div class="col-top">
+        <span class="cpair">Early cancellation / wants to leave <span class="plus">+</span> Membership change (club or access level)</span>
+        <span class="col-n">171 messages</span>
+      </div>
+      <div class="col-verdict">Handled as <b>Early cancellation / wants to leave</b> — it is checked first.</div>
+      <div class="q slim"><span class="qt">[e-mail] Kan in app opzegdatum niet instellen / wijzigen. aanmaken support ticket lukt niet</span></div>
+    </div>
+    <div class="col">
+      <div class="col-top">
+        <span class="cpair">Early cancellation / wants to leave <span class="plus">+</span> Class or appointment (not the membership)</span>
+        <span class="col-n">120 messages</span>
+      </div>
+      
+      <div class="q slim"><span class="qt">I want to confirm if my membership is canceled, it looks like its canceled but I can still book gym classes</span></div>
+    </div>
+    <div class="col">
+      <div class="col-top">
+        <span class="cpair">Membership change (club or access level) <span class="plus">+</span> Class or appointment (not the membership)</span>
+        <span class="col-n">98 messages</span>
+      </div>
+      
+      <div class="q slim"><span class="qt">I’m trying to book hyrox class in my gym for tomorrow but it says i don’t have credits left whereas im a red label. How do i book it</span></div>
+    </div>
+    <div class="col">
+      <div class="col-top">
+        <span class="cpair">Early cancellation / wants to leave <span class="plus">+</span> 14-day cooling-off</span>
+        <span class="col-n">97 messages</span>
+      </div>
+      
+      <div class="q slim"><span class="qt">Hello , one week ago i did a subscription and now i need to cancel it and i am still in the 14 days, i can not find my subscription jn the app</span></div>
+    </div>
+    <div class="col">
+      <div class="col-top">
+        <span class="cpair">Class or appointment (not the membership) <span class="plus">+</span> No-show / attendance dispute</span>
+        <span class="col-n">77 messages</span>
+      </div>
+      
+      <div class="q slim"><span class="qt">Hi, I have been wrongfully blocked for booking classes due to no show. I only had 1 no show in the past month</span></div>
+    </div>
+    <div class="col">
+      <div class="col-top">
+        <span class="cpair">Extension / renewal <span class="plus">+</span> Membership change (club or access level)</span>
+        <span class="col-n">74 messages</span>
+      </div>
+      <div class="col-verdict">Handled as <b>Extension / renewal</b> — it is checked first.</div>
+      <div class="q slim"><span class="qt">but last year i changed gym and my membership extended</span></div>
+    </div>
+    <div class="col">
+      <div class="col-top">
+        <span class="cpair">Early cancellation / wants to leave <span class="plus">+</span> Extension / renewal</span>
+        <span class="col-n">73 messages</span>
+      </div>
+      <div class="col-verdict">Handled as <b>Extension / renewal</b> — it is checked first.</div>
+      <div class="q slim"><span class="qt">I just cancelled my subscription but I would actually like to extend it</span></div>
+    </div>
+    <div class="col">
+      <div class="col-top">
+        <span class="cpair">Early cancellation / wants to leave <span class="plus">+</span> Outstanding payment / debt</span>
+        <span class="col-n">67 messages</span>
+      </div>
+      
+      <div class="q slim"><span class="qt">I have an outstanding balance, but cannot pay it at the moment. I have also cancelled my membership. What should I do?</span></div>
+    </div>
+    <div class="col">
+      <div class="col-top">
+        <span class="cpair">Membership change (club or access level) <span class="plus">+</span> Wants to speak to a person</span>
+        <span class="col-n">45 messages</span>
+      </div>
+      
+      <div class="q slim"><span class="qt">Ik wil niet van locatie veranderen, dit is niet waarnaar ik op zoek ben. Kan ik met een medewerker spreken</span></div>
+    </div>
+    <div class="col">
+      <div class="col-top">
+        <span class="cpair">Membership change (club or access level) <span class="plus">+</span> Outstanding payment / debt</span>
+        <span class="col-n">41 messages</span>
+      </div>
+      
+      <div class="q slim"><span class="qt">I opened a short period membership however I want to convert it to a one year membership. I have outstanding balances, is it still possible?</span></div>
+    </div>
+    <div class="col">
+      <div class="col-top">
+        <span class="cpair">Early cancellation / wants to leave <span class="plus">+</span> Freeze / put on hold (idle period)</span>
+        <span class="col-n">38 messages</span>
+      </div>
+      
+      <div class="q slim"><span class="qt">I would like to either cancel my subscription or freeze it as I moved to Australia for 3 months. my name is Adriaan Broerse and I train in Bussum.</span></div>
+    </div>
+    <div class="col">
+      <div class="col-top">
+        <span class="cpair">Membership change (club or access level) <span class="plus">+</span> Freeze / put on hold (idle period)</span>
+        <span class="col-n">33 messages</span>
+      </div>
+      
+      <div class="q slim"><span class="qt">Graag nu 2 aparte tickets maken of alles toevoegen in een mail dus bevriezing en na bevriezing overstap gym locatie</span></div>
+    </div>
+    <div class="col">
+      <div class="col-top">
+        <span class="cpair">Early cancellation / wants to leave <span class="plus">+</span> Wants to speak to a person</span>
+        <span class="col-n">30 messages</span>
+      </div>
+      
+      <div class="q slim"><span class="qt">I need to cancel my contract let me speak to someone</span></div>
+    </div>
+  </section>
+
+  <footer>
+    <b>Internal document — contains real member messages.</b>
+    Quotes are unedited apart from trimming for length, except that e-mail
+    addresses, phone numbers, bank details and membership numbers are masked,
+    and examples were chosen to illustrate each scenario without reproducing
+    personal health or financial disclosures. Live version, with links through to each conversation:
+    <span class="mono">Evelyn Ops → Review → Scenario library</span>.
+    <div class="foot-warn">
+      This is generated from the automation as it was on
+      2026-09-08. If a pattern has been
+      changed since, this document is out of date — regenerate it rather than
+      correcting it by hand.
+    </div>
+  </footer>
+
+</div>
+
+<style>
+  :root {
+    --ground:    #F6F7F9;
+    --surface:   #FFFFFF;
+    --ink:       #12171E;
+    --ink-2:     #38414E;
+    --muted:     #667385;
+    --line:      #DBE1E8;
+    --line-soft: #E8ECF1;
+    --accent:    #2E7F98;
+    --accent-wash: rgba(46,127,152,.10);
+    --warn:      #A8700F;
+    --warn-wash: rgba(168,112,15,.11);
+    --shadow:    0 1px 2px rgba(18,23,30,.05), 0 8px 24px -16px rgba(18,23,30,.25);
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, "Helvetica Neue", Arial, sans-serif;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--sans); }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 40px 28px 60px; display: flex; flex-direction: column; gap: 26px; }
+
+  header { border-bottom: 2px solid var(--ink); padding-bottom: 16px; }
+  .eyebrow { font-size: 10.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+  h1 { font-family: var(--serif); font-size: 36px; line-height: 1.1; margin: 8px 0 10px; letter-spacing: -.02em; }
+  .standfirst { font-family: var(--serif); font-size: 16px; line-height: 1.55; color: var(--ink-2); margin: 0 0 12px; max-width: 62ch; }
+  .meta { font-size: 11.5px; color: var(--muted); }
+
+  .note {
+    background: var(--accent-wash); border-left: 3px solid var(--accent);
+    padding: 13px 16px; border-radius: 3px; font-size: 12.5px; line-height: 1.6;
+    color: var(--ink-2); max-width: 74ch;
+  }
+
+  section { display: flex; flex-direction: column; gap: 10px; }
+  .sec-head { border-bottom: 1px solid var(--line); padding-bottom: 7px; }
+  h2 { font-size: 17px; margin: 0; letter-spacing: -.01em; }
+  .sec-blurb { font-size: 12px; line-height: 1.55; color: var(--muted); margin: 4px 0 0; max-width: 76ch; }
+
+  .scen { background: var(--surface); border: 1px solid var(--line); border-radius: 5px; padding: 14px 16px; box-shadow: var(--shadow); }
+  .scen-head { display: flex; align-items: baseline; gap: 9px; flex-wrap: wrap; }
+  h3 { font-size: 14px; margin: 0; }
+  .key { font-family: var(--mono); font-size: 10.5px; color: var(--muted); }
+  .plain { font-size: 12.5px; line-height: 1.55; margin: 5px 0 6px; color: var(--ink-2); max-width: 76ch; }
+  .counts { font-size: 11px; color: var(--muted); line-height: 1.5; }
+  .counts b { color: var(--ink); }
+  .counts .mono { font-family: var(--mono); font-size: 10px; }
+
+  .quotes { margin-top: 10px; display: flex; flex-direction: column; gap: 5px; }
+  .q { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; border-left: 2px solid var(--line); padding: 3px 0 3px 10px; }
+  .q.slim { margin-top: 5px; border-left-color: var(--line-soft); }
+  .qt { font-family: var(--serif); font-size: 12.5px; line-height: 1.5; font-style: italic; }
+  .qt::before { content: '“'; } .qt::after { content: '”'; }
+  .qd { font-size: 10px; color: var(--muted); white-space: nowrap; flex: none; font-variant-numeric: tabular-nums; }
+
+  .mis { margin-top: 12px; border-top: 1px dashed var(--line); padding-top: 10px; }
+  .mis-h { font-size: 11.5px; font-weight: 700; line-height: 1.5; }
+  .mis-sub { font-weight: 400; color: var(--muted); }
+  .mis-row { margin-top: 8px; padding-left: 10px; border-left: 2px solid var(--warn); }
+  .mis-top { display: flex; justify-content: space-between; gap: 10px; font-size: 12px; }
+  .mis-n { font-size: 10.5px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .mis-why { font-size: 11.5px; line-height: 1.5; color: var(--muted); margin-top: 1px; max-width: 74ch; }
+
+  .col { background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--warn); border-radius: 5px; padding: 11px 14px; }
+  .col-top { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .cpair { font-size: 12.5px; font-weight: 650; }
+  .plus { color: var(--muted); font-weight: 400; }
+  .col-n { font-size: 10.5px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .col-verdict { font-size: 12px; line-height: 1.5; margin-top: 3px; }
+  .soft { color: var(--muted); }
+
+  footer { border-top: 1px solid var(--line); padding-top: 13px; font-size: 11px; line-height: 1.6; color: var(--muted); }
+  footer .mono { font-family: var(--mono); font-size: 10.5px; color: var(--ink-2); }
+  .foot-warn { margin-top: 7px; color: var(--warn); }
+
+  @page { size: A4; margin: 15mm 13mm 16mm; }
+
+  @media print {
+    /* paper is already white — don't lay a grey field over every page */
+    html, body { background: #FFFFFF; }
+    body { font-size: 10.4pt; }
+    .wrap { max-width: none; padding: 0; gap: 22px; }
+    .scen, .col, .note { background: #FFFFFF; box-shadow: none; }
+
+    /* Do NOT put break-inside: avoid on .scen. The cancellation card (five
+       quotes plus four misfire rows) is taller than an A4 page, so an
+       unbreakable rule made it un-placeable and Chrome pushed the whole group
+       to the next sheet, leaving page 1 three-quarters empty. Let a big card
+       split, and protect only the parts that must not straddle a break. */
+    .col, .note, .mis-row, footer { break-inside: avoid; }
+    .q, .sec-head { break-inside: avoid; }
+    .scen-head, .counts { break-inside: avoid; }
+    h1, h2, h3, .sec-head { break-after: avoid; }
+    /* keep a heading with the card it introduces, and a card's title with its
+       first quote, without making either unbreakable */
+    .scen-head, .mis-h { break-after: avoid; }
+
+    h1 { font-size: 27pt; }
+    h2 { font-size: 14pt; }
+    h3 { font-size: 11pt; }
+    .standfirst { font-size: 11.5pt; }
+    .qt { font-size: 9.8pt; }
+    .plain { font-size: 9.8pt; }
+    .counts, .qd, .key { font-size: 8.2pt; }
+    .mis-why, .mis-h { font-size: 8.8pt; }
+    footer { font-size: 8.4pt; }
+  }
+</style>
+</body>
+</html>

@@ -14,10 +14,14 @@ const SECTIONS: { title: string | null; items: NavItem[] }[] = [
     title: "Review",
     items: [
       { href: "/conversations", label: "Conversations", icon: "💬" },
+      // Performance replaced "Bot helped" (9 conversations a week, keyed on
+      // whether the member said thanks). It sits first because "did Evelyn do
+      // her job" is the question the other pages get read as answering.
+      { href: "/performance", label: "Performance", icon: "✅" },
       { href: "/sentiment", label: "Sentiment", icon: "🌡️" },
-      { href: "/helped", label: "Bot helped", icon: "✅" },
       { href: "/evaluation", label: "Bot evaluation", icon: "🎯" },
       { href: "/tickets", label: "Tickets", icon: "🎫" },
+      { href: "/scenarios", label: "Scenario library", icon: "📖" },
     ],
   },
   {

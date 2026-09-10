@@ -10,6 +10,7 @@ import {
   normaliseDate,
 } from "@/lib/format";
 import { DateRangePicker } from "@/components/DateRangePicker";
+import { Tile, Info } from "@/components/Tile";
 import type { SentimentValue } from "@/lib/types";
 import { RaiseFeedbackButton } from "./RaiseFeedbackButton";
 
@@ -45,66 +46,6 @@ const BADGE: Record<SentimentValue, string> = {
 // the page says so instead of implying a trend. Learned the hard way: mid
 // backfill one day briefly read "100% negative" off two conversations.
 const TRUSTWORTHY_COVERAGE = 60;
-
-// One-sentence hint next to a label.
-//
-// The text goes in data-tip and is drawn by CSS, NOT via the native title
-// attribute — title was in the markup and still showed nothing useful on
-// hover, because native tooltips wait about a second, cannot be styled, and
-// never appear on touch. aria-label carries the same text for screen readers,
-// since a bare "i" means nothing, and tabIndex makes it focusable so the hint
-// is reachable without a mouse.
-//
-// `align="right"` pins the tooltip to the icon instead of centring it, for
-// icons close to the right edge of a panel.
-function Info({
-  text,
-  align,
-}: {
-  text: string;
-  align?: "right";
-}) {
-  return (
-    <span
-      className={`info${align === "right" ? " tip-right" : ""}`}
-      data-tip={text}
-      aria-label={text}
-      role="img"
-      tabIndex={0}
-    >
-      i
-    </span>
-  );
-}
-
-function Tile({
-  k,
-  v,
-  tone,
-  sub,
-  info,
-}: {
-  k: string;
-  v: number | string;
-  tone?: "alert" | "warn";
-  sub?: string;
-  info?: string;
-}) {
-  return (
-    <div className={`tile${tone ? " " + tone : ""}`}>
-      <div className="k">
-        {k}
-        {info && <Info text={info} />}
-      </div>
-      <div className="v">{v}</div>
-      {sub && (
-        <div className="muted" style={{ fontSize: 11.5, marginTop: 4 }}>
-          {sub}
-        </div>
-      )}
-    </div>
-  );
-}
 
 function MixBar({
   counts,
@@ -156,12 +97,15 @@ export default async function SentimentPage({
   const from =
     sp.from && /^\d{4}-\d{2}-\d{2}$/.test(sp.from) ? sp.from : addDays(to, -6);
 
-  // `s` filters the conversation list: unset = negative only (triage), "all",
-  // or one sentiment value. It does not affect the tiles or the per-day table,
-  // which always describe the whole range.
+  // `s` filters the conversation list: unset = the triage list (negative
+  // sentiment OR measured friction), "all", "friction", or one sentiment
+  // value. It does not affect the tiles or the per-day table, which always
+  // describe the whole range.
   const rawS = String(sp.s || "").trim();
   const filter: string | null =
-    rawS === "all" || (ORDER as string[]).includes(rawS) ? rawS : null;
+    rawS === "all" || rawS === "friction" || (ORDER as string[]).includes(rawS)
+      ? rawS
+      : null;
 
   const [metrics, rows] = await Promise.all([
     getSentimentMetrics(from, to),
@@ -257,10 +201,12 @@ export default async function SentimentPage({
                   <span className="badge amber">Frustrated</span>
                 </td>
                 <td>
-                  Visible friction: repeating a question because they were not
-                  answered, &ldquo;that&apos;s not what I asked&rdquo;,
-                  complaining about waiting, demanding a human after being
-                  blocked. Annoyed but still engaging.
+                  The member <em>said</em> something that shows irritation —
+                  &ldquo;that&apos;s not what I asked&rdquo;, &ldquo;deze bot
+                  werkt niet&rdquo;, capitals, complaining about the service.
+                  Repeating a question or asking for a human is{" "}
+                  <strong>not</strong> enough on its own; those are counted as{" "}
+                  <span className="badge amber">friction</span> instead.
                 </td>
               </tr>
               <tr>
@@ -275,6 +221,24 @@ export default async function SentimentPage({
               </tr>
             </tbody>
           </table>
+
+          <p className="muted">
+            <strong>Friction is a separate signal, and it is not a model.</strong>{" "}
+            Until 9 Sep the Frustrated definition counted &ldquo;repeated a
+            question&rdquo; and &ldquo;asked for a human&rdquo; as evidence of
+            irritation. Both are facts about the <em>bot</em>, and they are its
+            two commonest failures, so they flooded the bucket — 58.3% of the
+            first 1,212 Frustrated scores rested on nothing else. Those
+            conversations still need reading, so they are now measured directly
+            from the transcript instead: a reply the bot sent twice or more
+            (<span className="badge amber">loop</span>), the member asking for a
+            person (<span className="badge amber">asked for human</span>), or
+            four member turns with no real answer (
+            <span className="badge amber">never answered</span>). No model, no
+            judgement, and it works on unscored chats too. The triage list below
+            is <strong>upset member OR bad conversation</strong>, badged so you
+            can tell which you are looking at.
+          </p>
 
           <p className="muted" style={{ marginBottom: 0 }}>
             <strong>How it is decided.</strong> Ten minutes after a chat goes
@@ -347,7 +311,52 @@ export default async function SentimentPage({
                 : undefined
           }
         />
+        <Tile
+          k="Friction"
+          v={metrics.friction.pct != null ? `${metrics.friction.pct}%` : "—"}
+          sub={`${metrics.friction.total.toLocaleString()} of ${metrics.conversations.toLocaleString()}`}
+          info="Conversations that measurably went badly: the bot repeated a reply, the member asked for a person, or four member turns got no real answer. Counted from the transcript, not judged by a model, so it covers unscored chats too."
+          tone={
+            (metrics.friction.pct ?? 0) >= 25
+              ? "alert"
+              : (metrics.friction.pct ?? 0) >= 15
+                ? "warn"
+                : undefined
+          }
+        />
       </div>
+
+      {metrics.friction.total > 0 && (
+        <div className="panel" style={{ padding: 14, marginTop: 12 }}>
+          <div
+            className="muted"
+            style={{ fontSize: 11.5, fontWeight: 600, marginBottom: 7, textTransform: "uppercase", letterSpacing: "0.05em" }}
+          >
+            Friction
+            <Info text="Measured from the transcript, with no model involved. A conversation can carry more than one flag, so these do not sum to the total." />
+          </div>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
+            <span className="badge amber">
+              loop {metrics.friction.loop.toLocaleString()}
+            </span>
+            <span className="badge amber">
+              asked for human {metrics.friction.asked_for_human.toLocaleString()}
+            </span>
+            <span className="badge amber">
+              never answered {metrics.friction.never_answered.toLocaleString()}
+            </span>
+          </div>
+          {metrics.friction.calm_but_bad > 0 && (
+            <div className="muted" style={{ fontSize: 12, marginTop: 10 }}>
+              <strong>{metrics.friction.calm_but_bad.toLocaleString()}</strong>{" "}
+              of these have a member who scored Neutral or better — the bot
+              failed them and they were patient about it. Those are invisible to
+              the sentiment mix by design, and are the reason friction is
+              counted separately.
+            </div>
+          )}
+        </div>
+      )}
 
       <div className="panel" style={{ padding: 14, marginTop: 12 }}>
         <div
@@ -431,17 +440,25 @@ export default async function SentimentPage({
         <div style={{ padding: "14px 16px 0" }}>
           <div style={{ fontWeight: 650, marginBottom: 8 }}>
             {filter === null
-              ? "Worth reading — most negative in this range"
+              ? "Worth reading — upset members and conversations that went badly"
               : filter === "all"
                 ? "All scored conversations in this range"
-                : `${filter} conversations in this range`}
+                : filter === "friction"
+                  ? "Conversations that measurably went badly, whatever the mood"
+                  : `${filter} conversations in this range`}
           </div>
           <div className="controls" style={{ marginBottom: 4 }}>
             <Link
               href={qs(null)}
               className={`sfilter tone-red${filter === null ? " active" : ""}`}
             >
-              Negative <span className="n">{metrics.negative}</span>
+              Triage <span className="n">{metrics.triage_total}</span>
+            </Link>
+            <Link
+              href={qs("friction")}
+              className={`sfilter tone-amber${filter === "friction" ? " active" : ""}`}
+            >
+              Friction <span className="n">{metrics.friction.total}</span>
             </Link>
             <Link
               href={qs("all")}
@@ -502,14 +519,36 @@ export default async function SentimentPage({
                   <td className="mono">{w.day}</td>
                   <td>{w.member ?? <span className="muted">—</span>}</td>
                   <td>
-                    <span className={`badge ${BADGE[w.sentiment]}`}>
-                      {w.sentiment}
-                    </span>
+                    {w.sentiment ? (
+                      <span className={`badge ${BADGE[w.sentiment]}`}>
+                        {w.sentiment}
+                      </span>
+                    ) : (
+                      // On the list for friction alone — friction needs no
+                      // model, so it can surface a chat before the scorer
+                      // reaches it. Say so rather than showing a blank cell.
+                      <span className="muted" style={{ fontSize: 12 }}>
+                        not scored yet
+                      </span>
+                    )}
                     {w.confidence === "low" && (
                       <span className="muted" style={{ fontSize: 11 }}>
                         {" "}
                         low conf
                       </span>
+                    )}
+                    {w.friction.length > 0 && (
+                      <div style={{ marginTop: 4, display: "flex", gap: 4, flexWrap: "wrap" }}>
+                        {w.friction.map((f) => (
+                          <span key={f} className="badge amber" style={{ fontSize: 10.5 }}>
+                            {f === "loop"
+                              ? `loop ×${w.repeated_max}`
+                              : f === "asked_for_human"
+                                ? "asked for human"
+                                : "never answered"}
+                          </span>
+                        ))}
+                      </div>
                     )}
                   </td>
                   <td style={{ maxWidth: 420 }}>
@@ -532,9 +571,16 @@ export default async function SentimentPage({
                     ) : (
                       <RaiseFeedbackButton
                         sessionId={w.session_id}
-                        sentiment={w.sentiment}
+                        sentiment={w.sentiment ?? "unscored"}
                         confidence={w.confidence}
-                        rationale={w.rationale}
+                        rationale={
+                          // A friction-only row has no model rationale, so give
+                          // the reviewer the measured reason instead of nothing.
+                          w.rationale ??
+                          (w.friction.length > 0
+                            ? `No sentiment score yet. Flagged for friction: ${w.friction.join(", ")}${w.repeated_max > 0 ? ` (same reply sent ${w.repeated_max}×)` : ""}.`
+                            : null)
+                        }
                       />
                     )}
                   </td>
@@ -548,8 +594,10 @@ export default async function SentimentPage({
               <tr>
                 <td colSpan={7} className="muted" style={{ padding: 18 }}>
                   {filter === null
-                    ? "Nothing scored Frustrated or Angry in this range."
-                    : `No ${filter === "all" ? "scored" : filter} conversations in this range.`}
+                    ? "No upset members and no measured friction in this range."
+                    : filter === "friction"
+                      ? "No measured friction in this range."
+                      : `No ${filter === "all" ? "scored" : filter} conversations in this range.`}
                 </td>
               </tr>
             )}

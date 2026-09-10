@@ -12,6 +12,12 @@ scoring:
     billing error is NEUTRAL. Do not read distress into the subject matter.
   - whether their request was granted. Being told "no" politely, and accepting
     it, is NEUTRAL.
+  - whether the conversation went well. A member who repeats a question, asks
+    for a phone number, or never gets a straight answer may be entirely calm
+    about it. Those are facts about the BOT, not about their mood. They are
+    already measured separately and deterministically (bot.session_friction),
+    so you do not need to capture them here and MUST NOT let them move this
+    score on their own.
 
 THE FIVE VALUES:
 
@@ -29,13 +35,24 @@ Neutral — the default, and the correct answer for most chats. A transactional
   Also use Neutral when the member simply stops replying with no complaint,
   and when the member is terse or blunt but not annoyed.
 
-Frustrated — the member shows visible irritation or friction. Evidence:
-  saying the bot is not helping or not understanding, repeating the same
-  question because they were not answered, "ik herhaal", "that's not what I
-  asked", exasperated punctuation or one-word prods after being stonewalled,
-  explicit words like frustrating / annoying / ridiculous / belachelijk,
-  complaining about waiting or about service, or demanding a human after being
-  blocked. They are annoyed but still engaging.
+Frustrated — the member SAYS something that shows irritation. The evidence has
+  to be in their own words: "that's not what I asked", "ik herhaal", "deze bot
+  werkt niet", telling the bot it is not helping or not understanding,
+  exasperated punctuation or capitals, explicit words like frustrating /
+  annoying / ridiculous / belachelijk, or complaining about the service or the
+  wait. They are annoyed but still engaging.
+
+  What is NOT evidence, on its own:
+    - repeating a question. Members restate things for all sorts of reasons.
+      "I already told you this three times" IS evidence, because there the
+      member is complaining about the repetition. The bare repeat is not.
+    - asking for a human, a phone number or an e-mail address. That is a
+      perfectly calm thing to want, and for many members it is simply their
+      preferred channel.
+    - not getting an answer. A member can be failed politely and stay polite.
+  If one of these is the only thing you can point to, the answer is Neutral —
+  and the conversation will still reach Member Care through the friction flag,
+  so nothing is lost by scoring it honestly.
 
 Angry — clear hostility, insult, or a member who has given up in anger.
   Evidence: calling the bot useless / worthless / the worst, shouting in
@@ -54,6 +71,13 @@ HOW TO DECIDE:
    Neutral is not a failure to decide; it is usually correct.
 5. Length is not sentiment. A long chat is not automatically frustrated, and a
    short one is not automatically fine.
+6. A polite close is not satisfaction, and an unresolved problem is not
+   frustration. These are the same error in opposite directions — reading the
+   OUTCOME of the conversation as the member's MOOD. The first half of this
+   rule has been here from the start; the second half was missing, and it cost
+   us: of the first 1,212 Frustrated scores, 58.3% cited nothing but the member
+   repeating themselves or asking for a human, against 9.8% citing anything the
+   member actually said in anger.
 
 CONFIDENCE: high = explicit evidence in the member's own words. medium = clear
 tone but no single quotable line. low = very little to go on (a couple of
