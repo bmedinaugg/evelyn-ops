@@ -21,7 +21,11 @@ const SECTIONS: { title: string | null; items: NavItem[] }[] = [
       { href: "/sentiment", label: "Sentiment", icon: "🌡️" },
       { href: "/evaluation", label: "Bot evaluation", icon: "🎯" },
       { href: "/tickets", label: "Tickets", icon: "🎫" },
+      // Two libraries, deliberately separate: /scenarios is what the bot
+      // RECOGNISES, /library is what it DOES about it and where the answer
+      // comes from.
       { href: "/scenarios", label: "Scenario library", icon: "📖" },
+      { href: "/library", label: "Case library", icon: "📚" },
     ],
   },
   {
