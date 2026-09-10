@@ -36,6 +36,10 @@ import type {
   SentimentMetrics,
   TicketRow,
   WorkflowErrorRow,
+  PerformanceMetrics,
+  DefectConversationRow,
+  ChangeImpactRow,
+  ScorecardValidation,
 } from "@/lib/types";
 
 const BOARD_BUCKET = "board-attachments";
@@ -192,38 +196,6 @@ export async function createConversationFeedback(input: {
       detail: input.detail,
     });
   if (error) throw new Error(`create feedback failed: ${error.message}`);
-}
-
-// Record a review from the "Bot helped" page. If the reviewer says it did NOT
-// help, we file a `bad` feedback item (with their explanation) that lands in
-// the Feedback inbox as OPEN for the team to action. If it did help, we store
-// a `good` item already marked resolved, so it's a record but doesn't add to
-// the open feedback workload.
-export async function reviewHelpedSession(input: {
-  sessionId: string;
-  helped: boolean;
-  explanation: string | null;
-}): Promise<void> {
-  const staff = await requireStaff();
-  const row: Record<string, unknown> = {
-    session_id: input.sessionId,
-    author_email: staff.email,
-    rating: input.helped ? "good" : "bad",
-    comment: input.explanation?.trim() || null,
-    tags: [],
-    detail: null,
-    status: input.helped ? "resolved" : "open",
-  };
-  if (input.helped) {
-    row.resolved_by = staff.email;
-    row.resolved_at = new Date().toISOString();
-    row.resolution_note =
-      "Reviewed from Bot helped — confirmed the bot helped the customer.";
-  }
-  const { error } = await dataClient()
-    .from("conversation_feedback")
-    .insert(row);
-  if (error) throw new Error(`review helped session failed: ${error.message}`);
 }
 
 // --- Team board (bot.board_items + Storage) --------------------------------
@@ -953,4 +925,73 @@ export async function getScenarioLibrary(): Promise<ScenarioLibrary | null> {
   const { data, error } = await dataClient().rpc("get_scenario_library");
   if (error) throw new Error(`scenario library failed: ${error.message}`);
   return (data as unknown as ScenarioLibrary) ?? null;
+}
+
+// ---- Performance scorecard ------------------------------------------------
+
+// Clean rate, the eight defect counts ranked worst-first, and a daily series.
+//
+// Reads bot.conversation_defects, which is precomputed by the 10-minute batch —
+// the page never recomputes over transcripts. That is not just a speed choice:
+// a deterministic, materialised metric can be rebuilt over ALL history when a
+// definition changes, which is the only way a before/after on a shipped fix
+// means anything.
+export async function getPerformanceMetrics(
+  from: string,
+  to: string,
+): Promise<PerformanceMetrics> {
+  await requireStaff();
+  const { data, error } = await dataClient().rpc("performance_metrics", {
+    p_from: from,
+    p_to: to,
+  });
+  if (error) throw new Error(`performance metrics failed: ${error.message}`);
+  return data as unknown as PerformanceMetrics;
+}
+
+// Conversations behind one defect class. `cls` null = every defective
+// conversation; 'clean' = the clean ones, so a reviewer can check what we are
+// calling a success instead of only ever seeing failures.
+export async function listDefectConversations(
+  from: string,
+  to: string,
+  cls: string | null,
+  limit = 50,
+): Promise<DefectConversationRow[]> {
+  await requireStaff();
+  const { data, error } = await dataClient().rpc("defect_conversations", {
+    p_from: from,
+    p_to: to,
+    p_class: cls,
+    p_limit: limit,
+  });
+  if (error) throw new Error(`defect conversations failed: ${error.message}`);
+  return (data ?? []) as unknown as DefectConversationRow[];
+}
+
+// Before/after for every shipped fix that declared a target defect class.
+//
+// Always rendered with its control column. A before/after on a live system is
+// not proof — traffic mix shifts and several fixes land in the same week — so
+// the movement in all OTHER classes travels with the result and the verdict
+// says plainly when everything moved together.
+export async function listChangeImpact(
+  windowDays = 14,
+): Promise<ChangeImpactRow[]> {
+  await requireStaff();
+  const { data, error } = await dataClient().rpc("change_impact", {
+    p_window_days: windowDays,
+  });
+  if (error) throw new Error(`change impact failed: ${error.message}`);
+  return (data ?? []) as unknown as ChangeImpactRow[];
+}
+
+// How much of what Member Care calls "bad" the scorecard actually catches.
+// Read live rather than quoted from a commit message, so the caveat ages with
+// the data instead of quietly becoming false.
+export async function getScorecardValidation(): Promise<ScorecardValidation> {
+  await requireStaff();
+  const { data, error } = await dataClient().rpc("scorecard_validation");
+  if (error) throw new Error(`scorecard validation failed: ${error.message}`);
+  return data as unknown as ScorecardValidation;
 }

@@ -304,6 +304,21 @@ export interface SentimentBacklogSummary {
   failed: number;
 }
 
+// Conversations that went badly, measured from the transcript rather than
+// judged by a model — see bot.session_friction (db/026). Counted over ALL
+// conversations in the range, scored or not, because it needs no model and so
+// coverage does not limit it.
+export interface SentimentFriction {
+  total: number;
+  pct: number | null;
+  loop: number;
+  asked_for_human: number;
+  never_answered: number;
+  // Friction present, member scored Neutral or better. The case the old rubric
+  // could not express: the bot failed them and they were patient about it.
+  calm_but_bad: number;
+}
+
 export interface SentimentMetrics {
   from: string;
   to: string;
@@ -314,6 +329,11 @@ export interface SentimentMetrics {
   counts: Record<SentimentValue, number>;
   negative: number;
   negative_pct_of_scored: number | null;
+  // Size of the default triage list — the true union of negative sentiment and
+  // friction. Not `negative + friction.calm_but_bad`, which undercounts by the
+  // friction rows that have no sentiment score yet.
+  triage_total: number;
+  friction: SentimentFriction;
   low_confidence: number;
   unscored: number;
   failed: number;
@@ -324,12 +344,19 @@ export interface SentimentConversationRow {
   session_id: string;
   day: string;
   member: string | null;
-  sentiment: SentimentValue;
-  score: number;
+  // Null when the conversation is on the list for friction alone and the
+  // scorer has not reached it yet — friction needs no model, so it can surface
+  // a chat before there is any sentiment to show.
+  sentiment: SentimentValue | null;
+  score: number | null;
   confidence: string | null;
   rationale: string | null;
   pushed_ticket_id: string | null;
   has_feedback: boolean;
+  // Any of 'loop' | 'asked_for_human' | 'never_answered'; empty when clean.
+  friction: string[];
+  // How many times the most-repeated bot reply was sent, 0 when not looping.
+  repeated_max: number;
 }
 
 // ---- Scenario library -----------------------------------------------------
@@ -382,4 +409,90 @@ export interface ScenarioLibrary {
   window_to: string | null;
   messages_scanned: number | null;
   age_days: number;
+}
+
+// ---- Performance scorecard (db/029, db/030) -------------------------------
+
+// The eight deterministic defect classes. Every one is countable from the
+// transcript — the only judgement in the scorecard is "did the bot answer?",
+// settled once in bot.is_substantive_answer against a labelled template table.
+export type DefectClass =
+  | "no_answer"
+  | "loop"
+  | "asked_for_human"
+  | "auth_deadend"
+  | "abandoned_mid_ticket"
+  | "duplicate_ticket"
+  | "wrong_language"
+  | "link_only";
+
+export interface DefectCount {
+  class: DefectClass;
+  n: number;
+}
+
+export interface PerformanceDay {
+  day: string;
+  conversations: number;
+  clean: number;
+  clean_pct: number | null;
+}
+
+export interface PerformanceMetrics {
+  from: string;
+  to: string;
+  conversations: number;
+  clean: number;
+  clean_pct: number | null;
+  answered: number;
+  answered_pct: number | null;
+  // Ranked worst-first in SQL: the order is the work queue.
+  defects: DefectCount[];
+  by_day: PerformanceDay[];
+  last_computed: string | null;
+}
+
+export interface DefectConversationRow {
+  session_id: string;
+  day: string;
+  member: string | null;
+  user_msgs: number;
+  answers: number;
+  defects: DefectClass[];
+  repeated_max: number;
+  sentiment: string | null;
+  has_feedback: boolean;
+  first_user_message: string | null;
+}
+
+// Before/after for one shipped fix. `control_delta_pp` is the movement in every
+// OTHER defect class over the same two windows, and it is the reason this table
+// can be trusted: a target that falls while the control holds is the only shape
+// that supports a causal claim on a live system.
+export interface ChangeImpactRow {
+  id: string;
+  title: string;
+  shipped_at: string;
+  target_defect: DefectClass;
+  before_conversations: number;
+  after_conversations: number;
+  before_rate: number | null;
+  after_rate: number | null;
+  delta_pp: number | null;
+  control_before: number | null;
+  control_after: number | null;
+  control_delta_pp: number | null;
+  verdict: string;
+}
+
+// Recall of the scorecard against Member Care's manual ratings. Surfaced on
+// the page on purpose: the misses are wrong-but-fluent answers, which no
+// structural rule can catch, so the clean rate must never be read as quality.
+export interface ScorecardValidation {
+  bad_labelled: number;
+  bad_in_window: number;
+  bad_caught: number;
+  bad_recall_pct: number | null;
+  good_in_window: number;
+  good_scored_clean: number;
 }
