@@ -496,3 +496,45 @@ export interface ScorecardValidation {
   good_in_window: number;
   good_scored_clean: number;
 }
+
+// ---- Case library (db/032) ------------------------------------------------
+
+// One case Evelyn handles: what triggers it, what she does, the process, and
+// the source of truth for the content. Complements the scenario library, which
+// covers recognition only.
+//
+// The prose is hand-written from the live workflows and dated by verified_at —
+// it does NOT auto-update. `measured` is recomputed on every call, and is null
+// (never 0) for cases with no countable signal.
+export type CaseAction =
+  | "answer" | "link" | "ticket" | "process"
+  | "refuse" | "handoff" | "block" | "dead_end";
+
+export type CaseSource =
+  | "club_directory" | "magicline" | "prompt" | "faq_vector"
+  | "freshdesk_form" | "freshdesk_api" | "guardrail" | "database" | "none";
+
+export interface CaseLibraryRow {
+  key: string;
+  sort_order: number;
+  area: string;
+  trigger_label: string;
+  trigger_detail: string | null;
+  action_type: CaseAction;
+  action_summary: string;
+  process_steps: string[];
+  source_kind: CaseSource;
+  source_detail: string | null;
+  workflow: string | null;
+  known_issues: string | null;
+  verified_at: string;
+  // How the source is kept current: what writes it, how often (verified
+  // against real n8n execution history, not the schedule setting), and who can
+  // change it. The owner matters most — a prompt-sourced answer cannot be
+  // corrected by Member Care without a workflow edit and a publish.
+  refresh_mechanism: string | null;
+  refresh_cadence: string | null;
+  refresh_owner: string | null;
+  measured: number | null;
+  measured_label: string | null;
+}

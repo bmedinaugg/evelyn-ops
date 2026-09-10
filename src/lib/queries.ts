@@ -40,6 +40,7 @@ import type {
   DefectConversationRow,
   ChangeImpactRow,
   ScorecardValidation,
+  CaseLibraryRow,
 } from "@/lib/types";
 
 const BOARD_BUCKET = "board-attachments";
@@ -994,4 +995,18 @@ export async function getScorecardValidation(): Promise<ScorecardValidation> {
   const { data, error } = await dataClient().rpc("scorecard_validation");
   if (error) throw new Error(`scorecard validation failed: ${error.message}`);
   return data as unknown as ScorecardValidation;
+}
+
+// Every case the bot handles, with live volumes joined on.
+//
+// The descriptive columns are hand-written from the workflows and carry
+// verified_at; only the counts are live. The page surfaces the oldest
+// verified_at so staleness is visible rather than assumed away.
+export async function getCaseLibrary(days = 30): Promise<CaseLibraryRow[]> {
+  await requireStaff();
+  const { data, error } = await dataClient().rpc("case_library_view", {
+    p_days: days,
+  });
+  if (error) throw new Error(`case library failed: ${error.message}`);
+  return (data ?? []) as unknown as CaseLibraryRow[];
 }
