@@ -591,3 +591,17 @@ export interface CaseLibraryRow {
   measured: number | null;
   measured_label: string | null;
 }
+
+// A correction written by Member Care when Evelyn answers a question wrongly:
+// what she SHOULD say. Kept in its own table because bot.question_traces is
+// rebuilt wholesale by the generator, so a note stored on the trace row would
+// be destroyed on the next refresh.
+export interface QuestionNoteRow {
+  id: string;
+  question_key: string;
+  author_email: string;
+  should_be: string;
+  created_at: string;
+  resolved_at: string | null;
+  resolved_by: string | null;
+}

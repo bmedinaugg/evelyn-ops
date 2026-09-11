@@ -1,5 +1,6 @@
-import { getQuestionTraces } from "@/lib/queries";
-import type { QuestionTraceRow } from "@/lib/types";
+import { getQuestionTraces, listQuestionNotes } from "@/lib/queries";
+import type { QuestionTraceRow, QuestionNoteRow } from "@/lib/types";
+import { addQuestionNoteAction, resolveQuestionNoteAction } from "./actions";
 
 export const dynamic = "force-dynamic";
 
@@ -25,7 +26,18 @@ function fmtDate(d: string | null) {
 }
 
 export default async function QuestionsPage() {
-  const rows = await getQuestionTraces();
+  const [rows, notes] = await Promise.all([
+    getQuestionTraces(),
+    listQuestionNotes(),
+  ]);
+
+  // Notes are keyed softly, so group rather than join.
+  const byQuestion = new Map<string, QuestionNoteRow[]>();
+  for (const n of notes) {
+    const list = byQuestion.get(n.question_key) ?? [];
+    list.push(n);
+    byQuestion.set(n.question_key, list);
+  }
 
   // One entry per chain, in demand order — the summary before the detail.
   const chains = new Map<
@@ -100,14 +112,48 @@ export default async function QuestionsPage() {
         </p>
       </div>
 
+      {notes.length > 0 && (
+        <div className="panel">
+          <h2 style={{ marginTop: 0, fontSize: 16 }}>
+            Corrections waiting <span className="n">{notes.length}</span>
+          </h2>
+          <p className="muted" style={{ fontSize: 13, maxWidth: "70ch" }}>
+            What the team says the bot should be saying instead. Each one sits on
+            its question below too.
+          </p>
+          {notes.map((n) => (
+            <div
+              key={n.id}
+              style={{
+                borderTop: "1px solid var(--line)",
+                padding: "9px 0",
+                fontSize: 13.5,
+              }}
+            >
+              <strong>{n.question_key}</strong> &mdash; {n.should_be}
+              <div className="muted mono" style={{ fontSize: 11.5 }}>
+                {n.author_email} ·{" "}
+                {new Date(n.created_at).toLocaleDateString("en-GB")}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
       {rows.map((r) => (
-        <QuestionCard key={r.key} r={r} />
+        <QuestionCard key={r.key} r={r} notes={byQuestion.get(r.key) ?? []} />
       ))}
     </>
   );
 }
 
-function QuestionCard({ r }: { r: QuestionTraceRow }) {
+function QuestionCard({
+  r,
+  notes,
+}: {
+  r: QuestionTraceRow;
+  notes: QuestionNoteRow[];
+}) {
   return (
     <div className="panel">
       <div
@@ -194,6 +240,64 @@ function QuestionCard({ r }: { r: QuestionTraceRow }) {
           <strong>Worth knowing.</strong> {r.caveat}
         </p>
       )}
+
+      {/* Corrections. Stored in bot.question_notes, not on the trace row: the
+          traces are rebuilt wholesale by the generator and would take the
+          notes with them. */}
+      <div style={{ marginTop: 12, borderTop: "1px solid var(--line)", paddingTop: 10 }}>
+        {notes.length > 0 && (
+          <div style={{ marginBottom: 8 }}>
+            {notes.map((n) => (
+              <div
+                key={n.id}
+                style={{
+                  fontSize: 13,
+                  padding: "7px 10px",
+                  marginBottom: 6,
+                  border: "1px solid var(--line)",
+                  borderLeft: "3px solid #1D6B54",
+                  borderRadius: 3,
+                  display: "flex",
+                  justifyContent: "space-between",
+                  gap: 10,
+                  alignItems: "flex-start",
+                }}
+              >
+                <div>
+                  <strong>Should be:</strong> {n.should_be}
+                  <div className="muted mono" style={{ fontSize: 11.5 }}>
+                    {n.author_email} ·{" "}
+                    {new Date(n.created_at).toLocaleDateString("en-GB")}
+                  </div>
+                </div>
+                <form action={resolveQuestionNoteAction}>
+                  <input type="hidden" name="id" value={n.id} />
+                  <button type="submit" className="btn secondary">
+                    Done
+                  </button>
+                </form>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <form
+          action={addQuestionNoteAction}
+          style={{ display: "flex", gap: 8, alignItems: "flex-start" }}
+        >
+          <input type="hidden" name="question_key" value={r.key} />
+          <textarea
+            name="should_be"
+            rows={2}
+            placeholder="If this is wrong, how should it be answered?"
+            aria-label={`How should "${r.question}" be answered?`}
+            style={{ flex: 1, fontSize: 13, padding: "6px 8px" }}
+          />
+          <button type="submit" className="btn secondary">
+            Save
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
