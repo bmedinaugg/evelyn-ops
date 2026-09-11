@@ -1,0 +1,564 @@
+{
+  "chains": {
+    "club_directory": {
+      "label": "The club workbook",
+      "change_cost": "nodeploy",
+      "reads": "bot.public_locations",
+      "steps": [
+        "The bot reads bot.public_locations — hours, prices and facilities per club.",
+        "That is a view over bot.locations, filtered by bot.club_visibility so only clubs meant to be public are visible.",
+        "bot.locations is overwritten every day at 10:00 by the n8n workflow \"ugg gym data collection\" (49ZyB9tbZlqK3wW9), which takes about 5 seconds.",
+        "That workflow reads one spreadsheet: UGG_Gym_Data_Collection_4.xlsx."
+      ],
+      "ends_at": "A person edits that workbook by hand. It is the only way to change club data — the bot has no other source.",
+      "caveat": "We could not find the workbook. It is not in SharePoint under any search tried on 10 Sep 2026, so its location is configured inside the n8n node and written down nowhere. Worth pinning down."
+    },
+    "faq_store": {
+      "label": "The FAQ store",
+      "change_cost": "nodeploy",
+      "reads": "public.trainmore_faqs (vector search)",
+      "steps": [
+        "The Q&A agent searches a vector store of FAQ answers using OpenAI embeddings, and answers from what comes back.",
+        "That store is rebuilt from scratch every morning at 10:00, from three feeds.",
+        "Feed 1 — Freshdesk help articles published at support.trainmore.com (99 FAQs). Whatever Member Care publishes is in the bot the next morning.",
+        "Feed 2 — the spreadsheet TrainMore FAQs.xlsx in OneDrive (56 FAQs). Last edited 8 April 2026.",
+        "Feed 3 — bot.manual_faqs (5 FAQs), written by Member Care on 26 Aug 2026 from real tickets, for things no article covered."
+      ],
+      "ends_at": "Member Care. Publishing a Freshdesk article, editing the spreadsheet, or adding a row to bot.manual_faqs all reach the bot the next morning, with no deploy.",
+      "caveat": "The spreadsheet repeats articles that already sync from Freshdesk, so most answers are stored twice and retrieval can return the same one twice."
+    },
+    "magicline": {
+      "label": "Magicline, live",
+      "change_cost": "external",
+      "reads": "the Magicline API, per member",
+      "steps": [
+        "An account tool calls the Magicline API at the moment the question is asked, for that one member.",
+        "Nothing is stored and nothing is cached — the answer is whatever Magicline returns at that second."
+      ],
+      "ends_at": "Not ours. The answer is the record in Magicline, so if it is wrong, the membership record is wrong.",
+      "caveat": null
+    },
+    "prompt": {
+      "label": "Written into a prompt",
+      "change_cost": "deploy",
+      "reads": "the system prompt of an n8n node",
+      "steps": [
+        "There is no lookup. The answer is typed into the system prompt of an n8n node and the model repeats it.",
+        "A developer put it there; the n8n nodes carry their date in their own name, which is the only dated record of such a change."
+      ],
+      "ends_at": "Engineering. Changing this answer means editing the node and publishing the workflow.",
+      "caveat": "Esther’s TrainMore NL Bot Training Guide is where these rules were agreed, but it is not connected to anything. Editing that document changes nothing until someone edits the prompt to match."
+    },
+    "guardrail": {
+      "label": "A guardrail overrides the model",
+      "change_cost": "deploy",
+      "reads": "a code node that injects an instruction",
+      "steps": [
+        "Before the model replies, a code node checks the turn and, when it matches, injects an instruction telling the model what it may and may not say.",
+        "These are dated in their node names — Cancel Honesty 2026-09-04, Feedback Overrides 2026-08-26, Guardrail Patches 2026-08-26.",
+        "They are deliberately narrow: the cancel guardrail fires on about 1.2% of turns, and returns its input untouched on the rest."
+      ],
+      "ends_at": "Engineering. Each guardrail is code, and changing one is a deploy.",
+      "caveat": null
+    },
+    "freshdesk_form": {
+      "label": "Handed to a Freshdesk form",
+      "change_cost": "nodeploy",
+      "reads": "a support.trainmore.com form URL",
+      "steps": [
+        "The bot does not answer. It sends a link to a customer-facing Freshdesk form and stops.",
+        "The form itself — its fields, its routing, its confirmation e-mail — is configured in Freshdesk."
+      ],
+      "ends_at": "Member Care and the Freshdesk admins own the form.",
+      "caveat": "The bot hardcodes the form slug in the URL, so renaming a form in Freshdesk breaks the link silently."
+    },
+    "ticket": {
+      "label": "Filed as a ticket",
+      "change_cost": "nodeploy",
+      "reads": "nothing — it collects and hands over",
+      "steps": [
+        "The bot has no answer, so it collects the details, shows a preview, and files a ticket through the Freshdesk API.",
+        "Refine Group Routing in Bot - Ticket creation picks which team it lands in, first match wins."
+      ],
+      "ends_at": "A Member Care agent answers it. The bot’s only decision was which queue it lands in.",
+      "caveat": null
+    }
+  },
+  "questions": [
+    {
+      "key": "speak_to_human",
+      "sort_order": 10,
+      "question": "Can someone from the club call me / I want to speak to a person",
+      "examples": [
+        "Ik moet gaan werken kan iemand mij vandaag gewoon ff bellen [phone]",
+        "No. You’re nog helping. I would like to contact someone from the gym",
+        "I would like to speak to someone from the location trainmore Slotervaart Amsterdam"
+      ],
+      "matched_messages": 632,
+      "matched_sessions": 508,
+      "chain_key": "ticket",
+      "chain_label": "Filed as a ticket",
+      "decides": "The collection agent has an escape hatch (AGENT_RE) that recognises a request for a person. The bot deliberately separates \"can I speak to someone at the club\" — answered with club opening hours — from \"I want a human\", which becomes a ticket.",
+      "reads": "nothing — it collects and hands over",
+      "chain_steps": [
+        "The bot has no answer, so it collects the details, shows a preview, and files a ticket through the Freshdesk API.",
+        "Refine Group Routing in Bot - Ticket creation picks which team it lands in, first match wins."
+      ],
+      "ends_at": "A Member Care agent answers it. The bot’s only decision was which queue it lands in.",
+      "change_cost": "nodeploy",
+      "caveat": "There is no routing rule for this yet; it lands in whatever group the category implies, usually CC L1 - General."
+    },
+    {
+      "key": "change_membership",
+      "sort_order": 20,
+      "question": "Can I switch club, or change my membership level?",
+      "examples": [
+        "Change membership",
+        "i want to ask if i can switch home club",
+        "how can i change my home club?"
+      ],
+      "matched_messages": 960,
+      "matched_sessions": 813,
+      "chain_key": "freshdesk_form",
+      "chain_label": "Handed to a Freshdesk form",
+      "decides": "A request-type classifier in Bot - Ticket Collection Agent recognises a change request, then a briefing node asks for the missing detail — club first, then access level, then term — before sending the form link.",
+      "reads": "a support.trainmore.com form URL",
+      "chain_steps": [
+        "The bot does not answer. It sends a link to a customer-facing Freshdesk form and stops.",
+        "The form itself — its fields, its routing, its confirmation e-mail — is configured in Freshdesk."
+      ],
+      "ends_at": "Member Care and the Freshdesk admins own the form.",
+      "change_cost": "nodeploy",
+      "caveat": "The bot recognises far more change requests than it sends form links for, so a lot of these conversations end without the member reaching the form. The bot hardcodes the form slug in the URL, so renaming a form in Freshdesk breaks the link silently."
+    },
+    {
+      "key": "cancel_membership",
+      "sort_order": 30,
+      "question": "How do I cancel my membership?",
+      "examples": [
+        "early cancel membership",
+        "so do i cancel my membership so i don't add another payment. and then get a new one after i want to go to the gym again?",
+        "Hi how can i cancel my membership"
+      ],
+      "matched_messages": 754,
+      "matched_sessions": 659,
+      "chain_key": "freshdesk_form",
+      "chain_label": "Handed to a Freshdesk form",
+      "decides": "Recognised narrowly: it must name a membership object, and payment, class-booking, freeze and upgrade wording are excluded so they do not read as cancellations. In-contract members are sent the early-cancellation form.",
+      "reads": "a support.trainmore.com form URL",
+      "chain_steps": [
+        "The bot does not answer. It sends a link to a customer-facing Freshdesk form and stops.",
+        "The form itself — its fields, its routing, its confirmation e-mail — is configured in Freshdesk."
+      ],
+      "ends_at": "Member Care and the Freshdesk admins own the form.",
+      "change_cost": "nodeploy",
+      "caveat": "The app can take a normal notice of cancellation under Studio > Self-service; only early cancellation needs the form. The bot hardcodes the form slug in the URL, so renaming a form in Freshdesk breaks the link silently."
+    },
+    {
+      "key": "opening_hours",
+      "sort_order": 40,
+      "question": "What are the opening hours of a club?",
+      "examples": [
+        "Yes I mean that club and no I’m asking what time they open tomorrow",
+        "What’s the opening hours",
+        "Tot hoe laat is Leiden open?"
+      ],
+      "matched_messages": 13,
+      "matched_sessions": 10,
+      "chain_key": "club_directory",
+      "chain_label": "The club workbook",
+      "decides": "Answered before login. A gate in Bot - Main reads it as a public-info question — 11+ characters, a topic keyword, and no account word like \"my\" or an e-mail address — so no login is asked for.",
+      "reads": "bot.public_locations",
+      "chain_steps": [
+        "The bot reads bot.public_locations — hours, prices and facilities per club.",
+        "That is a view over bot.locations, filtered by bot.club_visibility so only clubs meant to be public are visible.",
+        "bot.locations is overwritten every day at 10:00 by the n8n workflow \"ugg gym data collection\" (49ZyB9tbZlqK3wW9), which takes about 5 seconds.",
+        "That workflow reads one spreadsheet: UGG_Gym_Data_Collection_4.xlsx."
+      ],
+      "ends_at": "A person edits that workbook by hand. It is the only way to change club data — the bot has no other source.",
+      "change_cost": "nodeploy",
+      "caveat": "When hours are missing the bot must say it cannot look them up, never that the club is closed. Collapsing those two is the failure mode the prompt explicitly guards against. We could not find the workbook. It is not in SharePoint under any search tried on 10 Sep 2026, so its location is configured inside the n8n node and written down nowhere. Worth pinning down."
+    },
+    {
+      "key": "contract_end",
+      "sort_order": 50,
+      "question": "When does my membership end, and what is my notice period?",
+      "examples": [
+        "Hi, niet op hoogte van opzegtermijn, Ik heb 1 jarig contract, geen update gekregen dat ik moest opzeggen",
+        "hello, when does my contract end and how much will I pay in the next month?",
+        "Ik heb mijn abonnement afgezegd en opzegtermijn is 7-10-2026. Moet ik dan nu nog 1 maand betalen?"
+      ],
+      "matched_messages": 151,
+      "matched_sessions": 119,
+      "chain_key": "magicline",
+      "chain_label": "Magicline, live",
+      "decides": "Only after the member has logged in with an e-mail code. The account tool returns the contract end date and cancellation terms for that specific membership.",
+      "reads": "the Magicline API, per member",
+      "chain_steps": [
+        "An account tool calls the Magicline API at the moment the question is asked, for that one member.",
+        "Nothing is stored and nothing is cached — the answer is whatever Magicline returns at that second."
+      ],
+      "ends_at": "Not ours. The answer is the record in Magicline, so if it is wrong, the membership record is wrong.",
+      "change_cost": "external",
+      "caveat": "The bot computes a cancel-by date from Magicline’s contractEndDate. If Magicline has the member on the wrong contract, the date the bot quotes is confidently wrong."
+    },
+    {
+      "key": "book_class",
+      "sort_order": 60,
+      "question": "How do I book or cancel a class?",
+      "examples": [
+        "Im sick and neet to cancel my class pilates at 18:10",
+        "I need to cancel my class due to renovations at my neighbour's construction that caused damages to my apartment",
+        "I need ro cancel my class due to damages in my apartment caused by construction in my neighbour apartment t"
+      ],
+      "matched_messages": 122,
+      "matched_sessions": 96,
+      "chain_key": "faq_store",
+      "chain_label": "The FAQ store",
+      "decides": "The how-to is answered from the FAQ store, which holds published articles for booking, cancelling, the waiting list, how far ahead you can book and the no-show policy. The member’s own bookings are a separate Magicline lookup after login. A guardrail (Patch G) stops a class cancellation being read as a membership cancellation.",
+      "reads": "public.trainmore_faqs (vector search)",
+      "chain_steps": [
+        "The Q&A agent searches a vector store of FAQ answers using OpenAI embeddings, and answers from what comes back.",
+        "That store is rebuilt from scratch every morning at 10:00, from three feeds.",
+        "Feed 1 — Freshdesk help articles published at support.trainmore.com (99 FAQs). Whatever Member Care publishes is in the bot the next morning.",
+        "Feed 2 — the spreadsheet TrainMore FAQs.xlsx in OneDrive (56 FAQs). Last edited 8 April 2026.",
+        "Feed 3 — bot.manual_faqs (5 FAQs), written by Member Care on 26 Aug 2026 from real tickets, for things no article covered."
+      ],
+      "ends_at": "Member Care. Publishing a Freshdesk article, editing the spreadsheet, or adding a row to bot.manual_faqs all reach the bot the next morning, with no deploy.",
+      "change_cost": "nodeploy",
+      "caveat": "This is the clearest case of the duplicate-storage problem: the booking articles exist twice in the store, once from the Freshdesk sync and once from the spreadsheet. The spreadsheet repeats articles that already sync from Freshdesk, so most answers are stored twice and retrieval can return the same one twice."
+    },
+    {
+      "key": "student_discount",
+      "sort_order": 70,
+      "question": "Do you have a student rate or a discount?",
+      "examples": [
+        "i would like to have the student membership as i had last year",
+        "No, I would like to know how to use the Hyperice discount code I got sent through the mail",
+        "Where can I use the Hyperice discount code"
+      ],
+      "matched_messages": 148,
+      "matched_sessions": 121,
+      "chain_key": "prompt",
+      "chain_label": "Written into a prompt",
+      "decides": "The pre-login prompt answers this directly and is explicitly forbidden from inventing or quoting discounts it cannot verify, so it declines rather than guesses.",
+      "reads": "the system prompt of an n8n node",
+      "chain_steps": [
+        "There is no lookup. The answer is typed into the system prompt of an n8n node and the model repeats it.",
+        "A developer put it there; the n8n nodes carry their date in their own name, which is the only dated record of such a change."
+      ],
+      "ends_at": "Engineering. Changing this answer means editing the node and publishing the workflow.",
+      "change_cost": "deploy",
+      "caveat": "The club directory holds a euro1_discount column that is deliberately withheld from the bot, because the prompt forbids stating discounts. Esther’s TrainMore NL Bot Training Guide is where these rules were agreed, but it is not connected to anything. Editing that document changes nothing until someone edits the prompt to match."
+    },
+    {
+      "key": "membership_price",
+      "sort_order": 80,
+      "question": "How much does a membership cost at a particular club?",
+      "examples": [
+        "voor bovenstaande prijs per maand",
+        "Hoeveel kost premium",
+        "Hoeveel kost het overstappen van de singel naar kraanspoor?"
+      ],
+      "matched_messages": 127,
+      "matched_sessions": 111,
+      "chain_key": "club_directory",
+      "chain_label": "The club workbook",
+      "decides": "Prices are per club and per access level, read from the directory. If the club is unknown the bot asks which one rather than quoting a range.",
+      "reads": "bot.public_locations",
+      "chain_steps": [
+        "The bot reads bot.public_locations — hours, prices and facilities per club.",
+        "That is a view over bot.locations, filtered by bot.club_visibility so only clubs meant to be public are visible.",
+        "bot.locations is overwritten every day at 10:00 by the n8n workflow \"ugg gym data collection\" (49ZyB9tbZlqK3wW9), which takes about 5 seconds.",
+        "That workflow reads one spreadsheet: UGG_Gym_Data_Collection_4.xlsx."
+      ],
+      "ends_at": "A person edits that workbook by hand. It is the only way to change club data — the bot has no other source.",
+      "change_cost": "nodeploy",
+      "caveat": "A hardcoded price rule used to be wrong here — it claimed Amsterdam Oost was EUR 30 when the sheet said 25. It is now read per club from the directory. We could not find the workbook. It is not in SharePoint under any search tried on 10 Sep 2026, so its location is configured inside the n8n node and written down nowhere. Worth pinning down."
+    },
+    {
+      "key": "day_pass",
+      "sort_order": 90,
+      "question": "Can I buy a day pass, or try the gym first?",
+      "examples": [
+        "Trial saterday 9am please",
+        "Interestee in haarlem hortus plein 4, trial",
+        "I booked a gree trial and want to join a trib3"
+      ],
+      "matched_messages": 525,
+      "matched_sessions": 357,
+      "chain_key": "club_directory",
+      "chain_label": "The club workbook",
+      "decides": "Answered before login, per club, with the right currency. Day passes are bought at the club with a debit card and never online.",
+      "reads": "bot.public_locations",
+      "chain_steps": [
+        "The bot reads bot.public_locations — hours, prices and facilities per club.",
+        "That is a view over bot.locations, filtered by bot.club_visibility so only clubs meant to be public are visible.",
+        "bot.locations is overwritten every day at 10:00 by the n8n workflow \"ugg gym data collection\" (49ZyB9tbZlqK3wW9), which takes about 5 seconds.",
+        "That workflow reads one spreadsheet: UGG_Gym_Data_Collection_4.xlsx."
+      ],
+      "ends_at": "A person edits that workbook by hand. It is the only way to change club data — the bot has no other source.",
+      "change_cost": "nodeploy",
+      "caveat": "Free-trial tickets are the one thing the bot routes to a club’s own Freshdesk group rather than a central team — requested by Member Care on 20 Aug 2026. We could not find the workbook. It is not in SharePoint under any search tried on 10 Sep 2026, so its location is configured inside the n8n node and written down nowhere. Worth pinning down."
+    },
+    {
+      "key": "why_charged",
+      "sort_order": 100,
+      "question": "Why was I charged, and when is my next payment?",
+      "examples": [
+        "Waarom is de eerstvolgende betaling dan 98?",
+        "Hello I do not understand why I have been charged 40 euro for a dunning fee",
+        "Voor de volgende betaling: Wanneer zie ik dan in m’n account dat m’n check ins worden verwekt?"
+      ],
+      "matched_messages": 66,
+      "matched_sessions": 58,
+      "chain_key": "magicline",
+      "chain_label": "Magicline, live",
+      "decides": "After login, the balance and transaction tools read the member’s real payment history and upcoming collection from Magicline.",
+      "reads": "the Magicline API, per member",
+      "chain_steps": [
+        "An account tool calls the Magicline API at the moment the question is asked, for that one member.",
+        "Nothing is stored and nothing is cached — the answer is whatever Magicline returns at that second."
+      ],
+      "ends_at": "Not ours. The answer is the record in Magicline, so if it is wrong, the membership record is wrong.",
+      "change_cost": "external",
+      "caveat": "The collection date cannot be changed — billing runs in 13 periods of 4 weeks — and a guardrail makes the bot say so rather than promise a change."
+    },
+    {
+      "key": "invoice",
+      "sort_order": 110,
+      "question": "Can I get an invoice or a payment receipt?",
+      "examples": [
+        "Just think along with me, because of the high invoice of de last month and my new membership",
+        "I don't need an invoice",
+        "Hi How to get invoice for my GYM ?"
+      ],
+      "matched_messages": 341,
+      "matched_sessions": 248,
+      "chain_key": "ticket",
+      "chain_label": "Filed as a ticket",
+      "decides": "The bot cannot produce invoices. It collects the period and files a ticket, and the routing rule sends anything naming an invoice period to CC L2 - Invoices.",
+      "reads": "nothing — it collects and hands over",
+      "chain_steps": [
+        "The bot has no answer, so it collects the details, shows a preview, and files a ticket through the Freshdesk API.",
+        "Refine Group Routing in Bot - Ticket creation picks which team it lands in, first match wins."
+      ],
+      "ends_at": "A Member Care agent answers it. The bot’s only decision was which queue it lands in.",
+      "change_cost": "nodeploy",
+      "caveat": "Without a period the request cannot be actioned, so the bot asks for one before filing."
+    },
+    {
+      "key": "freeze",
+      "sort_order": 120,
+      "question": "Can I freeze or pause my membership?",
+      "examples": [
+        "I would like to freeze my account for medical reason",
+        "Kan het niet bevriezen omdat ik naar het buitenland ga voor studie?",
+        "I would like to pause my membership for 3 months as I am out of the country. Please can I talk to someon about this"
+      ],
+      "matched_messages": 231,
+      "matched_sessions": 180,
+      "chain_key": "guardrail",
+      "chain_label": "A guardrail overrides the model",
+      "decides": "A guardrail overrides whatever the model would otherwise say: freezing is medical only, requested through the app under Self-service > Idle Period. Travel does not qualify.",
+      "reads": "a code node that injects an instruction",
+      "chain_steps": [
+        "Before the model replies, a code node checks the turn and, when it matches, injects an instruction telling the model what it may and may not say.",
+        "These are dated in their node names — Cancel Honesty 2026-09-04, Feedback Overrides 2026-08-26, Guardrail Patches 2026-08-26.",
+        "They are deliberately narrow: the cancel guardrail fires on about 1.2% of turns, and returns its input untouched on the rest."
+      ],
+      "ends_at": "Engineering. Each guardrail is code, and changing one is a deploy.",
+      "change_cost": "deploy",
+      "caveat": "This is the rule most likely to be softened by the model if the guardrail ever stops firing, because members ask for travel freezes constantly."
+    },
+    {
+      "key": "facilities",
+      "sort_order": 130,
+      "question": "Does a club have a sauna, parking, lockers or showers?",
+      "examples": [
+        "Hi, ik heb een vraag over het TrainMore locker room party event. Bij wie kan ik terecht?",
+        "Can I access PILAT3S middenweg with a subscription to TrainMore oost",
+        "I bought a ticket for the locker room party, but I can’t attend. Is it possible to get a refund?"
+      ],
+      "matched_messages": 161,
+      "matched_sessions": 128,
+      "chain_key": "club_directory",
+      "chain_label": "The club workbook",
+      "decides": "Answered before login from 25 facility columns in the club directory, per club.",
+      "reads": "bot.public_locations",
+      "chain_steps": [
+        "The bot reads bot.public_locations — hours, prices and facilities per club.",
+        "That is a view over bot.locations, filtered by bot.club_visibility so only clubs meant to be public are visible.",
+        "bot.locations is overwritten every day at 10:00 by the n8n workflow \"ugg gym data collection\" (49ZyB9tbZlqK3wW9), which takes about 5 seconds.",
+        "That workflow reads one spreadsheet: UGG_Gym_Data_Collection_4.xlsx."
+      ],
+      "ends_at": "A person edits that workbook by hand. It is the only way to change club data — the bot has no other source.",
+      "change_cost": "nodeploy",
+      "caveat": "We could not find the workbook. It is not in SharePoint under any search tried on 10 Sep 2026, so its location is configured inside the n8n node and written down nowhere. Worth pinning down."
+    },
+    {
+      "key": "membership_number",
+      "sort_order": 140,
+      "question": "What is my membership number?",
+      "examples": [
+        "My member number is 0022-[number]",
+        "ik ben op zoek naar mijn eigen lidmaatschapnummer",
+        "lidmaatschap nummer zoeken"
+      ],
+      "matched_messages": 200,
+      "matched_sessions": 170,
+      "chain_key": "magicline",
+      "chain_label": "Magicline, live",
+      "decides": "Returned from Magicline after login, for the account the verified e-mail belongs to.",
+      "reads": "the Magicline API, per member",
+      "chain_steps": [
+        "An account tool calls the Magicline API at the moment the question is asked, for that one member.",
+        "Nothing is stored and nothing is cached — the answer is whatever Magicline returns at that second."
+      ],
+      "ends_at": "Not ours. The answer is the record in Magicline, so if it is wrong, the membership record is wrong.",
+      "change_cost": "external",
+      "caveat": "A member with two memberships on one e-mail has to be asked which one, which is a separate flow."
+    },
+    {
+      "key": "which_clubs_access",
+      "sort_order": 150,
+      "question": "Which clubs can I get into with my membership?",
+      "examples": [
+        "Ik wil ook toegang tot een andere trainmore club",
+        "I would like to know which other clubs I have access to",
+        "Hello! Could you help me upgrade my membership? I would like to have access to all the gyms"
+      ],
+      "matched_messages": 71,
+      "matched_sessions": 65,
+      "chain_key": "club_directory",
+      "chain_label": "The club workbook",
+      "decides": "The club’s label (Red, Black or regular) comes from the directory; the member’s own access level comes from Magicline after login. A guardrail added on 8 Sep 2026 stops the model naming an access level or a club that is not in the data.",
+      "reads": "bot.public_locations",
+      "chain_steps": [
+        "The bot reads bot.public_locations — hours, prices and facilities per club.",
+        "That is a view over bot.locations, filtered by bot.club_visibility so only clubs meant to be public are visible.",
+        "bot.locations is overwritten every day at 10:00 by the n8n workflow \"ugg gym data collection\" (49ZyB9tbZlqK3wW9), which takes about 5 seconds.",
+        "That workflow reads one spreadsheet: UGG_Gym_Data_Collection_4.xlsx."
+      ],
+      "ends_at": "A person edits that workbook by hand. It is the only way to change club data — the bot has no other source.",
+      "change_cost": "nodeploy",
+      "caveat": "Before that guardrail the bot invented both — it offered a member \"Basic, Premium, Home+\" at a club that only sells Premium, and once confirmed a club that appeared nowhere in the request. Asking a one-answer question is what gave the model room to invent. We could not find the workbook. It is not in SharePoint under any search tried on 10 Sep 2026, so its location is configured inside the n8n node and written down nowhere. Worth pinning down."
+    },
+    {
+      "key": "join",
+      "sort_order": 160,
+      "question": "I want to become a member",
+      "examples": [
+        "I booked a gree trial and want to join a trib3",
+        "Ik wil me nog niet gelijk aanmelden bij een club, omdat ik wat wil bespreken voordat ik een abonnement afsluit",
+        "Ik heb een vraag over een lidmaatschap ik wil lid worden"
+      ],
+      "matched_messages": 185,
+      "matched_sessions": 172,
+      "chain_key": "ticket",
+      "chain_label": "Filed as a ticket",
+      "decides": "Treated as a sales lead rather than a support question: the details are collected and the ticket is routed to Outbound.",
+      "reads": "nothing — it collects and hands over",
+      "chain_steps": [
+        "The bot has no answer, so it collects the details, shows a preview, and files a ticket through the Freshdesk API.",
+        "Refine Group Routing in Bot - Ticket creation picks which team it lands in, first match wins."
+      ],
+      "ends_at": "A Member Care agent answers it. The bot’s only decision was which queue it lands in.",
+      "change_cost": "nodeploy",
+      "caveat": ""
+    },
+    {
+      "key": "owe_money",
+      "sort_order": 170,
+      "question": "Do I owe anything?",
+      "examples": [
+        "i have paid the debt collection",
+        "False debt on my account and I’ve tried to provide proof but you still did not fix the issue",
+        "Why is my outstanding debt €120? My membership number is 0035-[number]"
+      ],
+      "matched_messages": 202,
+      "matched_sessions": 163,
+      "chain_key": "magicline",
+      "chain_label": "Magicline, live",
+      "decides": "The balance tool reads the real outstanding amount, dunning level and debt-collection status from Magicline after login.",
+      "reads": "the Magicline API, per member",
+      "chain_steps": [
+        "An account tool calls the Magicline API at the moment the question is asked, for that one member.",
+        "Nothing is stored and nothing is cached — the answer is whatever Magicline returns at that second."
+      ],
+      "ends_at": "Not ours. The answer is the record in Magicline, so if it is wrong, the membership record is wrong.",
+      "change_cost": "external",
+      "caveat": "Wording about dunning or debt collection routes the ticket to CC L1 - Billing, but the bot does not yet route on Magicline’s own dunningLevel field."
+    },
+    {
+      "key": "no_show",
+      "sort_order": 180,
+      "question": "I got a no-show warning but I was there",
+      "examples": [
+        "Hi ik kreeg een bericht van no show, maar ik was gewoon bij de les en heb me aangemeld",
+        "I went to my lesson today And get a no show",
+        "Hi, I have been wrongfully blocked for booking classes due to no show. I only had 1 no show in the past month"
+      ],
+      "matched_messages": 84,
+      "matched_sessions": 68,
+      "chain_key": "guardrail",
+      "chain_label": "A guardrail overrides the model",
+      "decides": "A guardrail (ATTEND_RE) recognises an attendance dispute and stops it being handled as a booking or a payment question. The ticket is routed to CC L1 - General.",
+      "reads": "a code node that injects an instruction",
+      "chain_steps": [
+        "Before the model replies, a code node checks the turn and, when it matches, injects an instruction telling the model what it may and may not say.",
+        "These are dated in their node names — Cancel Honesty 2026-09-04, Feedback Overrides 2026-08-26, Guardrail Patches 2026-08-26.",
+        "They are deliberately narrow: the cancel guardrail fires on about 1.2% of turns, and returns its input untouched on the rest."
+      ],
+      "ends_at": "Engineering. Each guardrail is code, and changing one is a deploy.",
+      "change_cost": "deploy",
+      "caveat": "The bot cannot check whether the member actually attended — that is a Magicline record an agent has to look at — so it collects the dispute rather than resolving it."
+    },
+    {
+      "key": "extend",
+      "sort_order": 190,
+      "question": "I want to extend or renew my membership",
+      "examples": [
+        "Hey I just extended my membership but i want to change it",
+        "Yeah but I thought the redeemed period of the referral bonus will extend the contract for 4 weeks",
+        "Hi, my name is Teun Hennink. My membership expires in a few days and would like to be called to renew my membership."
+      ],
+      "matched_messages": 164,
+      "matched_sessions": 140,
+      "chain_key": "freshdesk_form",
+      "chain_label": "Handed to a Freshdesk form",
+      "decides": "Checked before \"change\" in the classifier, so an extension never reads as a switch. The member is sent the extension form.",
+      "reads": "a support.trainmore.com form URL",
+      "chain_steps": [
+        "The bot does not answer. It sends a link to a customer-facing Freshdesk form and stops.",
+        "The form itself — its fields, its routing, its confirmation e-mail — is configured in Freshdesk."
+      ],
+      "ends_at": "Member Care and the Freshdesk admins own the form.",
+      "change_cost": "nodeploy",
+      "caveat": "Member Care has flagged the bot for raising extension requests too readily. The bot hardcodes the form slug in the URL, so renaming a form in Freshdesk breaks the link silently."
+    },
+    {
+      "key": "app_selfservice",
+      "sort_order": 200,
+      "question": "What can I do myself in the app?",
+      "examples": [
+        "Yes for red light therapy but there was no option to cancel in the app",
+        "I made a payment but it is not being updated in the app.",
+        "wil een ticket maken dat ik perongelijk vooruit heb betaald en dat er nog niet in de app staat dat ik heb betaald"
+      ],
+      "matched_messages": 262,
+      "matched_sessions": 215,
+      "chain_key": "prompt",
+      "chain_label": "Written into a prompt",
+      "decides": "Answered from the prompt, and deliberately precise in both directions: the app CAN take a notice of cancellation and a medical idle period; it CANNOT change home club or access level.",
+      "reads": "the system prompt of an n8n node",
+      "chain_steps": [
+        "There is no lookup. The answer is typed into the system prompt of an n8n node and the model repeats it.",
+        "A developer put it there; the n8n nodes carry their date in their own name, which is the only dated record of such a change."
+      ],
+      "ends_at": "Engineering. Changing this answer means editing the node and publishing the workflow.",
+      "change_cost": "deploy",
+      "caveat": "The failure mode here is generalising. Six pre-login replies wrongly told members a home-club change was self-service in the app before this was corrected on 6 Sep 2026. Esther’s TrainMore NL Bot Training Guide is where these rules were agreed, but it is not connected to anything. Editing that document changes nothing until someone edits the prompt to match."
+    }
+  ]
+}
