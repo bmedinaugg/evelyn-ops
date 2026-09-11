@@ -514,6 +514,31 @@ export type CaseSource =
   | "club_directory" | "magicline" | "prompt" | "faq_vector"
   | "freshdesk_form" | "freshdesk_api" | "guardrail" | "database" | "none";
 
+// One question a member actually asks, traced from the words they type back to
+// the person who types the answer. `matched_messages` is a FLOOR: the matcher
+// that found the examples is ours, not the bot's own recogniser, and is written
+// narrow so it under-claims rather than over-claims.
+export interface QuestionTraceRow {
+  key: string;
+  sort_order: number;
+  question: string;
+  examples: string[];
+  matched_messages: number | null;
+  matched_sessions: number | null;
+  window_from: string | null;
+  window_to: string | null;
+  chain_key: string;
+  chain_label: string;
+  decides: string;
+  reads: string;
+  chain_steps: string[];
+  ends_at: string;
+  change_cost: "nodeploy" | "deploy" | "external";
+  caveat: string | null;
+  verified_at: string;
+  chain_question_count: number;
+}
+
 // live = re-read automatically, so changing the source changes the bot;
 // deploy = written into n8n, so changing it needs a release;
 // not_wired = nothing reads it, so editing it changes nothing at all.

@@ -1,0 +1,199 @@
+import { getQuestionTraces } from "@/lib/queries";
+import type { QuestionTraceRow } from "@/lib/types";
+
+export const dynamic = "force-dynamic";
+
+// Every answer Evelyn gives comes from one of seven places. Colour follows what
+// changing the answer would cost, not the source itself, because that is the
+// only part that changes what anyone does next.
+const COST: Record<
+  QuestionTraceRow["change_cost"],
+  { label: string; badge: string }
+> = {
+  nodeploy: { label: "No deploy", badge: "green" },
+  deploy: { label: "Needs a deploy", badge: "amber" },
+  external: { label: "Not ours", badge: "grey" },
+};
+
+function fmtDate(d: string | null) {
+  if (!d) return null;
+  return new Date(d + "T00:00:00Z").toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+    timeZone: "UTC",
+  });
+}
+
+export default async function QuestionsPage() {
+  const rows = await getQuestionTraces();
+
+  // One entry per chain, in demand order — the summary before the detail.
+  const chains = new Map<
+    string,
+    { label: string; questions: number; sessions: number; cost: QuestionTraceRow["change_cost"] }
+  >();
+  for (const r of rows) {
+    const c = chains.get(r.chain_key) ?? {
+      label: r.chain_label,
+      questions: 0,
+      sessions: 0,
+      cost: r.change_cost,
+    };
+    c.questions += 1;
+    c.sessions += r.matched_sessions ?? 0;
+    chains.set(r.chain_key, c);
+  }
+  const byDemand = [...chains.entries()].sort((a, b) => b[1].sessions - a[1].sessions);
+  const window = rows[0]
+    ? `${fmtDate(rows[0].window_from)} – ${fmtDate(rows[0].window_to)}`
+    : "";
+
+  return (
+    <>
+      <div className="pagehead">
+        <h1>How a question gets answered</h1>
+        <p className="muted">
+          Real questions members asked, traced from the words they type back to
+          the person who types the answer. TrainMore, {window}.
+        </p>
+      </div>
+
+      <div className="panel">
+        <h2 style={{ marginTop: 0, fontSize: 16 }}>
+          Every answer comes from one of {byDemand.length} places
+        </h2>
+        <p className="muted" style={{ fontSize: 13.5, maxWidth: "70ch" }}>
+          Read this first. It is the whole map — the {rows.length} questions
+          below are just worked examples of these {byDemand.length} routes.
+        </p>
+        <div className="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Where the answer comes from</th>
+                <th className="num">Questions</th>
+                <th className="num">Sessions</th>
+                <th>To change it</th>
+              </tr>
+            </thead>
+            <tbody>
+              {byDemand.map(([key, c]) => (
+                <tr key={key}>
+                  <td>{c.label}</td>
+                  <td className="num mono">{c.questions}</td>
+                  <td className="num mono">{c.sessions.toLocaleString("en-GB")}</td>
+                  <td>
+                    <span className={`badge ${COST[c.cost].badge}`}>
+                      {COST[c.cost].label}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="muted" style={{ fontSize: 12.5, marginBottom: 0 }}>
+          Session counts are a <strong>floor</strong>. The matcher that found
+          these questions is ours, not the bot&rsquo;s own recogniser, and is
+          written narrow so it under-claims rather than putting a number on the
+          page that one counter-example could disprove.
+        </p>
+      </div>
+
+      {rows.map((r) => (
+        <QuestionCard key={r.key} r={r} />
+      ))}
+    </>
+  );
+}
+
+function QuestionCard({ r }: { r: QuestionTraceRow }) {
+  return (
+    <div className="panel">
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: 14,
+          alignItems: "flex-start",
+          flexWrap: "wrap",
+        }}
+      >
+        <h2 style={{ margin: 0, fontSize: 17 }}>{r.question}</h2>
+        <span className={`badge ${COST[r.change_cost].badge}`}>
+          {COST[r.change_cost].label}
+        </span>
+      </div>
+      <p className="muted mono" style={{ fontSize: 11.5, margin: "4px 0 10px" }}>
+        {r.chain_label}
+        {r.matched_sessions != null && (
+          <> · asked in at least {r.matched_sessions.toLocaleString("en-GB")} conversations</>
+        )}
+      </p>
+
+      {r.examples.length > 0 && (
+        <div style={{ margin: "0 0 12px" }}>
+          {r.examples.map((e, i) => (
+            <p
+              key={i}
+              style={{
+                margin: "0 0 4px",
+                paddingLeft: 12,
+                borderLeft: "2px solid var(--line)",
+                fontSize: 13,
+                fontStyle: "italic",
+              }}
+              className="muted"
+            >
+              &ldquo;{e}&rdquo;
+            </p>
+          ))}
+        </div>
+      )}
+
+      <p style={{ fontSize: 13.5, margin: "0 0 6px" }}>
+        <strong>How she decides to answer it.</strong> {r.decides}
+      </p>
+      <p style={{ fontSize: 13.5, margin: "0 0 8px" }}>
+        <strong>What she reads.</strong> <span className="mono">{r.reads}</span>
+      </p>
+
+      <div
+        style={{
+          fontSize: 12,
+          fontWeight: 600,
+          textTransform: "uppercase",
+          letterSpacing: ".08em",
+        }}
+        className="muted"
+      >
+        How that got populated
+      </div>
+      <ol style={{ margin: "6px 0 8px", paddingLeft: 20, fontSize: 13.5 }}>
+        {r.chain_steps.map((s, i) => (
+          <li key={i} style={{ marginBottom: 3 }}>
+            {s}
+          </li>
+        ))}
+      </ol>
+      <p style={{ fontSize: 13.5, margin: "0 0 6px" }}>
+        <strong>Who ultimately types it.</strong> {r.ends_at}
+      </p>
+
+      {r.caveat && (
+        <p
+          style={{
+            fontSize: 13,
+            margin: "8px 0 0",
+            padding: "8px 10px",
+            border: "1px solid var(--line)",
+            borderLeft: "3px solid #96570E",
+            borderRadius: 3,
+          }}
+        >
+          <strong>Worth knowing.</strong> {r.caveat}
+        </p>
+      )}
+    </div>
+  );
+}
