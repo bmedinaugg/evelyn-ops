@@ -514,6 +514,34 @@ export type CaseSource =
   | "club_directory" | "magicline" | "prompt" | "faq_vector"
   | "freshdesk_form" | "freshdesk_api" | "guardrail" | "database" | "none";
 
+// live = re-read automatically, so changing the source changes the bot;
+// deploy = written into n8n, so changing it needs a release;
+// not_wired = nothing reads it, so editing it changes nothing at all.
+export type KnowledgeWiring = "live" | "deploy" | "not_wired";
+
+// One source of Evelyn's knowledge — a document, a feed, or a prompt — whether
+// or not it ever produced an FAQ. `evidence` is required because every date in
+// here is reconstructed: no ingestion log exists, so a date without its
+// provenance is exactly what this register is meant to prevent.
+export interface KnowledgeSourceRow {
+  key: string;
+  sort_order: number;
+  brand: string;
+  name: string;
+  kind: string;
+  wiring: KnowledgeWiring;
+  url: string | null;
+  last_used: string;
+  last_used_at: string | null;
+  evidence: string;
+  influences: string;
+  owner: string;
+  risk: string | null;
+  verified_at: string;
+  // Null means the source feeds no FAQ at all, which is different from zero.
+  faq_count: number | null;
+}
+
 export interface CaseLibraryRow {
   key: string;
   sort_order: number;

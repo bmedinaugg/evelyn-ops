@@ -13,6 +13,14 @@
 .env.local
 .env*.local
 
+# generator caches — pulled from Supabase, large, and reproducible.
+# tools/scenarios/messages.json is a 7 MB message dump; the review pack's
+# caches are the same thing plus the built page.
+tools/review/cases.json
+tools/review/messages.json
+tools/review/volume.json
+tools/review/evelyn-review-app.html
+
 # misc
 .DS_Store
 *.pem
