@@ -10,6 +10,9 @@
         "bot.locations is overwritten every day at 10:00 by the n8n workflow \"ugg gym data collection\" (49ZyB9tbZlqK3wW9), which takes about 5 seconds.",
         "That workflow reads one spreadsheet: UGG_Gym_Data_Collection_4.xlsx."
       ],
+      "sources": [
+        "club_workbook"
+      ],
       "ends_at": "A person edits that workbook by hand. It is the only way to change club data — the bot has no other source.",
       "caveat": "We could not find the workbook. It is not in SharePoint under any search tried on 10 Sep 2026, so its location is configured inside the n8n node and written down nowhere. Worth pinning down."
     },
@@ -24,6 +27,11 @@
         "Feed 2 — the spreadsheet TrainMore FAQs.xlsx in OneDrive (56 FAQs). Last edited 8 April 2026.",
         "Feed 3 — bot.manual_faqs (5 FAQs), written by Member Care on 26 Aug 2026 from real tickets, for things no article covered."
       ],
+      "sources": [
+        "freshdesk_articles",
+        "faq_spreadsheet",
+        "member_care_answers"
+      ],
       "ends_at": "Member Care. Publishing a Freshdesk article, editing the spreadsheet, or adding a row to bot.manual_faqs all reach the bot the next morning, with no deploy.",
       "caveat": "The spreadsheet repeats articles that already sync from Freshdesk, so most answers are stored twice and retrieval can return the same one twice."
     },
@@ -35,6 +43,9 @@
         "An account tool calls the Magicline API at the moment the question is asked, for that one member.",
         "Nothing is stored and nothing is cached — the answer is whatever Magicline returns at that second."
       ],
+      "sources": [
+        "magicline"
+      ],
       "ends_at": "Not ours. The answer is the record in Magicline, so if it is wrong, the membership record is wrong.",
       "caveat": null
     },
@@ -45,6 +56,10 @@
       "steps": [
         "There is no lookup. The answer is typed into the system prompt of an n8n node and the model repeats it.",
         "A developer put it there; the n8n nodes carry their date in their own name, which is the only dated record of such a change."
+      ],
+      "sources": [
+        "prompt_knowledge",
+        "training_guide"
       ],
       "ends_at": "Engineering. Changing this answer means editing the node and publishing the workflow.",
       "caveat": "Esther’s TrainMore NL Bot Training Guide is where these rules were agreed, but it is not connected to anything. Editing that document changes nothing until someone edits the prompt to match."
@@ -58,6 +73,10 @@
         "These are dated in their node names — Cancel Honesty 2026-09-04, Feedback Overrides 2026-08-26, Guardrail Patches 2026-08-26.",
         "They are deliberately narrow: the cancel guardrail fires on about 1.2% of turns, and returns its input untouched on the rest."
       ],
+      "sources": [
+        "prompt_knowledge",
+        "training_guide"
+      ],
       "ends_at": "Engineering. Each guardrail is code, and changing one is a deploy.",
       "caveat": null
     },
@@ -69,6 +88,7 @@
         "The bot does not answer. It sends a link to a customer-facing Freshdesk form and stops.",
         "The form itself — its fields, its routing, its confirmation e-mail — is configured in Freshdesk."
       ],
+      "sources": [],
       "ends_at": "Member Care and the Freshdesk admins own the form.",
       "caveat": "The bot hardcodes the form slug in the URL, so renaming a form in Freshdesk breaks the link silently."
     },
@@ -80,6 +100,7 @@
         "The bot has no answer, so it collects the details, shows a preview, and files a ticket through the Freshdesk API.",
         "Refine Group Routing in Bot - Ticket creation picks which team it lands in, first match wins."
       ],
+      "sources": [],
       "ends_at": "A Member Care agent answers it. The bot’s only decision was which queue it lands in.",
       "caveat": null
     }
@@ -103,6 +124,7 @@
       "matched_sessions": 508,
       "chain_key": "ticket",
       "chain_label": "Filed as a ticket",
+      "ultimate_source_keys": [],
       "decides": "The collection agent has an escape hatch (AGENT_RE) that recognises a request for a person. The bot deliberately separates \"can I speak to someone at the club\" — answered with club opening hours — from \"I want a human\", which becomes a ticket.",
       "reads": "nothing — it collects and hands over",
       "chain_steps": [
@@ -131,6 +153,7 @@
       "matched_sessions": 813,
       "chain_key": "freshdesk_form",
       "chain_label": "Handed to a Freshdesk form",
+      "ultimate_source_keys": [],
       "decides": "A request-type classifier in Bot - Ticket Collection Agent recognises a change request, then a briefing node asks for the missing detail — club first, then access level, then term — before sending the form link.",
       "reads": "a support.trainmore.com form URL",
       "chain_steps": [
@@ -159,6 +182,7 @@
       "matched_sessions": 659,
       "chain_key": "freshdesk_form",
       "chain_label": "Handed to a Freshdesk form",
+      "ultimate_source_keys": [],
       "decides": "Recognised narrowly: it must name a membership object, and payment, class-booking, freeze and upgrade wording are excluded so they do not read as cancellations. In-contract members are sent the early-cancellation form.",
       "reads": "a support.trainmore.com form URL",
       "chain_steps": [
@@ -187,6 +211,9 @@
       "matched_sessions": 10,
       "chain_key": "club_directory",
       "chain_label": "The club workbook",
+      "ultimate_source_keys": [
+        "club_workbook"
+      ],
       "decides": "Answered before login. A gate in Bot - Main reads it as a public-info question — 11+ characters, a topic keyword, and no account word like \"my\" or an e-mail address — so no login is asked for.",
       "reads": "bot.public_locations",
       "chain_steps": [
@@ -217,6 +244,9 @@
       "matched_sessions": 119,
       "chain_key": "magicline",
       "chain_label": "Magicline, live",
+      "ultimate_source_keys": [
+        "magicline"
+      ],
       "decides": "Only after the member has logged in with an e-mail code. The account tool returns the contract end date and cancellation terms for that specific membership.",
       "reads": "the Magicline API, per member",
       "chain_steps": [
@@ -245,6 +275,11 @@
       "matched_sessions": 96,
       "chain_key": "faq_store",
       "chain_label": "The FAQ store",
+      "ultimate_source_keys": [
+        "freshdesk_articles",
+        "faq_spreadsheet",
+        "member_care_answers"
+      ],
       "decides": "The how-to is answered from the FAQ store, which holds published articles for booking, cancelling, the waiting list, how far ahead you can book and the no-show policy. The member’s own bookings are a separate Magicline lookup after login. A guardrail (Patch G) stops a class cancellation being read as a membership cancellation.",
       "reads": "public.trainmore_faqs (vector search)",
       "chain_steps": [
@@ -276,6 +311,10 @@
       "matched_sessions": 121,
       "chain_key": "prompt",
       "chain_label": "Written into a prompt",
+      "ultimate_source_keys": [
+        "prompt_knowledge",
+        "training_guide"
+      ],
       "decides": "The pre-login prompt answers this directly and is explicitly forbidden from inventing or quoting discounts it cannot verify, so it declines rather than guesses.",
       "reads": "the system prompt of an n8n node",
       "chain_steps": [
@@ -304,6 +343,9 @@
       "matched_sessions": 111,
       "chain_key": "club_directory",
       "chain_label": "The club workbook",
+      "ultimate_source_keys": [
+        "club_workbook"
+      ],
       "decides": "Prices are per club and per access level, read from the directory. If the club is unknown the bot asks which one rather than quoting a range.",
       "reads": "bot.public_locations",
       "chain_steps": [
@@ -334,6 +376,9 @@
       "matched_sessions": 357,
       "chain_key": "club_directory",
       "chain_label": "The club workbook",
+      "ultimate_source_keys": [
+        "club_workbook"
+      ],
       "decides": "Answered before login, per club, with the right currency. Day passes are bought at the club with a debit card and never online.",
       "reads": "bot.public_locations",
       "chain_steps": [
@@ -364,6 +409,9 @@
       "matched_sessions": 58,
       "chain_key": "magicline",
       "chain_label": "Magicline, live",
+      "ultimate_source_keys": [
+        "magicline"
+      ],
       "decides": "After login, the balance and transaction tools read the member’s real payment history and upcoming collection from Magicline.",
       "reads": "the Magicline API, per member",
       "chain_steps": [
@@ -392,6 +440,7 @@
       "matched_sessions": 248,
       "chain_key": "ticket",
       "chain_label": "Filed as a ticket",
+      "ultimate_source_keys": [],
       "decides": "The bot cannot produce invoices. It collects the period and files a ticket, and the routing rule sends anything naming an invoice period to CC L2 - Invoices.",
       "reads": "nothing — it collects and hands over",
       "chain_steps": [
@@ -420,6 +469,10 @@
       "matched_sessions": 180,
       "chain_key": "guardrail",
       "chain_label": "A guardrail overrides the model",
+      "ultimate_source_keys": [
+        "prompt_knowledge",
+        "training_guide"
+      ],
       "decides": "A guardrail overrides whatever the model would otherwise say: freezing is medical only, requested through the app under Self-service > Idle Period. Travel does not qualify.",
       "reads": "a code node that injects an instruction",
       "chain_steps": [
@@ -449,6 +502,9 @@
       "matched_sessions": 128,
       "chain_key": "club_directory",
       "chain_label": "The club workbook",
+      "ultimate_source_keys": [
+        "club_workbook"
+      ],
       "decides": "Answered before login from 25 facility columns in the club directory, per club.",
       "reads": "bot.public_locations",
       "chain_steps": [
@@ -479,6 +535,9 @@
       "matched_sessions": 170,
       "chain_key": "magicline",
       "chain_label": "Magicline, live",
+      "ultimate_source_keys": [
+        "magicline"
+      ],
       "decides": "Returned from Magicline after login, for the account the verified e-mail belongs to.",
       "reads": "the Magicline API, per member",
       "chain_steps": [
@@ -507,6 +566,9 @@
       "matched_sessions": 65,
       "chain_key": "club_directory",
       "chain_label": "The club workbook",
+      "ultimate_source_keys": [
+        "club_workbook"
+      ],
       "decides": "The club’s label (Red, Black or regular) comes from the directory; the member’s own access level comes from Magicline after login. A guardrail added on 8 Sep 2026 stops the model naming an access level or a club that is not in the data.",
       "reads": "bot.public_locations",
       "chain_steps": [
@@ -537,6 +599,7 @@
       "matched_sessions": 172,
       "chain_key": "ticket",
       "chain_label": "Filed as a ticket",
+      "ultimate_source_keys": [],
       "decides": "Treated as a sales lead rather than a support question: the details are collected and the ticket is routed to Outbound.",
       "reads": "nothing — it collects and hands over",
       "chain_steps": [
@@ -565,6 +628,9 @@
       "matched_sessions": 163,
       "chain_key": "magicline",
       "chain_label": "Magicline, live",
+      "ultimate_source_keys": [
+        "magicline"
+      ],
       "decides": "The balance tool reads the real outstanding amount, dunning level and debt-collection status from Magicline after login.",
       "reads": "the Magicline API, per member",
       "chain_steps": [
@@ -593,6 +659,10 @@
       "matched_sessions": 68,
       "chain_key": "guardrail",
       "chain_label": "A guardrail overrides the model",
+      "ultimate_source_keys": [
+        "prompt_knowledge",
+        "training_guide"
+      ],
       "decides": "A guardrail (ATTEND_RE) recognises an attendance dispute and stops it being handled as a booking or a payment question. The ticket is routed to CC L1 - General.",
       "reads": "a code node that injects an instruction",
       "chain_steps": [
@@ -622,6 +692,7 @@
       "matched_sessions": 140,
       "chain_key": "freshdesk_form",
       "chain_label": "Handed to a Freshdesk form",
+      "ultimate_source_keys": [],
       "decides": "Checked before \"change\" in the classifier, so an extension never reads as a switch. The member is sent the extension form.",
       "reads": "a support.trainmore.com form URL",
       "chain_steps": [
@@ -650,6 +721,10 @@
       "matched_sessions": 215,
       "chain_key": "prompt",
       "chain_label": "Written into a prompt",
+      "ultimate_source_keys": [
+        "prompt_knowledge",
+        "training_guide"
+      ],
       "decides": "Answered from the prompt, and deliberately precise in both directions: the app CAN take a notice of cancellation and a medical idle period; it CANNOT change home club or access level.",
       "reads": "the system prompt of an n8n node",
       "chain_steps": [

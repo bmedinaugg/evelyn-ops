@@ -540,6 +540,21 @@ export interface QuestionTraceRow {
   caveat: string | null;
   verified_at: string;
   chain_question_count: number;
+  // The concrete artefact(s) at the end of the chain, resolved from
+  // bot.knowledge_sources. Empty is meaningful: no document backs this answer.
+  ultimate_sources: UltimateSource[];
+}
+
+// One artefact an answer ultimately rests on — a spreadsheet, a Word document,
+// the published Freshdesk articles. Joined from bot.knowledge_sources so a
+// rename in the register propagates rather than drifting.
+export interface UltimateSource {
+  key: string;
+  name: string;
+  kind: string;
+  wiring: "live" | "deploy" | "not_wired";
+  url: string | null;
+  last_used_at: string | null;
 }
 
 // live = re-read automatically, so changing the source changes the bot;

@@ -73,6 +73,7 @@ function req(method, path, body) {
     window_to: to,
     chain_key: q.chain_key,
     chain_label: q.chain_label,
+    ultimate_source_keys: q.ultimate_source_keys,
     decides: q.decides,
     reads: q.reads,
     chain_steps: q.chain_steps,
