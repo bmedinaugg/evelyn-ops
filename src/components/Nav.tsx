@@ -26,6 +26,10 @@ const SECTIONS: { title: string | null; items: NavItem[] }[] = [
       // comes from.
       { href: "/scenarios", label: "Scenario library", icon: "📖" },
       { href: "/library", label: "Case library", icon: "📚" },
+      // And a third, one level further back: /knowledge is what FEEDS the
+      // answers — the documents and syncs behind them, including the ones that
+      // produced no FAQ and the ones nothing actually reads.
+      { href: "/knowledge", label: "Knowledge register", icon: "🗃️" },
     ],
   },
   {

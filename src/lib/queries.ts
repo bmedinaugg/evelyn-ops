@@ -41,6 +41,7 @@ import type {
   ChangeImpactRow,
   ScorecardValidation,
   CaseLibraryRow,
+  KnowledgeSourceRow,
 } from "@/lib/types";
 
 const BOARD_BUCKET = "board-attachments";
@@ -1009,4 +1010,14 @@ export async function getCaseLibrary(days = 30): Promise<CaseLibraryRow[]> {
   });
   if (error) throw new Error(`case library failed: ${error.message}`);
   return (data ?? []) as unknown as CaseLibraryRow[];
+}
+
+// Everything influencing what the bot knows, including sources that produced no
+// FAQ at all. Only faq_count is live; the prose is hand-written and carries
+// verified_at, for the same reason the case library does.
+export async function getKnowledgeSources(): Promise<KnowledgeSourceRow[]> {
+  await requireStaff();
+  const { data, error } = await dataClient().rpc("knowledge_sources_view");
+  if (error) throw new Error(`knowledge sources failed: ${error.message}`);
+  return (data ?? []) as unknown as KnowledgeSourceRow[];
 }
