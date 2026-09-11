@@ -122,10 +122,16 @@ const fmt = (d) => d
 
     if (r.caveat) {
       body.push(para([run('Worth knowing.  ', { b: true, sz: 9 }), run(r.caveat, { sz: 9 })],
-        { after: 160, bar: 'B26A00', indent: 160 }));
-    } else {
-      body.push(para(run('', { sz: 6 }), { after: 120 }));
+        { after: 80, bar: 'B26A00', indent: 160 }));
     }
+
+    // Somewhere to write the correction. On paper this is a ruled box; on the
+    // page it is a form that saves to bot.question_notes. Same prompt on both,
+    // so a note taken on paper transcribes into the page without translation.
+    body.push(para(run('If this is wrong, how should it be answered?', { b: true, sz: 8, caps: true, color: '7C8792' }),
+      { before: 60, after: 20 }));
+    body.push(para(run('.'.repeat(95), { sz: 9, color: 'C8CFD5' }), { after: 20 }));
+    body.push(para(run('.'.repeat(95), { sz: 9, color: 'C8CFD5' }), { after: 160 }));
   }
 
   body.push(para(run('About this document'), { style: 'Heading1' }));

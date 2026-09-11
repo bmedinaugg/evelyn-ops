@@ -43,6 +43,7 @@ import type {
   CaseLibraryRow,
   KnowledgeSourceRow,
   QuestionTraceRow,
+  QuestionNoteRow,
 } from "@/lib/types";
 
 const BOARD_BUCKET = "board-attachments";
@@ -1031,4 +1032,45 @@ export async function getKnowledgeSources(): Promise<KnowledgeSourceRow[]> {
   const { data, error } = await dataClient().rpc("knowledge_sources_view");
   if (error) throw new Error(`knowledge sources failed: ${error.message}`);
   return (data ?? []) as unknown as KnowledgeSourceRow[];
+}
+
+// --- question notes: how a question SHOULD be answered ---------------------
+// Stored in their own table, not on bot.question_traces: seed.js rebuilds the
+// traces with a delete-all + insert, so a note living on that row would not
+// survive the next refresh.
+
+export async function listQuestionNotes(): Promise<QuestionNoteRow[]> {
+  await requireStaff();
+  const { data, error } = await dataClient()
+    .from("question_notes")
+    .select("*")
+    .is("resolved_at", null)
+    .order("created_at", { ascending: false });
+  if (error) throw new Error(`list question notes failed: ${error.message}`);
+  return (data ?? []) as QuestionNoteRow[];
+}
+
+export async function addQuestionNote(
+  questionKey: string,
+  shouldBe: string,
+): Promise<void> {
+  const staff = await requireStaff();
+  const text = shouldBe.trim();
+  if (!questionKey || !text) return;
+  const { error } = await dataClient().from("question_notes").insert({
+    question_key: questionKey,
+    author_email: staff.email,
+    should_be: text,
+  });
+  if (error) throw new Error(`add question note failed: ${error.message}`);
+}
+
+export async function resolveQuestionNote(id: string): Promise<void> {
+  const staff = await requireStaff();
+  if (!id) return;
+  const { error } = await dataClient()
+    .from("question_notes")
+    .update({ resolved_at: new Date().toISOString(), resolved_by: staff.email })
+    .eq("id", id);
+  if (error) throw new Error(`resolve question note failed: ${error.message}`);
 }
