@@ -45,6 +45,17 @@ function rpc(name) {
   });
 }
 
+const OPS = 'https://evelyn-ops-g4btdwcheaftcmbj.westeurope-01.azurewebsites.net';
+
+const KIND_SHORT = {
+  'Excel workbook': 'EXCEL',
+  'Word document': 'WORD',
+  'Published articles': 'FRESHDESK FAQS',
+  'Database table': 'DATABASE',
+  'n8n nodes': 'N8N PROMPT',
+  'Live API': 'LIVE API',
+};
+
 const COST = {
   nodeploy: { label: 'NO DEPLOY', color: '1D6B54' },
   deploy: { label: 'NEEDS A DEPLOY', color: '96570E' },
@@ -103,8 +114,38 @@ const fmt = (d) => d
       run(COST[r.change_cost].label, { b: true, sz: 8, color: COST[r.change_cost].color, caps: true }),
     ], { after: 80 }));
 
-    for (const ex of (r.examples || [])) {
-      body.push(para(run('“' + ex + '”', { i: true, sz: 9, color: '55626E' }), { after: 30, indent: 220 }));
+    // Each quote links through to the whole conversation in Evelyn Ops. A
+    // forwarded document is read away from the tool, so the link is the only
+    // way back to the context — quoting more of the chat would be worse, since
+    // the rest of it is not masked.
+    (r.examples || []).forEach((ex, i) => {
+      const session = (r.example_sessions || [])[i];
+      const runs = [run('“' + ex + '”  ', { i: true, sz: 9, color: '55626E' })];
+      if (session) runs.push(hyperlink('read the conversation', OPS + '/conversations/' + session, { sz: 8 }));
+      body.push(para(runs, { after: 30, indent: 220 }));
+    });
+
+    // The artefact this answer ultimately rests on, stated before the chain
+    // rather than after it: for most readers it is the only line that matters,
+    // because it names the thing they would have to open and edit.
+    body.push(para(run('Ultimate source', { b: true, sz: 8, caps: true, color: '7C8792' }), { before: 90, after: 20 }));
+    const srcs = r.ultimate_sources || [];
+    if (!srcs.length) {
+      body.push(para(run(
+        r.chain_label === 'Filed as a ticket'
+          ? 'No document. Nothing is looked up — a Member Care agent writes the answer.'
+          : 'No document. Nothing is looked up — the member is handed a Freshdesk form, which is configured in Freshdesk.',
+        { sz: 9 }), { after: 40, indent: 220 }));
+    } else {
+      for (const src of srcs) {
+        const runs = [
+          run((KIND_SHORT[src.kind] || src.kind) + '   ', { b: true, sz: 8, color: '0E5A62', caps: true }),
+        ];
+        if (src.url) runs.push(hyperlink(src.name, src.url, { sz: 9 }));
+        else runs.push(run(src.name, { b: true, sz: 9 }));
+        if (src.wiring === 'not_wired') runs.push(run('   NOTHING READS IT', { b: true, sz: 8, color: '8E3B3B', caps: true }));
+        body.push(para(runs, { after: 20, indent: 220 }));
+      }
     }
 
     body.push(para([run('How she decides to answer it.  ', { b: true, sz: 9 }), run(r.decides, { sz: 9 })], { before: 80, after: 40 }));

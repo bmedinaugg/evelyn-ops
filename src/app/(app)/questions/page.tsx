@@ -1,5 +1,10 @@
+import Link from "next/link";
 import { getQuestionTraces, listQuestionNotes } from "@/lib/queries";
-import type { QuestionTraceRow, QuestionNoteRow } from "@/lib/types";
+import type {
+  QuestionTraceRow,
+  QuestionNoteRow,
+  UltimateSource,
+} from "@/lib/types";
 import { addQuestionNoteAction, resolveQuestionNoteAction } from "./actions";
 
 export const dynamic = "force-dynamic";
@@ -14,6 +19,15 @@ const COST: Record<
   nodeploy: { label: "No deploy", badge: "green" },
   deploy: { label: "Needs a deploy", badge: "amber" },
   external: { label: "Not ours", badge: "grey" },
+};
+
+const KIND_SHORT: Record<string, string> = {
+  "Excel workbook": "Excel",
+  "Word document": "Word",
+  "Published articles": "Freshdesk FAQs",
+  "Database table": "Database",
+  "n8n nodes": "n8n prompt",
+  "Live API": "Live API",
 };
 
 function fmtDate(d: string | null) {
@@ -170,30 +184,42 @@ function QuestionCard({
           {COST[r.change_cost].label}
         </span>
       </div>
-      <p className="muted mono" style={{ fontSize: 11.5, margin: "4px 0 10px" }}>
+      <p className="muted mono" style={{ fontSize: 11.5, margin: "4px 0 8px" }}>
         {r.chain_label}
         {r.matched_sessions != null && (
           <> · asked in at least {r.matched_sessions.toLocaleString("en-GB")} conversations</>
         )}
       </p>
 
+      <Sources sources={r.ultimate_sources} chain={r.chain_label} />
+
       {r.examples.length > 0 && (
         <div style={{ margin: "0 0 12px" }}>
-          {r.examples.map((e, i) => (
-            <p
-              key={i}
-              style={{
-                margin: "0 0 4px",
-                paddingLeft: 12,
-                borderLeft: "2px solid var(--line)",
-                fontSize: 13,
-                fontStyle: "italic",
-              }}
-              className="muted"
-            >
-              &ldquo;{e}&rdquo;
-            </p>
-          ))}
+          {r.examples.map((e, i) => {
+            const session = r.example_sessions[i];
+            return (
+              <p
+                key={i}
+                style={{
+                  margin: "0 0 4px",
+                  paddingLeft: 12,
+                  borderLeft: "2px solid var(--line)",
+                  fontSize: 13,
+                }}
+                className="muted"
+              >
+                <span style={{ fontStyle: "italic" }}>&ldquo;{e}&rdquo;</span>{" "}
+                {session && (
+                  <Link
+                    href={`/conversations/${session}`}
+                    style={{ fontSize: 11.5, whiteSpace: "nowrap" }}
+                  >
+                    read the conversation
+                  </Link>
+                )}
+              </p>
+            );
+          })}
         </div>
       )}
 
@@ -298,6 +324,86 @@ function QuestionCard({
           </button>
         </form>
       </div>
+    </div>
+  );
+}
+
+// The artefact an answer ultimately rests on, highlighted rather than buried at
+// the end of the chain: for most people this is the only line that matters,
+// because it names the thing they would have to open and edit.
+function Sources({
+  sources,
+  chain,
+}: {
+  sources: UltimateSource[];
+  chain: string;
+}) {
+  return (
+    <div
+      style={{
+        margin: "0 0 12px",
+        padding: "9px 12px",
+        border: "1px solid var(--line)",
+        borderLeft: "3px solid #0E5A62",
+        borderRadius: 3,
+        background: "rgba(14,90,98,0.04)",
+      }}
+    >
+      <div
+        className="muted"
+        style={{
+          fontSize: 11,
+          fontWeight: 600,
+          textTransform: "uppercase",
+          letterSpacing: ".08em",
+          marginBottom: 5,
+        }}
+      >
+        Ultimate source
+      </div>
+      {sources.length === 0 ? (
+        <div style={{ fontSize: 13.5 }}>
+          <strong>No document.</strong>{" "}
+          {chain === "Filed as a ticket"
+            ? "Nothing is looked up — a Member Care agent writes the answer."
+            : "Nothing is looked up — the member is handed a Freshdesk form and the form is configured in Freshdesk."}
+        </div>
+      ) : (
+        sources.map((s) => (
+          <div
+            key={s.key}
+            style={{
+              fontSize: 13.5,
+              display: "flex",
+              gap: 8,
+              alignItems: "baseline",
+              flexWrap: "wrap",
+              marginBottom: 3,
+            }}
+          >
+            <span className="badge grey" style={{ fontSize: 10.5 }}>
+              {KIND_SHORT[s.kind] ?? s.kind}
+            </span>
+            {s.url ? (
+              <a href={s.url} target="_blank" rel="noopener noreferrer">
+                {s.name}
+              </a>
+            ) : (
+              <strong>{s.name}</strong>
+            )}
+            {s.wiring === "not_wired" && (
+              <span className="badge red" style={{ fontSize: 10.5 }}>
+                nothing reads it
+              </span>
+            )}
+            {s.last_used_at && (
+              <span className="muted mono" style={{ fontSize: 11 }}>
+                last used {fmtDate(s.last_used_at)}
+              </span>
+            )}
+          </div>
+        ))
+      )}
     </div>
   );
 }

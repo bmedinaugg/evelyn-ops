@@ -28,6 +28,7 @@ const CHAINS = {
       'bot.locations is overwritten every day at 10:00 by the n8n workflow "ugg gym data collection" (49ZyB9tbZlqK3wW9), which takes about 5 seconds.',
       'That workflow reads one spreadsheet: UGG_Gym_Data_Collection_4.xlsx.',
     ],
+    sources: ['club_workbook'],
     ends_at: 'A person edits that workbook by hand. It is the only way to change club data — the bot has no other source.',
     caveat: 'We could not find the workbook. It is not in SharePoint under any search tried on 10 Sep 2026, so its location is configured inside the n8n node and written down nowhere. Worth pinning down.',
   },
@@ -42,6 +43,7 @@ const CHAINS = {
       'Feed 2 — the spreadsheet TrainMore FAQs.xlsx in OneDrive (56 FAQs). Last edited 8 April 2026.',
       'Feed 3 — bot.manual_faqs (5 FAQs), written by Member Care on 26 Aug 2026 from real tickets, for things no article covered.',
     ],
+    sources: ['freshdesk_articles', 'faq_spreadsheet', 'member_care_answers'],
     ends_at: 'Member Care. Publishing a Freshdesk article, editing the spreadsheet, or adding a row to bot.manual_faqs all reach the bot the next morning, with no deploy.',
     caveat: 'The spreadsheet repeats articles that already sync from Freshdesk, so most answers are stored twice and retrieval can return the same one twice.',
   },
@@ -53,6 +55,7 @@ const CHAINS = {
       'An account tool calls the Magicline API at the moment the question is asked, for that one member.',
       'Nothing is stored and nothing is cached — the answer is whatever Magicline returns at that second.',
     ],
+    sources: ['magicline'],
     ends_at: 'Not ours. The answer is the record in Magicline, so if it is wrong, the membership record is wrong.',
     caveat: null,
   },
@@ -64,6 +67,9 @@ const CHAINS = {
       'There is no lookup. The answer is typed into the system prompt of an n8n node and the model repeats it.',
       'A developer put it there; the n8n nodes carry their date in their own name, which is the only dated record of such a change.',
     ],
+    // The training guide is listed even though nothing reads it: it is where
+    // these answers were agreed, and hiding that is how it stays forgotten.
+    sources: ['prompt_knowledge', 'training_guide'],
     ends_at: 'Engineering. Changing this answer means editing the node and publishing the workflow.',
     caveat: 'Esther’s TrainMore NL Bot Training Guide is where these rules were agreed, but it is not connected to anything. Editing that document changes nothing until someone edits the prompt to match.',
   },
@@ -76,6 +82,7 @@ const CHAINS = {
       'These are dated in their node names — Cancel Honesty 2026-09-04, Feedback Overrides 2026-08-26, Guardrail Patches 2026-08-26.',
       'They are deliberately narrow: the cancel guardrail fires on about 1.2% of turns, and returns its input untouched on the rest.',
     ],
+    sources: ['prompt_knowledge', 'training_guide'],
     ends_at: 'Engineering. Each guardrail is code, and changing one is a deploy.',
     caveat: null,
   },
@@ -87,6 +94,9 @@ const CHAINS = {
       'The bot does not answer. It sends a link to a customer-facing Freshdesk form and stops.',
       'The form itself — its fields, its routing, its confirmation e-mail — is configured in Freshdesk.',
     ],
+    // No entry in the knowledge register: a form is not knowledge. The empty
+    // list is the honest answer and the page says so in words.
+    sources: [],
     ends_at: 'Member Care and the Freshdesk admins own the form.',
     caveat: 'The bot hardcodes the form slug in the URL, so renaming a form in Freshdesk breaks the link silently.',
   },
@@ -98,6 +108,7 @@ const CHAINS = {
       'The bot has no answer, so it collects the details, shows a preview, and files a ticket through the Freshdesk API.',
       'Refine Group Routing in Bot - Ticket creation picks which team it lands in, first match wins.',
     ],
+    sources: [],
     ends_at: 'A Member Care agent answers it. The bot’s only decision was which queue it lands in.',
     caveat: null,
   },
@@ -265,22 +276,40 @@ const texts = msgs.map((r) => ({
   s: r.session_id,
 }));
 
+// How much the member said in each session, as a stand-in for how much of a
+// conversation there is to read. Used only to ORDER the candidate examples:
+// a quote linking to a two-message chat is technically real and useless to
+// open, so richer conversations are offered first. It never changes which
+// messages matched, so the counts are unaffected.
+const sessionSize = new Map();
+for (const r of texts) sessionSize.set(r.s, (sessionSize.get(r.s) || 0) + 1);
+
 const out = QUESTIONS.map((q, i) => {
   const hits = texts.filter((r) => {
     try { return q.match.test(r.t); } catch (e) { return false; }
   });
   const sessions = new Set(hits.map((r) => r.s)).size;
 
-  // Examples: readable length, deduped, and masked.
+  // Examples: readable length, deduped, masked — and from THREE DIFFERENT
+  // sessions, so the quotes are three different members rather than one member
+  // rephrasing. The session id travels with each quote so a reader can open the
+  // whole conversation instead of being given more of it out of context.
   const seen = new Set();
+  const usedSessions = new Set();
   const examples = [];
-  for (const h of hits) {
+  const exampleSessions = [];
+  const ranked = hits
+    .slice()
+    .sort((a, b) => (sessionSize.get(b.s) || 0) - (sessionSize.get(a.s) || 0));
+  for (const h of ranked) {
     const t = h.t;
     if (t.length < 15 || t.length > 120) continue;
     const k = t.toLowerCase().slice(0, 28);
-    if (seen.has(k)) continue;
+    if (seen.has(k) || usedSessions.has(h.s)) continue;
     seen.add(k);
+    usedSessions.add(h.s);
     examples.push(redact(t));
+    exampleSessions.push(h.s);
     if (examples.length >= 3) break;
   }
 
@@ -290,10 +319,12 @@ const out = QUESTIONS.map((q, i) => {
     sort_order: (i + 1) * 10,
     question: q.question,
     examples,
+    example_sessions: exampleSessions,
     matched_messages: hits.length,
     matched_sessions: sessions,
     chain_key: q.chain,
     chain_label: chain.label,
+    ultimate_source_keys: chain.sources,
     decides: q.decides,
     reads: chain.reads,
     chain_steps: chain.steps,
