@@ -66,6 +66,7 @@ function req(method, path, body) {
     brand: 'trainmore',
     question: q.question,
     examples: q.examples,
+    example_sessions: q.example_sessions,
     matched_messages: q.matched_messages,
     matched_sessions: q.matched_sessions,
     window_from: from,

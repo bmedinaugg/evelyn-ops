@@ -90,9 +90,14 @@
       "sort_order": 10,
       "question": "Can someone from the club call me / I want to speak to a person",
       "examples": [
-        "Ik moet gaan werken kan iemand mij vandaag gewoon ff bellen [phone]",
-        "No. You’re nog helping. I would like to contact someone from the gym",
-        "I would like to speak to someone from the location trainmore Slotervaart Amsterdam"
+        "Kun je me laten bellen door een medewerker?",
+        "I want to speak to a real person",
+        "Evelyn how do I talk to a real person about this issue"
+      ],
+      "example_sessions": [
+        "484702c5-46ac-4e7f-809c-260a9f76ac8d",
+        "0741a063-5876-44c5-a79a-d0170c61d50c",
+        "672f7f77-60d8-41ab-b154-a212d392c406"
       ],
       "matched_messages": 632,
       "matched_sessions": 508,
@@ -113,9 +118,14 @@
       "sort_order": 20,
       "question": "Can I switch club, or change my membership level?",
       "examples": [
-        "Change membership",
-        "i want to ask if i can switch home club",
+        "Graag nu 2 aparte tickets maken of alles toevoegen in een mail dus bevriezing en na bevriezing overstap gym locatie",
+        "Change type is home club change, please proceed",
         "how can i change my home club?"
+      ],
+      "example_sessions": [
+        "90dff872-30f8-4d87-a4e9-9f14c6adb78c",
+        "e13b0889-1807-4d0b-add8-927213a77079",
+        "1f0d7ca6-020a-4cf7-95f3-c91f19029e3a"
       ],
       "matched_messages": 960,
       "matched_sessions": 813,
@@ -136,9 +146,14 @@
       "sort_order": 30,
       "question": "How do I cancel my membership?",
       "examples": [
-        "early cancel membership",
-        "so do i cancel my membership so i don't add another payment. and then get a new one after i want to go to the gym again?",
-        "Hi how can i cancel my membership"
+        "fine - i wish to stop; is a notice required on my membership? it is free of any fixed period now",
+        "I would like to cancel my membership but do not see the option in my app and cannot find an emailadress",
+        "what are my options for cancelling my membership early"
+      ],
+      "example_sessions": [
+        "0f4b9953-fd3c-4839-b890-4f6f676bcba9",
+        "2e976f51-5451-4da3-84cf-323407ab3329",
+        "672f7f77-60d8-41ab-b154-a212d392c406"
       ],
       "matched_messages": 754,
       "matched_sessions": 659,
@@ -159,9 +174,14 @@
       "sort_order": 40,
       "question": "What are the opening hours of a club?",
       "examples": [
-        "Yes I mean that club and no I’m asking what time they open tomorrow",
-        "What’s the opening hours",
-        "Tot hoe laat is Leiden open?"
+        "Tot hoe laat is Leiden open?",
+        "Moet wel is vaker een minuut wachten totdat ie er is. Maar openingstijden is vanaf 6.00",
+        "Yes I mean that club and no I’m asking what time they open tomorrow"
+      ],
+      "example_sessions": [
+        "35062942-7454-479b-917a-a68b81dc7493",
+        "78ea4726-7560-4834-a260-4c07dedfc0cf",
+        "e74d1f77-fd38-4ea3-9173-3a56204845ca"
       ],
       "matched_messages": 13,
       "matched_sessions": 10,
@@ -184,9 +204,14 @@
       "sort_order": 50,
       "question": "When does my membership end, and what is my notice period?",
       "examples": [
-        "Hi, niet op hoogte van opzegtermijn, Ik heb 1 jarig contract, geen update gekregen dat ik moest opzeggen",
-        "hello, when does my contract end and how much will I pay in the next month?",
-        "Ik heb mijn abonnement afgezegd en opzegtermijn is 7-10-2026. Moet ik dan nu nog 1 maand betalen?"
+        "what is the notice period?",
+        "want to have more information on my end date",
+        "Hi, niet op hoogte van opzegtermijn, Ik heb 1 jarig contract, geen update gekregen dat ik moest opzeggen"
+      ],
+      "example_sessions": [
+        "0f4b9953-fd3c-4839-b890-4f6f676bcba9",
+        "2e976f51-5451-4da3-84cf-323407ab3329",
+        "c3018993-e512-4387-8ceb-e76f2d29b49e"
       ],
       "matched_messages": 151,
       "matched_sessions": 119,
@@ -207,9 +232,14 @@
       "sort_order": 60,
       "question": "How do I book or cancel a class?",
       "examples": [
-        "Im sick and neet to cancel my class pilates at 18:10",
-        "I need to cancel my class due to renovations at my neighbour's construction that caused damages to my apartment",
-        "I need ro cancel my class due to damages in my apartment caused by construction in my neighbour apartment t"
+        "I do not have an account yet as I am not yet a member, I booked a trail session",
+        "I would like to book a lesson",
+        "did you cancel the CORE class I booked through the app?"
+      ],
+      "example_sessions": [
+        "6d9cf355-0686-4680-bf24-be8a93cbfff6",
+        "bfc20c2a-7abb-46e2-baad-687f30a573a2",
+        "2178987a-61d6-4151-a10d-226d60ff4b07"
       ],
       "matched_messages": 122,
       "matched_sessions": 96,
@@ -233,9 +263,14 @@
       "sort_order": 70,
       "question": "Do you have a student rate or a discount?",
       "examples": [
-        "i would like to have the student membership as i had last year",
-        "No, I would like to know how to use the Hyperice discount code I got sent through the mail",
-        "Where can I use the Hyperice discount code"
+        "without student membership how much? and do i get 1 eurp off everytime",
+        "can i just have the discount code?",
+        "Wait so do I get a student discount?"
+      ],
+      "example_sessions": [
+        "1572d907-bc00-4751-acd9-6437f755cd13",
+        "83f2bddf-75d7-43d5-be36-2b24a76935e5",
+        "f6eee7b6-22f1-4916-97d4-00b68a72fb87"
       ],
       "matched_messages": 148,
       "matched_sessions": 121,
@@ -256,9 +291,14 @@
       "sort_order": 80,
       "question": "How much does a membership cost at a particular club?",
       "examples": [
-        "voor bovenstaande prijs per maand",
         "Hoeveel kost premium",
-        "Hoeveel kost het overstappen van de singel naar kraanspoor?"
+        "Op welke prijs startte ik mijn abonnement?",
+        "And how much does it cost after january ?"
+      ],
+      "example_sessions": [
+        "aaea7be3-9297-483d-9208-e62f21f680b4",
+        "15fc9198-d83b-4470-8dd5-fa65ca7e179d",
+        "03652556-6bd4-4dc4-9fc0-1e981c66e8f5"
       ],
       "matched_messages": 127,
       "matched_sessions": 111,
@@ -281,9 +321,14 @@
       "sort_order": 90,
       "question": "Can I buy a day pass, or try the gym first?",
       "examples": [
-        "Trial saterday 9am please",
-        "Interestee in haarlem hortus plein 4, trial",
-        "I booked a gree trial and want to join a trib3"
+        "no, not for membership. it's a free trial",
+        "No I just want to a change the time of my trial session nothing else",
+        "Can I pay for one day pass? Do you have a one day pass?"
+      ],
+      "example_sessions": [
+        "b8f8a654-bb0b-4daf-8227-94ab61dfe852",
+        "6d9cf355-0686-4680-bf24-be8a93cbfff6",
+        "803d5efa-088d-44ff-96e8-39b501c680eb"
       ],
       "matched_messages": 525,
       "matched_sessions": 357,
@@ -306,9 +351,14 @@
       "sort_order": 100,
       "question": "Why was I charged, and when is my next payment?",
       "examples": [
+        "Voor de volgende betaling: Wanneer zie ik dan in m’n account dat m’n check ins worden verwekt?",
         "Waarom is de eerstvolgende betaling dan 98?",
-        "Hello I do not understand why I have been charged 40 euro for a dunning fee",
-        "Voor de volgende betaling: Wanneer zie ik dan in m’n account dat m’n check ins worden verwekt?"
+        "Ga terug naar het vorige bericht! Waarom wordt er nogsteeds geld afgeschreven"
+      ],
+      "example_sessions": [
+        "2e1ace16-dffb-46c2-85c8-3ed4807e9e48",
+        "fa394c87-bd67-44be-a53d-e4319d787495",
+        "24c8da04-fd4a-4f7c-9539-07b46d2e8ccf"
       ],
       "matched_messages": 66,
       "matched_sessions": 58,
@@ -329,9 +379,14 @@
       "sort_order": 110,
       "question": "Can I get an invoice or a payment receipt?",
       "examples": [
-        "Just think along with me, because of the high invoice of de last month and my new membership",
-        "I don't need an invoice",
-        "Hi How to get invoice for my GYM ?"
+        "Invoice of membership fee september",
+        "It’s about an invoice.",
+        "btw slechte ai bot"
+      ],
+      "example_sessions": [
+        "8a1f4c31-a92c-4fde-87f6-6ae61912a833",
+        "3dfa273c-bc70-44ff-a00a-f4d3bd0adb94",
+        "f6af9bdd-253b-42b6-b810-4a1a1f9c30fc"
       ],
       "matched_messages": 341,
       "matched_sessions": 248,
@@ -352,9 +407,14 @@
       "sort_order": 120,
       "question": "Can I freeze or pause my membership?",
       "examples": [
-        "I would like to freeze my account for medical reason",
-        "Kan het niet bevriezen omdat ik naar het buitenland ga voor studie?",
-        "I would like to pause my membership for 3 months as I am out of the country. Please can I talk to someon about this"
+        "Ja dus 60,2 met korting en daarnaast dat van bevriezen toevoegen",
+        "I would like to pause my membership for 3 months as I am out of the country. Please can I talk to someon about this",
+        "Membership freeze"
+      ],
+      "example_sessions": [
+        "90dff872-30f8-4d87-a4e9-9f14c6adb78c",
+        "672f7f77-60d8-41ab-b154-a212d392c406",
+        "c046da83-0ffa-44f7-b62c-0669b25f7a29"
       ],
       "matched_messages": 231,
       "matched_sessions": 180,
@@ -376,9 +436,14 @@
       "sort_order": 130,
       "question": "Does a club have a sauna, parking, lockers or showers?",
       "examples": [
-        "Hi, ik heb een vraag over het TrainMore locker room party event. Bij wie kan ik terecht?",
-        "Can I access PILAT3S middenweg with a subscription to TrainMore oost",
-        "I bought a ticket for the locker room party, but I can’t attend. Is it possible to get a refund?"
+        "Hoi, zijn de pilat3s lessen virtual of in person bij locatie Eindhoven lichttoren?",
+        "Supposedly there should be a sauna.",
+        "Can I go to one of those places and enjoy the sauna?"
+      ],
+      "example_sessions": [
+        "929eae6c-fe9f-4753-83ad-08a90acb109f",
+        "f7f63a58-b387-43c7-8377-634ca5359935",
+        "e6fe669b-8814-4993-bc47-b648bdb6e3de"
       ],
       "matched_messages": 161,
       "matched_sessions": 128,
@@ -401,9 +466,14 @@
       "sort_order": 140,
       "question": "What is my membership number?",
       "examples": [
-        "My member number is 0022-[number]",
-        "ik ben op zoek naar mijn eigen lidmaatschapnummer",
-        "lidmaatschap nummer zoeken"
+        "I have my membership number",
+        "my member number: 0007-[number]",
+        "Lidmaatschapsnummer 0025-[number]"
+      ],
+      "example_sessions": [
+        "2e976f51-5451-4da3-84cf-323407ab3329",
+        "86f91520-5ed0-4715-8fc3-6b886c1e5ce0",
+        "c9a82af7-3b52-4382-99fc-6fabab1ff976"
       ],
       "matched_messages": 200,
       "matched_sessions": 170,
@@ -424,9 +494,14 @@
       "sort_order": 150,
       "question": "Which clubs can I get into with my membership?",
       "examples": [
-        "Ik wil ook toegang tot een andere trainmore club",
-        "I would like to know which other clubs I have access to",
-        "Hello! Could you help me upgrade my membership? I would like to have access to all the gyms"
+        "I want access to all black label clubs, and to the club where it will cost the least",
+        "What other gyms will I be able to use as a member of delftse poort at basic level",
+        "What new gym in opent in the North of Amsterdam?"
+      ],
+      "example_sessions": [
+        "c07e534c-6d73-4394-8ae5-b7703735df3a",
+        "43a8f197-fe86-49bf-8556-2c7b22105783",
+        "78518a54-f15a-4d88-a474-9f25c0bca6ba"
       ],
       "matched_messages": 71,
       "matched_sessions": 65,
@@ -449,9 +524,14 @@
       "sort_order": 160,
       "question": "I want to become a member",
       "examples": [
-        "I booked a gree trial and want to join a trib3",
-        "Ik wil me nog niet gelijk aanmelden bij een club, omdat ik wat wil bespreken voordat ik een abonnement afsluit",
-        "Ik heb een vraag over een lidmaatschap ik wil lid worden"
+        "Ik heb een dochter van 16 jaar en wil haar graag inschrijven",
+        "Hi ik werk bij Ahold en heb deze code TM_AHOLD alleen als ik me wil inschrijven via de reguliere weg dan lukt dit niet",
+        "Ik wil lid worden maar referral werkt niet"
+      ],
+      "example_sessions": [
+        "8921733f-1f68-431f-b377-0171f95f53df",
+        "e771a72b-7974-4173-a969-7cc395b18c00",
+        "969ce2be-c089-42fb-aaf6-4ba86de0809c"
       ],
       "matched_messages": 185,
       "matched_sessions": 172,
@@ -472,9 +552,14 @@
       "sort_order": 170,
       "question": "Do I owe anything?",
       "examples": [
-        "i have paid the debt collection",
-        "False debt on my account and I’ve tried to provide proof but you still did not fix the issue",
-        "Why is my outstanding debt €120? My membership number is 0035-[number]"
+        "How will I have outstanding balance is I already cancelled does it sounds Normal to you?",
+        "Een specificatie van het openstaand bedrag van €31,18 en waarom staat dit open?",
+        "I need to speak with a manager regarding a debt"
+      ],
+      "example_sessions": [
+        "0e01db62-55f2-4b0d-9b6a-1a96677d5041",
+        "a06ef606-67c5-49ba-94a2-594486642b33",
+        "9b00e46a-40e5-4b1d-833e-657564718f33"
       ],
       "matched_messages": 202,
       "matched_sessions": 163,
@@ -495,9 +580,14 @@
       "sort_order": 180,
       "question": "I got a no-show warning but I was there",
       "examples": [
-        "Hi ik kreeg een bericht van no show, maar ik was gewoon bij de les en heb me aangemeld",
-        "I went to my lesson today And get a no show",
-        "Hi, I have been wrongfully blocked for booking classes due to no show. I only had 1 no show in the past month"
+        "Ik heb gister een pilates tone les gevolgd en nu kreeg ik een email dat ruk een no show was",
+        "ja dus over de no-show en over de juiste studio in de app",
+        "No show onrecht"
+      ],
+      "example_sessions": [
+        "7fe9b791-2155-4d98-8a60-d34f31d0183d",
+        "5d0636e4-5be8-40e4-8496-a23fa6776e7c",
+        "4a2865e8-16b6-496f-9231-030cc9c05de6"
       ],
       "matched_messages": 84,
       "matched_sessions": 68,
@@ -519,9 +609,14 @@
       "sort_order": 190,
       "question": "I want to extend or renew my membership",
       "examples": [
-        "Hey I just extended my membership but i want to change it",
-        "Yeah but I thought the redeemed period of the referral bonus will extend the contract for 4 weeks",
-        "Hi, my name is Teun Hennink. My membership expires in a few days and would like to be called to renew my membership."
+        "i want a refund because i didnt even go, but they extended the membership",
+        "I am happy to extend my contract with you 2 months if you waive the months that I have not paid",
+        "Escalation renewal contract"
+      ],
+      "example_sessions": [
+        "9841ca53-a20c-4f2b-bd4c-f5b62d5f6985",
+        "e26b21f6-613e-44d7-a324-e6f2ca41ed9d",
+        "43f23493-6184-4af4-82ee-b47462ff6563"
       ],
       "matched_messages": 164,
       "matched_sessions": 140,
@@ -542,9 +637,14 @@
       "sort_order": 200,
       "question": "What can I do myself in the app?",
       "examples": [
-        "Yes for red light therapy but there was no option to cancel in the app",
-        "I made a payment but it is not being updated in the app.",
-        "wil een ticket maken dat ik perongelijk vooruit heb betaald en dat er nog niet in de app staat dat ik heb betaald"
+        "I have selected Kraanspoor in the app.",
+        "wil een ticket maken dat ik perongelijk vooruit heb betaald en dat er nog niet in de app staat dat ik heb betaald",
+        "Opzeggen lukt niet via de app, account is niet gekoppeld"
+      ],
+      "example_sessions": [
+        "bfc20c2a-7abb-46e2-baad-687f30a573a2",
+        "bc328d4d-6feb-4339-bdf0-9d378602796d",
+        "acbfcd35-4d73-4724-b56d-472d5a7be687"
       ],
       "matched_messages": 262,
       "matched_sessions": 215,

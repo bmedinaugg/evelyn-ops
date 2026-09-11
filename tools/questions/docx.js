@@ -45,6 +45,8 @@ function rpc(name) {
   });
 }
 
+const OPS = 'https://evelyn-ops-g4btdwcheaftcmbj.westeurope-01.azurewebsites.net';
+
 const COST = {
   nodeploy: { label: 'NO DEPLOY', color: '1D6B54' },
   deploy: { label: 'NEEDS A DEPLOY', color: '96570E' },
@@ -103,9 +105,16 @@ const fmt = (d) => d
       run(COST[r.change_cost].label, { b: true, sz: 8, color: COST[r.change_cost].color, caps: true }),
     ], { after: 80 }));
 
-    for (const ex of (r.examples || [])) {
-      body.push(para(run('“' + ex + '”', { i: true, sz: 9, color: '55626E' }), { after: 30, indent: 220 }));
-    }
+    // Each quote links through to the whole conversation in Evelyn Ops. A
+    // forwarded document is read away from the tool, so the link is the only
+    // way back to the context — quoting more of the chat would be worse, since
+    // the rest of it is not masked.
+    (r.examples || []).forEach((ex, i) => {
+      const session = (r.example_sessions || [])[i];
+      const runs = [run('“' + ex + '”  ', { i: true, sz: 9, color: '55626E' })];
+      if (session) runs.push(hyperlink('read the conversation', OPS + '/conversations/' + session, { sz: 8 }));
+      body.push(para(runs, { after: 30, indent: 220 }));
+    });
 
     body.push(para([run('How she decides to answer it.  ', { b: true, sz: 9 }), run(r.decides, { sz: 9 })], { before: 80, after: 40 }));
     body.push(para([run('What she reads.  ', { b: true, sz: 9 }), run(r.reads, { sz: 9, font: 'Consolas' })], { after: 60 }));

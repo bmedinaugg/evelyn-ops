@@ -523,6 +523,9 @@ export interface QuestionTraceRow {
   sort_order: number;
   question: string;
   examples: string[];
+  // Session ids for `examples`, same order and length, so each quote can link
+  // through to the whole conversation instead of being quoted at greater length.
+  example_sessions: string[];
   matched_messages: number | null;
   matched_sessions: number | null;
   window_from: string | null;

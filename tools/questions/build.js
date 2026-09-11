@@ -265,22 +265,40 @@ const texts = msgs.map((r) => ({
   s: r.session_id,
 }));
 
+// How much the member said in each session, as a stand-in for how much of a
+// conversation there is to read. Used only to ORDER the candidate examples:
+// a quote linking to a two-message chat is technically real and useless to
+// open, so richer conversations are offered first. It never changes which
+// messages matched, so the counts are unaffected.
+const sessionSize = new Map();
+for (const r of texts) sessionSize.set(r.s, (sessionSize.get(r.s) || 0) + 1);
+
 const out = QUESTIONS.map((q, i) => {
   const hits = texts.filter((r) => {
     try { return q.match.test(r.t); } catch (e) { return false; }
   });
   const sessions = new Set(hits.map((r) => r.s)).size;
 
-  // Examples: readable length, deduped, and masked.
+  // Examples: readable length, deduped, masked — and from THREE DIFFERENT
+  // sessions, so the quotes are three different members rather than one member
+  // rephrasing. The session id travels with each quote so a reader can open the
+  // whole conversation instead of being given more of it out of context.
   const seen = new Set();
+  const usedSessions = new Set();
   const examples = [];
-  for (const h of hits) {
+  const exampleSessions = [];
+  const ranked = hits
+    .slice()
+    .sort((a, b) => (sessionSize.get(b.s) || 0) - (sessionSize.get(a.s) || 0));
+  for (const h of ranked) {
     const t = h.t;
     if (t.length < 15 || t.length > 120) continue;
     const k = t.toLowerCase().slice(0, 28);
-    if (seen.has(k)) continue;
+    if (seen.has(k) || usedSessions.has(h.s)) continue;
     seen.add(k);
+    usedSessions.add(h.s);
     examples.push(redact(t));
+    exampleSessions.push(h.s);
     if (examples.length >= 3) break;
   }
 
@@ -290,6 +308,7 @@ const out = QUESTIONS.map((q, i) => {
     sort_order: (i + 1) * 10,
     question: q.question,
     examples,
+    example_sessions: exampleSessions,
     matched_messages: hits.length,
     matched_sessions: sessions,
     chain_key: q.chain,

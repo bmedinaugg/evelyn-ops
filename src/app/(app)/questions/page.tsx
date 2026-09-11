@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getQuestionTraces, listQuestionNotes } from "@/lib/queries";
 import type { QuestionTraceRow, QuestionNoteRow } from "@/lib/types";
 import { addQuestionNoteAction, resolveQuestionNoteAction } from "./actions";
@@ -179,21 +180,31 @@ function QuestionCard({
 
       {r.examples.length > 0 && (
         <div style={{ margin: "0 0 12px" }}>
-          {r.examples.map((e, i) => (
-            <p
-              key={i}
-              style={{
-                margin: "0 0 4px",
-                paddingLeft: 12,
-                borderLeft: "2px solid var(--line)",
-                fontSize: 13,
-                fontStyle: "italic",
-              }}
-              className="muted"
-            >
-              &ldquo;{e}&rdquo;
-            </p>
-          ))}
+          {r.examples.map((e, i) => {
+            const session = r.example_sessions[i];
+            return (
+              <p
+                key={i}
+                style={{
+                  margin: "0 0 4px",
+                  paddingLeft: 12,
+                  borderLeft: "2px solid var(--line)",
+                  fontSize: 13,
+                }}
+                className="muted"
+              >
+                <span style={{ fontStyle: "italic" }}>&ldquo;{e}&rdquo;</span>{" "}
+                {session && (
+                  <Link
+                    href={`/conversations/${session}`}
+                    style={{ fontSize: 11.5, whiteSpace: "nowrap" }}
+                  >
+                    read the conversation
+                  </Link>
+                )}
+              </p>
+            );
+          })}
         </div>
       )}
 
