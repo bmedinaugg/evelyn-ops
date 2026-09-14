@@ -623,3 +623,79 @@ export interface QuestionNoteRow {
   resolved_at: string | null;
   resolved_by: string | null;
 }
+
+// Which store a single fact lives in. Not the same axis as wiring: member_care
+// answers and Freshdesk articles are both `live`, but they are edited in
+// completely different places.
+export type KnowledgeItemSource =
+  | "freshdesk"
+  | "spreadsheet"
+  | "member_care"
+  | "club_directory"
+  | "prompt";
+
+// One individual fact Evelyn can answer from — one ARTICLE, not one vector
+// chunk, because a note has to attach to the thing a person can open and edit.
+// Generated from the live stores by tools/knowledge/items.js, so these are
+// refreshed by re-running that rather than edited in place.
+export interface KnowledgeItemRow {
+  key: string;
+  sort_order: number;
+  brand: string;
+  source: KnowledgeItemSource;
+  source_key: string | null;
+  wiring: KnowledgeWiring;
+  title: string;
+  // The actual words the bot answers from.
+  body: string;
+  url: string | null;
+  topic: string;
+  tags: string[];
+  caveat: string | null;
+  chunks: number;
+  // Set when the same article also arrives through a second feed.
+  duplicate_of: string | null;
+  // NULL and 0 mean different things: null is "we have no instrument for this
+  // one", zero is "nobody raised it in the window". Never collapse them.
+  matched_messages: number | null;
+  matched_sessions: number | null;
+  demand_method: string | null;
+  demand_terms: string[];
+  window_from: string | null;
+  window_to: string | null;
+  examples: string[];
+  // Session ids for `examples`, same order and length, so each quote opens the
+  // conversation it came from.
+  example_sessions: string[];
+  verified_at: string;
+  // Resolved from bot.knowledge_sources rather than copied onto the row.
+  source_name: string | null;
+  source_url: string | null;
+  open_notes: number;
+  total_notes: number;
+}
+
+// wrong / outdated: the content needs changing. unclear: it is right but
+// members misread it. missing: it should exist and does not. context: worth
+// knowing, not work. Kept apart because they go to different people.
+export type KnowledgeNoteKind =
+  | "wrong"
+  | "outdated"
+  | "unclear"
+  | "missing"
+  | "context";
+
+// What an agent says about one piece of the bot's knowledge. Its own table with
+// a soft key: bot.knowledge_items mirrors a store rebuilt nightly and is
+// re-seeded with a delete-all, which would take any note held on the item row
+// with it.
+export interface KnowledgeItemNoteRow {
+  id: string;
+  item_key: string;
+  author_email: string;
+  kind: KnowledgeNoteKind;
+  note: string;
+  created_at: string;
+  resolved_at: string | null;
+  resolved_by: string | null;
+}

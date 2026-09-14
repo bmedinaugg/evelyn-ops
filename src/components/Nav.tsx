@@ -30,7 +30,11 @@ const SECTIONS: { title: string | null; items: NavItem[] }[] = [
       // answers — the documents and syncs behind them, including the ones that
       // produced no FAQ and the ones nothing actually reads.
       { href: "/knowledge", label: "Knowledge register", icon: "🗃️" },
-      // The short version of all three, for anyone who wants one question
+      // And a fourth, one level further IN: /knows is what is inside those
+      // documents, fact by fact, at the level where you can read a sentence,
+      // decide it is wrong and say so.
+      { href: "/knows", label: "What Evelyn knows", icon: "🧠" },
+      // The short version of all four, for anyone who wants one question
       // traced end to end rather than a library to browse.
       { href: "/questions", label: "How a question gets answered", icon: "❓" },
     ],
