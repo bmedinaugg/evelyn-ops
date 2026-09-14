@@ -219,6 +219,9 @@ export default async function KnowsPage({
           <p className="muted" style={{ fontSize: 13, maxWidth: "70ch" }}>
             Everything the team has said about a piece of this knowledge. Each
             one also sits on its own item below, where it can be marked done.
+            <strong> These are a to-do list, not a change</strong> &mdash;
+            nothing here reaches the bot until someone edits the source it
+            names.
           </p>
           {notes.map((n) => {
             const item = items.find((i) => i.key === n.item_key);
@@ -525,6 +528,16 @@ function Item({
             </div>
           ))}
 
+          {/* Said plainly, next to the box. "What should it say?" reads like an
+              edit form, and it is not one: nothing reads these notes except
+              this page. Letting someone believe they had corrected the bot,
+              and find out weeks later that they had not, is the worst thing
+              this page could do. */}
+          <p className="muted" style={{ fontSize: 12, margin: "0 0 6px", maxWidth: "72ch" }}>
+            <strong>A note goes to the team, not to the bot.</strong> Nothing
+            you write here changes what Evelyn says. To actually change it:{" "}
+            {src.where.charAt(0).toLowerCase() + src.where.slice(1)}
+          </p>
           <form
             action={addKnowledgeNoteAction}
             style={{ display: "flex", gap: 8, alignItems: "flex-start", flexWrap: "wrap" }}
@@ -539,7 +552,7 @@ function Item({
             <textarea
               name="note"
               rows={2}
-              placeholder="What is wrong with this, or what should it say?"
+              placeholder="What is wrong with this, and what should it say instead?"
               aria-label="Your note"
               style={{ flex: 1, minWidth: 240, fontSize: 13, padding: "6px 8px" }}
             />
