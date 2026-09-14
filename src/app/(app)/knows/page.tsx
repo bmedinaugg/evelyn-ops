@@ -61,7 +61,7 @@ export default async function KnowsPage({
 
   const count = (fn: (i: KnowledgeItemRow) => boolean) => items.filter(fn).length;
   const dupes = count((i) => !!i.duplicate_of);
-  const onlySheet = count((i) => i.source === "spreadsheet" && !i.duplicate_of);
+  const onlySheet = count((i) => i.source === "unidentified" && !i.duplicate_of);
   const deploy = count((i) => i.wiring === "deploy");
   const neverRaised = count((i) => i.matched_sessions === 0);
   const noMeasure = count((i) => i.matched_sessions === null);
@@ -158,21 +158,25 @@ export default async function KnowsPage({
       {dupes > 0 && onlySheet === 0 && (
         <div className="panel">
           <h2 style={{ marginTop: 0, fontSize: 16 }}>
-            The spreadsheet contributes nothing the Freshdesk sync does not
+            38% of this comes from a feed nobody has traced
           </h2>
           <p style={{ fontSize: 13.5, lineHeight: 1.6, maxWidth: "72ch" }}>
-            All <strong>{dupes}</strong> articles arriving from TrainMore
-            FAQs.xlsx also arrive from Freshdesk on their own.{" "}
-            <strong>{onlySheet}</strong> are unique to the sheet. So every one
-            of them is stored twice, retrieval can return the same answer twice,
-            and editing the Freshdesk article leaves the second copy saying the
-            old thing.
+            A second process writes <strong>{dupes}</strong> articles into the
+            store every morning. Every one of them also arrives from Freshdesk
+            on its own and <strong>{onlySheet}</strong> are unique to it, so it
+            supplies no answer we do not already have &mdash; but it is stored
+            twice, retrieval can return the same answer twice, and editing the
+            Freshdesk article leaves the second copy saying the old thing.
           </p>
           <p className="muted" style={{ fontSize: 13, lineHeight: 1.6, maxWidth: "72ch", marginBottom: 0 }}>
-            The sheet was last edited 8 April 2026 and is still imported every
-            morning. Turning that feed off would remove {dupes} duplicate copies
-            and lose nothing &mdash; but that is a decision for whoever owns the
-            sheet, not a conclusion this page can draw on its own.
+            Until 14 September this was recorded as TrainMore FAQs.xlsx in
+            SharePoint. That was an inference from the shape of its columns,
+            never a trace, and the file was never found &mdash; so the name has
+            been removed rather than left standing. Verified the same day:{" "}
+            <code>clear_faqs()</code> empties the table on every run and the
+            Clubs FAQs workflow re-inserts only Freshdesk and Member Care, yet
+            these rows reappear. Turning the feed off would lose nothing, but
+            nobody can turn off a process they have not found.
           </p>
         </div>
       )}

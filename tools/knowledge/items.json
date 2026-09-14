@@ -6,9 +6,43 @@
   },
   "items": [
     {
-      "key": "blob:103000345003",
+      "key": "blob:103000345002",
       "sort_order": 1,
-      "source": "spreadsheet",
+      "source": "unidentified",
+      "source_key": "faq_spreadsheet",
+      "wiring": "live",
+      "title": "My automatic debit has failed, what should I do now?",
+      "body": "My automatic debit has failed, what should I do now? You can check if you have an outstanding debt in the TrainMore app. It is also possible to then immediately pay the outstanding debt via the app. \n\nFollow these steps: \n1) Open the app and go to Studio, then select Self-Service. \n2) Tap Account. \n3) To settle outstanding debt, click on Balance Account. \n4) Continue by clicking on Continue to payment and Pay now \n5) Select your desired payment method, and follow the instructions of the selected payment provider.",
+      "url": "https://www.support.trainmore.com/en/support/solutions/articles/103000345002",
+      "topic": "Payments",
+      "chunks": 1,
+      "duplicate_of": "freshdesk:103000345002",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "demand_method": "2 of 3 keywords from the title",
+      "matched_messages": 8,
+      "matched_sessions": 4,
+      "demand_terms": [
+        "automatic",
+        "debit",
+        "failed"
+      ],
+      "examples": [],
+      "example_sessions": [],
+      "verified_at": "2026-09-14",
+      "tags": [
+        "unidentified-loader",
+        "live",
+        "stored-twice",
+        "watch-out"
+      ],
+      "window_from": "2026-08-11",
+      "window_to": "2026-09-11",
+      "brand": "trainmore"
+    },
+    {
+      "key": "blob:103000345003",
+      "sort_order": 2,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "I have lost something in the club. What do I do?",
@@ -17,7 +51,7 @@
       "topic": "Club facilities",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000345003",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 13,
       "matched_sessions": 10,
@@ -38,7 +72,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -49,8 +83,8 @@
     },
     {
       "key": "blob:103000345004",
-      "sort_order": 2,
-      "source": "spreadsheet",
+      "sort_order": 3,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "How do the lockers operate in the club?",
@@ -59,7 +93,7 @@
       "topic": "Club facilities",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000345004",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "2 of 2 keywords from the title",
       "matched_messages": 0,
       "matched_sessions": 0,
@@ -71,7 +105,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "never-raised",
@@ -83,8 +117,8 @@
     },
     {
       "key": "blob:103000345005",
-      "sort_order": 3,
-      "source": "spreadsheet",
+      "sort_order": 4,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "Can I use the same Virtuagym login for the new app?",
@@ -93,7 +127,7 @@
       "topic": "The app",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000345005",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "2 of 2 keywords from the title",
       "matched_messages": 25,
       "matched_sessions": 20,
@@ -113,7 +147,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -124,8 +158,8 @@
     },
     {
       "key": "blob:103000345012",
-      "sort_order": 4,
-      "source": "spreadsheet",
+      "sort_order": 5,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "How do I create an account for the new TrainMore app?",
@@ -134,7 +168,7 @@
       "topic": "The app",
       "chunks": 2,
       "duplicate_of": "freshdesk:103000345012",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 143,
       "matched_sessions": 122,
@@ -155,7 +189,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "split-2",
@@ -167,8 +201,8 @@
     },
     {
       "key": "blob:103000345014",
-      "sort_order": 5,
-      "source": "spreadsheet",
+      "sort_order": 6,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "How do I become a member with my company code?",
@@ -177,7 +211,7 @@
       "topic": "Corporate Fitness",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000345014",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 3,
       "matched_sessions": 3,
@@ -191,7 +225,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -202,8 +236,8 @@
     },
     {
       "key": "blob:103000345015",
-      "sort_order": 6,
-      "source": "spreadsheet",
+      "sort_order": 7,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "I'm a member via an external fitness platform, how do I cancel my membership?",
@@ -212,7 +246,7 @@
       "topic": "Corporate Fitness",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000345015",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 5 keywords from the title",
       "matched_messages": 73,
       "matched_sessions": 58,
@@ -233,7 +267,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -244,8 +278,8 @@
     },
     {
       "key": "blob:103000345016",
-      "sort_order": 7,
-      "source": "spreadsheet",
+      "sort_order": 8,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "How to cancel a booked PT session via the app?",
@@ -254,7 +288,7 @@
       "topic": "Personal Training",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000345016",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 5 keywords from the title",
       "matched_messages": 11,
       "matched_sessions": 9,
@@ -275,7 +309,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -286,8 +320,8 @@
     },
     {
       "key": "blob:103000353541",
-      "sort_order": 8,
-      "source": "spreadsheet",
+      "sort_order": 9,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "How can I buy a PT membership or package?",
@@ -296,7 +330,7 @@
       "topic": "Personal Training",
       "chunks": 2,
       "duplicate_of": "freshdesk:103000353541",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 14,
       "matched_sessions": 11,
@@ -317,7 +351,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "split-2",
@@ -329,8 +363,8 @@
     },
     {
       "key": "blob:103000353553",
-      "sort_order": 9,
-      "source": "spreadsheet",
+      "sort_order": 10,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "How do I book a Free PT Intake Session?",
@@ -339,7 +373,7 @@
       "topic": "Personal Training",
       "chunks": 2,
       "duplicate_of": "freshdesk:103000353553",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 5 keywords from the title",
       "matched_messages": 3,
       "matched_sessions": 2,
@@ -358,7 +392,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "split-2",
@@ -370,8 +404,8 @@
     },
     {
       "key": "blob:103000353557",
-      "sort_order": 10,
-      "source": "spreadsheet",
+      "sort_order": 11,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "Where can I find the terms & conditions for my PT purchase?",
@@ -380,7 +414,7 @@
       "topic": "Personal Training",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353557",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 5 keywords from the title",
       "matched_messages": 4,
       "matched_sessions": 3,
@@ -399,7 +433,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -410,8 +444,8 @@
     },
     {
       "key": "blob:103000353560",
-      "sort_order": 11,
-      "source": "spreadsheet",
+      "sort_order": 12,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "How to book a PT session in the app?",
@@ -420,7 +454,7 @@
       "topic": "Personal Training",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353560",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 3,
       "matched_sessions": 3,
@@ -440,7 +474,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -451,8 +485,8 @@
     },
     {
       "key": "blob:103000353563",
-      "sort_order": 12,
-      "source": "spreadsheet",
+      "sort_order": 13,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "Are group classes available at the Red Label locations?",
@@ -461,7 +495,7 @@
       "topic": "Club facilities",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353563",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 5 keywords from the title",
       "matched_messages": 8,
       "matched_sessions": 6,
@@ -482,7 +516,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -493,8 +527,8 @@
     },
     {
       "key": "blob:103000353566",
-      "sort_order": 13,
-      "source": "spreadsheet",
+      "sort_order": 14,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "What is the policy for missed or late-cancelled PT appointments?",
@@ -503,7 +537,7 @@
       "topic": "Personal Training",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353566",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 6 keywords from the title",
       "matched_messages": 1,
       "matched_sessions": 1,
@@ -519,7 +553,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -530,8 +564,8 @@
     },
     {
       "key": "blob:103000353569",
-      "sort_order": 14,
-      "source": "spreadsheet",
+      "sort_order": 15,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "Will my PT membership fee be charged seperately from my gym membership fee?",
@@ -540,7 +574,7 @@
       "topic": "Personal Training",
       "chunks": 2,
       "duplicate_of": "freshdesk:103000353569",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 5 keywords from the title",
       "matched_messages": 73,
       "matched_sessions": 67,
@@ -561,7 +595,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "split-2",
@@ -573,8 +607,8 @@
     },
     {
       "key": "blob:103000353574",
-      "sort_order": 15,
-      "source": "spreadsheet",
+      "sort_order": 16,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "How long are my PT credits valid?",
@@ -583,7 +617,7 @@
       "topic": "Personal Training",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353574",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 0,
       "matched_sessions": 0,
@@ -597,7 +631,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "never-raised",
@@ -609,8 +643,8 @@
     },
     {
       "key": "blob:103000353588",
-      "sort_order": 16,
-      "source": "spreadsheet",
+      "sort_order": 17,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "How do I cancel my Personal Training membership?",
@@ -619,7 +653,7 @@
       "topic": "Personal Training",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353588",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 31,
       "matched_sessions": 24,
@@ -637,7 +671,126 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
+        "live",
+        "stored-twice",
+        "watch-out"
+      ],
+      "window_from": "2026-08-11",
+      "window_to": "2026-09-11",
+      "brand": "trainmore"
+    },
+    {
+      "key": "blob:103000353609",
+      "sort_order": 18,
+      "source": "unidentified",
+      "source_key": "faq_spreadsheet",
+      "wiring": "live",
+      "title": "Which payment methods are accepted by TrainMore?",
+      "body": "Which payment methods are accepted by TrainMore? TrainMore only uses direct debit for membership payments. Your fees will be automatically collected each billing cycle, offering a convenient payment process. \n\nYou can also register with a foreign bank account, but ensure it supports SEPA direct debit payments. It's the member's responsibility to verify SEPA compatibility with a foreign bank.",
+      "url": "https://www.support.trainmore.com/en/support/solutions/articles/103000353609",
+      "topic": "Payments",
+      "chunks": 1,
+      "duplicate_of": "freshdesk:103000353609",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "demand_method": "2 of 3 keywords from the title",
+      "matched_messages": 2,
+      "matched_sessions": 2,
+      "demand_terms": [
+        "payment",
+        "methods",
+        "accepted"
+      ],
+      "examples": [],
+      "example_sessions": [],
+      "verified_at": "2026-09-14",
+      "tags": [
+        "unidentified-loader",
+        "live",
+        "stored-twice",
+        "watch-out"
+      ],
+      "window_from": "2026-08-11",
+      "window_to": "2026-09-11",
+      "brand": "trainmore"
+    },
+    {
+      "key": "blob:103000353611",
+      "sort_order": 19,
+      "source": "unidentified",
+      "source_key": "faq_spreadsheet",
+      "wiring": "live",
+      "title": "Where do I find my finanical history in the app?",
+      "body": "Where do I find my finanical history in the app? You can easily find your billing history in the TrainMore app by following these steps:\n\n1) Open the app and go to Studio, then select Self-Service.\n2) Tap on Account.\n3) Here, you can view your financial history.\n4) If you have an outstanding balance, click on Balance Account.\n5) Tap on Continue Payment.\n6) Select your preferred payment method and tap on Pay Now.\n\nThis allows you to stay updated on your billing details and manage any outstanding payments.\nIn the app, you can view for which 4-week period you have paid.  \n \nIf you see two periods with similar dates but different amounts, this is most likely because you've recently had a membership change and our system made a recalculation. Please always compare with your bank receipts to verify what you've actually paid.",
+      "url": "https://www.support.trainmore.com/en/support/solutions/articles/103000353611",
+      "topic": "Payments",
+      "chunks": 1,
+      "duplicate_of": "freshdesk:103000353611",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "demand_method": "2 of 3 keywords from the title",
+      "matched_messages": 28,
+      "matched_sessions": 24,
+      "demand_terms": [
+        "find",
+        "history",
+        "app"
+      ],
+      "examples": [
+        "I would like to cancel my membership but do not see the option in my app and cannot find an emailadress",
+        "Which part in the app? I can’t find it",
+        "I cannot find my gym in the app"
+      ],
+      "example_sessions": [
+        "2e976f51-5451-4da3-84cf-323407ab3329",
+        "8e3bed5e-a30a-40a7-af6b-919ab812e50f",
+        "78518a54-f15a-4d88-a474-9f25c0bca6ba"
+      ],
+      "verified_at": "2026-09-14",
+      "tags": [
+        "unidentified-loader",
+        "live",
+        "stored-twice",
+        "watch-out"
+      ],
+      "window_from": "2026-08-11",
+      "window_to": "2026-09-11",
+      "brand": "trainmore"
+    },
+    {
+      "key": "blob:103000353613",
+      "sort_order": 20,
+      "source": "unidentified",
+      "source_key": "faq_spreadsheet",
+      "wiring": "live",
+      "title": "I cancelled my membership, why am I still being charged?",
+      "body": "I cancelled my membership, why am I still being charged? If you cancelled your membership but still see charges, here are possible reasons:\n\nCancellation Notice Period: Membership cancellations require a 1-month notice. If a billing cycle starts during this period, you’ll be billed for any remaining days. This charge may be prorated based on your final termination date.\n\nContract End Date: If you cancelled but are within your initial contract period, your membership remains active until the contract end date. Payments are required until that date.\n\nYou can confirm your membership end date in the TrainMore app, under Studio > Self-service > Contract data. For further assistance, please contact our customer support team via live chat or submit a ticket.",
+      "url": "https://www.support.trainmore.com/en/support/solutions/articles/103000353613",
+      "topic": "Payments",
+      "chunks": 1,
+      "duplicate_of": "freshdesk:103000353613",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "demand_method": "3 of 4 keywords from the title",
+      "matched_messages": 52,
+      "matched_sessions": 41,
+      "demand_terms": [
+        "cancelled",
+        "membership",
+        "being",
+        "charged"
+      ],
+      "examples": [
+        "In being charged but i cancelled my membership one month ago",
+        "No I've already cancelled and I'm still being charged",
+        "is my membership cancelled? I was charged"
+      ],
+      "example_sessions": [
+        "0073ad8d-e6ee-45f9-8677-5365a49d6566",
+        "c5d12e34-445b-4c38-a53b-5c4eabf504e6",
+        "3eca7edc-bff6-4c3c-a4cc-df8bb28d0b21"
+      ],
+      "verified_at": "2026-09-14",
+      "tags": [
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -648,8 +801,8 @@
     },
     {
       "key": "blob:103000353614",
-      "sort_order": 17,
-      "source": "spreadsheet",
+      "sort_order": 21,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "How can I request a VAT invoice?",
@@ -658,7 +811,7 @@
       "topic": "Payments",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353614",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 46,
       "matched_sessions": 40,
@@ -679,7 +832,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -690,8 +843,8 @@
     },
     {
       "key": "blob:103000353617",
-      "sort_order": 18,
-      "source": "spreadsheet",
+      "sort_order": 22,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "Where can I find my financial reminders about any outstanding debt?",
@@ -700,7 +853,7 @@
       "topic": "Payments",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353617",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 5 keywords from the title",
       "matched_messages": 4,
       "matched_sessions": 4,
@@ -715,7 +868,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -726,8 +879,8 @@
     },
     {
       "key": "blob:103000353618",
-      "sort_order": 19,
-      "source": "spreadsheet",
+      "sort_order": 23,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "I have been transferred to the collection Agency, how does this work?",
@@ -736,7 +889,7 @@
       "topic": "Payments",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353618",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 4,
       "matched_sessions": 4,
@@ -754,7 +907,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -765,8 +918,8 @@
     },
     {
       "key": "blob:103000353620",
-      "sort_order": 20,
-      "source": "spreadsheet",
+      "sort_order": 24,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "The collection agency is claiming the full membership fee, is this correct?",
@@ -775,7 +928,7 @@
       "topic": "Payments",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353620",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 6 keywords from the title",
       "matched_messages": 25,
       "matched_sessions": 20,
@@ -795,7 +948,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -806,8 +959,8 @@
     },
     {
       "key": "blob:103000353622",
-      "sort_order": 21,
-      "source": "spreadsheet",
+      "sort_order": 25,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "How can I contact TrainMore for - career / internship or marketing collaborations?",
@@ -816,7 +969,7 @@
       "topic": "Club facilities",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353622",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 0,
       "matched_sessions": 0,
@@ -830,7 +983,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "never-raised",
@@ -842,8 +995,8 @@
     },
     {
       "key": "blob:103000353624",
-      "sort_order": 22,
-      "source": "spreadsheet",
+      "sort_order": 26,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "Do you have changing rooms & showers?",
@@ -852,7 +1005,7 @@
       "topic": "Club facilities",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353624",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 4,
       "matched_sessions": 3,
@@ -865,7 +1018,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -876,8 +1029,8 @@
     },
     {
       "key": "blob:103000353625",
-      "sort_order": 23,
-      "source": "spreadsheet",
+      "sort_order": 27,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "What are the parking possibilities at the TrainMore clubs?",
@@ -886,7 +1039,7 @@
       "topic": "Club facilities",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353625",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 2,
       "matched_sessions": 2,
@@ -903,7 +1056,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -914,8 +1067,8 @@
     },
     {
       "key": "blob:103000353626",
-      "sort_order": 24,
-      "source": "spreadsheet",
+      "sort_order": 28,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "What classes are offered at the different TrainMore clubs?",
@@ -924,7 +1077,7 @@
       "topic": "Club facilities",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353626",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 0,
       "matched_sessions": 0,
@@ -938,7 +1091,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "never-raised",
@@ -950,8 +1103,8 @@
     },
     {
       "key": "blob:103000353627",
-      "sort_order": 25,
-      "source": "spreadsheet",
+      "sort_order": 29,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "How early in advance can I book a class?",
@@ -960,7 +1113,7 @@
       "topic": "Club facilities",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353627",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 4,
       "matched_sessions": 4,
@@ -978,7 +1131,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -989,8 +1142,8 @@
     },
     {
       "key": "blob:103000353628",
-      "sort_order": 26,
-      "source": "spreadsheet",
+      "sort_order": 30,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "How to book a class in the app?",
@@ -999,7 +1152,7 @@
       "topic": "Club facilities",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353628",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 174,
       "matched_sessions": 129,
@@ -1020,7 +1173,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -1031,8 +1184,8 @@
     },
     {
       "key": "blob:103000353629",
-      "sort_order": 27,
-      "source": "spreadsheet",
+      "sort_order": 31,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "Which TrainMore clubs have a sauna?",
@@ -1041,7 +1194,7 @@
       "topic": "Club facilities",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353629",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "2 of 2 keywords from the title",
       "matched_messages": 3,
       "matched_sessions": 2,
@@ -1057,7 +1210,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -1068,8 +1221,8 @@
     },
     {
       "key": "blob:103000353631",
-      "sort_order": 28,
-      "source": "spreadsheet",
+      "sort_order": 32,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "How can I cancel my class booking?",
@@ -1078,7 +1231,7 @@
       "topic": "Club facilities",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353631",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 91,
       "matched_sessions": 74,
@@ -1099,7 +1252,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -1110,8 +1263,8 @@
     },
     {
       "key": "blob:103000353633",
-      "sort_order": 29,
-      "source": "spreadsheet",
+      "sort_order": 33,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "How does the waiting list for classes work?",
@@ -1120,7 +1273,7 @@
       "topic": "Club facilities",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353633",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 1,
       "matched_sessions": 1,
@@ -1138,7 +1291,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -1149,8 +1302,8 @@
     },
     {
       "key": "blob:103000353636",
-      "sort_order": 30,
-      "source": "spreadsheet",
+      "sort_order": 34,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "What is the no-show policy for classes & free services?",
@@ -1159,7 +1312,7 @@
       "topic": "Club facilities",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353636",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 5 keywords from the title",
       "matched_messages": 4,
       "matched_sessions": 3,
@@ -1174,7 +1327,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -1185,8 +1338,8 @@
     },
     {
       "key": "blob:103000353637",
-      "sort_order": 31,
-      "source": "spreadsheet",
+      "sort_order": 35,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "I can't log in, how can I reset my password?",
@@ -1195,7 +1348,7 @@
       "topic": "The app",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353637",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "2 of 2 keywords from the title",
       "matched_messages": 12,
       "matched_sessions": 7,
@@ -1215,7 +1368,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -1226,8 +1379,8 @@
     },
     {
       "key": "blob:103000353638",
-      "sort_order": 32,
-      "source": "spreadsheet",
+      "sort_order": 36,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "Where do I find my QR code in the app?",
@@ -1236,7 +1389,7 @@
       "topic": "The app",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353638",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 81,
       "matched_sessions": 67,
@@ -1257,7 +1410,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -1268,8 +1421,8 @@
     },
     {
       "key": "blob:103000353639",
-      "sort_order": 33,
-      "source": "spreadsheet",
+      "sort_order": 37,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "Why is my QR code not letting me enter the gym?",
@@ -1278,7 +1431,7 @@
       "topic": "The app",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353639",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 10,
       "matched_sessions": 8,
@@ -1300,7 +1453,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -1311,8 +1464,8 @@
     },
     {
       "key": "blob:103000353640",
-      "sort_order": 34,
-      "source": "spreadsheet",
+      "sort_order": 38,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "I forgot my telephone, how do I enter the gym?",
@@ -1321,7 +1474,7 @@
       "topic": "The app",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353640",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 0,
       "matched_sessions": 0,
@@ -1335,7 +1488,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "never-raised",
@@ -1347,8 +1500,8 @@
     },
     {
       "key": "blob:103000353641",
-      "sort_order": 35,
-      "source": "spreadsheet",
+      "sort_order": 39,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "Can I share my QR code with others?",
@@ -1357,7 +1510,7 @@
       "topic": "The app",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353641",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 3,
       "matched_sessions": 3,
@@ -1374,7 +1527,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -1385,8 +1538,8 @@
     },
     {
       "key": "blob:103000353642",
-      "sort_order": 36,
-      "source": "spreadsheet",
+      "sort_order": 40,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "What features are available in this new app?",
@@ -1395,7 +1548,7 @@
       "topic": "The app",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353642",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "2 of 2 keywords from the title",
       "matched_messages": 11,
       "matched_sessions": 9,
@@ -1411,7 +1564,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -1422,8 +1575,8 @@
     },
     {
       "key": "blob:103000353643",
-      "sort_order": 37,
-      "source": "spreadsheet",
+      "sort_order": 41,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "Can I check the gym’s peak hours or traffic in real-time using the app?",
@@ -1432,7 +1585,7 @@
       "topic": "The app",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353643",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 6 keywords from the title",
       "matched_messages": 20,
       "matched_sessions": 17,
@@ -1454,7 +1607,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -1465,8 +1618,8 @@
     },
     {
       "key": "blob:103000353644",
-      "sort_order": 38,
-      "source": "spreadsheet",
+      "sort_order": 42,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "Can I access any workout plans?",
@@ -1475,7 +1628,7 @@
       "topic": "The app",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353644",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 12,
       "matched_sessions": 10,
@@ -1488,7 +1641,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -1499,8 +1652,8 @@
     },
     {
       "key": "blob:103000353645",
-      "sort_order": 39,
-      "source": "spreadsheet",
+      "sort_order": 43,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "Where do I report an issue or feedback about the app?",
@@ -1509,7 +1662,7 @@
       "topic": "The app",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353645",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 3,
       "matched_sessions": 2,
@@ -1523,7 +1676,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -1534,8 +1687,8 @@
     },
     {
       "key": "blob:103000353646",
-      "sort_order": 40,
-      "source": "spreadsheet",
+      "sort_order": 44,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "What are the benefits of a corporate membership?",
@@ -1544,7 +1697,7 @@
       "topic": "Corporate Fitness",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353646",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 73,
       "matched_sessions": 55,
@@ -1565,7 +1718,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -1576,8 +1729,8 @@
     },
     {
       "key": "blob:103000353648",
-      "sort_order": 41,
-      "source": "spreadsheet",
+      "sort_order": 45,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "Does the refer a friend promotion also apply to corporate members?",
@@ -1586,7 +1739,7 @@
       "topic": "Corporate Fitness",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353648",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 6 keywords from the title",
       "matched_messages": 2,
       "matched_sessions": 2,
@@ -1606,7 +1759,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -1617,8 +1770,8 @@
     },
     {
       "key": "blob:103000353650",
-      "sort_order": 42,
-      "source": "spreadsheet",
+      "sort_order": 46,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "Can I combine the company discount with any other website promotion?",
@@ -1627,7 +1780,7 @@
       "topic": "Corporate Fitness",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353650",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 5 keywords from the title",
       "matched_messages": 1,
       "matched_sessions": 1,
@@ -1642,7 +1795,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -1653,8 +1806,8 @@
     },
     {
       "key": "blob:103000353651",
-      "sort_order": 43,
-      "source": "spreadsheet",
+      "sort_order": 47,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "How can I, as a company, register for a partnership with TrainMore?",
@@ -1663,7 +1816,7 @@
       "topic": "Corporate Fitness",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353651",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 3,
       "matched_sessions": 2,
@@ -1676,7 +1829,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -1687,8 +1840,8 @@
     },
     {
       "key": "blob:103000357073",
-      "sort_order": 44,
-      "source": "spreadsheet",
+      "sort_order": 48,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "Why has my membership fee increased?",
@@ -1697,7 +1850,7 @@
       "topic": "Price increase",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000357073",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 217,
       "matched_sessions": 183,
@@ -1718,7 +1871,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -1729,8 +1882,8 @@
     },
     {
       "key": "blob:103000357080",
-      "sort_order": 45,
-      "source": "spreadsheet",
+      "sort_order": 49,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "Is my gym allowed to increase my membership fee based on CPI percentage?",
@@ -1739,7 +1892,7 @@
       "topic": "Price increase",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000357080",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 6 keywords from the title",
       "matched_messages": 53,
       "matched_sessions": 46,
@@ -1759,7 +1912,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -1770,8 +1923,8 @@
     },
     {
       "key": "blob:103000357081",
-      "sort_order": 46,
-      "source": "spreadsheet",
+      "sort_order": 50,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "Is my gym allowed to increase my membership fee by more than the CPI percentage?",
@@ -1780,7 +1933,7 @@
       "topic": "Price increase",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000357081",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 6 keywords from the title",
       "matched_messages": 48,
       "matched_sessions": 43,
@@ -1796,7 +1949,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -1807,8 +1960,8 @@
     },
     {
       "key": "blob:103000357083",
-      "sort_order": 47,
-      "source": "spreadsheet",
+      "sort_order": 51,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "What is the CPI price index percentage?",
@@ -1817,7 +1970,7 @@
       "topic": "Price increase",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000357083",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 2,
       "matched_sessions": 2,
@@ -1830,7 +1983,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -1841,8 +1994,8 @@
     },
     {
       "key": "blob:103000357085",
-      "sort_order": 48,
-      "source": "spreadsheet",
+      "sort_order": 52,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "What will my new membership fee be?",
@@ -1851,7 +2004,7 @@
       "topic": "Price increase",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000357085",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "2 of 2 keywords from the title",
       "matched_messages": 204,
       "matched_sessions": 171,
@@ -1871,7 +2024,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -1882,8 +2035,8 @@
     },
     {
       "key": "blob:103000357087",
-      "sort_order": 49,
-      "source": "spreadsheet",
+      "sort_order": 53,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "I am still in my free period, does the increase in the membership fee also apply to me?",
@@ -1892,7 +2045,7 @@
       "topic": "Price increase",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000357087",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 6 keywords from the title",
       "matched_messages": 71,
       "matched_sessions": 58,
@@ -1912,7 +2065,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -1923,8 +2076,8 @@
     },
     {
       "key": "blob:103000357088",
-      "sort_order": 50,
-      "source": "spreadsheet",
+      "sort_order": 54,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "When will this membership fee adjustment take effect?",
@@ -1933,7 +2086,7 @@
       "topic": "Price increase",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000357088",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 5 keywords from the title",
       "matched_messages": 22,
       "matched_sessions": 17,
@@ -1948,7 +2101,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -1959,8 +2112,8 @@
     },
     {
       "key": "blob:103000357090",
-      "sort_order": 51,
-      "source": "spreadsheet",
+      "sort_order": 55,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "Can I cancel my membership because of the price increase?",
@@ -1969,7 +2122,7 @@
       "topic": "Price increase",
       "chunks": 2,
       "duplicate_of": "freshdesk:103000357090",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 45,
       "matched_sessions": 33,
@@ -1989,7 +2142,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "split-2",
@@ -2001,8 +2154,8 @@
     },
     {
       "key": "blob:103000357094",
-      "sort_order": 52,
-      "source": "spreadsheet",
+      "sort_order": 56,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "I have a different question. Who do I contact?",
@@ -2011,7 +2164,7 @@
       "topic": "Price increase",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000357094",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 14,
       "matched_sessions": 12,
@@ -2032,7 +2185,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -2043,8 +2196,8 @@
     },
     {
       "key": "blob:103000357177",
-      "sort_order": 53,
-      "source": "spreadsheet",
+      "sort_order": 57,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "How can I view class and service schedules at other club locations?",
@@ -2053,7 +2206,7 @@
       "topic": "Club facilities",
       "chunks": 2,
       "duplicate_of": "freshdesk:103000357177",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 5 keywords from the title",
       "matched_messages": 3,
       "matched_sessions": 3,
@@ -2068,7 +2221,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "split-2",
@@ -2080,8 +2233,8 @@
     },
     {
       "key": "blob:103000364743",
-      "sort_order": 54,
-      "source": "spreadsheet",
+      "sort_order": 58,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "InBody Composition Analyzer",
@@ -2090,7 +2243,7 @@
       "topic": "Club facilities",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000364743",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "2 of 2 keywords from the title",
       "matched_messages": 1,
       "matched_sessions": 1,
@@ -2102,7 +2255,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -2113,8 +2266,8 @@
     },
     {
       "key": "blob:103000371810",
-      "sort_order": 55,
-      "source": "spreadsheet",
+      "sort_order": 59,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "Why does the date format look incorrect in my TrainMore app?",
@@ -2123,7 +2276,7 @@
       "topic": "The app",
       "chunks": 2,
       "duplicate_of": "freshdesk:103000371810",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 5 keywords from the title",
       "matched_messages": 12,
       "matched_sessions": 8,
@@ -2138,7 +2291,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "split-2",
@@ -2150,8 +2303,8 @@
     },
     {
       "key": "blob:103000386875",
-      "sort_order": 56,
-      "source": "spreadsheet",
+      "sort_order": 60,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "How do I know if my club has independent Personal Trainers or TrainMore-employed trainers?",
@@ -2160,7 +2313,7 @@
       "topic": "Personal Training",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000386875",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 5 keywords from the title",
       "matched_messages": 0,
       "matched_sessions": 0,
@@ -2175,7 +2328,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "never-raised",
@@ -2187,8 +2340,8 @@
     },
     {
       "key": "blob:103000386878",
-      "sort_order": 57,
-      "source": "spreadsheet",
+      "sort_order": 61,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "Can I attend Personal Training at another club?",
@@ -2197,7 +2350,7 @@
       "topic": "Personal Training",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000386878",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 4,
       "matched_sessions": 3,
@@ -2211,7 +2364,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -2222,8 +2375,8 @@
     },
     {
       "key": "blob:103000386920",
-      "sort_order": 58,
-      "source": "spreadsheet",
+      "sort_order": 62,
+      "source": "unidentified",
       "source_key": "faq_spreadsheet",
       "wiring": "live",
       "title": "My club has independent Personal Training - How do I manage my Personal Training?",
@@ -2232,7 +2385,7 @@
       "topic": "Personal Training",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000386920",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.",
+      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
       "demand_method": "3 of 5 keywords from the title",
       "matched_messages": 5,
       "matched_sessions": 4,
@@ -2247,7 +2400,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "spreadsheet",
+        "unidentified-loader",
         "live",
         "stored-twice",
         "watch-out"
@@ -2258,7 +2411,7 @@
     },
     {
       "key": "freshdesk:103000344984",
-      "sort_order": 59,
+      "sort_order": 63,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -2298,12 +2451,12 @@
     },
     {
       "key": "freshdesk:103000344995",
-      "sort_order": 60,
+      "sort_order": 64,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "How does the friend referral work?",
-      "body": "How does the friend referral work? As a TrainMore member, you earn 4-weeks for free every time a friend joins using your personal referral code!\n\nWhether they sign up online or in person, you’ll receive your reward - make sure they enter your code at registration.\n\nHere’s how to find your referral code in the TrainMore app: \n1) Open the TrainMore app. \n2) Tap Studio in the bottom menu. \n3) Select Refer Friends. \n4) Copy your code or tap \"Invite Friends Now!\" to share your code through your preferred platforms. \n5) Your friends will need to add the code in the \"Referral code\" box when they sign up.\n6) To redeem your reward, simply log in to your TrainMore app and choose your reward from \"Open\" under ‘Studio�� in the \"Refer Friends\" section.\n\nInvite your friends and enjoy the rewards – it’s our way of saying thank you for helping grow the TrainMore community!\n\nInvite your friends and enjoy the rewards – it’s our way of saying thank you for helping grow the TrainMore community!\n\n*This promotion applies only if your friend signs up for a yearly membership. \n*This promotion applies if you have a direct debit membership with TrainMore.",
+      "body": "How does the friend referral work? As a TrainMore member, you earn 4-weeks for free every time a friend joins using your personal referral code!\n\nWhether they sign up online or in person, you’ll receive your reward - make sure they enter your code at registration.\n\nHere’s how to find your referral code in the TrainMore app: \n1) Open the TrainMore app. \n2) Tap Studio in the bottom menu. \n3) Select Refer Friends. \n4) Copy your code or tap \"Invite Friends Now!\" to share your code through your preferred platforms. \n5) Your friends will need to add the code in the \"Referral code\" box when they sign up.\n6) To redeem your reward, simply log in to your TrainMore app and choose your reward from \"Open\" under ‘Studio’ in the \"Refer Friends\" section.\n\nInvite your friends and enjoy the rewards – it’s our way of saying thank you for helping grow the TrainMore community!\n\nInvite your friends and enjoy the rewards – it’s our way of saying thank you for helping grow the TrainMore community!\n\n*This promotion applies only if your friend signs up for a yearly membership. \n*This promotion applies if you have a direct debit membership with TrainMore.",
       "url": "https://www.support.trainmore.com/en/support/solutions/articles/103000344995",
       "topic": "Promotions",
       "chunks": 2,
@@ -2339,7 +2492,7 @@
     },
     {
       "key": "freshdesk:103000344996",
-      "sort_order": 61,
+      "sort_order": 65,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -2379,7 +2532,7 @@
     },
     {
       "key": "freshdesk:103000344997",
-      "sort_order": 62,
+      "sort_order": 66,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -2419,7 +2572,7 @@
     },
     {
       "key": "freshdesk:103000344999",
-      "sort_order": 63,
+      "sort_order": 67,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -2451,7 +2604,7 @@
     },
     {
       "key": "freshdesk:103000345000",
-      "sort_order": 64,
+      "sort_order": 68,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -2492,7 +2645,7 @@
     },
     {
       "key": "freshdesk:103000345001",
-      "sort_order": 65,
+      "sort_order": 69,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -2525,7 +2678,7 @@
     },
     {
       "key": "freshdesk:103000345002",
-      "sort_order": 66,
+      "sort_order": 70,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -2549,7 +2702,8 @@
       "verified_at": "2026-09-14",
       "tags": [
         "freshdesk",
-        "live"
+        "live",
+        "stored-twice"
       ],
       "window_from": "2026-08-11",
       "window_to": "2026-09-11",
@@ -2557,7 +2711,7 @@
     },
     {
       "key": "freshdesk:103000345003",
-      "sort_order": 67,
+      "sort_order": 71,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -2598,7 +2752,7 @@
     },
     {
       "key": "freshdesk:103000345004",
-      "sort_order": 68,
+      "sort_order": 72,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -2631,7 +2785,7 @@
     },
     {
       "key": "freshdesk:103000345005",
-      "sort_order": 69,
+      "sort_order": 73,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -2671,7 +2825,7 @@
     },
     {
       "key": "freshdesk:103000345012",
-      "sort_order": 70,
+      "sort_order": 74,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -2714,7 +2868,7 @@
     },
     {
       "key": "freshdesk:103000345014",
-      "sort_order": 71,
+      "sort_order": 75,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -2748,7 +2902,7 @@
     },
     {
       "key": "freshdesk:103000345015",
-      "sort_order": 72,
+      "sort_order": 76,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -2789,7 +2943,7 @@
     },
     {
       "key": "freshdesk:103000345016",
-      "sort_order": 73,
+      "sort_order": 77,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -2830,7 +2984,7 @@
     },
     {
       "key": "freshdesk:103000353538",
-      "sort_order": 74,
+      "sort_order": 78,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -2868,7 +3022,7 @@
     },
     {
       "key": "freshdesk:103000353540",
-      "sort_order": 75,
+      "sort_order": 79,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -2910,7 +3064,7 @@
     },
     {
       "key": "freshdesk:103000353541",
-      "sort_order": 76,
+      "sort_order": 80,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -2952,7 +3106,7 @@
     },
     {
       "key": "freshdesk:103000353543",
-      "sort_order": 77,
+      "sort_order": 81,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -2985,7 +3139,7 @@
     },
     {
       "key": "freshdesk:103000353544",
-      "sort_order": 78,
+      "sort_order": 82,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -3025,7 +3179,7 @@
     },
     {
       "key": "freshdesk:103000353546",
-      "sort_order": 79,
+      "sort_order": 83,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -3058,7 +3212,7 @@
     },
     {
       "key": "freshdesk:103000353551",
-      "sort_order": 80,
+      "sort_order": 84,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -3100,7 +3254,7 @@
     },
     {
       "key": "freshdesk:103000353553",
-      "sort_order": 81,
+      "sort_order": 85,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -3140,7 +3294,7 @@
     },
     {
       "key": "freshdesk:103000353556",
-      "sort_order": 82,
+      "sort_order": 86,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -3173,7 +3327,7 @@
     },
     {
       "key": "freshdesk:103000353557",
-      "sort_order": 83,
+      "sort_order": 87,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -3212,7 +3366,7 @@
     },
     {
       "key": "freshdesk:103000353558",
-      "sort_order": 84,
+      "sort_order": 88,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -3245,7 +3399,7 @@
     },
     {
       "key": "freshdesk:103000353560",
-      "sort_order": 85,
+      "sort_order": 89,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -3285,7 +3439,7 @@
     },
     {
       "key": "freshdesk:103000353561",
-      "sort_order": 86,
+      "sort_order": 90,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -3327,7 +3481,7 @@
     },
     {
       "key": "freshdesk:103000353563",
-      "sort_order": 87,
+      "sort_order": 91,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -3368,7 +3522,7 @@
     },
     {
       "key": "freshdesk:103000353565",
-      "sort_order": 88,
+      "sort_order": 92,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -3410,7 +3564,7 @@
     },
     {
       "key": "freshdesk:103000353566",
-      "sort_order": 89,
+      "sort_order": 93,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -3446,7 +3600,7 @@
     },
     {
       "key": "freshdesk:103000353567",
-      "sort_order": 90,
+      "sort_order": 94,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -3485,7 +3639,7 @@
     },
     {
       "key": "freshdesk:103000353569",
-      "sort_order": 91,
+      "sort_order": 95,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -3527,7 +3681,7 @@
     },
     {
       "key": "freshdesk:103000353573",
-      "sort_order": 92,
+      "sort_order": 96,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -3561,7 +3715,7 @@
     },
     {
       "key": "freshdesk:103000353574",
-      "sort_order": 93,
+      "sort_order": 97,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -3596,7 +3750,7 @@
     },
     {
       "key": "freshdesk:103000353576",
-      "sort_order": 94,
+      "sort_order": 98,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -3630,7 +3784,7 @@
     },
     {
       "key": "freshdesk:103000353582",
-      "sort_order": 95,
+      "sort_order": 99,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -3668,7 +3822,7 @@
     },
     {
       "key": "freshdesk:103000353584",
-      "sort_order": 96,
+      "sort_order": 100,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -3701,7 +3855,7 @@
     },
     {
       "key": "freshdesk:103000353585",
-      "sort_order": 97,
+      "sort_order": 101,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -3742,7 +3896,7 @@
     },
     {
       "key": "freshdesk:103000353587",
-      "sort_order": 98,
+      "sort_order": 102,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -3774,7 +3928,7 @@
     },
     {
       "key": "freshdesk:103000353588",
-      "sort_order": 99,
+      "sort_order": 103,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -3812,7 +3966,7 @@
     },
     {
       "key": "freshdesk:103000353589",
-      "sort_order": 100,
+      "sort_order": 104,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -3851,7 +4005,7 @@
     },
     {
       "key": "freshdesk:103000353590",
-      "sort_order": 101,
+      "sort_order": 105,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -3884,7 +4038,7 @@
     },
     {
       "key": "freshdesk:103000353592",
-      "sort_order": 102,
+      "sort_order": 106,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -3917,7 +4071,7 @@
     },
     {
       "key": "freshdesk:103000353593",
-      "sort_order": 103,
+      "sort_order": 107,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -3954,7 +4108,7 @@
     },
     {
       "key": "freshdesk:103000353595",
-      "sort_order": 104,
+      "sort_order": 108,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -3993,7 +4147,7 @@
     },
     {
       "key": "freshdesk:103000353597",
-      "sort_order": 105,
+      "sort_order": 109,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -4034,7 +4188,7 @@
     },
     {
       "key": "freshdesk:103000353598",
-      "sort_order": 106,
+      "sort_order": 110,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -4077,7 +4231,7 @@
     },
     {
       "key": "freshdesk:103000353599",
-      "sort_order": 107,
+      "sort_order": 111,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -4117,7 +4271,7 @@
     },
     {
       "key": "freshdesk:103000353600",
-      "sort_order": 108,
+      "sort_order": 112,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -4159,7 +4313,7 @@
     },
     {
       "key": "freshdesk:103000353604",
-      "sort_order": 109,
+      "sort_order": 113,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -4201,7 +4355,7 @@
     },
     {
       "key": "freshdesk:103000353606",
-      "sort_order": 110,
+      "sort_order": 114,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -4234,7 +4388,7 @@
     },
     {
       "key": "freshdesk:103000353608",
-      "sort_order": 111,
+      "sort_order": 115,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -4274,7 +4428,7 @@
     },
     {
       "key": "freshdesk:103000353609",
-      "sort_order": 112,
+      "sort_order": 116,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -4298,7 +4452,8 @@
       "verified_at": "2026-09-14",
       "tags": [
         "freshdesk",
-        "live"
+        "live",
+        "stored-twice"
       ],
       "window_from": "2026-08-11",
       "window_to": "2026-09-11",
@@ -4306,7 +4461,7 @@
     },
     {
       "key": "freshdesk:103000353611",
-      "sort_order": 113,
+      "sort_order": 117,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -4338,7 +4493,8 @@
       "verified_at": "2026-09-14",
       "tags": [
         "freshdesk",
-        "live"
+        "live",
+        "stored-twice"
       ],
       "window_from": "2026-08-11",
       "window_to": "2026-09-11",
@@ -4346,7 +4502,7 @@
     },
     {
       "key": "freshdesk:103000353613",
-      "sort_order": 114,
+      "sort_order": 118,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -4379,7 +4535,8 @@
       "verified_at": "2026-09-14",
       "tags": [
         "freshdesk",
-        "live"
+        "live",
+        "stored-twice"
       ],
       "window_from": "2026-08-11",
       "window_to": "2026-09-11",
@@ -4387,7 +4544,7 @@
     },
     {
       "key": "freshdesk:103000353614",
-      "sort_order": 115,
+      "sort_order": 119,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -4428,7 +4585,7 @@
     },
     {
       "key": "freshdesk:103000353617",
-      "sort_order": 116,
+      "sort_order": 120,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -4463,7 +4620,7 @@
     },
     {
       "key": "freshdesk:103000353618",
-      "sort_order": 117,
+      "sort_order": 121,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -4501,7 +4658,7 @@
     },
     {
       "key": "freshdesk:103000353620",
-      "sort_order": 118,
+      "sort_order": 122,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -4541,7 +4698,7 @@
     },
     {
       "key": "freshdesk:103000353622",
-      "sort_order": 119,
+      "sort_order": 123,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -4576,7 +4733,7 @@
     },
     {
       "key": "freshdesk:103000353624",
-      "sort_order": 120,
+      "sort_order": 124,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -4609,7 +4766,7 @@
     },
     {
       "key": "freshdesk:103000353625",
-      "sort_order": 121,
+      "sort_order": 125,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -4646,7 +4803,7 @@
     },
     {
       "key": "freshdesk:103000353626",
-      "sort_order": 122,
+      "sort_order": 126,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -4681,7 +4838,7 @@
     },
     {
       "key": "freshdesk:103000353627",
-      "sort_order": 123,
+      "sort_order": 127,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -4719,7 +4876,7 @@
     },
     {
       "key": "freshdesk:103000353628",
-      "sort_order": 124,
+      "sort_order": 128,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -4761,7 +4918,7 @@
     },
     {
       "key": "freshdesk:103000353629",
-      "sort_order": 125,
+      "sort_order": 129,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -4797,7 +4954,7 @@
     },
     {
       "key": "freshdesk:103000353631",
-      "sort_order": 126,
+      "sort_order": 130,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -4839,7 +4996,7 @@
     },
     {
       "key": "freshdesk:103000353633",
-      "sort_order": 127,
+      "sort_order": 131,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -4877,7 +5034,7 @@
     },
     {
       "key": "freshdesk:103000353636",
-      "sort_order": 128,
+      "sort_order": 132,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -4912,7 +5069,7 @@
     },
     {
       "key": "freshdesk:103000353637",
-      "sort_order": 129,
+      "sort_order": 133,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -4952,7 +5109,7 @@
     },
     {
       "key": "freshdesk:103000353638",
-      "sort_order": 130,
+      "sort_order": 134,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -4993,7 +5150,7 @@
     },
     {
       "key": "freshdesk:103000353639",
-      "sort_order": 131,
+      "sort_order": 135,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -5035,7 +5192,7 @@
     },
     {
       "key": "freshdesk:103000353640",
-      "sort_order": 132,
+      "sort_order": 136,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -5070,7 +5227,7 @@
     },
     {
       "key": "freshdesk:103000353641",
-      "sort_order": 133,
+      "sort_order": 137,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -5107,7 +5264,7 @@
     },
     {
       "key": "freshdesk:103000353642",
-      "sort_order": 134,
+      "sort_order": 138,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -5143,7 +5300,7 @@
     },
     {
       "key": "freshdesk:103000353643",
-      "sort_order": 135,
+      "sort_order": 139,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -5185,7 +5342,7 @@
     },
     {
       "key": "freshdesk:103000353644",
-      "sort_order": 136,
+      "sort_order": 140,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -5218,7 +5375,7 @@
     },
     {
       "key": "freshdesk:103000353645",
-      "sort_order": 137,
+      "sort_order": 141,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -5252,7 +5409,7 @@
     },
     {
       "key": "freshdesk:103000353646",
-      "sort_order": 138,
+      "sort_order": 142,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -5293,7 +5450,7 @@
     },
     {
       "key": "freshdesk:103000353648",
-      "sort_order": 139,
+      "sort_order": 143,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -5333,7 +5490,7 @@
     },
     {
       "key": "freshdesk:103000353650",
-      "sort_order": 140,
+      "sort_order": 144,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -5368,7 +5525,7 @@
     },
     {
       "key": "freshdesk:103000353651",
-      "sort_order": 141,
+      "sort_order": 145,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -5401,7 +5558,7 @@
     },
     {
       "key": "freshdesk:103000357073",
-      "sort_order": 142,
+      "sort_order": 146,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -5443,7 +5600,7 @@
     },
     {
       "key": "freshdesk:103000357080",
-      "sort_order": 143,
+      "sort_order": 147,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -5483,7 +5640,7 @@
     },
     {
       "key": "freshdesk:103000357081",
-      "sort_order": 144,
+      "sort_order": 148,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -5519,7 +5676,7 @@
     },
     {
       "key": "freshdesk:103000357083",
-      "sort_order": 145,
+      "sort_order": 149,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -5552,7 +5709,7 @@
     },
     {
       "key": "freshdesk:103000357085",
-      "sort_order": 146,
+      "sort_order": 150,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -5593,7 +5750,7 @@
     },
     {
       "key": "freshdesk:103000357087",
-      "sort_order": 147,
+      "sort_order": 151,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -5633,7 +5790,7 @@
     },
     {
       "key": "freshdesk:103000357088",
-      "sort_order": 148,
+      "sort_order": 152,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -5668,7 +5825,7 @@
     },
     {
       "key": "freshdesk:103000357090",
-      "sort_order": 149,
+      "sort_order": 153,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -5709,7 +5866,7 @@
     },
     {
       "key": "freshdesk:103000357094",
-      "sort_order": 150,
+      "sort_order": 154,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -5750,7 +5907,7 @@
     },
     {
       "key": "freshdesk:103000357177",
-      "sort_order": 151,
+      "sort_order": 155,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -5786,7 +5943,7 @@
     },
     {
       "key": "freshdesk:103000364743",
-      "sort_order": 152,
+      "sort_order": 156,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -5818,7 +5975,7 @@
     },
     {
       "key": "freshdesk:103000371810",
-      "sort_order": 153,
+      "sort_order": 157,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -5854,7 +6011,7 @@
     },
     {
       "key": "freshdesk:103000386875",
-      "sort_order": 154,
+      "sort_order": 158,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -5890,7 +6047,7 @@
     },
     {
       "key": "freshdesk:103000386878",
-      "sort_order": 155,
+      "sort_order": 159,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -5924,7 +6081,7 @@
     },
     {
       "key": "freshdesk:103000386920",
-      "sort_order": 156,
+      "sort_order": 160,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -5959,7 +6116,7 @@
     },
     {
       "key": "freshdesk:103000391927",
-      "sort_order": 157,
+      "sort_order": 161,
       "source": "freshdesk",
       "source_key": "freshdesk_articles",
       "wiring": "live",
@@ -5990,7 +6147,7 @@
     },
     {
       "key": "member-care:t:can-i-book-a-trial-personal-training-session-through-trainmore",
-      "sort_order": 158,
+      "sort_order": 162,
       "source": "member_care",
       "source_key": "member_care_answers",
       "wiring": "live",
@@ -6032,7 +6189,7 @@
     },
     {
       "key": "member-care:t:can-i-book-classes-with-an-employee-membership-or-a-plus-one-membership",
-      "sort_order": 159,
+      "sort_order": 163,
       "source": "member_care",
       "source_key": "member_care_answers",
       "wiring": "live",
@@ -6074,7 +6231,7 @@
     },
     {
       "key": "member-care:t:i-am-under-18-can-i-change-or-cancel-my-membership-myself",
-      "sort_order": 160,
+      "sort_order": 164,
       "source": "member_care",
       "source_key": "member_care_answers",
       "wiring": "live",
@@ -6113,7 +6270,7 @@
     },
     {
       "key": "member-care:t:what-access-do-the-different-membership-levels-give-me",
-      "sort_order": 161,
+      "sort_order": 165,
       "source": "member_care",
       "source_key": "member_care_answers",
       "wiring": "live",
@@ -6155,7 +6312,7 @@
     },
     {
       "key": "member-care:t:why-do-my-check-ins-in-the-app-not-match-my-discount",
-      "sort_order": 162,
+      "sort_order": 166,
       "source": "member_care",
       "source_key": "member_care_answers",
       "wiring": "live",
@@ -6188,7 +6345,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-amstelveenseweg",
-      "sort_order": 163,
+      "sort_order": 167,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -6226,7 +6383,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-beethovenstraat",
-      "sort_order": 164,
+      "sort_order": 168,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -6264,7 +6421,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-bos-en-lommer",
-      "sort_order": 165,
+      "sort_order": 169,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -6303,7 +6460,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-buitenveldert",
-      "sort_order": 166,
+      "sort_order": 170,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -6341,7 +6498,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-de-pijp",
-      "sort_order": 167,
+      "sort_order": 171,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -6380,7 +6537,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-holendrecht",
-      "sort_order": 168,
+      "sort_order": 172,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -6418,7 +6575,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-ijburg",
-      "sort_order": 169,
+      "sort_order": 173,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -6456,7 +6613,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-javaplein",
-      "sort_order": 170,
+      "sort_order": 174,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -6494,7 +6651,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-koningin-wilhelminaplein",
-      "sort_order": 171,
+      "sort_order": 175,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -6532,7 +6689,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-koninginneweg",
-      "sort_order": 172,
+      "sort_order": 176,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -6570,7 +6727,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-ndsm",
-      "sort_order": 173,
+      "sort_order": 177,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -6609,7 +6766,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-noordermarkt",
-      "sort_order": 174,
+      "sort_order": 178,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -6647,7 +6804,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-oost",
-      "sort_order": 175,
+      "sort_order": 179,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -6686,7 +6843,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-oosterdok",
-      "sort_order": 176,
+      "sort_order": 180,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -6724,7 +6881,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-papaverweg",
-      "sort_order": 177,
+      "sort_order": 181,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -6762,7 +6919,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-parnassusweg",
-      "sort_order": 178,
+      "sort_order": 182,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -6800,7 +6957,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-piet-heinkade",
-      "sort_order": 179,
+      "sort_order": 183,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -6838,7 +6995,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-plantage",
-      "sort_order": 180,
+      "sort_order": 184,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -6876,7 +7033,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-rembrandtpark",
-      "sort_order": 181,
+      "sort_order": 185,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -6914,7 +7071,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-roelof-hartplein",
-      "sort_order": 182,
+      "sort_order": 186,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -6952,7 +7109,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-rozengracht",
-      "sort_order": 183,
+      "sort_order": 187,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -6991,7 +7148,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-scheldeplein",
-      "sort_order": 184,
+      "sort_order": 188,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -7029,7 +7186,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-singel",
-      "sort_order": 185,
+      "sort_order": 189,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -7068,7 +7225,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-sloterdijk",
-      "sort_order": 186,
+      "sort_order": 190,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -7106,7 +7263,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-slotervaart",
-      "sort_order": 187,
+      "sort_order": 191,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -7144,7 +7301,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-van-woustraat",
-      "sort_order": 188,
+      "sort_order": 192,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -7183,7 +7340,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-west-ladies",
-      "sort_order": 189,
+      "sort_order": 193,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -7221,7 +7378,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-westerpark",
-      "sort_order": 190,
+      "sort_order": 194,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -7259,7 +7416,7 @@
     },
     {
       "key": "club:trainmore-amsterdam-weteringschans",
-      "sort_order": 191,
+      "sort_order": 195,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -7297,7 +7454,7 @@
     },
     {
       "key": "club:trainmore-bilthoven-leyenseweg",
-      "sort_order": 192,
+      "sort_order": 196,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -7335,7 +7492,7 @@
     },
     {
       "key": "club:trainmore-bussum-landstraat",
-      "sort_order": 193,
+      "sort_order": 197,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -7369,7 +7526,7 @@
     },
     {
       "key": "club:trainmore-den-haag-dagelijkse-groenmarkt",
-      "sort_order": 194,
+      "sort_order": 198,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -7407,7 +7564,7 @@
     },
     {
       "key": "club:trainmore-den-haag-laan-van-noi",
-      "sort_order": 195,
+      "sort_order": 199,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -7446,7 +7603,7 @@
     },
     {
       "key": "club:trainmore-den-haag-savornin",
-      "sort_order": 196,
+      "sort_order": 200,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -7484,7 +7641,7 @@
     },
     {
       "key": "club:trainmore-eindhoven-lichttoren",
-      "sort_order": 197,
+      "sort_order": 201,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -7522,7 +7679,7 @@
     },
     {
       "key": "club:trainmore-eindhoven-strijp-s",
-      "sort_order": 198,
+      "sort_order": 202,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -7560,7 +7717,7 @@
     },
     {
       "key": "club:trainmore-groningen-munnekeholm",
-      "sort_order": 199,
+      "sort_order": 203,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -7598,7 +7755,7 @@
     },
     {
       "key": "club:trainmore-groningen-oude-ebbinge",
-      "sort_order": 200,
+      "sort_order": 204,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -7636,7 +7793,7 @@
     },
     {
       "key": "club:trainmore-haarlem-hortusplein",
-      "sort_order": 201,
+      "sort_order": 205,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -7674,7 +7831,7 @@
     },
     {
       "key": "club:trainmore-leiden-breestraat",
-      "sort_order": 202,
+      "sort_order": 206,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -7712,7 +7869,7 @@
     },
     {
       "key": "club:trainmore-leusden-maximaplein",
-      "sort_order": 203,
+      "sort_order": 207,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -7742,7 +7899,7 @@
     },
     {
       "key": "club:trainmore-rotterdam-blaak",
-      "sort_order": 204,
+      "sort_order": 208,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -7780,7 +7937,7 @@
     },
     {
       "key": "club:trainmore-rotterdam-coolsingel",
-      "sort_order": 205,
+      "sort_order": 209,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -7819,7 +7976,7 @@
     },
     {
       "key": "club:trainmore-rotterdam-de-meent",
-      "sort_order": 206,
+      "sort_order": 210,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -7858,7 +8015,7 @@
     },
     {
       "key": "club:trainmore-rotterdam-delftse-poort",
-      "sort_order": 207,
+      "sort_order": 211,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -7896,7 +8053,7 @@
     },
     {
       "key": "club:trainmore-rotterdam-middellandstraat",
-      "sort_order": 208,
+      "sort_order": 212,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -7926,7 +8083,7 @@
     },
     {
       "key": "club:trainmore-rotterdam-wijnhaven",
-      "sort_order": 209,
+      "sort_order": 213,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -7964,7 +8121,7 @@
     },
     {
       "key": "club:trainmore-utrecht-janskerkhof",
-      "sort_order": 210,
+      "sort_order": 214,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -8002,7 +8159,7 @@
     },
     {
       "key": "club:trainmore-utrecht-muntgebouw",
-      "sort_order": 211,
+      "sort_order": 215,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -8040,7 +8197,7 @@
     },
     {
       "key": "club:trainmore-utrecht-oog-in-al",
-      "sort_order": 212,
+      "sort_order": 216,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -8075,7 +8232,7 @@
     },
     {
       "key": "club:trainmore-utrecht-stationsplein",
-      "sort_order": 213,
+      "sort_order": 217,
       "source": "club_directory",
       "source_key": "club_workbook",
       "wiring": "live",
@@ -8113,7 +8270,7 @@
     },
     {
       "key": "prompt:pre_free_trial",
-      "sort_order": 214,
+      "sort_order": 218,
       "source": "prompt",
       "source_key": "prompt_knowledge",
       "wiring": "deploy",
@@ -8153,7 +8310,7 @@
     },
     {
       "key": "prompt:pre_join_prices",
-      "sort_order": 215,
+      "sort_order": 219,
       "source": "prompt",
       "source_key": "prompt_knowledge",
       "wiring": "deploy",
@@ -8195,7 +8352,7 @@
     },
     {
       "key": "prompt:pre_contract_terms",
-      "sort_order": 216,
+      "sort_order": 220,
       "source": "prompt",
       "source_key": "prompt_knowledge",
       "wiring": "deploy",
@@ -8228,7 +8385,7 @@
     },
     {
       "key": "prompt:pre_cooling_off",
-      "sort_order": 217,
+      "sort_order": 221,
       "source": "prompt",
       "source_key": "prompt_knowledge",
       "wiring": "deploy",
@@ -8259,7 +8416,7 @@
     },
     {
       "key": "prompt:pre_freeze",
-      "sort_order": 218,
+      "sort_order": 222,
       "source": "prompt",
       "source_key": "prompt_knowledge",
       "wiring": "deploy",
@@ -8299,7 +8456,7 @@
     },
     {
       "key": "prompt:pre_app_selfservice",
-      "sort_order": 219,
+      "sort_order": 223,
       "source": "prompt",
       "source_key": "prompt_knowledge",
       "wiring": "deploy",
@@ -8335,7 +8492,7 @@
     },
     {
       "key": "prompt:pre_takeover",
-      "sort_order": 220,
+      "sort_order": 224,
       "source": "prompt",
       "source_key": "prompt_knowledge",
       "wiring": "deploy",
@@ -8367,7 +8524,7 @@
     },
     {
       "key": "prompt:pre_discounts",
-      "sort_order": 221,
+      "sort_order": 225,
       "source": "prompt",
       "source_key": "prompt_knowledge",
       "wiring": "deploy",
@@ -8407,7 +8564,7 @@
     },
     {
       "key": "prompt:pre_external_platform",
-      "sort_order": 222,
+      "sort_order": 226,
       "source": "prompt",
       "source_key": "prompt_knowledge",
       "wiring": "deploy",
@@ -8441,7 +8598,7 @@
     },
     {
       "key": "prompt:tick_withdraw",
-      "sort_order": 223,
+      "sort_order": 227,
       "source": "prompt",
       "source_key": "prompt_knowledge",
       "wiring": "deploy",
@@ -8479,7 +8636,7 @@
     },
     {
       "key": "prompt:guard_cancel_honesty",
-      "sort_order": 224,
+      "sort_order": 228,
       "source": "prompt",
       "source_key": "prompt_knowledge",
       "wiring": "deploy",
@@ -8512,7 +8669,7 @@
     },
     {
       "key": "prompt:guard_access_levels",
-      "sort_order": 225,
+      "sort_order": 229,
       "source": "prompt",
       "source_key": "prompt_knowledge",
       "wiring": "deploy",
@@ -8553,7 +8710,7 @@
     },
     {
       "key": "prompt:guard_repeat_breaker",
-      "sort_order": 226,
+      "sort_order": 230,
       "source": "prompt",
       "source_key": "prompt_knowledge",
       "wiring": "deploy",
@@ -8591,7 +8748,7 @@
     },
     {
       "key": "prompt:guard_freeze_policy",
-      "sort_order": 227,
+      "sort_order": 231,
       "source": "prompt",
       "source_key": "prompt_knowledge",
       "wiring": "deploy",
@@ -8625,7 +8782,7 @@
     },
     {
       "key": "prompt:guard_abuse",
-      "sort_order": 228,
+      "sort_order": 232,
       "source": "prompt",
       "source_key": "prompt_knowledge",
       "wiring": "deploy",
@@ -8656,7 +8813,7 @@
     },
     {
       "key": "prompt:dead_asked_for_human",
-      "sort_order": 229,
+      "sort_order": 233,
       "source": "prompt",
       "source_key": "prompt_knowledge",
       "wiring": "deploy",

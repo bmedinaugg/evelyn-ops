@@ -629,7 +629,10 @@ export interface QuestionNoteRow {
 // completely different places.
 export type KnowledgeItemSource =
   | "freshdesk"
-  | "spreadsheet"
+  // Written into the store every morning by a process nobody has traced. Was
+  // called "spreadsheet" until 14 Sep 2026, on the strength of its column shape
+  // matching a SharePoint file that was never found.
+  | "unidentified"
   | "member_care"
   | "club_directory"
   | "prompt";

@@ -24,7 +24,7 @@ is the record.
 | Source | Wiring | FAQs | Last used |
 |---|---|---|---|
 | Freshdesk help articles | Live | 99 | 10 September 2026 |
-| TrainMore FAQs.xlsx | Live | 62 | 8 April 2026 |
+| A second FAQ feed — loader unidentified | Live | 62 | 8 April 2026 |
 | Member Care hand-written answers | Live | 5 | 26 August 2026 |
 | TrainMore NL Bot Training Guide | Not wired | &mdash; | 18 August 2026 |
 | The club directory workbook | Live | &mdash; | 10 September 2026 |
@@ -45,17 +45,16 @@ is the record.
 - **Who owns it.** Member Care - whatever you publish in Freshdesk is in the bot the next morning.
 - **Open it.** https://www.support.trainmore.com/en/support/solutions
 
-### TrainMore FAQs.xlsx
+### A second FAQ feed — loader unidentified
 
-*Excel workbook · 62 FAQs · checked 10 September 2026*
+*Unknown · 62 FAQs · checked 14 September 2026*
 
-- **Last used.** Re-imported every day. Last run 10 Sep 2026, 10:00 UTC. The file itself was last edited 8 April 2026.
-- **How we know.** Its columns (title / description / url / category) are exactly the metadata carried on the chunks labelled source=blob. File modified date from SharePoint.
-- **What it shapes.** A second copy of much of the Freshdesk content.
-- **Who owns it.** Whoever maintains the sheet.
-- **Open it.** https://urbangymgroup-my.sharepoint.com/personal/bryan_medina_per_urbangymgroup_com/Documents/AI%20BOT/TrainMore%20FAQs.xlsx
+- **Last used.** Re-imported every morning. 69 chunks written 14 Sep 2026, 10:00:37–10:00:54 UTC, interleaved with the Clubs FAQs run.
+- **How we know.** By elimination and timing, 14 Sep 2026. clear_faqs() empties the table every run; the Clubs FAQs workflow (fmvDzjBJrsyU9m2z) re-inserts only Freshdesk and bot.manual_faqs, and its data loader cannot emit source=blob. Something else writes these rows. No workflow in the instance matches blob, xlsx or sharepoint by name.
+- **What it shapes.** 58 articles, every one of which also arrives from Freshdesk on its own. It supplies no answer the Freshdesk sync does not already provide.
+- **Who owns it.** Unknown. That is the finding.
 
-> **Watch out.** Five months since it was last edited, but still imported daily. 69 of TrainMore's 112 FAQ chunks are stored twice because this sheet repeats articles that already sync from Freshdesk on their own. Decide which of the two to keep.
+> **Watch out.** Recorded until 14 Sep 2026 as "TrainMore FAQs.xlsx" in SharePoint. That was an inference from column shape, never a trace, and the file was never located. The name has been removed rather than left standing — an unverified owner is worse than a blank one, because nobody goes looking for what they think they already know. 38% of what the bot can answer from arrives this way.
 
 ### Member Care hand-written answers
 

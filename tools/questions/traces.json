@@ -24,7 +24,7 @@
         "The Q&A agent searches a vector store of FAQ answers using OpenAI embeddings, and answers from what comes back.",
         "That store is rebuilt from scratch every morning at 10:00, from three feeds.",
         "Feed 1 — Freshdesk help articles published at support.trainmore.com (99 FAQs). Whatever Member Care publishes is in the bot the next morning.",
-        "Feed 2 — the spreadsheet TrainMore FAQs.xlsx in OneDrive (56 FAQs). Last edited 8 April 2026.",
+        "Feed 2 — a second process writes 58 more articles every morning and nobody has traced what it is. Recorded as TrainMore FAQs.xlsx until 14 Sep 2026; that was an inference from column shape and the file was never found.",
         "Feed 3 — bot.manual_faqs (5 FAQs), written by Member Care on 26 Aug 2026 from real tickets, for things no article covered."
       ],
       "sources": [
@@ -32,8 +32,8 @@
         "faq_spreadsheet",
         "member_care_answers"
       ],
-      "ends_at": "Member Care. Publishing a Freshdesk article, editing the spreadsheet, or adding a row to bot.manual_faqs all reach the bot the next morning, with no deploy.",
-      "caveat": "The spreadsheet repeats articles that already sync from Freshdesk, so most answers are stored twice and retrieval can return the same one twice."
+      "ends_at": "Member Care, for two of the three feeds. Publishing a Freshdesk article or adding a row to bot.manual_faqs reaches the bot the next morning with no deploy. The second feed has no known owner at all.",
+      "caveat": "The second feed repeats articles that already sync from Freshdesk, so most answers are stored twice and retrieval can return the same one twice. Editing the Freshdesk article does not change the copy, and there is no known way to edit the copy."
     },
     "magicline": {
       "label": "Magicline, live",
@@ -286,12 +286,12 @@
         "The Q&A agent searches a vector store of FAQ answers using OpenAI embeddings, and answers from what comes back.",
         "That store is rebuilt from scratch every morning at 10:00, from three feeds.",
         "Feed 1 — Freshdesk help articles published at support.trainmore.com (99 FAQs). Whatever Member Care publishes is in the bot the next morning.",
-        "Feed 2 — the spreadsheet TrainMore FAQs.xlsx in OneDrive (56 FAQs). Last edited 8 April 2026.",
+        "Feed 2 — a second process writes 58 more articles every morning and nobody has traced what it is. Recorded as TrainMore FAQs.xlsx until 14 Sep 2026; that was an inference from column shape and the file was never found.",
         "Feed 3 — bot.manual_faqs (5 FAQs), written by Member Care on 26 Aug 2026 from real tickets, for things no article covered."
       ],
-      "ends_at": "Member Care. Publishing a Freshdesk article, editing the spreadsheet, or adding a row to bot.manual_faqs all reach the bot the next morning, with no deploy.",
+      "ends_at": "Member Care, for two of the three feeds. Publishing a Freshdesk article or adding a row to bot.manual_faqs reaches the bot the next morning with no deploy. The second feed has no known owner at all.",
       "change_cost": "nodeploy",
-      "caveat": "This is the clearest case of the duplicate-storage problem: the booking articles exist twice in the store, once from the Freshdesk sync and once from the spreadsheet. The spreadsheet repeats articles that already sync from Freshdesk, so most answers are stored twice and retrieval can return the same one twice."
+      "caveat": "This is the clearest case of the duplicate-storage problem: the booking articles exist twice in the store, once from the Freshdesk sync and once from the untraced second feed. The second feed repeats articles that already sync from Freshdesk, so most answers are stored twice and retrieval can return the same one twice. Editing the Freshdesk article does not change the copy, and there is no known way to edit the copy."
     },
     {
       "key": "student_discount",

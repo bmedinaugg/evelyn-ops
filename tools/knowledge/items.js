@@ -335,7 +335,11 @@ function titleTerms(title) {
   // guess at matching titles.
   const SOURCE_OF = {
     freshdesk: { source: 'freshdesk', source_key: 'freshdesk_articles' },
-    blob: { source: 'spreadsheet', source_key: 'faq_spreadsheet' },
+    // Keyed 'unidentified', not 'spreadsheet'. It was recorded as TrainMore
+    // FAQs.xlsx until 14 Sep 2026; that was an inference from column shape and
+    // the file was never found. The source_key still points at the register row
+    // (keys are opaque and referenced by question_traces), but the name is gone.
+    blob: { source: 'unidentified', source_key: 'faq_spreadsheet' },
     'member-care': { source: 'member_care', source_key: 'member_care_answers' },
   };
   const articles = new Map();
@@ -357,7 +361,7 @@ function titleTerms(title) {
   }
 
   // Which article ids the Freshdesk sync already carries. Everything the
-  // spreadsheet holds beyond this set would be knowledge only it provides —
+  // second feed holds beyond this set would be knowledge only it provides —
   // and as of 13 Sep 2026 that set is empty, which is the finding.
   const freshdeskIds = new Set(
     [...articles.values()].filter((a) => a.feed === 'freshdesk').map((a) => a.artId),
@@ -381,7 +385,7 @@ function titleTerms(title) {
       chunks: a.parts.length,
       duplicate_of: dup,
       caveat: dup
-        ? 'Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does not change this copy — only the spreadsheet does.'
+        ? 'Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.'
         : null,
       demand_method: d.need
         ? `${d.need} of ${d.terms.length} keywords from the title`
@@ -531,7 +535,7 @@ function titleTerms(title) {
   // this come from, can I get it changed, and is anything wrong with it. The
   // second is the one that decides what a note is worth.
   const SOURCE_TAG = {
-    freshdesk: 'freshdesk', spreadsheet: 'spreadsheet', member_care: 'member-care',
+    freshdesk: 'freshdesk', unidentified: 'unidentified-loader', member_care: 'member-care',
     club_directory: 'club-data', prompt: 'prompt',
   };
   const WIRING_TAG = { live: 'live', deploy: 'needs-deploy', not_wired: 'not-wired' };
@@ -575,11 +579,11 @@ function titleTerms(title) {
   console.log('items:', items.length);
   console.log('by source:', by((i) => i.source));
   console.log('by wiring:', by((i) => i.wiring));
-  console.log('duplicates (spreadsheet copies of a Freshdesk article):',
+  console.log('duplicates (second-feed copies of a Freshdesk article):',
     items.filter((i) => i.duplicate_of).length);
   const uniqueToSheet = items.filter(
-    (i) => i.source === 'spreadsheet' && !i.duplicate_of).length;
-  console.log('articles ONLY the spreadsheet provides:', uniqueToSheet);
+    (i) => i.source === 'unidentified' && !i.duplicate_of).length;
+  console.log('articles ONLY the second feed provides:', uniqueToSheet);
   console.log('never raised (0 matched sessions):',
     items.filter((i) => i.matched_sessions === 0).length);
   console.log('cannot tell (fewer than two distinctive words):',

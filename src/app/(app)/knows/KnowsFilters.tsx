@@ -116,7 +116,7 @@ export function KnowsFilters({
             checked={values.dupes === "hide"}
             onChange={(e) => apply({ dupes: e.target.checked ? "hide" : "" })}
           />
-          hide the {dupeCount} spreadsheet copies
+          hide the {dupeCount} duplicate copies
         </label>
       </div>
 
