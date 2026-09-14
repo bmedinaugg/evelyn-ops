@@ -53,6 +53,11 @@ const KIND_LABEL = Object.fromEntries(KINDS.map((k) => [k.value, k.label]));
 
 type Sort = "demand" | "title" | "notes";
 
+// How many rows to put in the DOM at once. Everything is loaded and searched —
+// this only limits what is painted, so that arriving at the page costs one
+// screenful rather than 229 of them.
+const PAGE = 60;
+
 export function KnowsBrowser({
   items,
   notes,
@@ -67,6 +72,7 @@ export function KnowsBrowser({
   const [tag, setTag] = useState("");
   const [sort, setSort] = useState<Sort>("demand");
   const [hideDupes, setHideDupes] = useState(false);
+  const [limit, setLimit] = useState(PAGE);
   // Which rows are open, held here rather than left to the <details> element.
   // Saving a note is a server action and revalidates the route; an uncontrolled
   // <details> would snap shut and lose the reader's place at exactly the moment
@@ -131,30 +137,37 @@ export function KnowsBrowser({
   const dupes = items.filter((i) => i.duplicate_of).length;
   const filtered = shown.length !== items.length;
 
+  // Every filter resets the cap: narrowing the list and then still being shown
+  // page three of the old one is disorienting.
+  const reset = <T,>(set: (v: T) => void) => (v: T) => {
+    set(v);
+    setLimit(PAGE);
+  };
+
   return (
     <div className="panel" style={{ padding: 16 }}>
       <div className="controls" style={{ marginBottom: 10 }}>
         <input
           type="search"
           value={q}
-          onChange={(e) => setQ(e.target.value)}
+          onChange={(e) => reset(setQ)(e.target.value)}
           placeholder="search the words themselves…"
           aria-label="Search titles and answers"
           style={{ minWidth: 260, flex: 1 }}
         />
-        <select value={source} onChange={(e) => setSource(e.target.value)} aria-label="Source">
+        <select value={source} onChange={(e) => reset(setSource)(e.target.value)} aria-label="Source">
           <option value="">Any source</option>
           {Object.entries(SOURCE).map(([k, v]) => (
             <option key={k} value={k}>{v.label}</option>
           ))}
         </select>
-        <select value={wiring} onChange={(e) => setWiring(e.target.value)} aria-label="Wiring">
+        <select value={wiring} onChange={(e) => reset(setWiring)(e.target.value)} aria-label="Wiring">
           <option value="">Live or deploy</option>
           {Object.entries(WIRING).map(([k, v]) => (
             <option key={k} value={k}>{v.label}</option>
           ))}
         </select>
-        <select value={topic} onChange={(e) => setTopic(e.target.value)} aria-label="Topic">
+        <select value={topic} onChange={(e) => reset(setTopic)(e.target.value)} aria-label="Topic">
           <option value="">Any topic</option>
           {topics.map((t) => <option key={t} value={t}>{t}</option>)}
         </select>
@@ -167,7 +180,7 @@ export function KnowsBrowser({
           <input
             type="checkbox"
             checked={hideDupes}
-            onChange={(e) => setHideDupes(e.target.checked)}
+            onChange={(e) => reset(setHideDupes)(e.target.checked)}
           />
           hide the {dupes} spreadsheet copies
         </label>
@@ -182,7 +195,7 @@ export function KnowsBrowser({
             key={t}
             type="button"
             className={`btn secondary${tag === t ? " active" : ""}`}
-            onClick={() => setTag(tag === t ? "" : t)}
+            onClick={() => reset(setTag)(tag === t ? "" : t)}
             style={{ fontSize: 11.5, padding: "3px 9px" }}
           >
             #{t} <span className="muted">{n}</span>
@@ -191,7 +204,7 @@ export function KnowsBrowser({
       </div>
 
       <p className="muted mono" style={{ fontSize: 11.5, margin: "0 0 10px" }}>
-        {shown.length} of {items.length} shown
+        {Math.min(limit, shown.length)} shown · {shown.length} match · {items.length} in total
         {filtered && (
           <>
             {" · "}
@@ -201,7 +214,7 @@ export function KnowsBrowser({
               style={{ fontSize: 11, padding: "1px 8px" }}
               onClick={() => {
                 setQ(""); setSource(""); setWiring(""); setTopic("");
-                setTag(""); setHideDupes(false);
+                setTag(""); setHideDupes(false); setLimit(PAGE);
               }}
             >
               clear
@@ -217,7 +230,7 @@ export function KnowsBrowser({
         </p>
       )}
 
-      {shown.map((i) => (
+      {shown.slice(0, limit).map((i) => (
         <Item
           key={i.key}
           i={i}
@@ -226,6 +239,24 @@ export function KnowsBrowser({
           onToggle={toggle}
         />
       ))}
+
+      {/* A cap, said out loud. Silently stopping at 60 would read as "that is
+          all there is", which is the one thing a page called What Evelyn knows
+          must never imply. */}
+      {shown.length > limit && (
+        <p style={{ marginTop: 14, marginBottom: 0 }}>
+          <button
+            type="button"
+            className="btn secondary"
+            onClick={() => setLimit((n) => n + PAGE)}
+          >
+            Show {Math.min(PAGE, shown.length - limit)} more
+          </button>{" "}
+          <span className="muted mono" style={{ fontSize: 11.5 }}>
+            {shown.length - limit} not shown yet
+          </span>
+        </p>
+      )}
     </div>
   );
 }
@@ -283,6 +314,12 @@ function Item({
         <span className="muted mono" style={{ fontSize: 11 }}>{i.topic}</span>
       </summary>
 
+      {/* Rendered only while open. A closed <details> still keeps its children
+          in the DOM, and 229 article bodies plus 229 note forms — each one a
+          server action to wire up — is enough to keep the page busy long past
+          the point where it should have painted. Collapsed rows cost a summary
+          line and nothing else. */}
+      {open && (
       <div style={{ padding: "8px 0 4px 14px" }}>
         {/* The words themselves, verbatim. Everything else on this row is
             about them; this is them. */}
@@ -393,6 +430,7 @@ function Item({
 
         <Notes itemKey={i.key} notes={notes} />
       </div>
+      )}
     </details>
   );
 }
