@@ -1,7 +1,7 @@
 import "server-only";
 import { unstable_cache } from "next/cache";
 import { requireStaff } from "@/lib/auth";
-import { amsterdamToday, amsterdamRangeIso } from "@/lib/format";
+import { amsterdamToday, amsterdamRangeIso, addDays } from "@/lib/format";
 import { dataClient } from "@/lib/supabase/data-client";
 import { FEEDBACK_TAG_VALUES } from "@/lib/feedback-tags";
 import {
@@ -734,29 +734,52 @@ export async function listTicketConversations(
 // settled in exactly one place (bot.is_substantive_answer, db/028) instead of
 // being re-guessed by a page with its own keyword list. That single definition
 // is what took the answer predicate from 38% to 77% precision.
+// PAGED, and it has to be. PostgREST caps an unbounded select at 1,000 rows and
+// says nothing about it, and a week of conversations is roughly 1,800. Left
+// unpaged, this returned the first 1,000 and the caller could only read the
+// other 800 as "the scorecard has not reached these yet" — which is a confident
+// wrong answer of exactly the kind this codebase keeps getting bitten by. The
+// page showed 50 helped conversations instead of ~109 before this was fixed.
+const PAGE_ROWS = 1000;
+
 export async function defectsBySession(
   from: string,
   to: string,
 ): Promise<Map<string, { answers: number; link_only: boolean; is_clean: boolean }>> {
   await requireStaff();
-  const { data, error } = await dataClient()
-    .from("conversation_defects")
-    .select("session_id,answers,link_only,is_clean")
-    .gte("day", from)
-    .lte("day", to);
-  if (error) throw new Error(`defects by session failed: ${error.message}`);
   const m = new Map<string, { answers: number; link_only: boolean; is_clean: boolean }>();
-  for (const r of (data ?? []) as {
-    session_id: string;
-    answers: number;
-    link_only: boolean;
-    is_clean: boolean;
-  }[]) {
-    m.set(r.session_id, {
-      answers: r.answers,
-      link_only: r.link_only,
-      is_clean: r.is_clean,
-    });
+  // Widened by a day at each end. The two sides date a session differently:
+  // conversation_defects.day is the date of its FIRST message, the digest lists
+  // it under the day it reports on. For a conversation running across midnight
+  // those disagree — 4 in the week to 14 Sep 2026 — and an exact-range filter
+  // reads each of them as "not scored yet" rather than finding the row.
+  const lo = addDays(from, -1);
+  const hi = addDays(to, 1);
+  for (let offset = 0; ; offset += PAGE_ROWS) {
+    const { data, error } = await dataClient()
+      .from("conversation_defects")
+      .select("session_id,answers,link_only,is_clean")
+      .gte("day", lo)
+      .lte("day", hi)
+      // Ordered so the pages partition the set: without a stable sort, two
+      // requests can return overlapping windows and silently drop rows.
+      .order("session_id", { ascending: true })
+      .range(offset, offset + PAGE_ROWS - 1);
+    if (error) throw new Error(`defects by session failed: ${error.message}`);
+    const rows = (data ?? []) as {
+      session_id: string;
+      answers: number;
+      link_only: boolean;
+      is_clean: boolean;
+    }[];
+    for (const r of rows) {
+      m.set(r.session_id, {
+        answers: r.answers,
+        link_only: r.link_only,
+        is_clean: r.is_clean,
+      });
+    }
+    if (rows.length < PAGE_ROWS) break;
   }
   return m;
 }
