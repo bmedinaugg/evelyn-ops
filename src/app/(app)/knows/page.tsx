@@ -133,9 +133,9 @@ export default async function KnowsPage({
         </h2>
         <p style={{ fontSize: 13.5, lineHeight: 1.6, maxWidth: "72ch" }}>
           Four pages cover this ground at four different distances.{" "}
-          <Link href="/scenarios">Scenario library</Link> is what she
-          recognises. <Link href="/library">Case library</Link> is what she does
-          about it. <Link href="/knowledge">Knowledge register</Link> is the
+          <Link href="/scenarios" prefetch={false}>Scenario library</Link> is what she
+          recognises. <Link href="/library" prefetch={false}>Case library</Link> is what she does
+          about it. <Link href="/knowledge" prefetch={false}>Knowledge register</Link> is the
           seven documents and feeds behind that. This is what is{" "}
           <em>inside</em> those documents, one row per article &mdash; the level
           at which you can read a sentence, decide it is wrong, and say so.
@@ -206,7 +206,7 @@ export default async function KnowsPage({
         <p className="muted" style={{ fontSize: 13, lineHeight: 1.6, maxWidth: "72ch", marginBottom: 0 }}>
           The hand-tuned version of this instrument, for twenty questions rather
           than {items.length}, is on{" "}
-          <Link href="/questions">How a question gets answered</Link>. Where the
+          <Link href="/questions" prefetch={false}>How a question gets answered</Link>. Where the
           two disagree, trust that one.
         </p>
       </div>
@@ -285,6 +285,7 @@ export default async function KnowsPage({
             <Link
               href={qs(values, { n: limit + PAGE })}
               className="btn secondary"
+              prefetch={false}
               scroll={false}
             >
               Show {Math.min(PAGE, matching.length - painted.length)} more
@@ -471,8 +472,14 @@ function Item({
               >
                 <span style={{ fontStyle: "italic" }}>&ldquo;{e}&rdquo;</span>{" "}
                 {i.example_sessions[n] && (
+                  // prefetch={false} matters here. Sixty rows carrying three
+                  // quotes each is up to 180 links to /conversations/[id],
+                  // which is force-dynamic and does real work per request.
+                  // Left to prefetch, opening this page fires that whole burst
+                  // at the server and the page never settles.
                   <Link
                     href={`/conversations/${i.example_sessions[n]}`}
+                    prefetch={false}
                     style={{ fontSize: 11.5, whiteSpace: "nowrap" }}
                   >
                     read the conversation
