@@ -722,6 +722,76 @@ export async function listTicketConversations(
 }
 
 // Session ids that already have at least one piece of team feedback.
+// --- Bot helped -------------------------------------------------------------
+// Restored 14 Sep 2026 after being retired on 9 Sep (b5baf2b). The page was
+// retired for its EVIDENCE, not its question: it required the member to say
+// thanks, which most do not, so it only ever found ~9 conversations a week and
+// Member Care disputed even those. The question — which conversations did the
+// bot resolve on its own? — was always the right one.
+
+// The scorecard's per-session verdict, for the days a window covers. Joined
+// onto the digest rather than recomputed, so "did the bot actually answer?" is
+// settled in exactly one place (bot.is_substantive_answer, db/028) instead of
+// being re-guessed by a page with its own keyword list. That single definition
+// is what took the answer predicate from 38% to 77% precision.
+export async function defectsBySession(
+  from: string,
+  to: string,
+): Promise<Map<string, { answers: number; link_only: boolean; is_clean: boolean }>> {
+  await requireStaff();
+  const { data, error } = await dataClient()
+    .from("conversation_defects")
+    .select("session_id,answers,link_only,is_clean")
+    .gte("day", from)
+    .lte("day", to);
+  if (error) throw new Error(`defects by session failed: ${error.message}`);
+  const m = new Map<string, { answers: number; link_only: boolean; is_clean: boolean }>();
+  for (const r of (data ?? []) as {
+    session_id: string;
+    answers: number;
+    link_only: boolean;
+    is_clean: boolean;
+  }[]) {
+    m.set(r.session_id, {
+      answers: r.answers,
+      link_only: r.link_only,
+      is_clean: r.is_clean,
+    });
+  }
+  return m;
+}
+
+// A reviewer's verdict on one of those conversations. Recorded as
+// conversation_feedback so that a "didn't help" lands in the Feedback inbox as
+// open work, while a confirmed "helped" is filed resolved and stays out of the
+// team's queue.
+export async function reviewHelpedSession(input: {
+  sessionId: string;
+  helped: boolean;
+  explanation: string | null;
+}): Promise<void> {
+  const staff = await requireStaff();
+  const row: Record<string, unknown> = {
+    session_id: input.sessionId,
+    author_email: staff.email,
+    rating: input.helped ? "good" : "bad",
+    comment: input.explanation?.trim() || null,
+    tags: [],
+    detail: null,
+    status: input.helped ? "resolved" : "open",
+  };
+  if (input.helped) {
+    row.resolved_by = staff.email;
+    row.resolved_at = new Date().toISOString();
+    row.resolution_note =
+      "Reviewed from Bot helped — confirmed the bot helped the customer.";
+  }
+  const { error } = await dataClient()
+    .from("conversation_feedback")
+    .insert(row);
+  if (error) throw new Error(`review helped session failed: ${error.message}`);
+}
+
 export async function reviewedSessionIds(): Promise<Set<string>> {
   await requireStaff();
   const { data, error } = await dataClient()

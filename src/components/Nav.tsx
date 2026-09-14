@@ -14,10 +14,17 @@ const SECTIONS: { title: string | null; items: NavItem[] }[] = [
     title: "Review",
     items: [
       { href: "/conversations", label: "Conversations", icon: "💬" },
-      // Performance replaced "Bot helped" (9 conversations a week, keyed on
-      // whether the member said thanks). It sits first because "did Evelyn do
-      // her job" is the question the other pages get read as answering.
+      // Performance is the headline: "did Evelyn do her job", eight
+      // deterministic defect classes over every conversation. It sits first
+      // because that is the question the other pages get read as answering.
       { href: "/performance", label: "Performance", icon: "✅" },
+      // Bot helped was retired on 9 Sep and restored on 14 Sep with its
+      // evidence swapped: it asked the right question (which conversations did
+      // the bot resolve on its own?) with the wrong test (did the member say
+      // thanks?). It now reads "answered" from the scorecard, so this page and
+      // Performance cannot disagree about what an answer is. Performance
+      // counts the failures; this one lists the successes by name.
+      { href: "/helped", label: "Bot helped", icon: "🙌" },
       { href: "/sentiment", label: "Sentiment", icon: "🌡️" },
       { href: "/evaluation", label: "Bot evaluation", icon: "🎯" },
       { href: "/tickets", label: "Tickets", icon: "🎫" },
