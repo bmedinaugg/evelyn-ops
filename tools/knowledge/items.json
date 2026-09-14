@@ -8,8 +8,8 @@
     {
       "key": "blob:103000345002",
       "sort_order": 1,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "My automatic debit has failed, what should I do now?",
       "body": "My automatic debit has failed, what should I do now? You can check if you have an outstanding debt in the TrainMore app. It is also possible to then immediately pay the outstanding debt via the app. \n\nFollow these steps: \n1) Open the app and go to Studio, then select Self-Service. \n2) Tap Account. \n3) To settle outstanding debt, click on Balance Account. \n4) Continue by clicking on Continue to payment and Pay now \n5) Select your desired payment method, and follow the instructions of the selected payment provider.",
@@ -17,7 +17,7 @@
       "topic": "Payments",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000345002",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 8,
       "matched_sessions": 4,
@@ -30,7 +30,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -42,8 +42,8 @@
     {
       "key": "blob:103000345003",
       "sort_order": 2,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "I have lost something in the club. What do I do?",
       "body": "I have lost something in the club. What do I do? If you've lost something at the gym, revisit the area where you last had your item. If not found, please check with the front desk as soon as possible. Our team collects and holds found items for a limited time.",
@@ -51,7 +51,7 @@
       "topic": "Club facilities",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000345003",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 13,
       "matched_sessions": 10,
@@ -72,7 +72,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -84,8 +84,8 @@
     {
       "key": "blob:103000345004",
       "sort_order": 3,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "How do the lockers operate in the club?",
       "body": "How do the lockers operate in the club? To use the lockers at TrainMore clubs, you’ll need a padlock. We offer stylish TrainMore padlocks for sale at the club, but you’re welcome to bring your own as well. Our lockers provide a secure and convenient spot to store your belongings while you work out.",
@@ -93,7 +93,7 @@
       "topic": "Club facilities",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000345004",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "2 of 2 keywords from the title",
       "matched_messages": 0,
       "matched_sessions": 0,
@@ -105,7 +105,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "never-raised",
@@ -118,8 +118,8 @@
     {
       "key": "blob:103000345005",
       "sort_order": 4,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "Can I use the same Virtuagym login for the new app?",
       "body": "Can I use the same Virtuagym login for the new app? No, you cannot use your Virtuagym login for the new TrainMore app. \n\nYou will need to re-register in the new app to create a new login specifically for this app. \n\nGo to the following FAQ 'How do I create an account for the new TrainMore app' and follow these steps to register for the new app",
@@ -127,7 +127,7 @@
       "topic": "The app",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000345005",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "2 of 2 keywords from the title",
       "matched_messages": 25,
       "matched_sessions": 20,
@@ -147,7 +147,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -159,8 +159,8 @@
     {
       "key": "blob:103000345012",
       "sort_order": 5,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "How do I create an account for the new TrainMore app?",
       "body": "How do I create an account for the new TrainMore app? To create an account in the TrainMore app, follow these steps: \n\n1) Search for TrainMore in the Apple App Store or Android Play Store.\n2) Download and Open the App. Click on Sign in on the home screen. \n3) Click on Register. Enter the e-mail address you used to sign up for your TrainMore membership. Set a password, and agree to the Privacy Policy and Terms & Conditions. You can click on the links if you wish to read them before agreeing. \n4) Once verification e-mail has been sent, you can log out of the app. \n5) E-mail verification, check your inbox for an e-mail from TrainMore and click on the verification link. \n6) Once registration is completed. Go back to Sign In and this time you can click on Login and enter your new account login in information. \n7) Lastly, to finish the verification, enter your date of birth.\n\nNot sure which e-mail is linked to your TrainMore account? Look in your private or work mailbox if you have received a TrainMore e-mail. Otherwise, you can easily check this at the front desk or contact customer care via live chat for assistance.",
@@ -168,7 +168,7 @@
       "topic": "The app",
       "chunks": 2,
       "duplicate_of": "freshdesk:103000345012",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 143,
       "matched_sessions": 122,
@@ -189,7 +189,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "split-2",
@@ -202,8 +202,8 @@
     {
       "key": "blob:103000345014",
       "sort_order": 6,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "How do I become a member with my company code?",
       "body": "How do I become a member with my company code? To join as a corporate member, use the company code provided by your employer. Simply request the code from your HR department. When signing up, you will need to enter your discount code after selecting your preferred club, corporate as your membership type and choose your access level.",
@@ -211,7 +211,7 @@
       "topic": "Corporate Fitness",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000345014",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 3,
       "matched_sessions": 3,
@@ -225,7 +225,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -237,8 +237,8 @@
     {
       "key": "blob:103000345015",
       "sort_order": 7,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "I'm a member via an external fitness platform, how do I cancel my membership?",
       "body": "I'm a member via an external fitness platform, how do I cancel my membership? If you joined TrainMore through a third-party provider, such as Bedrijf Fitness Nederland (BFNL), any cancellation requests must be directed to that third party. Please contact them directly to initiate your cancellation.",
@@ -246,7 +246,7 @@
       "topic": "Corporate Fitness",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000345015",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 5 keywords from the title",
       "matched_messages": 73,
       "matched_sessions": 58,
@@ -267,7 +267,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -279,8 +279,8 @@
     {
       "key": "blob:103000345016",
       "sort_order": 8,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "How to cancel a booked PT session via the app?",
       "body": "How to cancel a booked PT session via the app? Cancelling your booked PT session can go one of two ways, depending on the type of trainer at your club. \n\nTo cancel a booked PT session that you have booked through the app with one of the TrainMore-employed trainers, follow these steps: \n\n1) Open the app and go to Studio. \n2) Tap on Appointments. \n3) Select Show My Appointments. \n4) Tap on the appointment you want to cancel. \n5) Verify that you have selected the correct booking, then click on Cancel Booking. \n6) Confirm your cancellation request by tapping Yes.\n\nBe aware! We have a cancellation policy of 24 hours for personal training appointments. A credit will be deducted in the event of a late cancellation or no-show.\n\nIf you’re training with an independent Personal Trainer, cancellations or rescheduling must be arranged directly with your trainer.",
@@ -288,7 +288,7 @@
       "topic": "Personal Training",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000345016",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 5 keywords from the title",
       "matched_messages": 11,
       "matched_sessions": 9,
@@ -309,7 +309,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -321,8 +321,8 @@
     {
       "key": "blob:103000353541",
       "sort_order": 9,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "How can I buy a PT membership or package?",
       "body": "How can I buy a PT membership or package? If your club has TrainMore-employed trainers, you can add a Personal Training package or membership in the TrainMore app by following these steps: \n\nPersonal Training Membership \n1) Open the app and navigate to Studio. \n2) Tap on Offers.\n3) Scroll down to Additional Modules and click on Show All to explore the different Personal Training offers. \n4) Select the personal training membership you wish to purchase. \n5) Agree to the terms and conditions, then confirm your purchase by clicking Book for a fee.\n\nPersonal Training Package \n1) Open the app and navigate to Studio. \n2) Tap on Contingents.\n3) Click on Show All to explore the different Personal Training package offers. \n4) Select the personal training package you wish to purchase.\n5) Select your payment method by clicking on buy and complete the payment immediately.\n\nIf your club has independent Personal Trainers, you book your sessions with your Personal Trainer privately and directly. The independent Personal Trainers have their own packages and pricing. They do not use app credits. \n\nTo check if your club has independent Personal Trainers or TrainMore-employed trainers, please check at the reception, the narrowcasting in the clubs or on the website of the clubs.",
@@ -330,7 +330,7 @@
       "topic": "Personal Training",
       "chunks": 2,
       "duplicate_of": "freshdesk:103000353541",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 14,
       "matched_sessions": 11,
@@ -351,7 +351,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "split-2",
@@ -364,8 +364,8 @@
     {
       "key": "blob:103000353553",
       "sort_order": 10,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "How do I book a Free PT Intake Session?",
       "body": "How do I book a Free PT Intake Session? How you book a free Personal Training Intake session depends on the type of Personal Trainers at your club. If your club has TrainMore-employed trainers, you can book a free personal training session easily through the TrainMore app (where available) by following these steps:\n\n1) Open the TrainMore app.\n2) Click on Book Appointment.\n3) Select Free PT Session.\n4) An agenda will appear with available dates and time slots; choose your preferred day and time.\n5) Double-check your booking details, and to confirm, click on Book Appointment.\n6) Don’t forget to add the booking to your phone calendar for easy reference!\n\nThis way, you'll be all set for your free session!\n\nThis way, you'll be all set for your free session!\n\nFor clubs with independent Personal Trainers, the free intake is not bookable via the app. You’ll need to contact a Personal Trainer directly. Their contact details are available: \nAt the front desk of your club;On the club website;On in-club screens (narrowcasting), often with a QR code.",
@@ -373,7 +373,7 @@
       "topic": "Personal Training",
       "chunks": 2,
       "duplicate_of": "freshdesk:103000353553",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 5 keywords from the title",
       "matched_messages": 3,
       "matched_sessions": 2,
@@ -392,7 +392,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "split-2",
@@ -405,8 +405,8 @@
     {
       "key": "blob:103000353557",
       "sort_order": 11,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "Where can I find the terms & conditions for my PT purchase?",
       "body": "Where can I find the terms & conditions for my PT purchase? The Personal Training terms and conditions for Personal Training with TrainMore-employed Trainers are included in the same document as our General Terms and Conditions (https://trainmore.com/en-NL/terms-and-conditons). Just scroll down to Article 15: Personal Training to find all the relevant information.\n\nIf you have any questions, feel free to reach out to our Customer Care team via live chat or by submitting a support ticket — we're happy to help!\n\nFor any terms and conditions regarding Personal Training with independent Personal Trainers, please contact the Trainer directly.",
@@ -414,7 +414,7 @@
       "topic": "Personal Training",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353557",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 5 keywords from the title",
       "matched_messages": 4,
       "matched_sessions": 3,
@@ -433,7 +433,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -445,8 +445,8 @@
     {
       "key": "blob:103000353560",
       "sort_order": 12,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "How to book a PT session in the app?",
       "body": "How to book a PT session in the app? If your club has TrainMore-employed trainers, you can book a personal training session easily through the TrainMore app by following these steps:\n1) Open the TrainMore app.2) Click on Book Appointment.3) Select the type of PT service you have purchased. e.g. Level 2 Membership4) An agenda will appear with available dates and time slots; choose your preferred day and time.5) Double-check your booking details, and to confirm, click on Book Appointment.6) Don’t forget to add the booking to your phone calendar for easy reference!\n\nFor clubs with independent Personal Trainers, sessions are booked with the trainer privately and directly. \n\nThis way, you'll be all set for your personal training session!",
@@ -454,7 +454,7 @@
       "topic": "Personal Training",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353560",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 3,
       "matched_sessions": 3,
@@ -474,7 +474,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -486,8 +486,8 @@
     {
       "key": "blob:103000353563",
       "sort_order": 13,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "Are group classes available at the Red Label locations?",
       "body": "Are group classes available at the Red Label locations? Due to limited space in most Red Label clubs, the availability of group classes is limited. The Red Label location at Roelof Hartplein is an exception, as it offers Reformer Pilates as a group class.\n\nWith a Red Label membership, you do have unlimited access to all our Regular and Black Label clubs, including all group classes offered there.",
@@ -495,7 +495,7 @@
       "topic": "Club facilities",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353563",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 5 keywords from the title",
       "matched_messages": 8,
       "matched_sessions": 6,
@@ -516,7 +516,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -528,8 +528,8 @@
     {
       "key": "blob:103000353566",
       "sort_order": 14,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "What is the policy for missed or late-cancelled PT appointments?",
       "body": "What is the policy for missed or late-cancelled PT appointments? If you miss your Personal Training appointment with a TrainMore-employed trainer or cancel it too late, you will unfortunately lose your PT credit.\n\nTo help you remember, you’ll receive an appointment reminder email 48 hours before your session. Make sure to cancel at least 24 hours in advance to avoid losing your credit.\n\nYou can easily cancel your appointment via the app. For step-by-step instructions, check out our FAQ article:\nHow to cancel a booked PT session via the app? (https://www.support.trainmore.com/en/support/solutions/articles/103000345016-how-to-cancel-a-booked-pt-session-via-the-app-)\n\nIf you're training with an independent Personal Trainer, please consult your trainer about their cancellation policy.",
@@ -537,7 +537,7 @@
       "topic": "Personal Training",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353566",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 6 keywords from the title",
       "matched_messages": 1,
       "matched_sessions": 1,
@@ -553,7 +553,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -565,8 +565,8 @@
     {
       "key": "blob:103000353569",
       "sort_order": 15,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "Will my PT membership fee be charged seperately from my gym membership fee?",
       "body": "Will my PT membership fee be charged seperately from my gym membership fee? For memberships with TrainMore employed-trainers: \n\nYes, your recurring personal training membership fee is collected separately from your gym membership. This makes it easy to see the costs for both services individually.\n\nThese fees are usually collected on the same dates as your gym membership, but your first/last period of the PT membership might be pro-rated, depending on the start date of your Personal Training membership.\n\nYou can view both fees in your account via the TrainMore app:\nTrainMore App > Studio > Self-Service > Account\n\nYou can view both fees in your account via the TrainMore app:\nTrainMore App > Studio > Self-Service > Account\n\nFor memberships with independent Personal Trainers, the payment of your membership is separate from your gym membership with us and will not be debited by TrainMore. A method of payment is discussed directly with the trainer. Independent Personal Trainers set their own packaging and pricing. They do not use app credits. Booking or managing sessions can be done privately and directly with the trainer.",
@@ -574,7 +574,7 @@
       "topic": "Personal Training",
       "chunks": 2,
       "duplicate_of": "freshdesk:103000353569",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 5 keywords from the title",
       "matched_messages": 73,
       "matched_sessions": 67,
@@ -595,7 +595,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "split-2",
@@ -608,8 +608,8 @@
     {
       "key": "blob:103000353574",
       "sort_order": 16,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "How long are my PT credits valid?",
       "body": "How long are my PT credits valid? The validity of your Personal Training credits depends on whether you purchased a package or a membership:\n\nPersonal Training Packages\nPackages up to 4 credits → valid for 4 weeks\nPackages of 8 credits → valid for 10 weeks\nPackages of 12 credits → valid for 16 weeks\nPackages from 24 credits → valid for 28 weeks\n\nPersonal Training Memberships\nWith a recurring PT membership, new credits are added to your account every 4 weeks. These credits are valid for 4 weeks. After that period, any unused credits will expire.\n\nMake sure to plan your sessions on time so you can make the most of your credits!",
@@ -617,7 +617,7 @@
       "topic": "Personal Training",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353574",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 0,
       "matched_sessions": 0,
@@ -631,7 +631,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "never-raised",
@@ -644,8 +644,8 @@
     {
       "key": "blob:103000353588",
       "sort_order": 17,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "How do I cancel my Personal Training membership?",
       "body": "How do I cancel my Personal Training membership? If you have Personal Training with a TrainMore-employed Trainer, you can cancel your PT membership in the app. \n\nTo cancel a personal training membership (additional module) in the TrainMore app, follow these steps: \n\n1) Open the app \n2) Click on Studio, and then tap Self-service \n3) Tap Contract data and tap on your active memberships. \n4) An overview of your current membership will open. Scroll down to find your personal training membership module.\n5) Tap on the additional module you wish to cancel. Click on Cancel add-on module. \n6) Indicate the date per when you would like to cancel the personal training membership module and the reason for doing so. \n7) Confirm with Cancel add-on module.\n\nIf you have Personal Training with an independent Trainer, please contact the trainer directly for the management of your Personal Training membership.",
@@ -653,7 +653,7 @@
       "topic": "Personal Training",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353588",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 31,
       "matched_sessions": 24,
@@ -671,7 +671,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -683,8 +683,8 @@
     {
       "key": "blob:103000353609",
       "sort_order": 18,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "Which payment methods are accepted by TrainMore?",
       "body": "Which payment methods are accepted by TrainMore? TrainMore only uses direct debit for membership payments. Your fees will be automatically collected each billing cycle, offering a convenient payment process. \n\nYou can also register with a foreign bank account, but ensure it supports SEPA direct debit payments. It's the member's responsibility to verify SEPA compatibility with a foreign bank.",
@@ -692,7 +692,7 @@
       "topic": "Payments",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353609",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 2,
       "matched_sessions": 2,
@@ -705,7 +705,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -717,8 +717,8 @@
     {
       "key": "blob:103000353611",
       "sort_order": 19,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "Where do I find my finanical history in the app?",
       "body": "Where do I find my finanical history in the app? You can easily find your billing history in the TrainMore app by following these steps:\n\n1) Open the app and go to Studio, then select Self-Service.\n2) Tap on Account.\n3) Here, you can view your financial history.\n4) If you have an outstanding balance, click on Balance Account.\n5) Tap on Continue Payment.\n6) Select your preferred payment method and tap on Pay Now.\n\nThis allows you to stay updated on your billing details and manage any outstanding payments.\nIn the app, you can view for which 4-week period you have paid.  \n \nIf you see two periods with similar dates but different amounts, this is most likely because you've recently had a membership change and our system made a recalculation. Please always compare with your bank receipts to verify what you've actually paid.",
@@ -726,7 +726,7 @@
       "topic": "Payments",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353611",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 28,
       "matched_sessions": 24,
@@ -747,7 +747,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -759,8 +759,8 @@
     {
       "key": "blob:103000353613",
       "sort_order": 20,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "I cancelled my membership, why am I still being charged?",
       "body": "I cancelled my membership, why am I still being charged? If you cancelled your membership but still see charges, here are possible reasons:\n\nCancellation Notice Period: Membership cancellations require a 1-month notice. If a billing cycle starts during this period, you’ll be billed for any remaining days. This charge may be prorated based on your final termination date.\n\nContract End Date: If you cancelled but are within your initial contract period, your membership remains active until the contract end date. Payments are required until that date.\n\nYou can confirm your membership end date in the TrainMore app, under Studio > Self-service > Contract data. For further assistance, please contact our customer support team via live chat or submit a ticket.",
@@ -768,7 +768,7 @@
       "topic": "Payments",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353613",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 52,
       "matched_sessions": 41,
@@ -790,7 +790,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -802,8 +802,8 @@
     {
       "key": "blob:103000353614",
       "sort_order": 21,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "How can I request a VAT invoice?",
       "body": "How can I request a VAT invoice? Unfortunately, the invoice feature in the app is not working as expected, and we are currently working on improving it.\n\nIn the meantime, you can still request your VAT invoices via our customer support portal.\n\nTo ensure your request is processed correctly, please don't forget to mention the period for which you would like to receive an invoice for.\n\nTo create a ticket for our Customer Care team:\n\n1) Go to our  (https://www.support.trainmore.com/en/support/tickets/new?ticket_form=general_contact_form)Chat (https://urbangymgroup-prod.app.n8n.cloud/webhook/d690408a-2200-4003-b237-efd5d4c57f67/chat).\n2) Fill in the required personal information.\n3) Select your member type.\n4) Choose Payments as the category.\n5) Select VAT invoice request as the sub-category.\n6) In the description box, specify the period for which you want to receive the VAT invoice.",
@@ -811,7 +811,7 @@
       "topic": "Payments",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353614",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 46,
       "matched_sessions": 40,
@@ -832,7 +832,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -844,8 +844,8 @@
     {
       "key": "blob:103000353617",
       "sort_order": 22,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "Where can I find my financial reminders about any outstanding debt?",
       "body": "Where can I find my financial reminders about any outstanding debt? The financial reminder will be sent to you via e-mail. Look in your TrainMore app, which e-mail is registered to your TrainMore account.\n\n1) Open the app\n2) Navigate to studio \n3) Select member data\n4) See contact details\n\nMake sure that you are subscribed to the TrainMore app communication settings for  'membership' to guarantee that you will receive these financial reminders.",
@@ -853,7 +853,7 @@
       "topic": "Payments",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353617",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 5 keywords from the title",
       "matched_messages": 4,
       "matched_sessions": 4,
@@ -868,7 +868,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -880,8 +880,8 @@
     {
       "key": "blob:103000353618",
       "sort_order": 23,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "I have been transferred to the collection Agency, how does this work?",
       "body": "I have been transferred to the collection Agency, how does this work? If your account has been transferred to a collection agency, they will now handle any outstanding membership payments. Please contact the collection agency directly for assistance and inquiries. \n\nClub Access: Until the outstanding balance is settled with the agency, your club access will remain temporarily suspended. \n\nThe collection agency will process payments twice a month. Once we have received your payment from the collection agency and updated our system, your access and payment will be reactivated, and we’ll resume any regular direct debits.",
@@ -889,7 +889,7 @@
       "topic": "Payments",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353618",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 4,
       "matched_sessions": 4,
@@ -907,7 +907,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -919,8 +919,8 @@
     {
       "key": "blob:103000353620",
       "sort_order": 24,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "The collection agency is claiming the full membership fee, is this correct?",
       "body": "The collection agency is claiming the full membership fee, is this correct? Yes, this is correct. \n\nWhen your account is sent to a collection agency, the full debt for the remaining initial contract is generally due. However, you may have the option to negotiate with the agency to pay only the current outstanding debt. \n\nIf agreed and paid, TrainMore can then restart the regular payment collection every 4 weeks for future membership fees.",
@@ -928,7 +928,7 @@
       "topic": "Payments",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353620",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 6 keywords from the title",
       "matched_messages": 25,
       "matched_sessions": 20,
@@ -948,7 +948,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -960,8 +960,8 @@
     {
       "key": "blob:103000353622",
       "sort_order": 25,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "How can I contact TrainMore for - career / internship or marketing collaborations?",
       "body": "How can I contact TrainMore for - career / internship or marketing collaborations? We’re excited to hear you’re interested in joining the TrainMore community! \n\nFor career and internship opportunities, please visit the Urban Gym Group website to view current vacancies (https://careers.urbangymgroup.com/your-career/). \n\nFor collaboration inquiries, please reach out directly to marketing@urbangymgroup.com.",
@@ -969,7 +969,7 @@
       "topic": "Club facilities",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353622",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 0,
       "matched_sessions": 0,
@@ -983,7 +983,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "never-raised",
@@ -996,8 +996,8 @@
     {
       "key": "blob:103000353624",
       "sort_order": 26,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "Do you have changing rooms & showers?",
       "body": "Do you have changing rooms & showers? Yes, our clubs provide changing rooms equipped with showers for your convenience. Our changing rooms are designed to enhance your pre- and post-workout experience.",
@@ -1005,7 +1005,7 @@
       "topic": "Club facilities",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353624",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 4,
       "matched_sessions": 3,
@@ -1018,7 +1018,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -1030,8 +1030,8 @@
     {
       "key": "blob:103000353625",
       "sort_order": 27,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "What are the parking possibilities at the TrainMore clubs?",
       "body": "What are the parking possibilities at the TrainMore clubs? TrainMore clubs do not have private parking spaces. However, public parking may be available depending on the club’s location. We recommend checking local parking options before your visit.",
@@ -1039,7 +1039,7 @@
       "topic": "Club facilities",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353625",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 2,
       "matched_sessions": 2,
@@ -1056,7 +1056,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -1068,8 +1068,8 @@
     {
       "key": "blob:103000353626",
       "sort_order": 28,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "What classes are offered at the different TrainMore clubs?",
       "body": "What classes are offered at the different TrainMore clubs? Explore a diverse range of classes across our TrainMore clubs! Check this page (https://trainmore.com/en-NL/gym-classes) to see what’s available at the different clubs.",
@@ -1077,7 +1077,7 @@
       "topic": "Club facilities",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353626",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 0,
       "matched_sessions": 0,
@@ -1091,7 +1091,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "never-raised",
@@ -1104,8 +1104,8 @@
     {
       "key": "blob:103000353627",
       "sort_order": 29,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "How early in advance can I book a class?",
       "body": "How early in advance can I book a class? All classes can be booked 3 days in advance in the TrainMore App. When booking a class in the TrainMore app, you’ll see a message if booking isn’t available yet, along with the exact date and time when it will open. This allows you to set a reminder and secure your spot on time!",
@@ -1113,7 +1113,7 @@
       "topic": "Club facilities",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353627",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 4,
       "matched_sessions": 4,
@@ -1131,7 +1131,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -1143,8 +1143,8 @@
     {
       "key": "blob:103000353628",
       "sort_order": 30,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "How to book a class in the app?",
       "body": "How to book a class in the app? To book a class at TrainMore, follow these steps: \n\n1) Open the TrainMore app \n2) Go to Studio, select offers \n3) Click on Show class schedule to browse through a calendar view of the class schedule.\n4) Click on the class slot you want to book, click on Continue to booking\n5) Confirm your class booking",
@@ -1152,7 +1152,7 @@
       "topic": "Club facilities",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353628",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 174,
       "matched_sessions": 129,
@@ -1173,7 +1173,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -1185,8 +1185,8 @@
     {
       "key": "blob:103000353629",
       "sort_order": 31,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "Which TrainMore clubs have a sauna?",
       "body": "Which TrainMore clubs have a sauna? TrainMore offers two types of saunas: standard Finnish saunas and infrared saunas. \n\nInfrared Sauna\nFinnish Sauna \n\nMake sure to read the sauna rules at your club carefully before using the sauna for the first time. Please note that the house rules differ for each type: \n- Infrared saunas must be used with bathing clothes for hygiene reasons. \n- Finnish saunas must be used without bathing clothes for optimal hygiene and effectiveness. \n\nMost saunas are located in separate men’s and women’s changing rooms. Only at Roelof Hartplein, saunas are in a mixed-gender area, with specific sauna rules in place.",
@@ -1194,7 +1194,7 @@
       "topic": "Club facilities",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353629",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "2 of 2 keywords from the title",
       "matched_messages": 3,
       "matched_sessions": 2,
@@ -1210,7 +1210,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -1222,8 +1222,8 @@
     {
       "key": "blob:103000353631",
       "sort_order": 32,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "How can I cancel my class booking?",
       "body": "How can I cancel my class booking? To cancel a class booking at TrainMore, follow these steps: \n\n1) Open the TrainMore app \n2) Go to Home, and find the class you want to cancel in the section My appointments \n3) Click on the class you wish to cancel \n4) Confirm your cancellation with Cancel booking, and \"Yes\".\n\nKindly note that you can cancel your class up to 1 hour before it starts.",
@@ -1231,7 +1231,7 @@
       "topic": "Club facilities",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353631",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 91,
       "matched_sessions": 74,
@@ -1252,7 +1252,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -1264,8 +1264,8 @@
     {
       "key": "blob:103000353633",
       "sort_order": 33,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "How does the waiting list for classes work?",
       "body": "How does the waiting list for classes work? In our system, there will be a waiting list for classes that reach full capacity. Here’s how it operates: \n\n1) Joining the Waitlist: If a class is fully booked, you can add yourself to the waiting list for that class. This process is similar to booking a class. \n2) Automatic Booking: Should a spot become available, participants will be automatically moved from the waiting list into the class on first come, first served basis. \n3) Notifications: If you secure a spot in the class from the waiting list, you will receive an e-mail notification to inform you of your successful booking. \n\nAutomatic sign-in from the waiting list closes 60 minutes before the class starts. If your plans change and you can no longer attend, please remember to remove yourself from the waiting list in time to avoid a no-show.",
@@ -1273,7 +1273,7 @@
       "topic": "Club facilities",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353633",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 1,
       "matched_sessions": 1,
@@ -1291,7 +1291,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -1303,8 +1303,8 @@
     {
       "key": "blob:103000353636",
       "sort_order": 34,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "What is the no-show policy for classes & free services?",
       "body": "What is the no-show policy for classes & free services? Yes, there is a no-show policy in place for missed classes. Here's how it works:\n\nWhat counts as a no-show: A no-show occurs when you fail to attend a scheduled class without cancelling your booking at least 1 hour before the class start time.\nHow the policy works:\n- 1st no-show: You'll receive a warning email.\n-2nd no-show: A 2-week class booking restriction is applied.\n-Every no-show after that: A further 2-week restriction is applied.\n\nWhat a booking restriction means: During a restriction, you're still welcome to attend classes. However, you won't be able to book in advance; instead, please check with the front desk before the class to see if a spot is available.\n\nYou'll receive an automated alert after your first no-show (warning) and whenever a booking restriction is applied.\n\nWe encourage all members to cancel in advance if they can't attend, to avoid restrictions and give others the opportunity to participate.",
@@ -1312,7 +1312,7 @@
       "topic": "Club facilities",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353636",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 5 keywords from the title",
       "matched_messages": 4,
       "matched_sessions": 3,
@@ -1327,7 +1327,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -1339,8 +1339,8 @@
     {
       "key": "blob:103000353637",
       "sort_order": 35,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "I can't log in, how can I reset my password?",
       "body": "I can't log in, how can I reset my password? If this is your first time logging into the new TrainMore app, please ensure you first register and create a new account. If you have already created an account, follow these steps:\n\n1) Click on Sign-In and stay on the Register tab.\n2) Select Forgot Password?\n3) Enter the e-mail you used to sign up for TrainMore and confirm by clicking Reset Password.\n4) Follow the instructions sent to your e-mail to complete the reset process.\n\nYou’ll be able to access your account with your new password shortly!",
@@ -1348,7 +1348,7 @@
       "topic": "The app",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353637",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "2 of 2 keywords from the title",
       "matched_messages": 12,
       "matched_sessions": 7,
@@ -1368,7 +1368,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -1380,8 +1380,8 @@
     {
       "key": "blob:103000353638",
       "sort_order": 36,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "Where do I find my QR code in the app?",
       "body": "Where do I find my QR code in the app? To find the QR code that you need to access the app, follow these steps:\n\n1) Login to the TrainMore app\n2) Navigate to Home\n3) In the top left corner, click on the box Club access\n4) The QR code will open, scan it at the entrance of TrainMore to gain access",
@@ -1389,7 +1389,7 @@
       "topic": "The app",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353638",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 81,
       "matched_sessions": 67,
@@ -1410,7 +1410,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -1422,8 +1422,8 @@
     {
       "key": "blob:103000353639",
       "sort_order": 37,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "Why is my QR code not letting me enter the gym?",
       "body": "Why is my QR code not letting me enter the gym? If your QR code isn’t granting you access to the gym, it could be due to:\n\n- Your membership contract not including access to this specific club.\n- An overdue payment that needs to be settled.\nFor more information or assistance, please check the app or ask at the front desk.",
@@ -1431,7 +1431,7 @@
       "topic": "The app",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353639",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 10,
       "matched_sessions": 8,
@@ -1453,7 +1453,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -1465,8 +1465,8 @@
     {
       "key": "blob:103000353640",
       "sort_order": 38,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "I forgot my telephone, how do I enter the gym?",
       "body": "I forgot my telephone, how do I enter the gym? If you forget your phone, you can still access the club by asking the host at the front desk for assistance. \n\nTo avoid any inconvenience and ensure you don't miss out on any visiting discounts, it’s best to always carry your QR code with you.",
@@ -1474,7 +1474,7 @@
       "topic": "The app",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353640",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 0,
       "matched_sessions": 0,
@@ -1488,7 +1488,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "never-raised",
@@ -1501,8 +1501,8 @@
     {
       "key": "blob:103000353641",
       "sort_order": 39,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "Can I share my QR code with others?",
       "body": "Can I share my QR code with others? No, it is not possible to share your QR code with anyone else. The QR code is personal, and a screenshot can't be taken.",
@@ -1510,7 +1510,7 @@
       "topic": "The app",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353641",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 3,
       "matched_sessions": 3,
@@ -1527,7 +1527,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -1539,8 +1539,8 @@
     {
       "key": "blob:103000353642",
       "sort_order": 40,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "What features are available in this new app?",
       "body": "What features are available in this new app? The TrainMore app offers various features to enhance your membership experience, including:\n\n- QR code access: Just tap your digital in-app QR code and gain access to TrainMore.\n- Manage your membership: View and manage your contact details, payments, and membership data all in one place.\n- Book classes and appointments: Easily book and manage classes and appointments at TrainMore.\n- Book facilities: Conveniently book and manage time slots for recovery and wellness therapy.\n- Studio news: Stay connected with key club updates, so no new addition flies past you.\n- Training plans: Browse through our training catalogue, track your progress, and manage your sessions.\n- Refer a friend: Access your personal referral code and redeem the rewards if they start training with us.\n- Buy additional services: Easily purchase Personal Training via your app.",
@@ -1548,7 +1548,7 @@
       "topic": "The app",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353642",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "2 of 2 keywords from the title",
       "matched_messages": 11,
       "matched_sessions": 9,
@@ -1564,7 +1564,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -1576,8 +1576,8 @@
     {
       "key": "blob:103000353643",
       "sort_order": 41,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "Can I check the gym’s peak hours or traffic in real-time using the app?",
       "body": "Can I check the gym’s peak hours or traffic in real-time using the app? Yes, you can check the gym's peak hours in real-time using the TrainMore app. To find current traffic levels, follow these steps: \n\n1) Open the app \n2) Go to Home \n3) Scroll all the way to the bottom of the screen \n4) In the section \"Utilization\", you can see if the club is currently Low visited, Medium visited, or High visited \n5) Optionally, you can slide to the right to view estimated traffic at your TrainMore in the future",
@@ -1585,7 +1585,7 @@
       "topic": "The app",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353643",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 6 keywords from the title",
       "matched_messages": 20,
       "matched_sessions": 17,
@@ -1607,7 +1607,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -1619,8 +1619,8 @@
     {
       "key": "blob:103000353644",
       "sort_order": 42,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "Can I access any workout plans?",
       "body": "Can I access any workout plans? Yes! We offer several 4-week workout plans with various training splits designed to help you become familiar with our equipment. These programs support general fitness goals or muscle-building, allowing you to choose the one that best fits your needs.",
@@ -1628,7 +1628,7 @@
       "topic": "The app",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353644",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 12,
       "matched_sessions": 10,
@@ -1641,7 +1641,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -1653,8 +1653,8 @@
     {
       "key": "blob:103000353645",
       "sort_order": 43,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "Where do I report an issue or feedback about the app?",
       "body": "Where do I report an issue or feedback about the app? We welcome your feedback! To report an issue or share your suggestions, please submit a ticket, select the TrainMore App category, and choose feedback as sub-category. Your input is invaluable in helping us improve our services!",
@@ -1662,7 +1662,7 @@
       "topic": "The app",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353645",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 3,
       "matched_sessions": 2,
@@ -1676,7 +1676,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -1688,8 +1688,8 @@
     {
       "key": "blob:103000353646",
       "sort_order": 44,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "What are the benefits of a corporate membership?",
       "body": "What are the benefits of a corporate membership? A corporate membership offers a range of valuable benefits, including: \n\n- Discounted 1-Year Term Fee: Enjoy a reduced rate on the standard annual membership fee. \n- Employee Wellness: Support your employees in achieving better physical and mental health. \n- Enhanced Employee Retention: Boost employee motivation, productivity, and job satisfaction. \n- Tax Benefits: Corporate memberships may offer tax advantages for employers. \n- Exclusive Membership Offer: Receive a better membership package compared to standard private memberships. \n- 30+ clubs across the Netherlands: enhancing convenience and flexibility in case they work and live in two different cities.\n\nThis corporate membership is an ideal way to promote wellness and satisfaction in the workplace while maximizing benefits for employees and the company.",
@@ -1697,7 +1697,7 @@
       "topic": "Corporate Fitness",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353646",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 73,
       "matched_sessions": 55,
@@ -1718,7 +1718,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -1730,8 +1730,8 @@
     {
       "key": "blob:103000353648",
       "sort_order": 45,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "Does the refer a friend promotion also apply to corporate members?",
       "body": "Does the refer a friend promotion also apply to corporate members? Yes, the Refer a Friend program is available for corporate fitness memberships! However, it only applies to corporate fitness members with an direct debit or split payment. If your corporate membership meets these conditions, feel free to refer a friend and enjoy the benefits together!",
@@ -1739,7 +1739,7 @@
       "topic": "Corporate Fitness",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353648",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 6 keywords from the title",
       "matched_messages": 2,
       "matched_sessions": 2,
@@ -1759,7 +1759,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -1771,8 +1771,8 @@
     {
       "key": "blob:103000353650",
       "sort_order": 46,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "Can I combine the company discount with any other website promotion?",
       "body": "Can I combine the company discount with any other website promotion? No, the company discount cannot be combined with other promotions, as only one discount code can be applied during registration.",
@@ -1780,7 +1780,7 @@
       "topic": "Corporate Fitness",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353650",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 5 keywords from the title",
       "matched_messages": 1,
       "matched_sessions": 1,
@@ -1795,7 +1795,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -1807,8 +1807,8 @@
     {
       "key": "blob:103000353651",
       "sort_order": 47,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "How can I, as a company, register for a partnership with TrainMore?",
       "body": "How can I, as a company, register for a partnership with TrainMore? We’ve created a dedicated webpage with all the essential details about our corporate partnership. If you're interested, simply register here (https://trainmore.com/en-NL/business/), and we’ll reach out to discuss the possibilities with you!",
@@ -1816,7 +1816,7 @@
       "topic": "Corporate Fitness",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000353651",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 3,
       "matched_sessions": 2,
@@ -1829,7 +1829,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -1841,8 +1841,8 @@
     {
       "key": "blob:103000357073",
       "sort_order": 48,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "Why has my membership fee increased?",
       "body": "Why has my membership fee increased? Our mission is to give you the ultimate fitness experience, offering top-tier equipment, expert trainers, and a vibe you won’t find anywhere else. To keep delivering this, we are making a small adjustment to our membership fees as of 1 July 2026. \n\nThe increase helps us keep up with rising costs, maintain club quality and continue investing in anything you need in your fitness journey.",
@@ -1850,7 +1850,7 @@
       "topic": "Price increase",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000357073",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 217,
       "matched_sessions": 183,
@@ -1871,7 +1871,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -1883,8 +1883,8 @@
     {
       "key": "blob:103000357080",
       "sort_order": 49,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "Is my gym allowed to increase my membership fee based on CPI percentage?",
       "body": "Is my gym allowed to increase my membership fee based on CPI percentage? Yes, we can adjust our membership fees annually with the Consumer Price Index (CPI) percentage.\nIf we adjust your membership fee, we must provide you with 30 days’ notice. \n\nYou can also find this in our General Terms and Conditions (https://trainmore.com/en-NL/terms-and-conditions/), Chapter 5.3.",
@@ -1892,7 +1892,7 @@
       "topic": "Price increase",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000357080",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 6 keywords from the title",
       "matched_messages": 53,
       "matched_sessions": 46,
@@ -1912,7 +1912,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -1924,8 +1924,8 @@
     {
       "key": "blob:103000357081",
       "sort_order": 50,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "Is my gym allowed to increase my membership fee by more than the CPI percentage?",
       "body": "Is my gym allowed to increase my membership fee by more than the CPI percentage? Yes, we reserve the right to change the membership fees. \n\nWe’re on a journey to upgrade the clubs with the best fitness equipment, recovery zones, as well as open new clubs and many more upgrades! For us to do this, an increase in fee is necessary. \n\nIf we increase your membership fee, we must provide you with 30 days’ notice.\n\nYou can also find this in our General Terms and Conditions (https://trainmore.com/en-NL/terms-and-conditions/), Chapter 5.2.",
@@ -1933,7 +1933,7 @@
       "topic": "Price increase",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000357081",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 6 keywords from the title",
       "matched_messages": 48,
       "matched_sessions": 43,
@@ -1949,7 +1949,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -1961,8 +1961,8 @@
     {
       "key": "blob:103000357083",
       "sort_order": 51,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "What is the CPI price index percentage?",
       "body": "What is the CPI price index percentage? The CPI (Consumer Price Index) percentage shows the average annual price change. The government and businesses use it to reach agreements on pricing. The CPI measures changes in the prices of goods and services over time and is a key indicator of inflation. The percentage in April 2026 was set for 2.8%. \n\nMore information on the CPI percentage can be found here (https://www.cbs.nl/nl-nl/reeksen/tijd/consumentenprijzen/consumentenprijsindex).",
@@ -1970,7 +1970,7 @@
       "topic": "Price increase",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000357083",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 2,
       "matched_sessions": 2,
@@ -1983,7 +1983,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -1995,8 +1995,8 @@
     {
       "key": "blob:103000357085",
       "sort_order": 52,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "What will my new membership fee be?",
       "body": "What will my new membership fee be? Your new membership fee is explained in the e-mail or letter sent to you on the 1st of June 2026. Please note that the e-mail shows your current membership fee without any discounts applied. \n\nIf you are unsure if you have a discount on your membership fee, please check your contract in the app by going to Studio > Self-Service > Contract Data > Active Membership > Download Contract. \n\nIf you have not seen the e-mail, please check your SPAM or contact our Member Care department through the contact portal on our website (https://urbangymgroup-prod.app.n8n.cloud/webhook/d690408a-2200-4003-b237-efd5d4c57f67/chat).",
@@ -2004,7 +2004,7 @@
       "topic": "Price increase",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000357085",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "2 of 2 keywords from the title",
       "matched_messages": 204,
       "matched_sessions": 171,
@@ -2024,7 +2024,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -2036,8 +2036,8 @@
     {
       "key": "blob:103000357087",
       "sort_order": 53,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "I am still in my free period, does the increase in the membership fee also apply to me?",
       "body": "I am still in my free period, does the increase in the membership fee also apply to me? If you have received an e-mail or letter informing you about an increase, your new fee will take effect once your free period ends.",
@@ -2045,7 +2045,7 @@
       "topic": "Price increase",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000357087",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 6 keywords from the title",
       "matched_messages": 71,
       "matched_sessions": 58,
@@ -2065,7 +2065,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -2077,8 +2077,8 @@
     {
       "key": "blob:103000357088",
       "sort_order": 54,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "When will this membership fee adjustment take effect?",
       "body": "When will this membership fee adjustment take effect? The increase will take effect with your first direct debit on or after July 1st, 2026, depending on your billing cycle.",
@@ -2086,7 +2086,7 @@
       "topic": "Price increase",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000357088",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 5 keywords from the title",
       "matched_messages": 22,
       "matched_sessions": 17,
@@ -2101,7 +2101,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -2113,8 +2113,8 @@
     {
       "key": "blob:103000357090",
       "sort_order": 55,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "Can I cancel my membership because of the price increase?",
       "body": "Can I cancel my membership because of the price increase? If your membership is indexed with a percentage equal to or lower than the CPI percentage, you will not be able to cancel your membership before your contract end date. \n\nIf your membership has been increased by a percentage higher than the CPI percentage and you are still in contract, you have the right to request an early cancellation within 4 weeks after the price increase announcement (28 June 2026). After this, the right to cancel your membership before the contract end date expires. \n\nIf you were increased higher than the CPI, it is possible to cancel through the app by navigating to Studio > Self-Service > Contract Data and select membership > Cancel Contract > Proceed to cancellation > Select reason: \"Price indexation July 2026 (limited members only)\". Your membership will be terminated per your first payment in July 2026, either on or after July 1st, depending on your billing cycle.\n\nAlternatively, you can apply for an early cancelation through our portal (https://www.support.trainmore.com/en/support/tickets/new?ticket_form=early_cancellation_request). Make sure you select the right cancelation reason. \n\nIf you’re unsure whether your still within your contract period or not, please check your contract in the app by going to Studio > Self-Service > Contract Data > Active Membership > Download Contract.",
@@ -2122,7 +2122,7 @@
       "topic": "Price increase",
       "chunks": 2,
       "duplicate_of": "freshdesk:103000357090",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 45,
       "matched_sessions": 33,
@@ -2142,7 +2142,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "split-2",
@@ -2155,8 +2155,8 @@
     {
       "key": "blob:103000357094",
       "sort_order": 56,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "I have a different question. Who do I contact?",
       "body": "I have a different question. Who do I contact? Is your question not amongst these FAQs? We invite you to have a look through our other FAQs or type a question in the search bar. \n\nAlternatively, you’re more than welcome to raise a ticket through our  (https://www.support.trainmore.com/en/support/tickets/new?ticket_form=general_contact_form)chat (https://urbangymgroup-prod.app.n8n.cloud/webhook/d690408a-2200-4003-b237-efd5d4c57f67/chat).",
@@ -2164,7 +2164,7 @@
       "topic": "Price increase",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000357094",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "2 of 3 keywords from the title",
       "matched_messages": 14,
       "matched_sessions": 12,
@@ -2185,7 +2185,7 @@
       ],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -2197,8 +2197,8 @@
     {
       "key": "blob:103000357177",
       "sort_order": 57,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "How can I view class and service schedules at other club locations?",
       "body": "How can I view class and service schedules at other club locations? To view the schedules at other TrainMore clubs, follow these steps:\n\n1) Open the TrainMore app and stay on the Home page.\n2) Navigate to the tile 'Book your classes' or 'Book a Service'.\n3) Tap the filter icon in the top right corner (represented by lines forming a downward triangle).\n4) Under My Studio, click the location icon next to the TrainMore club name.\n5) In the search bar, type the name of the club(s) you want to view.\n6) Check the box next to the club(s) you’d like to include in the schedule.\n7) Confirm your selection by clicking the red button ‘Show X studios’.\n8) Tap ‘Show results’ to see the schedule with available time slots for the selected clubs.\n\nPlease note: Cross-facility booking is only available for certain membership types. If you see a 'No Credits' when trying to book a class or service, it means you currently don’t have access to book at that location or that specific service. In that case, please contact our Customer Care department, they’ll be happy to explain your membership options or assist further.",
@@ -2206,7 +2206,7 @@
       "topic": "Club facilities",
       "chunks": 2,
       "duplicate_of": "freshdesk:103000357177",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 5 keywords from the title",
       "matched_messages": 3,
       "matched_sessions": 3,
@@ -2221,7 +2221,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "split-2",
@@ -2234,8 +2234,8 @@
     {
       "key": "blob:103000364743",
       "sort_order": 58,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "InBody Composition Analyzer",
       "body": "InBody Composition Analyzer How do I access my InBody composition results?\n\nTo access your InBody composition results, all you need to do is download the InBody app and scan the QR code on the machine.",
@@ -2243,7 +2243,7 @@
       "topic": "Club facilities",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000364743",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "2 of 2 keywords from the title",
       "matched_messages": 1,
       "matched_sessions": 1,
@@ -2255,7 +2255,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -2267,8 +2267,8 @@
     {
       "key": "blob:103000371810",
       "sort_order": 59,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "Why does the date format look incorrect in my TrainMore app?",
       "body": "Why does the date format look incorrect in my TrainMore app? If the date format in your TrainMore app looks different from what you expect (for example, showing MM/DD/YYYY instead of DD/MM/YYYY), this is determined by your phone’s Language & Region settings.\n\nThe TrainMore app automatically uses the date format associated with your device’s language settings.\nTo display dates in the DD/MM/YYYY format, please adjust your device language accordingly. Note that the date format will change automatically based on your selected language. For example:\nIf English (US) is selected, then the formal will be MM/DD/YYY. If English (UK) is selected, then the format will be DD/MM/YYY. \n\nFor iPhone (iOS):\nOpen Settings on your iPhone.Go to General → Language & Region.Tap Add Language under Preferred Languages.Add English (UK) from the list and set it as your primary language. Close and reopen the TrainMore app.\n\nFor Android:\nOpen Settings on your Android phone.Go to General management → Language.Tap Add language, then choose English (United Kingdom).Move English (United Kingdom) to the top of the list to set it as your main language.Close and reopen the TrainMore app.\n\nOnce your phone’s region is set to English (UK) or another language that shares the same date format, the app will automatically display dates in DD/MM/YYYY format.",
@@ -2276,7 +2276,7 @@
       "topic": "The app",
       "chunks": 2,
       "duplicate_of": "freshdesk:103000371810",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 5 keywords from the title",
       "matched_messages": 12,
       "matched_sessions": 8,
@@ -2291,7 +2291,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "split-2",
@@ -2304,8 +2304,8 @@
     {
       "key": "blob:103000386875",
       "sort_order": 60,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "How do I know if my club has independent Personal Trainers or TrainMore-employed trainers?",
       "body": "How do I know if my club has independent Personal Trainers or TrainMore-employed trainers? You can find out the Personal Training offerings at your club in a few ways:\n\nAsk at the host desk in your clubCheck the club website (trainers will be listed if available)Look at in-club screens (narrowcasting) \nIf a club does not currently show Personal Trainers online or in-club, it may mean trainers are not present yet. Trainer availability can change as new trainers join or leave.",
@@ -2313,7 +2313,7 @@
       "topic": "Personal Training",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000386875",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 5 keywords from the title",
       "matched_messages": 0,
       "matched_sessions": 0,
@@ -2328,7 +2328,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "never-raised",
@@ -2341,8 +2341,8 @@
     {
       "key": "blob:103000386878",
       "sort_order": 61,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "Can I attend Personal Training at another club?",
       "body": "Can I attend Personal Training at another club? Yes. If you have access to multiple clubs, you can train with a Personal Trainer at a club that is not your home club. \n\nYou may book an intake and purchase PT packages or memberships at another club if they work with contracted (TrainMore-employed) trainers, provided you have access to that club \n\nIf the club has independent Personal Trainers, you can also train with them directly, provided you have access to that club. \n\nAvailability and booking methods may differ depending on the type of trainer at the club you want to enjoy Personal Training.",
@@ -2350,7 +2350,7 @@
       "topic": "Personal Training",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000386878",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 4 keywords from the title",
       "matched_messages": 4,
       "matched_sessions": 3,
@@ -2364,7 +2364,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"
@@ -2376,8 +2376,8 @@
     {
       "key": "blob:103000386920",
       "sort_order": 62,
-      "source": "unidentified",
-      "source_key": "faq_spreadsheet",
+      "source": "freshdesk",
+      "source_key": "freshdesk_articles",
       "wiring": "live",
       "title": "My club has independent Personal Training - How do I manage my Personal Training?",
       "body": "My club has independent Personal Training - How do I manage my Personal Training? If your club works with independent Personal Trainers: \n\nYou schedule sessions directly with your Personal Trainer, not through the app. Their contact details are available at the front desk, on the website, and via narrowcasting in the club. All questions about your payment schedule, training, progress, and planning are handled directly between you and your trainer. \n\nIf there is ever something you feel uncomfortable discussing with your trainer, you’re always more than welcome to reach out to the club manager.",
@@ -2385,7 +2385,7 @@
       "topic": "Personal Training",
       "chunks": 1,
       "duplicate_of": "freshdesk:103000386920",
-      "caveat": "Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.",
+      "caveat": "A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.",
       "demand_method": "3 of 5 keywords from the title",
       "matched_messages": 5,
       "matched_sessions": 4,
@@ -2400,7 +2400,7 @@
       "example_sessions": [],
       "verified_at": "2026-09-14",
       "tags": [
-        "unidentified-loader",
+        "freshdesk",
         "live",
         "stored-twice",
         "watch-out"

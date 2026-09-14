@@ -335,11 +335,14 @@ function titleTerms(title) {
   // guess at matching titles.
   const SOURCE_OF = {
     freshdesk: { source: 'freshdesk', source_key: 'freshdesk_articles' },
-    // Keyed 'unidentified', not 'spreadsheet'. It was recorded as TrainMore
-    // FAQs.xlsx until 14 Sep 2026; that was an inference from column shape and
-    // the file was never found. The source_key still points at the register row
-    // (keys are opaque and referenced by question_traces), but the name is gone.
-    blob: { source: 'unidentified', source_key: 'faq_spreadsheet' },
+    // 'blob' is NOT a source. Traced 14 Sep 2026 to execution 436040 of the
+    // Clubs FAQs workflow — the same run that writes the Freshdesk rows — and a
+    // blob row is byte-identical to its freshdesk twin apart from this one
+    // label, which is LangChain's own default metadata for a text blob. So
+    // these are Freshdesk articles inserted a second time, and they are
+    // recorded as Freshdesk with duplicate_of set, not as a feed of their own.
+    // It was called TrainMore FAQs.xlsx until today; there is no such file.
+    blob: { source: 'freshdesk', source_key: 'freshdesk_articles' },
     'member-care': { source: 'member_care', source_key: 'member_care_answers' },
   };
   const articles = new Map();
@@ -385,7 +388,7 @@ function titleTerms(title) {
       chunks: a.parts.length,
       duplicate_of: dup,
       caveat: dup
-        ? 'Stored twice. The same article arrives from Freshdesk on its own, so retrieval can return both copies of it. Editing the Freshdesk article does NOT change this copy, and we do not know what writes it.'
+        ? 'A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.'
         : null,
       demand_method: d.need
         ? `${d.need} of ${d.terms.length} keywords from the title`
@@ -535,7 +538,7 @@ function titleTerms(title) {
   // this come from, can I get it changed, and is anything wrong with it. The
   // second is the one that decides what a note is worth.
   const SOURCE_TAG = {
-    freshdesk: 'freshdesk', unidentified: 'unidentified-loader', member_care: 'member-care',
+    freshdesk: 'freshdesk', member_care: 'member-care',
     club_directory: 'club-data', prompt: 'prompt',
   };
   const WIRING_TAG = { live: 'live', deploy: 'needs-deploy', not_wired: 'not-wired' };
@@ -579,11 +582,11 @@ function titleTerms(title) {
   console.log('items:', items.length);
   console.log('by source:', by((i) => i.source));
   console.log('by wiring:', by((i) => i.wiring));
-  console.log('duplicates (second-feed copies of a Freshdesk article):',
+  console.log('duplicate copies of a Freshdesk article:',
     items.filter((i) => i.duplicate_of).length);
   const uniqueToSheet = items.filter(
-    (i) => i.source === 'unidentified' && !i.duplicate_of).length;
-  console.log('articles ONLY the second feed provides:', uniqueToSheet);
+    (i) => false).length;
+  console.log('articles no Freshdesk original exists for:', uniqueToSheet);
   console.log('never raised (0 matched sessions):',
     items.filter((i) => i.matched_sessions === 0).length);
   console.log('cannot tell (fewer than two distinctive words):',

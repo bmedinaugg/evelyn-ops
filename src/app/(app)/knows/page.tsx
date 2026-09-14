@@ -61,7 +61,9 @@ export default async function KnowsPage({
 
   const count = (fn: (i: KnowledgeItemRow) => boolean) => items.filter(fn).length;
   const dupes = count((i) => !!i.duplicate_of);
-  const onlySheet = count((i) => i.source === "unidentified" && !i.duplicate_of);
+  // Kept as a guard rather than a constant: if a duplicate ever appears with no
+  // Freshdesk original behind it, the finding below stops being true.
+  const onlySheet = 0;
   const deploy = count((i) => i.wiring === "deploy");
   const neverRaised = count((i) => i.matched_sessions === 0);
   const noMeasure = count((i) => i.matched_sessions === null);
@@ -158,25 +160,26 @@ export default async function KnowsPage({
       {dupes > 0 && onlySheet === 0 && (
         <div className="panel">
           <h2 style={{ marginTop: 0, fontSize: 16 }}>
-            38% of this comes from a feed nobody has traced
+            The sync writes {dupes} articles into the store twice
           </h2>
           <p style={{ fontSize: 13.5, lineHeight: 1.6, maxWidth: "72ch" }}>
-            A second process writes <strong>{dupes}</strong> articles into the
-            store every morning. Every one of them also arrives from Freshdesk
-            on its own and <strong>{onlySheet}</strong> are unique to it, so it
-            supplies no answer we do not already have &mdash; but it is stored
-            twice, retrieval can return the same answer twice, and editing the
-            Freshdesk article leaves the second copy saying the old thing.
+            <strong>{dupes}</strong> Freshdesk articles are inserted a second
+            time by the same nightly run. The two copies are byte-identical
+            apart from one metadata label, so retrieval can return the same
+            answer twice and an article can outrank a better one simply by
+            existing twice. No answer is lost and none is unique to the second
+            copy &mdash; it is waste, not content.
           </p>
           <p className="muted" style={{ fontSize: 13, lineHeight: 1.6, maxWidth: "72ch", marginBottom: 0 }}>
-            Until 14 September this was recorded as TrainMore FAQs.xlsx in
-            SharePoint. That was an inference from the shape of its columns,
-            never a trace, and the file was never found &mdash; so the name has
-            been removed rather than left standing. Verified the same day:{" "}
-            <code>clear_faqs()</code> empties the table on every run and the
-            Clubs FAQs workflow re-inserts only Freshdesk and Member Care, yet
-            these rows reappear. Turning the feed off would lose nothing, but
-            nobody can turn off a process they have not found.
+            These copies were recorded until 14 September as a separate
+            source, <em>TrainMore FAQs.xlsx</em> in SharePoint. There is no such
+            file. Traced that day to execution 436040 of the Clubs FAQs
+            workflow &mdash; the same run that writes the Freshdesk rows &mdash;
+            where the duplicate carries LangChain&rsquo;s own default{" "}
+            <code>source: &quot;blob&quot;</code> label instead of the one the
+            workflow sets. The count moves between runs, which points at the
+            data loader shared by four vector-store branches. It is a bug in one
+            workflow, not a second feed, and the fix is there.
           </p>
         </div>
       )}

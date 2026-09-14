@@ -13,15 +13,6 @@ export const SOURCE: Record<
     badge: "blue",
     where: "Edit the help article. It is in the bot the next morning.",
   },
-  // Recorded as "TrainMore FAQs.xlsx" until 14 Sep 2026. That identification
-  // was an inference from column shape, never traced, and the file was never
-  // found — so it is named for what we actually know about it.
-  unidentified: {
-    label: "Second feed",
-    badge: "red",
-    where:
-      "Nobody knows. Something writes this into the store every morning and we have not traced what — so there is no way to correct it at source yet.",
-  },
   member_care: {
     label: "Member Care",
     badge: "green",

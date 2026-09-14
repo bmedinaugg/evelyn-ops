@@ -24,7 +24,7 @@ is the record.
 | Source | Wiring | FAQs | Last used |
 |---|---|---|---|
 | Freshdesk help articles | Live | 99 | 10 September 2026 |
-| A second FAQ feed — loader unidentified | Live | 62 | 8 April 2026 |
+| Duplicate Freshdesk inserts (defect, not a source) | Needs a deploy | 62 | 8 April 2026 |
 | Member Care hand-written answers | Live | 5 | 26 August 2026 |
 | TrainMore NL Bot Training Guide | Not wired | &mdash; | 18 August 2026 |
 | The club directory workbook | Live | &mdash; | 10 September 2026 |
@@ -44,17 +44,6 @@ is the record.
 - **What it shapes.** Most of the FAQs Evelyn can answer from.
 - **Who owns it.** Member Care - whatever you publish in Freshdesk is in the bot the next morning.
 - **Open it.** https://www.support.trainmore.com/en/support/solutions
-
-### A second FAQ feed — loader unidentified
-
-*Unknown · 62 FAQs · checked 14 September 2026*
-
-- **Last used.** Re-imported every morning. 69 chunks written 14 Sep 2026, 10:00:37–10:00:54 UTC, interleaved with the Clubs FAQs run.
-- **How we know.** By elimination and timing, 14 Sep 2026. clear_faqs() empties the table every run; the Clubs FAQs workflow (fmvDzjBJrsyU9m2z) re-inserts only Freshdesk and bot.manual_faqs, and its data loader cannot emit source=blob. Something else writes these rows. No workflow in the instance matches blob, xlsx or sharepoint by name.
-- **What it shapes.** 58 articles, every one of which also arrives from Freshdesk on its own. It supplies no answer the Freshdesk sync does not already provide.
-- **Who owns it.** Unknown. That is the finding.
-
-> **Watch out.** Recorded until 14 Sep 2026 as "TrainMore FAQs.xlsx" in SharePoint. That was an inference from column shape, never a trace, and the file was never located. The name has been removed rather than left standing — an unverified owner is worse than a blank one, because nobody goes looking for what they think they already know. 38% of what the bot can answer from arrives this way.
 
 ### Member Care hand-written answers
 
@@ -89,6 +78,18 @@ is the record.
 ## Needs a deploy
 
 *Written into an n8n node. Changing it needs an edit and a publish.*
+
+### Duplicate Freshdesk inserts (defect, not a source)
+
+*n8n nodes · 62 FAQs · checked 14 September 2026*
+
+- **Last used.** Every morning, inside the same run as the Freshdesk import. 69 duplicate chunks across 62 articles on 14 Sep 2026.
+- **How we know.** Execution 436040 of Clubs FAQs, 10:00:37-10:01:59 UTC on 14 Sep 2026 — the only trigger in the window. For article 103000357073 the two rows are byte-identical apart from `source`, written 13 seconds apart in that run. "blob" is LangChain default metadata for a text blob, not an origin.
+- **What it shapes.** Nothing the Freshdesk sync does not already provide. It duplicates 62 of the 99 articles, so retrieval can return the same answer twice and a duplicated article can outrank a better one by existing twice.
+- **Who owns it.** Engineering. It is a workflow bug, and the fix is in Clubs FAQs (fmvDzjBJrsyU9m2z).
+- **Open it.** https://urbangymgroup-prod.app.n8n.cloud/workflow/fmvDzjBJrsyU9m2z
+
+> **Watch out.** Recorded until 14 Sep 2026 as a separate source called "TrainMore FAQs.xlsx" in SharePoint. No such file was ever found because none was ever involved: a duplicate insert was mistaken for a feed, then named after a file whose columns matched the generic metadata shape. The count varies between runs (58 articles on 10 Sep, 62 on 14 Sep) against a stable 99 originals, which points at the data loader shared across four concurrent branches — a hypothesis, not yet proven.
 
 ### Knowledge written straight into prompts
 
