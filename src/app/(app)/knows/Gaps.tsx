@@ -63,7 +63,8 @@ export function Gaps({
 
       <div className="panel" style={{ padding: 16 }}>
         <p className="muted mono" style={{ fontSize: 11.5, margin: "0 0 10px" }}>
-          most unanswered first · {gaps.length} subjects
+          {gaps.length} subjects · the number is how many members got no answer
+          at all
         </p>
         {gaps.map((g) => (
           <Gap
@@ -107,7 +108,7 @@ function Gap({
         }}
       >
         <span className="mono" style={{ minWidth: 52, textAlign: "right", fontSize: 13, fontWeight: 700 }}>
-          {g.matched_sessions.toLocaleString("en-GB")}
+          {g.unanswered_sessions}
         </span>
         <span style={{ fontWeight: 600, flex: 1, minWidth: 240 }}>{g.subject}</span>
         {notes.length > 0 && (
@@ -124,7 +125,7 @@ function Gap({
           </span>
         )}
         <span className="muted mono" style={{ fontSize: 11 }}>
-          {g.unanswered_sessions} got no answer
+          of {g.matched_sessions.toLocaleString("en-GB")} who asked
         </span>
       </summary>
 
