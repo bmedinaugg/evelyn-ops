@@ -1,9 +1,14 @@
 import Link from "next/link";
-import { getKnowledgeItems, listKnowledgeItemNotes } from "@/lib/queries";
+import {
+  getKnowledgeItems,
+  listKnowledgeItemNotes,
+  getKnowledgeGaps,
+} from "@/lib/queries";
 import type { KnowledgeItemRow, KnowledgeItemNoteRow } from "@/lib/types";
 import { KnowsFilters, type Values } from "./KnowsFilters";
 import { SOURCE, WIRING, KINDS, KIND_LABEL, PAGE, type Sort } from "./shared";
 import { addKnowledgeNoteAction, resolveKnowledgeNoteAction } from "./actions";
+import { Gaps } from "./Gaps";
 
 export const dynamic = "force-dynamic";
 
@@ -46,9 +51,10 @@ export default async function KnowsPage({
     dupes: sp.dupes,
   };
 
-  const [items, notes] = await Promise.all([
+  const [items, notes, gaps] = await Promise.all([
     getKnowledgeItems(),
     listKnowledgeItemNotes(),
+    getKnowledgeGaps(),
   ]);
 
   // Notes are keyed softly, so group rather than join.
@@ -124,8 +130,8 @@ export default async function KnowsPage({
       <div className="pagehead">
         <h1>What Evelyn knows</h1>
         <p className="muted">
-          Every individual fact she can answer from, in her own words, with
-          somewhere to say what is wrong with it. TrainMore.
+          What she is asked and cannot answer, then every fact she can answer
+          from, in her own words. TrainMore.
         </p>
       </div>
 
@@ -154,6 +160,12 @@ export default async function KnowsPage({
           {fmtDate(oldest)}
         </p>
       </div>
+
+      <Gaps
+        gaps={gaps}
+        notesByKey={byItem}
+        back={(key) => qs(values, { n: limit, open: key })}
+      />
 
       {/* Stated as a finding rather than left as a tag to notice: it is the one
           thing on this page that is a decision waiting to be taken. */}

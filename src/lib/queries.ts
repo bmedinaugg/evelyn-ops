@@ -47,6 +47,7 @@ import type {
   KnowledgeItemRow,
   KnowledgeItemNoteRow,
   KnowledgeNoteKind,
+  KnowledgeGapRow,
 } from "@/lib/types";
 
 const BOARD_BUCKET = "board-attachments";
@@ -1169,6 +1170,16 @@ export async function resolveQuestionNote(id: string): Promise<void> {
     .update({ resolved_at: new Date().toISOString(), resolved_by: staff.email })
     .eq("id", id);
   if (error) throw new Error(`resolve question note failed: ${error.message}`);
+}
+
+// Subjects members raise that nothing answers. Notes on a gap share
+// bot.knowledge_item_notes with the items — the key is soft on both sides, so
+// one table serves both and a gap that stops being a gap keeps its history.
+export async function getKnowledgeGaps(): Promise<KnowledgeGapRow[]> {
+  await requireStaff();
+  const { data, error } = await dataClient().rpc("knowledge_gaps_view");
+  if (error) throw new Error(`knowledge gaps failed: ${error.message}`);
+  return (data ?? []) as unknown as KnowledgeGapRow[];
 }
 
 // --- knowledge items: what the bot actually knows ---------------------------

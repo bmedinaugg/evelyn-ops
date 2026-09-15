@@ -674,6 +674,44 @@ export interface KnowledgeItemRow {
   total_notes: number;
 }
 
+// One subject members raise that no knowledge item answers — the mirror of
+// KnowledgeItemRow. Counts come from a model reading every member question in
+// the window, not from keyword matching: two keyword attempts failed at ~10x
+// over-count and 25% recall. The instrument travels on the row so the number
+// is never quoted bare.
+export interface KnowledgeGapRow {
+  key: string;
+  sort_order: number;
+  brand: string;
+  subject: string;
+  question: string;
+  why_it_matters: string;
+  // Every raw label folded into this subject, so a merge can be disputed.
+  merged_from: string[];
+  matched_sessions: number;
+  // Of those, how many got no substantive answer at all. This is the one that
+  // makes a subject urgent rather than merely popular.
+  unanswered_sessions: number;
+  count_method: string;
+  count_model: string | null;
+  // Share of its own source questions the counting pass put back. Below ~60%
+  // the counts are not publishable, and the seeder refuses.
+  count_recall_pct: number | null;
+  sessions_read: number | null;
+  // Empty is the finding: nothing in the knowledge base touches this.
+  covering_item_keys: string[];
+  covering_item_titles: string[];
+  examples: string[];
+  example_sessions: string[];
+  window_from: string | null;
+  window_to: string | null;
+  // The no-answer pool the subjects were discovered from. Needed to state what
+  // share of the problem these gaps actually represent — it is 10%, not all.
+  pool_size: number | null;
+  verified_at: string;
+  open_notes: number;
+}
+
 // wrong / outdated: the content needs changing. unclear: it is right but
 // members misread it. missing: it should exist and does not. context: worth
 // knowing, not work. Kept apart because they go to different people.

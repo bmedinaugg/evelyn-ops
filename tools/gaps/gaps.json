@@ -1,0 +1,1374 @@
+{
+  "window": {
+    "from": "2026-08-11",
+    "to": "2026-09-11"
+  },
+  "pool": {
+    "no_answer_sessions": 514,
+    "labelled": 437,
+    "by_kind": {
+      "account_action": 297,
+      "knowledge": 44,
+      "complaint": 33,
+      "unclear": 63
+    }
+  },
+  "gaps": [
+    {
+      "key": "gap:switching-to-another-club-location",
+      "sort_order": 40,
+      "brand": "trainmore",
+      "subject": "Switching to another club location",
+      "question": "How do I switch my membership to a different club location and what does the club change form require?",
+      "why_it_matters": "Members cannot find the club transfer form, its conditions or whether a fee applies.",
+      "merged_from": [
+        "Changing gym location",
+        "Club change form requirements"
+      ],
+      "terms": [
+        "vestiging",
+        "locatie",
+        "location",
+        "clubwissel",
+        "filiaal",
+        "branch",
+        "wisselen",
+        "overstappen",
+        "switch",
+        "transfer",
+        "veranderen",
+        "andere",
+        "overplaatsen",
+        "verhuizen"
+      ],
+      "concept_terms": [
+        "vestiging",
+        "locatie",
+        "location",
+        "clubwissel",
+        "filiaal",
+        "branch"
+      ],
+      "qualifier_terms": [
+        "wisselen",
+        "overstappen",
+        "switch",
+        "transfer",
+        "veranderen",
+        "andere",
+        "overplaatsen",
+        "verhuizen"
+      ],
+      "matched_sessions": 851,
+      "unanswered_sessions": 45,
+      "covering_item_keys": [],
+      "covering_item_titles": [],
+      "examples": [
+        "Switch home club to koningin wilejlminaplein",
+        "I want to change my homeclub",
+        "Switch homeclub to koningin wilhelminaplein"
+      ],
+      "example_sessions": [
+        "c068848c-09c3-4fcd-88a1-23ae68021953",
+        "ff463727-6dfe-42e9-8bb2-9c0591441afa",
+        "96ea34d0-8804-481a-8521-6435a98ebd85"
+      ],
+      "window_from": "2026-08-11",
+      "window_to": "2026-09-11",
+      "pool_size": 514,
+      "verified_at": "2026-09-14",
+      "count_method": "read by claude-haiku-4-5, one subject per question, over 8232 sessions"
+    },
+    {
+      "key": "gap:how-and-where-to-cancel",
+      "sort_order": 30,
+      "brand": "trainmore",
+      "subject": "How and where to cancel",
+      "question": "Where exactly do I cancel my membership and what is the procedure and notice period?",
+      "why_it_matters": "Members cannot find the normal cancellation route, deadline or confirmation of a submitted cancellation.",
+      "merged_from": [
+        "Where to cancel membership"
+      ],
+      "terms": [
+        "opzeggen",
+        "opzegging",
+        "stopzetten",
+        "cancel",
+        "cancellation",
+        "uitschrijven",
+        "waar",
+        "how do i",
+        "hoe kan ik",
+        "procedure",
+        "stappen",
+        "opzegtermijn",
+        "notice period",
+        "bevestiging"
+      ],
+      "concept_terms": [
+        "opzeggen",
+        "opzegging",
+        "stopzetten",
+        "cancel",
+        "cancellation",
+        "uitschrijven"
+      ],
+      "qualifier_terms": [
+        "waar",
+        "how do i",
+        "hoe kan ik",
+        "procedure",
+        "stappen",
+        "opzegtermijn",
+        "notice period",
+        "bevestiging"
+      ],
+      "matched_sessions": 740,
+      "unanswered_sessions": 59,
+      "covering_item_keys": [],
+      "covering_item_titles": [],
+      "examples": [
+        "Ik wil mn abonnement opzeggen die ik nog geen 14 dagen geleden heb aangemaakt",
+        "Hi Evelyn! I have cancelled my membership back in May but I'm still getting payments every month",
+        "i want to cancel my subscription due to moving abroad."
+      ],
+      "example_sessions": [
+        "e9f85787-9505-4bd9-84e0-e01c93c6677a",
+        "f3e7ce69-3b79-40a1-8df3-0057e874654a",
+        "3d04e943-5faa-426f-a0d3-36a2b086356d"
+      ],
+      "window_from": "2026-08-11",
+      "window_to": "2026-09-11",
+      "pool_size": 514,
+      "verified_at": "2026-09-14",
+      "count_method": "read by claude-haiku-4-5, one subject per question, over 8232 sessions"
+    },
+    {
+      "key": "gap:customer-service-contact-details",
+      "sort_order": 10,
+      "brand": "trainmore",
+      "subject": "Customer service contact details",
+      "question": "What phone number or email address can I use to reach customer service or the head office?",
+      "why_it_matters": "Members cannot find any direct phone, email or contact form to reach a human at support or head office.",
+      "merged_from": [
+        "Support phone number",
+        "Dutch customer service phone number",
+        "Contact details for a representative",
+        "Support email address",
+        "Manager's email address",
+        "Customer service email address",
+        "Support contact details",
+        "Head office phone contact",
+        "Contact form",
+        "Email contact address",
+        "Head office contact details"
+      ],
+      "terms": [
+        "telefoonnummer",
+        "phone number",
+        "nummer",
+        "e mailadres",
+        "emailadres",
+        "email address",
+        "contactgegevens",
+        "contact details",
+        "contactformulier",
+        "bellen",
+        "opbellen",
+        "klantenservice",
+        "customer service",
+        "support",
+        "servicedesk",
+        "hoofdkantoor",
+        "head office",
+        "manager",
+        "medewerker",
+        "afdeling"
+      ],
+      "concept_terms": [
+        "telefoonnummer",
+        "phone number",
+        "nummer",
+        "e mailadres",
+        "emailadres",
+        "email address",
+        "contactgegevens",
+        "contact details",
+        "contactformulier",
+        "bellen",
+        "opbellen"
+      ],
+      "qualifier_terms": [
+        "klantenservice",
+        "customer service",
+        "support",
+        "servicedesk",
+        "hoofdkantoor",
+        "head office",
+        "manager",
+        "medewerker",
+        "afdeling"
+      ],
+      "matched_sessions": 612,
+      "unanswered_sessions": 37,
+      "covering_item_keys": [],
+      "covering_item_titles": [],
+      "examples": [
+        "I want to get support by a human",
+        "i want mail so i can contact trainmore",
+        "I was locjed in the gym and couldn't get out, who Do I email about this neglegance"
+      ],
+      "example_sessions": [
+        "705ed6d6-4f86-4297-ae2f-ddb2b440bfe2",
+        "4aff7b43-631e-4118-b64a-cd9f15176f6c",
+        "20f63d1b-8bc3-4d5f-916f-f05737bb0542"
+      ],
+      "window_from": "2026-08-11",
+      "window_to": "2026-09-11",
+      "pool_size": 514,
+      "verified_at": "2026-09-14",
+      "count_method": "read by claude-haiku-4-5, one subject per question, over 8232 sessions"
+    },
+    {
+      "key": "gap:which-clubs-are-included",
+      "sort_order": 90,
+      "brand": "trainmore",
+      "subject": "Which clubs are included",
+      "question": "Which clubs can I train at with my membership, for example does Red Label give access to other locations?",
+      "why_it_matters": "Members cannot tell which locations their subscription level gives them entry to.",
+      "merged_from": [
+        "Red label access to other clubs",
+        "Which gyms membership gives access to"
+      ],
+      "terms": [
+        "toegang",
+        "access",
+        "sporten bij",
+        "trainen bij",
+        "binnenkomen",
+        "entry",
+        "andere",
+        "alle",
+        "other",
+        "all clubs",
+        "vestigingen",
+        "locaties",
+        "overal",
+        "welke clubs",
+        "landelijk"
+      ],
+      "concept_terms": [
+        "toegang",
+        "access",
+        "sporten bij",
+        "trainen bij",
+        "binnenkomen",
+        "entry"
+      ],
+      "qualifier_terms": [
+        "andere",
+        "alle",
+        "other",
+        "all clubs",
+        "vestigingen",
+        "locaties",
+        "overal",
+        "welke clubs",
+        "landelijk"
+      ],
+      "matched_sessions": 306,
+      "unanswered_sessions": 3,
+      "covering_item_keys": [
+        "freshdesk:103000353597"
+      ],
+      "covering_item_titles": [
+        "Which other TrainMore clubs do I have access to, and how can I check?"
+      ],
+      "examples": [
+        "I have a subscription with Clubsportive with Possibilities to Train with Train more clubs Regular en black label how do I get access ?",
+        "I have a home+ membership. Where in den haag am i allowed to work out?",
+        "But that one is not open yet can I go in the meanwhile to other locations ?"
+      ],
+      "example_sessions": [
+        "402f2ca6-15fd-419e-93c4-6721bf5c8118",
+        "9bd2c130-4da5-4bd1-b064-60cc04dbcefc",
+        "d4717804-2215-48f5-8ef6-5fffcb681e94"
+      ],
+      "window_from": "2026-08-11",
+      "window_to": "2026-09-11",
+      "pool_size": 514,
+      "verified_at": "2026-09-14",
+      "count_method": "read by claude-haiku-4-5, one subject per question, over 8232 sessions"
+    },
+    {
+      "key": "gap:membership-plans-and-prices",
+      "sort_order": 80,
+      "brand": "trainmore",
+      "subject": "Membership plans and prices",
+      "question": "What membership types are there and what does each one, such as Red Label, cost per month?",
+      "why_it_matters": "Members cannot get an overview of subscription tiers with their monthly prices.",
+      "merged_from": [
+        "Membership prices and plans",
+        "Cost of Red Label membership"
+      ],
+      "terms": [
+        "prijs",
+        "prijzen",
+        "price",
+        "kosten",
+        "tarief",
+        "cost",
+        "red label",
+        "vormen",
+        "types",
+        "plans",
+        "pakketten",
+        "soorten",
+        "overzicht",
+        "per maand",
+        "monthly"
+      ],
+      "concept_terms": [
+        "prijs",
+        "prijzen",
+        "price",
+        "kosten",
+        "tarief",
+        "cost"
+      ],
+      "qualifier_terms": [
+        "red label",
+        "vormen",
+        "types",
+        "plans",
+        "pakketten",
+        "soorten",
+        "overzicht",
+        "per maand",
+        "monthly"
+      ],
+      "matched_sessions": 283,
+      "unanswered_sessions": 7,
+      "covering_item_keys": [],
+      "covering_item_titles": [],
+      "examples": [
+        "Hey! Would it be possible to get the Red label from groningen, with the 25% for continuing as mentioned in the email.",
+        "Ik heb nog geen abonnement maar wil een nieuw abbonoment afsluiten en bespreken wat de opties zijn ivm een bijzondere situatie",
+        "I always paid 60 for my membership, but now 90 euros had been withdrawd. I want to stay but only for the old price"
+      ],
+      "example_sessions": [
+        "1495ba6c-16d3-4465-a344-d9a830fba5e2",
+        "d67d3a54-4786-4cc3-80d8-373cb55c5bc6",
+        "e7e43620-f3d8-457f-83be-921958e81324"
+      ],
+      "window_from": "2026-08-11",
+      "window_to": "2026-09-11",
+      "pool_size": 514,
+      "verified_at": "2026-09-14",
+      "count_method": "read by claude-haiku-4-5, one subject per question, over 8232 sessions"
+    },
+    {
+      "key": "gap:upgrade-cost-and-procedure",
+      "sort_order": 60,
+      "brand": "trainmore",
+      "subject": "Upgrade cost and procedure",
+      "question": "What will I pay after upgrading my membership to one that includes more clubs?",
+      "why_it_matters": "Members cannot see the new price or the extra amount charged when upgrading or changing plan.",
+      "merged_from": [
+        "Upgrade price",
+        "Price after membership change",
+        "Upgrade membership for more gyms"
+      ],
+      "terms": [
+        "upgrade",
+        "upgraden",
+        "opwaarderen",
+        "hoger pakket",
+        "uitbreiden",
+        "downgrade",
+        "prijs",
+        "kosten",
+        "cost",
+        "price",
+        "tarief",
+        "meerprijs",
+        "bijbetalen",
+        "hoeveel"
+      ],
+      "concept_terms": [
+        "upgrade",
+        "upgraden",
+        "opwaarderen",
+        "hoger pakket",
+        "uitbreiden",
+        "downgrade"
+      ],
+      "qualifier_terms": [
+        "prijs",
+        "kosten",
+        "cost",
+        "price",
+        "tarief",
+        "meerprijs",
+        "bijbetalen",
+        "hoeveel"
+      ],
+      "matched_sessions": 272,
+      "unanswered_sessions": 11,
+      "covering_item_keys": [
+        "freshdesk:103000353598"
+      ],
+      "covering_item_titles": [
+        "How can I apply for a club or membership change?"
+      ],
+      "examples": [
+        "hey i wanna expand my membership to city wide",
+        "Extend different club but do I get discount",
+        "Hi Evelyn, I wanted to change my subscription form Black label to red. I am currently registered at singel and wants to move to Prinsengracht"
+      ],
+      "example_sessions": [
+        "82769392-c776-4222-88dd-4a1b9db602d2",
+        "4099c687-1da9-455b-81cf-d3bf7737c0fc",
+        "2a57b2e8-bc54-440a-83d6-bc352ec52700"
+      ],
+      "window_from": "2026-08-11",
+      "window_to": "2026-09-11",
+      "pool_size": 514,
+      "verified_at": "2026-09-14",
+      "count_method": "read by claude-haiku-4-5, one subject per question, over 8232 sessions"
+    },
+    {
+      "key": "gap:early-termination-of-contract",
+      "sort_order": 20,
+      "brand": "trainmore",
+      "subject": "Early termination of contract",
+      "question": "Can I end my contract before the agreed term and which form do I need for that?",
+      "why_it_matters": "Members do not know whether early termination is possible, on what grounds, or where the early cancellation form is.",
+      "merged_from": [
+        "Early cancellation form",
+        "Early cancellation request form",
+        "Early contract cancellation possibility"
+      ],
+      "terms": [
+        "opzeggen",
+        "opzegging",
+        "opzegformulier",
+        "cancel",
+        "cancellation",
+        "beeindigen",
+        "terminate",
+        "ontbinden",
+        "eerder",
+        "vroegtijdig",
+        "voortijdig",
+        "tussentijds",
+        "early",
+        "before the end",
+        "looptijd",
+        "contractduur",
+        "verhuizing"
+      ],
+      "concept_terms": [
+        "opzeggen",
+        "opzegging",
+        "opzegformulier",
+        "cancel",
+        "cancellation",
+        "beeindigen",
+        "terminate",
+        "ontbinden"
+      ],
+      "qualifier_terms": [
+        "eerder",
+        "vroegtijdig",
+        "voortijdig",
+        "tussentijds",
+        "early",
+        "before the end",
+        "looptijd",
+        "contractduur",
+        "verhuizing"
+      ],
+      "matched_sessions": 245,
+      "unanswered_sessions": 18,
+      "covering_item_keys": [
+        "blob:103000357090",
+        "freshdesk:103000353604",
+        "freshdesk:103000357090"
+      ],
+      "covering_item_titles": [
+        "Can I cancel my membership because of the price increase?",
+        "Can I apply for an early cancellation?",
+        "Can I cancel my membership because of the price increase?"
+      ],
+      "examples": [
+        "I’m moving far aware and want to cancel my contract for special circumstances",
+        "early cancel membership",
+        "I want to cancel my gym membership due to illness"
+      ],
+      "example_sessions": [
+        "492ab6c8-0559-4877-a189-882a68abf6a2",
+        "a46d51d0-904c-4c67-9a07-bd76ce18764b",
+        "08cb17f5-9312-4ecc-a1ae-b47aab61d17e"
+      ],
+      "window_from": "2026-08-11",
+      "window_to": "2026-09-11",
+      "pool_size": 514,
+      "verified_at": "2026-09-14",
+      "count_method": "read by claude-haiku-4-5, one subject per question, over 8232 sessions"
+    },
+    {
+      "key": "gap:pausing-membership-for-medical-reasons",
+      "sort_order": 120,
+      "brand": "trainmore",
+      "subject": "Pausing membership for medical reasons",
+      "question": "Can I pause my membership while I recover from surgery or an injury, and what proof do you need?",
+      "why_it_matters": "Members cannot find the rules, duration or required medical proof for a freeze.",
+      "merged_from": [
+        "Pausing membership for surgery"
+      ],
+      "terms": [
+        "pauzeren",
+        "pauze",
+        "bevriezen",
+        "freeze",
+        "on hold",
+        "stopzetten tijdelijk",
+        "operatie",
+        "surgery",
+        "blessure",
+        "injury",
+        "medisch",
+        "ziekte",
+        "herstel",
+        "zwanger",
+        "doktersverklaring"
+      ],
+      "concept_terms": [
+        "pauzeren",
+        "pauze",
+        "bevriezen",
+        "freeze",
+        "on hold",
+        "stopzetten tijdelijk"
+      ],
+      "qualifier_terms": [
+        "operatie",
+        "surgery",
+        "blessure",
+        "injury",
+        "medisch",
+        "ziekte",
+        "herstel",
+        "zwanger",
+        "doktersverklaring"
+      ],
+      "matched_sessions": 182,
+      "unanswered_sessions": 18,
+      "covering_item_keys": [
+        "freshdesk:103000353595",
+        "prompt:pre_freeze"
+      ],
+      "covering_item_titles": [
+        "How can I freeze my membership?",
+        "Can I freeze my membership"
+      ],
+      "examples": [
+        "I would like to freeze my account for medical reason",
+        "Can i freeze my membership due to pregnancy",
+        "I broke my arm, is it possible to stop my membership for 14 weeks"
+      ],
+      "example_sessions": [
+        "51ef667e-47b6-4338-97a3-ac013db5666f",
+        "ea57a028-793c-4ecc-99e7-44fd2541b115",
+        "9c346928-1144-4e23-97aa-38898c4181a1"
+      ],
+      "window_from": "2026-08-11",
+      "window_to": "2026-09-11",
+      "pool_size": 514,
+      "verified_at": "2026-09-14",
+      "count_method": "read by claude-haiku-4-5, one subject per question, over 8232 sessions"
+    },
+    {
+      "key": "gap:membership-change-form-link",
+      "sort_order": 50,
+      "brand": "trainmore",
+      "subject": "Membership change form link",
+      "question": "Where can I find the online form to change my current membership type?",
+      "why_it_matters": "Existing members cannot locate the link to the change-membership form or know what it needs.",
+      "merged_from": [
+        "Link to change membership form",
+        "Change membership form for current members"
+      ],
+      "terms": [
+        "wijzigen",
+        "wijziging",
+        "aanpassen",
+        "change membership",
+        "omzetten",
+        "overstappen naar",
+        "formulier",
+        "form",
+        "link",
+        "online",
+        "invullen",
+        "aanvraag",
+        "document"
+      ],
+      "concept_terms": [
+        "wijzigen",
+        "wijziging",
+        "aanpassen",
+        "change membership",
+        "omzetten",
+        "overstappen naar"
+      ],
+      "qualifier_terms": [
+        "formulier",
+        "form",
+        "link",
+        "online",
+        "invullen",
+        "aanvraag",
+        "document"
+      ],
+      "matched_sessions": 177,
+      "unanswered_sessions": 16,
+      "covering_item_keys": [],
+      "covering_item_titles": [],
+      "examples": [
+        "Hey I just extended my membership but i want to change it",
+        "Change membership deal",
+        "Hi! I’d like to change my membership"
+      ],
+      "example_sessions": [
+        "86852dff-ed81-4b39-b802-7ec10326d1f4",
+        "de1673ad-4fe7-49ea-9199-cde6dc4eecda",
+        "a78953ea-d974-481a-863f-4ed66032ca4c"
+      ],
+      "window_from": "2026-08-11",
+      "window_to": "2026-09-11",
+      "pool_size": 514,
+      "verified_at": "2026-09-14",
+      "count_method": "read by claude-haiku-4-5, one subject per question, over 8232 sessions"
+    },
+    {
+      "key": "gap:reformer-pilates-classes",
+      "sort_order": 110,
+      "brand": "trainmore",
+      "subject": "Reformer pilates classes",
+      "question": "Are reformer pilates classes part of my subscription or do they cost extra, and how do I join them?",
+      "why_it_matters": "Members do not know that reformer pilates is excluded, what it costs, or how to book it.",
+      "merged_from": [
+        "Pilates reformer not included in subscription",
+        "Reformer pilates classes info"
+      ],
+      "terms": [
+        "reformer",
+        "pilates",
+        "inbegrepen",
+        "included",
+        "extra",
+        "meerprijs",
+        "kosten",
+        "boeken",
+        "rooster",
+        "lessen",
+        "classes"
+      ],
+      "concept_terms": [
+        "reformer",
+        "pilates"
+      ],
+      "qualifier_terms": [
+        "inbegrepen",
+        "included",
+        "extra",
+        "meerprijs",
+        "kosten",
+        "boeken",
+        "rooster",
+        "lessen",
+        "classes"
+      ],
+      "matched_sessions": 137,
+      "unanswered_sessions": 2,
+      "covering_item_keys": [
+        "blob:103000353563",
+        "freshdesk:103000353563"
+      ],
+      "covering_item_titles": [
+        "Are group classes available at the Red Label locations?",
+        "Are group classes available at the Red Label locations?"
+      ],
+      "examples": [
+        "Hallo, Zijn de pilateslesen al beschikbaar in Bilthoven? En is dat met een instructrice? Hoeveel banken zijn er?",
+        "Ik probeer een lesje te boeken voor Pilates bij Kraanspoor maar het geeft aan dat ik geen credit heb ervoor",
+        "Hello, I was wondering If I subscribe with a student discount can I do the pilates classes?"
+      ],
+      "example_sessions": [
+        "4282da52-4875-4afe-bc6a-6b27d35f32f7",
+        "7a2a3d1f-f9c6-4462-bc38-04b20df70af4",
+        "4c8fc311-adcc-47e2-9bb9-4469c0537d97"
+      ],
+      "window_from": "2026-08-11",
+      "window_to": "2026-09-11",
+      "pool_size": 514,
+      "verified_at": "2026-09-14",
+      "count_method": "read by claude-haiku-4-5, one subject per question, over 8232 sessions"
+    },
+    {
+      "key": "gap:online-form-to-extend-contract",
+      "sort_order": 190,
+      "brand": "trainmore",
+      "subject": "Online form to extend contract",
+      "question": "Is there an online form to extend my contract?",
+      "why_it_matters": "Members cannot find where to request a contract extension online.",
+      "merged_from": [
+        "Online form to extend contract"
+      ],
+      "terms": [
+        "verlengen",
+        "verlenging",
+        "extend",
+        "extension",
+        "doorlopen",
+        "renew",
+        "formulier",
+        "form",
+        "online",
+        "link",
+        "aanvragen",
+        "invullen"
+      ],
+      "concept_terms": [
+        "verlengen",
+        "verlenging",
+        "extend",
+        "extension",
+        "doorlopen",
+        "renew"
+      ],
+      "qualifier_terms": [
+        "formulier",
+        "form",
+        "online",
+        "link",
+        "aanvragen",
+        "invullen"
+      ],
+      "matched_sessions": 132,
+      "unanswered_sessions": 9,
+      "covering_item_keys": [],
+      "covering_item_titles": [],
+      "examples": [
+        "My membership contract is ending. I am considering canceling the membership. I want to ask for my current offer to be extended",
+        "ik heb een aanbod gehad van mijn sportschool om te verlengen met korting, alleen als ik op de link in mijn mail klik kom ik niet verder",
+        "ik heb een aanbod gehad van mijn sportschool om te verlengen met korting, alleen als ik op de link in mijn mail klik kom ik niet verder"
+      ],
+      "example_sessions": [
+        "7c90df56-4de1-4c21-a15c-8c9beb8d335e",
+        "8ab48a6c-0537-4be8-a9b6-a583f6c9e75a",
+        "26817d63-f2c2-4826-b54c-ca453cd97be6"
+      ],
+      "window_from": "2026-08-11",
+      "window_to": "2026-09-11",
+      "pool_size": 514,
+      "verified_at": "2026-09-14",
+      "count_method": "read by claude-haiku-4-5, one subject per question, over 8232 sessions"
+    },
+    {
+      "key": "gap:payment-arrangement-for-arrears",
+      "sort_order": 170,
+      "brand": "trainmore",
+      "subject": "Payment arrangement for arrears",
+      "question": "Can I set up a payment plan to pay my outstanding amount in instalments?",
+      "why_it_matters": "Members with arrears cannot find out whether instalment arrangements are possible or who approves them.",
+      "merged_from": [
+        "Set up a payment plan"
+      ],
+      "terms": [
+        "betalingsregeling",
+        "payment plan",
+        "termijnen",
+        "instalment",
+        "installment",
+        "gespreid betalen",
+        "achterstand",
+        "openstaand",
+        "arrears",
+        "incasso",
+        "schuld",
+        "afspraak maken",
+        "regelen",
+        "spreiden"
+      ],
+      "concept_terms": [
+        "betalingsregeling",
+        "payment plan",
+        "termijnen",
+        "instalment",
+        "installment",
+        "gespreid betalen"
+      ],
+      "qualifier_terms": [
+        "achterstand",
+        "openstaand",
+        "arrears",
+        "incasso",
+        "schuld",
+        "afspraak maken",
+        "regelen",
+        "spreiden"
+      ],
+      "matched_sessions": 103,
+      "unanswered_sessions": 4,
+      "covering_item_keys": [],
+      "covering_item_titles": [],
+      "examples": [
+        "Hi ik heb mijn achterstallige betalingen voldaan maar er veranderd niks in de app",
+        "yes please, on my bank app it states that I have not payed in August, but I have payed in July, I van prove this with a screenshot.",
+        "Additionally there is a promotion where the rest of the year is free, however i have been charged for this month. I would like to request my money back"
+      ],
+      "example_sessions": [
+        "c3553cdf-48f4-4756-ab9b-490554ddd5eb",
+        "0e0b5952-feb9-4dc3-8157-e0279a9b2a58",
+        "19c48dbc-f7a4-4655-9d6b-e89fd95e74e3"
+      ],
+      "window_from": "2026-08-11",
+      "window_to": "2026-09-11",
+      "pool_size": 514,
+      "verified_at": "2026-09-14",
+      "count_method": "read by claude-haiku-4-5, one subject per question, over 8232 sessions"
+    },
+    {
+      "key": "gap:student-discount-and-rate",
+      "sort_order": 100,
+      "brand": "trainmore",
+      "subject": "Student discount and rate",
+      "question": "Is there a student discount and what is the student membership price?",
+      "why_it_matters": "Students cannot find out whether they qualify for a discount or what the student rate is.",
+      "merged_from": [
+        "Student discount availability",
+        "Student membership price"
+      ],
+      "terms": [
+        "student",
+        "studenten",
+        "studentenkorting",
+        "studying",
+        "studie",
+        "korting",
+        "discount",
+        "prijs",
+        "tarief",
+        "kosten",
+        "price",
+        "in aanmerking",
+        "eligible",
+        "bewijs"
+      ],
+      "concept_terms": [
+        "student",
+        "studenten",
+        "studentenkorting",
+        "studying",
+        "studie"
+      ],
+      "qualifier_terms": [
+        "korting",
+        "discount",
+        "prijs",
+        "tarief",
+        "kosten",
+        "price",
+        "in aanmerking",
+        "eligible",
+        "bewijs"
+      ],
+      "matched_sessions": 95,
+      "unanswered_sessions": 2,
+      "covering_item_keys": [
+        "prompt:pre_discounts"
+      ],
+      "covering_item_titles": [
+        "Do you have a discount / student rate"
+      ],
+      "examples": [
+        "What will i pay for my membership. I applied the studentfree35 discountcode",
+        "k heb geen account en wil weten of het zo zit dat als ik ga dat er 1 euro korting bij komt met 1 jaar student",
+        "Nee, want hier kan ik niet invullen dat ik student ben en ik wil wel de studentenkorting"
+      ],
+      "example_sessions": [
+        "aabd3699-bd29-4d4f-b80f-4fe6d9f48b73",
+        "b99f28d9-d77d-4823-9c6a-1144b62d36dd",
+        "ab14a4bb-3a4d-4205-8b8c-ee134cfb4781"
+      ],
+      "window_from": "2026-08-11",
+      "window_to": "2026-09-11",
+      "pool_size": 514,
+      "verified_at": "2026-09-14",
+      "count_method": "read by claude-haiku-4-5, one subject per question, over 8232 sessions"
+    },
+    {
+      "key": "gap:lost-property-at-the-club",
+      "sort_order": 150,
+      "brand": "trainmore",
+      "subject": "Lost property at the club",
+      "question": "I left something behind at the club, how do I get it back?",
+      "why_it_matters": "Members cannot find out how long lost items are kept or who to ask at the location.",
+      "merged_from": [
+        "Lost property at club"
+      ],
+      "terms": [
+        "verloren",
+        "kwijt",
+        "lost",
+        "vergeten",
+        "laten liggen",
+        "achtergelaten",
+        "gevonden voorwerpen",
+        "lost and found",
+        "spullen",
+        "tas",
+        "sleutel",
+        "jas",
+        "kluisje",
+        "property",
+        "teruggevonden"
+      ],
+      "concept_terms": [
+        "verloren",
+        "kwijt",
+        "lost",
+        "vergeten",
+        "laten liggen",
+        "achtergelaten"
+      ],
+      "qualifier_terms": [
+        "gevonden voorwerpen",
+        "lost and found",
+        "spullen",
+        "tas",
+        "sleutel",
+        "jas",
+        "kluisje",
+        "property",
+        "teruggevonden"
+      ],
+      "matched_sessions": 74,
+      "unanswered_sessions": 7,
+      "covering_item_keys": [],
+      "covering_item_titles": [],
+      "examples": [
+        "Its probaly in the right area near the back machines or at the massage chair",
+        "Hi ! I have forgotten my Pilates socks at TrainMore Rizengracht",
+        "Hi I need to call the Oosterdok gym I forgot my shoes !!"
+      ],
+      "example_sessions": [
+        "01578ac2-48cf-4751-98b7-a5127bf936df",
+        "f4fc63ef-2c0c-466b-bdd2-b0e47860c92c",
+        "77fdfa71-0ea5-4ac7-9945-04ae286f79dc"
+      ],
+      "window_from": "2026-08-11",
+      "window_to": "2026-09-11",
+      "pool_size": 514,
+      "verified_at": "2026-09-14",
+      "count_method": "read by claude-haiku-4-5, one subject per question, over 8232 sessions"
+    },
+    {
+      "key": "gap:contact-details-of-a-specific-club",
+      "sort_order": 200,
+      "brand": "trainmore",
+      "subject": "Contact details of a specific club",
+      "question": "What are the phone number and email of the Bussum club?",
+      "why_it_matters": "Members cannot find direct contact details for an individual location instead of central support.",
+      "merged_from": [
+        "Contact details for Bussum club"
+      ],
+      "terms": [
+        "contactgegevens",
+        "telefoon",
+        "telefoonnummer",
+        "e mail",
+        "email",
+        "adres van",
+        "bussum",
+        "vestiging",
+        "locatie",
+        "filiaal",
+        "branch",
+        "ter plaatse",
+        "balie"
+      ],
+      "concept_terms": [
+        "contactgegevens",
+        "telefoon",
+        "telefoonnummer",
+        "e mail",
+        "email",
+        "adres van"
+      ],
+      "qualifier_terms": [
+        "bussum",
+        "vestiging",
+        "locatie",
+        "filiaal",
+        "branch",
+        "ter plaatse",
+        "balie"
+      ],
+      "matched_sessions": 59,
+      "unanswered_sessions": 0,
+      "covering_item_keys": [],
+      "covering_item_titles": [],
+      "examples": [
+        "Hebben jullie een telefoon nummer die ik kan bellen voor de Trainmore club in Bilthoven?",
+        "Trainmore Amsterdam roelof harrplein",
+        "I need the phone number for the Oost location"
+      ],
+      "example_sessions": [
+        "d1e76c58-e2d0-4b19-a84d-52426c1e654a",
+        "90c440b0-5e01-4643-826d-b4644f518c57",
+        "985a36b7-cbd4-4d99-9d53-1abc693f6c17"
+      ],
+      "window_from": "2026-08-11",
+      "window_to": "2026-09-11",
+      "pool_size": 514,
+      "verified_at": "2026-09-14",
+      "count_method": "read by claude-haiku-4-5, one subject per question, over 8232 sessions"
+    },
+    {
+      "key": "gap:free-trial-for-former-members",
+      "sort_order": 160,
+      "brand": "trainmore",
+      "subject": "Free trial for former members",
+      "question": "I used to be a member, can I still get a free trial or trial period?",
+      "why_it_matters": "Returning members cannot find out whether the free trial applies to them again.",
+      "merged_from": [
+        "Free trial eligibility for former member"
+      ],
+      "terms": [
+        "proefles",
+        "proefperiode",
+        "gratis proberen",
+        "free trial",
+        "trial",
+        "dagpas",
+        "oud lid",
+        "voormalig",
+        "former",
+        "opnieuw",
+        "weer",
+        "eerder lid",
+        "again",
+        "terugkeren"
+      ],
+      "concept_terms": [
+        "proefles",
+        "proefperiode",
+        "gratis proberen",
+        "free trial",
+        "trial",
+        "dagpas"
+      ],
+      "qualifier_terms": [
+        "oud lid",
+        "voormalig",
+        "former",
+        "opnieuw",
+        "weer",
+        "eerder lid",
+        "again",
+        "terugkeren"
+      ],
+      "matched_sessions": 45,
+      "unanswered_sessions": 2,
+      "covering_item_keys": [
+        "prompt:pre_free_trial"
+      ],
+      "covering_item_titles": [
+        "Free trial"
+      ],
+      "examples": [
+        "yes so i applied for the free trile but i didnt get the confirmation mail needed",
+        "Is the free trial long and can u gym urself",
+        "Hallo ik zie dat er een aanbieding is om gratis te trainen kan dit ook bij mij ik heb ~1 maand geleden een abonnement aangeschaft: [e-mail]"
+      ],
+      "example_sessions": [
+        "5f9d4b6a-1f40-4981-8adf-6591c370a9ae",
+        "fce98b84-e1a4-4e60-92a0-9d3227b59d57",
+        "dbd688dd-bc7d-4e5b-bcb7-573f4d7f74d4"
+      ],
+      "window_from": "2026-08-11",
+      "window_to": "2026-09-11",
+      "pool_size": 514,
+      "verified_at": "2026-09-14",
+      "count_method": "read by claude-haiku-4-5, one subject per question, over 8232 sessions"
+    },
+    {
+      "key": "gap:ending-a-pause-early",
+      "sort_order": 130,
+      "brand": "trainmore",
+      "subject": "Ending a pause early",
+      "question": "How do I end my membership pause earlier and start training again?",
+      "why_it_matters": "Members cannot find how to lift a freeze before its end date or when billing restarts.",
+      "merged_from": [
+        "Ending membership pause early"
+      ],
+      "terms": [
+        "pauze",
+        "pauzeren",
+        "bevriezing",
+        "freeze",
+        "hold",
+        "eerder",
+        "hervatten",
+        "resume",
+        "opheffen",
+        "beeindigen",
+        "earlier",
+        "weer starten",
+        "terugkomen"
+      ],
+      "concept_terms": [
+        "pauze",
+        "pauzeren",
+        "bevriezing",
+        "freeze",
+        "hold"
+      ],
+      "qualifier_terms": [
+        "eerder",
+        "hervatten",
+        "resume",
+        "opheffen",
+        "beeindigen",
+        "earlier",
+        "weer starten",
+        "terugkomen"
+      ],
+      "matched_sessions": 42,
+      "unanswered_sessions": 8,
+      "covering_item_keys": [
+        "freshdesk:103000353608"
+      ],
+      "covering_item_titles": [
+        "How can I end my freeze at an earlier date?"
+      ],
+      "examples": [
+        "hi i would like to unfreeze my account",
+        "Hi I paused my membership but now I was looking at my membership and u saw it wasn’t paused",
+        "My recovery after birth went much better than expected and after 6 weeks I am ready to return! Are you able to assist with unfreezing my contract?"
+      ],
+      "example_sessions": [
+        "7475f0c3-f852-4c21-a9c0-674ee4004c71",
+        "b0a8c7ec-0bf0-4acc-9aac-d73e16edb840",
+        "bfb403df-faec-411c-9c47-f3f190247d74"
+      ],
+      "window_from": "2026-08-11",
+      "window_to": "2026-09-11",
+      "pool_size": 514,
+      "verified_at": "2026-09-14",
+      "count_method": "read by claude-haiku-4-5, one subject per question, over 8232 sessions"
+    },
+    {
+      "key": "gap:personal-training-pricing",
+      "sort_order": 70,
+      "brand": "trainmore",
+      "subject": "Personal training pricing",
+      "question": "How much does personal training cost per session or package?",
+      "why_it_matters": "Members get no rates for personal training sessions or PT packages.",
+      "merged_from": [
+        "Personal training price"
+      ],
+      "terms": [
+        "personal training",
+        "personal trainer",
+        "pt sessie",
+        "coaching",
+        "begeleiding",
+        "prijs",
+        "prijzen",
+        "kosten",
+        "tarief",
+        "tarieven",
+        "cost",
+        "price",
+        "hoeveel",
+        "sessie"
+      ],
+      "concept_terms": [
+        "personal training",
+        "personal trainer",
+        "pt sessie",
+        "coaching",
+        "begeleiding"
+      ],
+      "qualifier_terms": [
+        "prijs",
+        "prijzen",
+        "kosten",
+        "tarief",
+        "tarieven",
+        "cost",
+        "price",
+        "hoeveel",
+        "sessie"
+      ],
+      "matched_sessions": 19,
+      "unanswered_sessions": 2,
+      "covering_item_keys": [],
+      "covering_item_titles": [],
+      "examples": [
+        "Hi! Ik ben geïnteresseerd in personal training. Zou je mij kunnen vertellen wat de verschillende pakketten inhouden?",
+        "Hi. I just made a subscription and I want to have a private session with a trainer",
+        "Hi! I would like to get a subscription and I have already booked my free trial lesson. Can I had a pt free trial too?"
+      ],
+      "example_sessions": [
+        "3a823e0a-c456-4448-8ad5-12e0f2ace412",
+        "534cc845-657e-4918-bd39-22d3d24ff4dd",
+        "0d55bb0a-9f51-4ebd-ab92-8376b5defa5c"
+      ],
+      "window_from": "2026-08-11",
+      "window_to": "2026-09-11",
+      "pool_size": 514,
+      "verified_at": "2026-09-14",
+      "count_method": "read by claude-haiku-4-5, one subject per question, over 8232 sessions"
+    },
+    {
+      "key": "gap:transferring-membership-to-someone-else",
+      "sort_order": 140,
+      "brand": "trainmore",
+      "subject": "Transferring membership to someone else",
+      "question": "Can I transfer my membership to another person?",
+      "why_it_matters": "Members do not know whether a membership can be put in someone else's name and how.",
+      "merged_from": [
+        "Transfer membership to another person"
+      ],
+      "terms": [
+        "overzetten",
+        "overdragen",
+        "overschrijven",
+        "transfer",
+        "naamswijziging",
+        "op naam",
+        "ander persoon",
+        "iemand anders",
+        "someone else",
+        "another person",
+        "vriend",
+        "partner",
+        "familielid",
+        "overnemen"
+      ],
+      "concept_terms": [
+        "overzetten",
+        "overdragen",
+        "overschrijven",
+        "transfer",
+        "naamswijziging",
+        "op naam"
+      ],
+      "qualifier_terms": [
+        "ander persoon",
+        "iemand anders",
+        "someone else",
+        "another person",
+        "vriend",
+        "partner",
+        "familielid",
+        "overnemen"
+      ],
+      "matched_sessions": 19,
+      "unanswered_sessions": 2,
+      "covering_item_keys": [],
+      "covering_item_titles": [],
+      "examples": [
+        "can my son transfer his member ship to me?",
+        "Hi, My girlfriend also wants to go to the gym. I would love to get into contact to discuss options in terms of pricing",
+        "daarbij wil ik liever het account doorzetten als dat goedkoper is"
+      ],
+      "example_sessions": [
+        "4932c3af-546f-475a-857f-65b09c8c117b",
+        "4203be5a-1e9b-4b0a-b7f4-a9f9b66e3b68",
+        "cfa095bd-8dde-4d7d-952b-7cc788c55c61"
+      ],
+      "window_from": "2026-08-11",
+      "window_to": "2026-09-11",
+      "pool_size": 514,
+      "verified_at": "2026-09-14",
+      "count_method": "read by claude-haiku-4-5, one subject per question, over 8232 sessions"
+    },
+    {
+      "key": "gap:proof-needed-for-address-change",
+      "sort_order": 180,
+      "brand": "trainmore",
+      "subject": "Proof needed for address change",
+      "question": "What proof do I have to supply when I change my address?",
+      "why_it_matters": "Members do not know which document is accepted as evidence of a new address.",
+      "merged_from": [
+        "Proof required for address change"
+      ],
+      "terms": [
+        "adreswijziging",
+        "adres",
+        "address",
+        "postcode",
+        "verhuisd",
+        "bewijs",
+        "proof",
+        "bewijsstuk",
+        "aantonen",
+        "uittreksel",
+        "document",
+        "verklaring"
+      ],
+      "concept_terms": [
+        "adreswijziging",
+        "adres",
+        "address",
+        "postcode",
+        "verhuisd"
+      ],
+      "qualifier_terms": [
+        "bewijs",
+        "proof",
+        "bewijsstuk",
+        "aantonen",
+        "uittreksel",
+        "document",
+        "verklaring"
+      ],
+      "matched_sessions": 12,
+      "unanswered_sessions": 3,
+      "covering_item_keys": [],
+      "covering_item_titles": [],
+      "examples": [
+        "Good morning, I signed a contract with you but I put the wrong address. How can I change it?",
+        "i want to change my mail address, because i used my student mail and i just graduated. my old mail: [e-mail] and new: [e-mail]",
+        "3) Permanent relocation (proof required)"
+      ],
+      "example_sessions": [
+        "4c7970ce-d888-401c-8197-f66488082036",
+        "7b8ae145-09c8-4155-ad5a-732fa30b206a",
+        "424a0f2f-26cf-42c1-9e33-d8f22a9ddf63"
+      ],
+      "window_from": "2026-08-11",
+      "window_to": "2026-09-11",
+      "pool_size": 514,
+      "verified_at": "2026-09-14",
+      "count_method": "read by claude-haiku-4-5, one subject per question, over 8232 sessions"
+    }
+  ],
+  "counting": {
+    "model": "claude-haiku-4-5",
+    "sessions_read": 8232,
+    "batches": 138,
+    "input_tokens": 407840,
+    "output_tokens": 102270,
+    "usd": 0.92,
+    "recall_on_own_source_questions": "39/44",
+    "recall_pct": 89
+  }
+}

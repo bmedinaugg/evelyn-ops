@@ -1,0 +1,2624 @@
+[
+  {
+    "sid": "b6fdd5a2-9731-4072-9317-7e5c8ab87706",
+    "text": "I need to report serious inccident",
+    "subject": "Report a serious incident",
+    "kind": "account_action"
+  },
+  {
+    "sid": "51ef667e-47b6-4338-97a3-ac013db5666f",
+    "text": "I would like to freeze my account for medical reason",
+    "subject": "Freeze membership for medical reason",
+    "kind": "account_action"
+  },
+  {
+    "sid": "69cf66cc-ccb6-4b33-bec4-2f04b0835cdd",
+    "text": "Waar kan je je abbonement opzeggen?",
+    "subject": "Where to cancel membership",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "2e23b463-313a-48d4-bdb4-20078f76bf0b",
+    "text": "I need to cancel an appointment within one hour",
+    "subject": "Cancel appointment within one hour",
+    "kind": "account_action"
+  },
+  {
+    "sid": "86852dff-ed81-4b39-b802-7ec10326d1f4",
+    "text": "Hey I just extended my membership but i want to change it",
+    "subject": "Change recently extended membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "c068848c-09c3-4fcd-88a1-23ae68021953",
+    "text": "Switch home club to koningin wilejlminaplein",
+    "subject": "Change home club",
+    "kind": "account_action"
+  },
+  {
+    "sid": "705ed6d6-4f86-4297-ae2f-ddb2b440bfe2",
+    "text": "I want to get support by a human",
+    "subject": "Speak to a human agent",
+    "kind": "account_action"
+  },
+  {
+    "sid": "599e9710-14e9-46d3-8c5b-fad276cb9180",
+    "text": "Im sick and neet to cancel my class pilates at 18:10",
+    "subject": "Cancel class due to illness",
+    "kind": "account_action"
+  },
+  {
+    "sid": "96ea34d0-8804-481a-8521-6435a98ebd85",
+    "text": "Switch homeclub to koningin wilhelminaplein",
+    "subject": "Change home club",
+    "kind": "account_action"
+  },
+  {
+    "sid": "82769392-c776-4222-88dd-4a1b9db602d2",
+    "text": "hey i wanna expand my membership to city wide",
+    "subject": "Upgrade to city-wide membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "0076339a-1807-458b-8b99-7d06e0981c45",
+    "text": "i place it on a wrong adress and i didnt go to that place",
+    "subject": "Booking made at wrong location",
+    "kind": "account_action"
+  },
+  {
+    "sid": "2c34d173-c9c8-4280-aca9-559fe2757fd1",
+    "text": "I moved from bijlmer to Leidseplein",
+    "subject": "Change home club",
+    "kind": "account_action"
+  },
+  {
+    "sid": "ed9f0cf5-a00b-4006-8ee6-0075155e16d6",
+    "text": "Ik wil heel graag een medewerker spreken",
+    "subject": "Speak to a human agent",
+    "kind": "account_action"
+  },
+  {
+    "sid": "cba2d68f-ccfc-4d68-bde7-0f7ef1a7424d",
+    "text": "I placed the free trail on the wrong location",
+    "subject": "Free trial booked at wrong location",
+    "kind": "account_action"
+  },
+  {
+    "sid": "9c346928-1144-4e23-97aa-38898c4181a1",
+    "text": "I broke my arm, is it possible to stop my membership for 14 weeks",
+    "subject": "Freeze membership for medical reason",
+    "kind": "account_action"
+  },
+  {
+    "sid": "67e59854-90d9-4353-ad90-56666e70f330",
+    "text": "cancel my red light therapy session today",
+    "subject": "Cancel red light therapy session",
+    "kind": "account_action"
+  },
+  {
+    "sid": "3e46e373-4de4-4b60-a5e5-874a6d778f96",
+    "text": "[e-mail], ik wil graag mijn abonnement wijzigen",
+    "subject": "Change membership type",
+    "kind": "account_action"
+  },
+  {
+    "sid": "9c64c8a8-8fff-43b9-8f73-6019e1c24dab",
+    "text": "Im also a student do i get a discount. The code 986708",
+    "subject": "Student discount availability",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "b9b63779-1420-4223-a1d5-ab8f7832fcd3",
+    "text": "i would like to downgrade my up",
+    "subject": "Downgrade membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "add7fe00-8323-4745-9b91-266b3cf9261e",
+    "text": "I need to change my free trial appointment time",
+    "subject": "Change free trial appointment time",
+    "kind": "account_action"
+  },
+  {
+    "sid": "dd1bbd5e-8906-435a-b5af-06e59819dc2d",
+    "text": "hi i would like to add a club to my current memebrhsip",
+    "subject": "Add a club to membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "76327f5d-0fa9-44f4-99c9-87d85aa11625",
+    "text": "I need an early cancellation from",
+    "subject": "Early cancellation of membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "5ae2347f-4dc9-4900-87c7-8baefbc81f71",
+    "text": "Hallo ik win mijn abonament op home zetten hij staat nu op city plus",
+    "subject": "Downgrade membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "664b6d64-bc9f-4349-bfec-4b0454caed46",
+    "text": "Hi goedemiddag. Zou mijn abonnement weer heractiveert mogen worden?",
+    "subject": "Reactivate membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "bf32f9b0-f7d0-41d4-885c-5a54444086b5",
+    "text": "Looks like i have problem with my email so i dont get any mails",
+    "subject": "Not receiving emails",
+    "kind": "complaint"
+  },
+  {
+    "sid": "38d01652-bb76-42bb-981e-a87dee2d2f83",
+    "text": "I dont get any responds about my vat invoice",
+    "subject": "No response about VAT invoice",
+    "kind": "complaint"
+  },
+  {
+    "sid": "12bad39d-62a8-4607-9901-3e453e51a73f",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "6073d38d-75b0-4ed9-bad9-a860abc9abfd",
+    "text": "Ik wil graag mijn abonnement omzetten naar een andere locatie",
+    "subject": "Change home club",
+    "kind": "account_action"
+  },
+  {
+    "sid": "2e4194c2-fe28-4a80-8ccd-744fd356e844",
+    "text": "Ik wil mijn contract beëindigen",
+    "subject": "Cancel membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "e2dd97d7-e727-4310-9a91-aabc641eb52f",
+    "text": "Change homeclub to Weteringschans",
+    "subject": "Change home club",
+    "kind": "account_action"
+  },
+  {
+    "sid": "93b3ac3b-ee2f-471d-be40-cd1b1bc3eda0",
+    "text": "I am relocating for a job and need to cancel my membership early",
+    "subject": "Early cancellation due to relocation",
+    "kind": "account_action"
+  },
+  {
+    "sid": "30427ed7-9adb-473a-8c0f-97e894e8646c",
+    "text": "i would like to receive an invoice to expense my gym membership",
+    "subject": "Request invoice for expensing",
+    "kind": "account_action"
+  },
+  {
+    "sid": "01578ac2-48cf-4751-98b7-a5127bf936df",
+    "text": "Its probaly in the right area near the back machines or at the massage chair",
+    "subject": "Lost item location in club",
+    "kind": "account_action"
+  },
+  {
+    "sid": "f8cf5c6e-8037-4d44-9bb7-9bb20e04c6b7",
+    "text": "i want to speak to someone on the phone",
+    "subject": "Speak to a human agent",
+    "kind": "account_action"
+  },
+  {
+    "sid": "88cfd737-709f-44d6-84ab-9c84847cd449",
+    "text": "de gene die ik hiervoor had, ik zit nu via mijn bedrijf maar kost me veel meer",
+    "subject": "Corporate membership costs more",
+    "kind": "complaint"
+  },
+  {
+    "sid": "1b0ae8ec-9a53-4459-afd2-73c6517aef62",
+    "text": "Ik zou graag me account willen bevriezen en ook de afgelopen twee maanden",
+    "subject": "Freeze account retroactively",
+    "kind": "account_action"
+  },
+  {
+    "sid": "12c06fcb-0d1c-445f-b026-ff98219d8bb4",
+    "text": "i want to expand to city-wide access utrecht",
+    "subject": "Upgrade to city-wide membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "12c75650-4bcc-464f-96da-78a3c48986e4",
+    "text": "Yes I want to join the trainmore club at rijnhaven",
+    "subject": "Join club at Rijnhaven",
+    "kind": "account_action"
+  },
+  {
+    "sid": "b05b0759-5794-4708-83b2-6523670b10a0",
+    "text": "Ik wil mijn contract opzeggen maar ik krijg alleen de optie contract downloaden",
+    "subject": "Cannot find cancellation option in app",
+    "kind": "complaint"
+  },
+  {
+    "sid": "e710a656-2dff-41ff-86ff-a38012d4fe7c",
+    "text": "The options are: the most recent period (last 4 weeks)",
+    "subject": "Fragment about period options",
+    "kind": "unclear"
+  },
+  {
+    "sid": "0bc5457b-9d73-4368-b445-c61880302036",
+    "text": "ik wil graag een btw factuur voor periode juli en augustus",
+    "subject": "VAT invoice request",
+    "kind": "account_action"
+  },
+  {
+    "sid": "97db25e0-fc20-4fd4-bc5c-2a09c18ac799",
+    "text": "I want to settle a debt",
+    "subject": "Settling outstanding debt",
+    "kind": "account_action"
+  },
+  {
+    "sid": "d28fcda3-3967-4b13-a2aa-ed0abd00b03d",
+    "text": "Hi on my app it says there is an access lock for me",
+    "subject": "Access lock on account",
+    "kind": "account_action"
+  },
+  {
+    "sid": "2055cf04-4647-4b2d-9c0f-7670ba2ef548",
+    "text": "Trainmore Amsterdam Kraanspoor",
+    "subject": "Club name only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "4ace96b9-b304-40f4-92b4-36195f66bd56",
+    "text": "Sorry, should be > [e-mail]",
+    "subject": "Email address correction",
+    "kind": "unclear"
+  },
+  {
+    "sid": "77fdfa71-0ea5-4ac7-9945-04ae286f79dc",
+    "text": "Hi I need to call the Oosterdok gym I forgot my shoes !!",
+    "subject": "Lost property at club",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "2cb7516b-5565-4504-b26a-7f232b9a7b45",
+    "text": "I want to transfer and change my gym suscription",
+    "subject": "Transfer and change membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "78fb1352-7c6c-453c-91c7-21774e342215",
+    "text": "i dont have any medical documentation but i cant use my membership",
+    "subject": "Freeze without medical documentation",
+    "kind": "account_action"
+  },
+  {
+    "sid": "c5d12e34-445b-4c38-a53b-5c4eabf504e6",
+    "text": "I'm being charged after the cancellation of my membership",
+    "subject": "Charged after cancellation",
+    "kind": "complaint"
+  },
+  {
+    "sid": "d63ffdfa-33cd-40b8-8f1d-3c9d2600072b",
+    "text": "I want to terminate my contract",
+    "subject": "Cancel membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "fba79b9f-2855-4713-81ae-2d46f89f569f",
+    "text": "Hi ik wil graag mijn abonnement afzeggen (binnen 14 dagen bedenktijd)",
+    "subject": "Cancel within 14-day cooling-off period",
+    "kind": "account_action"
+  },
+  {
+    "sid": "bab89118-1a39-4509-9fb6-f0c8fc1e6abc",
+    "text": "Kan ik mijn lidmaatschap tijdelijk stopzetten ivm operatie?",
+    "subject": "Pausing membership for surgery",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "c79dcc2c-3e97-4fbb-bdb6-342f7ebdae2e",
+    "text": "This is the document stating why I'd need to freeze my membership temporarily.",
+    "subject": "Documents for freezing membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "4932c3af-546f-475a-857f-65b09c8c117b",
+    "text": "can my son transfer his member ship to me?",
+    "subject": "Transfer membership to another person",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "33e74c51-a416-484c-b679-8ee448ab4df9",
+    "text": "I want to change my membership",
+    "subject": "Change membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "6cedcc6b-7037-40e2-a6db-71f1bec71b94",
+    "text": "I don’t have access to that email anymore",
+    "subject": "No access to registered email",
+    "kind": "account_action"
+  },
+  {
+    "sid": "ba162f96-ede3-48e5-8537-dcecdea59989",
+    "text": "I cancelled my subscription but i am still being charged",
+    "subject": "Charged after cancellation",
+    "kind": "complaint"
+  },
+  {
+    "sid": "d2a85a2b-d5d2-4269-a985-255b820d04b7",
+    "text": "I don’t have access to that email anymore",
+    "subject": "No access to registered email",
+    "kind": "account_action"
+  },
+  {
+    "sid": "91606b2d-c115-4561-b7ca-59f04ede3c90",
+    "text": "I want to speak with someone i payed my incasso but i cant go to the gym",
+    "subject": "No gym access despite payment",
+    "kind": "account_action"
+  },
+  {
+    "sid": "66053568-1d81-47bf-81b5-873edc5dce4a",
+    "text": "Ik wil dat je een ticket opent, ik wil mijn contract verlengen en ik ben student",
+    "subject": "Extend contract with student rate",
+    "kind": "account_action"
+  },
+  {
+    "sid": "9dded3e9-16a1-40f1-990d-f308e694b0b5",
+    "text": "Ik wil het nummer hebben van de Nederlandse klantenservice",
+    "subject": "Dutch customer service phone number",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "768d1efe-9c4f-48ff-ae45-e60ff96ff1c4",
+    "text": "Hello, I cancelled my membership but I keep getting a bill",
+    "subject": "Charged after cancellation",
+    "kind": "complaint"
+  },
+  {
+    "sid": "cf543e8c-778c-40a7-a948-a559601e72cd",
+    "text": "ik ga verhuizen dus wil mijn abbo afzeggen",
+    "subject": "Cancel membership due to relocation",
+    "kind": "account_action"
+  },
+  {
+    "sid": "0e9414f9-ccb9-4826-a7cf-6c88eb9c8ae7",
+    "text": "i want to stop my membership",
+    "subject": "Cancel membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "1a8951d1-72e5-42ed-978f-be9d93db6d06",
+    "text": "I was canceled my trial day that time i would like to reschedule",
+    "subject": "Reschedule trial day",
+    "kind": "account_action"
+  },
+  {
+    "sid": "eb06f745-415c-4dea-ba76-61ea85647bcf",
+    "text": "Hi ik wil mijn membership omzetten naar city plus.",
+    "subject": "Upgrade membership to City Plus",
+    "kind": "account_action"
+  },
+  {
+    "sid": "b18da06a-b57a-4ee7-b53c-44445395bf51",
+    "text": "Hi, Ive just cancelled my flex subscribtion but id like to restore it",
+    "subject": "Restore cancelled subscription",
+    "kind": "account_action"
+  },
+  {
+    "sid": "4e34afba-18f8-4fcb-8189-2c10e2f8cfb3",
+    "text": "Please request proof of payment for all payments since 10/06/2026.",
+    "subject": "Proof of payment request",
+    "kind": "account_action"
+  },
+  {
+    "sid": "be0bbc48-d08a-482e-ae6f-09a13c806fb5",
+    "text": "Kan ik mijn pauze periode eerder laten stoppen?",
+    "subject": "Ending membership pause early",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "0b4285a4-52e2-4f55-b70d-9c6511e22567",
+    "text": "I cannot pay it anymore, financially because i am going to move",
+    "subject": "Cancel membership due to relocation",
+    "kind": "account_action"
+  },
+  {
+    "sid": "8d912cbc-5e48-46b7-bd9a-5daf64cfb276",
+    "text": "I want to change my membership to another club",
+    "subject": "Change club location",
+    "kind": "account_action"
+  },
+  {
+    "sid": "93d4245d-64c9-40e9-a990-e7f202450aba",
+    "text": "I need a VAT invoice from the last 3 payments",
+    "subject": "VAT invoice request",
+    "kind": "account_action"
+  },
+  {
+    "sid": "1fa566c0-c5ff-4dd7-b69c-56756121efa3",
+    "text": "Freeze period due to surgery. I will upload the necessary documents",
+    "subject": "Freeze membership for surgery",
+    "kind": "account_action"
+  },
+  {
+    "sid": "a51100f9-a94d-455e-b6dd-a9aa5ae45f0f",
+    "text": "wat to change my gym due to address change",
+    "subject": "Change club location",
+    "kind": "account_action"
+  },
+  {
+    "sid": "590e318d-f7b8-4cb4-bdd4-b02e0b89c3b6",
+    "text": "Ik wil graag een melding maken van grensoverschrijdend gedrag",
+    "subject": "Report inappropriate behaviour",
+    "kind": "account_action"
+  },
+  {
+    "sid": "dd94480d-ca1a-4db6-93d3-0f36a67d0a7a",
+    "text": "i want to freez my membership becouse im leaving the country",
+    "subject": "Freeze membership when moving abroad",
+    "kind": "account_action"
+  },
+  {
+    "sid": "c551855a-9793-4dfe-8b44-0aaeac1f8ec9",
+    "text": "no i need to send an e-mail to a representative",
+    "subject": "Contact details for a representative",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "623c79f8-4480-4a52-ba41-7a7df5281dc8",
+    "text": "I just cancelled my subscription but I would actually like to extend it",
+    "subject": "Restore cancelled subscription",
+    "kind": "account_action"
+  },
+  {
+    "sid": "54bacba8-d755-4dd7-b1cd-4c12b26ddba2",
+    "text": "TrainMore Weteringschans",
+    "subject": "Club name only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "04377c00-f049-4679-8b8d-36a1ac1d60ba",
+    "text": "Cancellation early form",
+    "subject": "Early cancellation form",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "be236b0b-6020-42c6-bb20-06fb9916168a",
+    "text": "Can i please change to Utrecht stationsplein?",
+    "subject": "Change home club location",
+    "kind": "account_action"
+  },
+  {
+    "sid": "6536658d-1bbe-4c40-9452-a46ca9f18cef",
+    "text": "I want to swap my red label club locagtion. Can i switch it to noordermarkt?",
+    "subject": "Change home club location",
+    "kind": "account_action"
+  },
+  {
+    "sid": "29a85bb4-7121-463a-95a7-bc3281367e92",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "ae29d241-cee1-41d3-8fdc-340ba67b8850",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "d34d60c2-fc64-4a12-9749-565c340ab765",
+    "text": "I doesn’t work because the email is wrong",
+    "subject": "Wrong email on account",
+    "kind": "account_action"
+  },
+  {
+    "sid": "dc2b4cc7-1390-4fc5-aab6-d6d7431e1e0c",
+    "text": "I put the wrong email on the account so I didn’t get the confirmation mail",
+    "subject": "Wrong email on account",
+    "kind": "account_action"
+  },
+  {
+    "sid": "f8cb9d21-d437-4775-9254-63e7353bac87",
+    "text": "Trainmore Harleem Black Label",
+    "subject": "Club and membership type mentioned",
+    "kind": "unclear"
+  },
+  {
+    "sid": "569b71d5-46c2-4c57-8b33-f59394be6a1a",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "da45baf7-a2fb-4677-8974-4897013f0cc0",
+    "text": "i got a whatsapp message to extend my membership but its not working",
+    "subject": "Membership extension link not working",
+    "kind": "complaint"
+  },
+  {
+    "sid": "06246d60-5cb3-47a5-a7e6-9e78d5caca7f",
+    "text": "I want trainmore Kraanspoor",
+    "subject": "Change home club location",
+    "kind": "account_action"
+  },
+  {
+    "sid": "e49d6ab8-bddc-43f7-b0a2-28c4f469a0c1",
+    "text": "if i cancel today, how much do i have to pay for the early cancellation",
+    "subject": "Early cancellation cost",
+    "kind": "account_action"
+  },
+  {
+    "sid": "f4deb397-7b19-460f-9ef7-e09d648c232f",
+    "text": "Hi, please delete my account and all data",
+    "subject": "Delete account and personal data",
+    "kind": "account_action"
+  },
+  {
+    "sid": "6a3950dd-fd56-4505-ac15-986a2d238144",
+    "text": "I don't have access to my old email anymore",
+    "subject": "No access to old email address",
+    "kind": "account_action"
+  },
+  {
+    "sid": "b44fa8ef-833d-452b-8205-d26a8ca5d43c",
+    "text": "Hi i would like to know if there are payment arrears, see attached file.",
+    "subject": "Check payment arrears",
+    "kind": "account_action"
+  },
+  {
+    "sid": "19e88a03-918f-48c7-a67f-1d4c890bf1f0",
+    "text": "Het is een algemene vraagcrue je hebt geen e-mail nodig",
+    "subject": "Refuses to give email address",
+    "kind": "unclear"
+  },
+  {
+    "sid": "f7780a5a-4c6c-4891-9f2c-a41b1d2a6c39",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "0eb7c13e-e739-4658-a5c2-6c91986f16c0",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "4edde96d-7352-4e30-b88d-fd4e23b2b68b",
+    "text": "I want to change my main gym.",
+    "subject": "Change home club location",
+    "kind": "account_action"
+  },
+  {
+    "sid": "efe79aca-3180-444e-beea-6ee7d56779ee",
+    "text": "i am moving to another country and have to finish my contract.",
+    "subject": "Cancel contract when moving abroad",
+    "kind": "account_action"
+  },
+  {
+    "sid": "7d9d7fe4-de4d-465a-ac66-da4400bb9355",
+    "text": "Change the club from Slotervaart to TrainMore Amsterdam Van Wou",
+    "subject": "Change home club location",
+    "kind": "account_action"
+  },
+  {
+    "sid": "66057387-2792-4688-b4e0-38ecc5ff85a6",
+    "text": "I want someone to contact me about my membership",
+    "subject": "Request contact about membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "ddfbf9da-90ab-4bf5-96ff-7f6c0570be51",
+    "text": "I want to speak to an agent",
+    "subject": "Speak to a human agent",
+    "kind": "account_action"
+  },
+  {
+    "sid": "f3882fd0-a78f-4905-a52c-dc6ea196813e",
+    "text": "Password reset in the app not working",
+    "subject": "Password reset not working in app",
+    "kind": "complaint"
+  },
+  {
+    "sid": "8097ce67-6222-4bbc-b9f3-36d3a40a6526",
+    "text": "I had ended my subscription in june and i am still being charged",
+    "subject": "Still charged after cancellation",
+    "kind": "complaint"
+  },
+  {
+    "sid": "ce46e00a-34e0-4473-9eaf-7a8112d7d48e",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "46bd31ee-76ec-4acb-a55d-4c18deeacc7c",
+    "text": "I want to stop my contract right away",
+    "subject": "Immediate contract termination",
+    "kind": "account_action"
+  },
+  {
+    "sid": "99c0516a-41ff-46ea-ae73-d0c8bdb3b78a",
+    "text": "Hi evelyn I want to annul my memberhip under number; 0024-[number]",
+    "subject": "Cancel membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "3422d562-0391-4450-8921-1b6c19c62246",
+    "text": "I want to Lichttoren 14, 5611 BJ Eindhoven, Netherlands",
+    "subject": "Change home club location",
+    "kind": "account_action"
+  },
+  {
+    "sid": "034d0ab9-cc9e-4473-8cbe-00e935d20a4c",
+    "text": "Ik sta nu al 39 minuten voor een gesloten de sportschool trainmore in Leiden",
+    "subject": "Gym closed during opening hours",
+    "kind": "complaint"
+  },
+  {
+    "sid": "b60730ce-81ab-4012-8c12-2a0b336fe542",
+    "text": "The crew member from the Utrecht Gym told me its a black label entre acess",
+    "subject": "Black label access entitlement",
+    "kind": "account_action"
+  },
+  {
+    "sid": "b8c0bdb7-f794-4799-952e-cbc124b1e908",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "5e3b1fb6-0583-4673-b843-9e3d08778b26",
+    "text": "mag ik een medewerker spreken",
+    "subject": "Speak to a human agent",
+    "kind": "account_action"
+  },
+  {
+    "sid": "d6143529-46b0-4395-a28c-bd0bdc2c4687",
+    "text": "Hoi! Mijn lidmaatschap moet weer geactiveerd na een pauzeperiode",
+    "subject": "Reactivate membership after pause",
+    "kind": "account_action"
+  },
+  {
+    "sid": "bd87248a-a555-4355-94e1-e672bb2b8abb",
+    "text": "I want to quit my subscription. It ends 24 september",
+    "subject": "Cancel membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "c93f0202-ad29-42c5-8230-27c2ec51e79b",
+    "text": "I want to speak to someone about my membership",
+    "subject": "Speak to a human agent",
+    "kind": "account_action"
+  },
+  {
+    "sid": "755d7514-b5af-41bf-bb5e-c88f59d1251a",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "6cb62051-d9a1-4267-a309-eb92125dd407",
+    "text": "Ik wil weten wat in mijn geval het meest voordelig is om te doen",
+    "subject": "Advice on best option for own situation",
+    "kind": "account_action"
+  },
+  {
+    "sid": "776b091d-4227-42a3-8903-7ff5abf92288",
+    "text": "Hi , kan ik mijn datum wijzigen voor mijn free trial",
+    "subject": "Change free trial date",
+    "kind": "account_action"
+  },
+  {
+    "sid": "99089eb8-eea5-4c30-bece-044eb94b835a",
+    "text": "Ik wil mijn 14 dagen bedenktijd gebruiken",
+    "subject": "Use 14-day cooling-off period",
+    "kind": "account_action"
+  },
+  {
+    "sid": "0fc00df3-8027-4bd3-85fd-61ea33957d35",
+    "text": "I want a discount if I change my contract to 1 year.",
+    "subject": "Discount for one-year contract",
+    "kind": "account_action"
+  },
+  {
+    "sid": "f0f4dfcf-c3ac-46b9-a0c8-a04c3d8aa2f5",
+    "text": "Ik wil graag door persoonlijke omstandigheden mijn bootyclub cancellen",
+    "subject": "Cancel Bootyclub membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "4386120f-1e44-4edf-971d-4fd3f94f12b5",
+    "text": "Hi just wanted to renew my membership",
+    "subject": "Renew membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "21207482-4250-4dfa-a58b-3e3b63c67bd4",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "1fc6bab4-5df9-497d-b9ed-ba27408d99bb",
+    "text": "I want to reactivate my subscription",
+    "subject": "Reactivate subscription",
+    "kind": "account_action"
+  },
+  {
+    "sid": "27c83114-5641-40ec-9a2f-1f6f57fc621a",
+    "text": "I want contact with a real person",
+    "subject": "Speak to a human",
+    "kind": "account_action"
+  },
+  {
+    "sid": "073fcf02-b8a6-4c4b-98cc-d22093abb0c4",
+    "text": "I want to change my password because I cannot remember my old one",
+    "subject": "Reset forgotten password",
+    "kind": "account_action"
+  },
+  {
+    "sid": "7a41e461-9bd4-48ed-bf6c-1979e672e46d",
+    "text": "Yes . But I need a subscription for one year . Not a monthly one",
+    "subject": "Yearly instead of monthly membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "416f31ab-72cc-458f-a252-14125c759bc2",
+    "text": "Hi there! I would like to cancel my membership because I am",
+    "subject": "Cancel membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "67e965be-4f0e-4c63-b8bc-0a0ee91ae102",
+    "text": "Id like to cancel my membership",
+    "subject": "Cancel membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "ca20f870-0942-46d7-8db0-01d64f45f9f7",
+    "text": "Ik wil graag uit mijn oude HS contract en bij TM FREE27",
+    "subject": "Switch to different membership contract",
+    "kind": "account_action"
+  },
+  {
+    "sid": "7119d660-b0e8-4323-a977-85039e3f1513",
+    "text": "yes, weteringschans in amsterdam en discount code free gym til 2027",
+    "subject": "Gym location and discount code",
+    "kind": "unclear"
+  },
+  {
+    "sid": "d666d133-0c7b-4704-b7f2-bd241a8c29c0",
+    "text": "Hi i would like to cancel my contract",
+    "subject": "Cancel membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "70b3e203-2ee2-4c2f-a5fc-c72a0c26efff",
+    "text": "I am no longer injured. I feel ready to come back to work out",
+    "subject": "End injury freeze and return",
+    "kind": "account_action"
+  },
+  {
+    "sid": "f05aea4f-dc78-4cb4-8199-3e00aa43ea58",
+    "text": "I dont have acess to the email I registered my account",
+    "subject": "No access to registered email",
+    "kind": "account_action"
+  },
+  {
+    "sid": "e7a690f6-aa7d-4449-91c5-c00e63fec35c",
+    "text": "I want to cancel my membership early due to permanent relocation",
+    "subject": "Cancel membership early due to relocation",
+    "kind": "account_action"
+  },
+  {
+    "sid": "c5fa3a75-d13b-42b9-8dd2-79b08e69dac8",
+    "text": "ik wil mijn email aanpassen en mijn bankrekeningnummer",
+    "subject": "Change email and bank account details",
+    "kind": "account_action"
+  },
+  {
+    "sid": "a46358b8-4d94-4b7a-9f13-6d14a4a7c6fd",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "fb7c3e4b-b499-457a-a732-547b26e0f412",
+    "text": "Can you cancel my booking for red light, my train is cancelled",
+    "subject": "Cancel class booking",
+    "kind": "account_action"
+  },
+  {
+    "sid": "15b9d54d-1bc0-4d9d-848f-fcd22f059f58",
+    "text": "Can I transfer my membership to Singel branch",
+    "subject": "Transfer membership to another branch",
+    "kind": "account_action"
+  },
+  {
+    "sid": "ca6a816d-7757-4221-a0e0-a4f6e5d6a617",
+    "text": "i got charged 67 euro out of my account when my contract has ended",
+    "subject": "Charged after contract ended",
+    "kind": "complaint"
+  },
+  {
+    "sid": "81bb4873-d27e-47ff-9d84-7a0b2f62ceed",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "8aee6302-e723-4f52-935a-8cfb594aebdf",
+    "text": "I'd like to request PDF files of my invoices for the past 3 months",
+    "subject": "Request invoice PDFs",
+    "kind": "account_action"
+  },
+  {
+    "sid": "320874be-9f5c-430c-9f8e-b1e7bff0aa38",
+    "text": "ı want to do a member ship but ı cannot sign in",
+    "subject": "Cannot sign in to become a member",
+    "kind": "account_action"
+  },
+  {
+    "sid": "8ffa27d4-ab77-49ae-804a-94028dce64d1",
+    "text": "Ik wil iemand spreken, een mens",
+    "subject": "Speak to a human",
+    "kind": "account_action"
+  },
+  {
+    "sid": "ee4d5a8c-59c3-43cc-80c1-4c34910e3865",
+    "text": "Hi! I'd like to receive the monthly stats e-mail",
+    "subject": "Receive monthly stats email",
+    "kind": "account_action"
+  },
+  {
+    "sid": "16076578-33eb-470a-98cb-c85fe5de6fd5",
+    "text": "I want to receive some invoices",
+    "subject": "Request invoices",
+    "kind": "account_action"
+  },
+  {
+    "sid": "b21dd646-fa8c-4edb-96e0-dec2024235f8",
+    "text": "Kan ik mijn membership veranderen?",
+    "subject": "Change membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "0813621f-44ac-484c-a588-91132ef3042b",
+    "text": "I want to change my membership to a standard one",
+    "subject": "Change membership to standard",
+    "kind": "account_action"
+  },
+  {
+    "sid": "3de605fe-d4e4-4131-a639-db74c6748752",
+    "text": "Ik wil mijn abonnement opzegge",
+    "subject": "Cancel membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "57f814c8-0931-43f5-a83c-1cd55ea19700",
+    "text": "I want to be called back on [phone]",
+    "subject": "Request callback",
+    "kind": "account_action"
+  },
+  {
+    "sid": "fb6a6b10-22be-4362-a378-5e03af58316d",
+    "text": "Scheldeplein, maar ik wil eerst weten wat de nieuwe prijs gaat worden",
+    "subject": "Price after membership change",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "0a85e3e4-d747-4c7c-8e46-7b4898553976",
+    "text": "Heyy, ik heb gister een abbonement afgesloten en krijg nu deze melding",
+    "subject": "Error message after signing up",
+    "kind": "complaint"
+  },
+  {
+    "sid": "a4ecbcc3-f691-4c20-bcb9-67b567d68bab",
+    "text": "i wanna cancel my subscription early, email is [e-mail]",
+    "subject": "Cancel membership early",
+    "kind": "account_action"
+  },
+  {
+    "sid": "e9c1d73f-157f-447a-ac97-d0035a7ac5d2",
+    "text": "Vanwege dat het te ver is voor mij en dat ik iets dichterbij zoek",
+    "subject": "Cancel membership because gym is too far",
+    "kind": "account_action"
+  },
+  {
+    "sid": "2980109a-b75a-495f-bb9b-a083cbedfbf3",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "22be21b7-0539-473d-abd6-8c381635f996",
+    "text": "Nee ik wil alleen de prijs weten. Daarna beslis ik of ik hem wil upgraden.",
+    "subject": "Upgrade price",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "80166441-8e61-4fb1-9eaa-53286ad6c6b1",
+    "text": "Open ticket for payments",
+    "subject": "Open payment ticket",
+    "kind": "account_action"
+  },
+  {
+    "sid": "177da6e4-92c2-42c6-81e2-19e61189118b",
+    "text": "My father is diagnosed with stage 4 cancer and I need to take care of him",
+    "subject": "Cancel membership due to family illness",
+    "kind": "account_action"
+  },
+  {
+    "sid": "8c15a4de-13f5-4660-a2c6-d0be26605cfb",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "de042e79-84e8-443f-8250-8d5aef724e91",
+    "text": "I forgot to add my referral code when signing up.",
+    "subject": "Referral code missed at signup",
+    "kind": "account_action"
+  },
+  {
+    "sid": "582335cf-7a4e-4206-9280-f6b58b90e260",
+    "text": "give me the email address to contact support",
+    "subject": "Support email address",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "db082fe7-52f6-4f79-97a5-39e892edfcbd",
+    "text": "Hi! Ik wil de red light therapie annuleren",
+    "subject": "Cancel red light therapy",
+    "kind": "account_action"
+  },
+  {
+    "sid": "0c429fbd-8af7-4766-a0f2-ff51cba81f27",
+    "text": "Ik wil mijn contract naar studentenabonnement",
+    "subject": "Switch to student membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "52455a71-ad52-4ea0-9bc1-888e15d131a9",
+    "text": "Membership is cancelled 4 months ago",
+    "subject": "Membership already cancelled months ago",
+    "kind": "complaint"
+  },
+  {
+    "sid": "cfdd1eaa-a905-4f80-9b31-22b9c85caaf7",
+    "text": "Hi, I'm moving to Barcelona and would like to freeze my membership.",
+    "subject": "Freeze membership when moving abroad",
+    "kind": "account_action"
+  },
+  {
+    "sid": "a4fea804-89d3-4070-ae3f-c9600cddad06",
+    "text": "Hi ik wil graag mijn Pilates abonnement annuleren",
+    "subject": "Cancel Pilates membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "0c6b0c52-27d0-4d53-be5b-2800993c27d9",
+    "text": "Ik wil graag telefonisch contact",
+    "subject": "Request to speak to a human",
+    "kind": "account_action"
+  },
+  {
+    "sid": "49796ca8-ab4d-4a68-9740-f44447106b3e",
+    "text": "I have a persistent injury and would like to cancel my gym membership",
+    "subject": "Cancel membership due to injury",
+    "kind": "account_action"
+  },
+  {
+    "sid": "5587eedf-1f94-443a-ad5d-be6ad277a48e",
+    "text": "Ik wil graag een medewerker spreken",
+    "subject": "Request to speak to a human",
+    "kind": "account_action"
+  },
+  {
+    "sid": "906ef09d-acb3-4b33-855e-2ad2c698ec9d",
+    "text": "I would like to contact someone to cancel my membership due to limitations",
+    "subject": "Cancel membership due to physical limitations",
+    "kind": "account_action"
+  },
+  {
+    "sid": "1d87bf33-fd64-4167-b7a1-acdb48f8c242",
+    "text": "I just need a regular cancellation request",
+    "subject": "Cancel membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "028a5643-5dfa-48d7-8e8d-a0974c3401b1",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "46a3f826-b291-4c4f-a1d5-7fce53936893",
+    "text": "This is not an early cancellation. I have stayed years past my contract.",
+    "subject": "Cancellation is not early termination",
+    "kind": "account_action"
+  },
+  {
+    "sid": "c6345448-ab8a-4f10-b5ce-d3304170fe80",
+    "text": "Ik zeg bij deze direct mijn lidmaatschap op",
+    "subject": "Cancel membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "09919bba-60e1-4745-9b44-d66099c394db",
+    "text": "I want to go pilates reformer in utrecht but is not included ln my suscription",
+    "subject": "Pilates reformer not included in subscription",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "c849c984-1401-4e96-a1ed-88f4a9d1e622",
+    "text": "Ik wil mijn abonnement contract naar 2 jaar doen in plaats van 1 jaar",
+    "subject": "Change contract term to two years",
+    "kind": "account_action"
+  },
+  {
+    "sid": "e6e08bc3-330e-4234-b3a1-59be46b0e184",
+    "text": "I want to create a payment plan for my subscription how can I do it",
+    "subject": "Set up a payment plan",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "6fa888ff-2815-4f73-89f6-df738bad876f",
+    "text": "I lost my airpod 4 case in Leiden",
+    "subject": "Lost AirPods case at club",
+    "kind": "account_action"
+  },
+  {
+    "sid": "dd42932f-405b-4b8c-9684-be6ab948b012",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "57e3cadb-e502-4a92-9856-931d815f0754",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "16194826-e7e8-4d42-b1de-b2ca3df0d621",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "fe855d35-f95f-4524-aba1-9659bde1e34c",
+    "text": "Ik wil weten of er losse AirPods gevonden zijn",
+    "subject": "Lost AirPods case at club",
+    "kind": "account_action"
+  },
+  {
+    "sid": "61a2b2d4-66bb-450f-9181-23dde48d988f",
+    "text": "Ik wil iemand bellen NU",
+    "subject": "Request to speak to a human",
+    "kind": "account_action"
+  },
+  {
+    "sid": "61b1f1ed-aaef-4981-9cfa-6b3544468bde",
+    "text": "I want to call with a real person",
+    "subject": "Request to speak to a human",
+    "kind": "account_action"
+  },
+  {
+    "sid": "c8fd467c-361c-4374-aa33-f75e8ca7a01c",
+    "text": "hi i would like to talk to a real person",
+    "subject": "Request to speak to a human",
+    "kind": "account_action"
+  },
+  {
+    "sid": "198a3004-4d6f-4dfc-87fb-bab65986529d",
+    "text": "Hi! I would like to cancel my freeze period from today on.",
+    "subject": "End freeze period early",
+    "kind": "account_action"
+  },
+  {
+    "sid": "724c5efd-5e98-4ad0-b8b8-ff19305d2c1a",
+    "text": "Ik wil mijn contractstudio veranderen van scheldeplein naar rozengracht",
+    "subject": "Change home club location",
+    "kind": "account_action"
+  },
+  {
+    "sid": "e626f90e-c6f7-48cd-aa06-038a9cca1246",
+    "text": "I extended my membership but would like to cancel my extension",
+    "subject": "Cancel membership extension",
+    "kind": "account_action"
+  },
+  {
+    "sid": "df1abf86-b450-4776-b213-749543b1235f",
+    "text": "Ik wil me abbonement afzeggen",
+    "subject": "Cancel membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "8d5b2990-ac59-4290-aa54-1249befe7ed2",
+    "text": "Fiz um contrato dia 23 de agosto e não usei a academia gostaria de cancelar",
+    "subject": "Cancel unused new contract",
+    "kind": "account_action"
+  },
+  {
+    "sid": "3b802562-de07-483c-8448-2516028cb01a",
+    "text": "Beste, ik heb een btw factuur aangevraagd maar niet alle informatie staat erop",
+    "subject": "Incomplete VAT invoice",
+    "kind": "account_action"
+  },
+  {
+    "sid": "b451a810-d8a7-491b-af2b-6fc791bb16a7",
+    "text": "can you change a member from club [e-mail]",
+    "subject": "Change home club location",
+    "kind": "account_action"
+  },
+  {
+    "sid": "bfe37902-b01b-4a07-a1db-b9979e7433e3",
+    "text": "I want to cancel my membership",
+    "subject": "Cancel membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "ab6d043b-8b02-4020-81ec-e29a5346879f",
+    "text": "Connect me to a real human",
+    "subject": "Request to speak to a human",
+    "kind": "account_action"
+  },
+  {
+    "sid": "d39f080a-494b-4464-91d9-795430a6f72c",
+    "text": "Ja ik wil een abonnement afsluiten maar jullie doen moelijk",
+    "subject": "Trouble signing up for membership",
+    "kind": "complaint"
+  },
+  {
+    "sid": "7cc69c38-c998-4654-b554-473139a79a9b",
+    "text": "Yes i want to talk to a person",
+    "subject": "Request to speak to a human",
+    "kind": "account_action"
+  },
+  {
+    "sid": "8f2bfcbf-428d-48c6-84ac-3389548175b3",
+    "text": "No this is the email of a friend and he died. I want to speak to someone",
+    "subject": "Account of deceased member",
+    "kind": "account_action"
+  },
+  {
+    "sid": "a53563a4-b259-4fc0-b69f-1b45ede33c67",
+    "text": "Nee ik kan wel inloggen, maar ik krijg deze melding te zien:",
+    "subject": "Error message after logging in",
+    "kind": "complaint"
+  },
+  {
+    "sid": "4ae1bef4-c6e7-4587-b013-75a425f0a23d",
+    "text": "Cancel red light therapy",
+    "subject": "Cancel red light therapy",
+    "kind": "account_action"
+  },
+  {
+    "sid": "b5347c7b-6e09-4e5b-92e4-e2b126137b74",
+    "text": "1 ik heb perongelijk meerdere accounts geopend",
+    "subject": "Accidentally created multiple accounts",
+    "kind": "account_action"
+  },
+  {
+    "sid": "9bdb3119-0de5-4f5e-a074-99e927babd6c",
+    "text": "I wont to stop pause period",
+    "subject": "End freeze period early",
+    "kind": "account_action"
+  },
+  {
+    "sid": "d2cbcb8d-4048-49b6-b853-c5792c39fef9",
+    "text": "ik wil een betalingsregeling in termijnen betalen als dat kan",
+    "subject": "Payment plan in installments",
+    "kind": "account_action"
+  },
+  {
+    "sid": "bf5c72e1-ce0d-4b16-b959-52b73a02ec5c",
+    "text": "Hi. I need to reactivate my membership",
+    "subject": "Reactivate membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "4f0799b8-c9d4-4aa8-95e4-d04cd51718ac",
+    "text": "Hi, wat is mijn opzegtermijn? Mijn lidmaatschapnummer is 0048-16197",
+    "subject": "My notice period",
+    "kind": "account_action"
+  },
+  {
+    "sid": "68c97f5a-94f8-4cea-a613-8bec88982390",
+    "text": "hi! ik wil een btw factuur aanvragen",
+    "subject": "Request invoice",
+    "kind": "account_action"
+  },
+  {
+    "sid": "9b294f9b-7ffc-4683-bd90-e42c5f9f5e0c",
+    "text": "i want to revoke the early cancellation that was set in my account",
+    "subject": "Revoke early cancellation",
+    "kind": "account_action"
+  },
+  {
+    "sid": "ac3498cf-ea49-4eb1-a51c-f712a239ea2e",
+    "text": "3) Permanent relocation (proof required)",
+    "subject": "Early cancellation due to relocation",
+    "kind": "account_action"
+  },
+  {
+    "sid": "69778528-f76d-424f-9fa9-483b0dc92972",
+    "text": "Ik wil graag een medewerker spreken",
+    "subject": "Speak to a human employee",
+    "kind": "account_action"
+  },
+  {
+    "sid": "c2c90ecd-9f0a-48c9-82c6-3c41d0f7216c",
+    "text": "Hi, ik wil graag een factuur voor april aanvragen.",
+    "subject": "Request invoice",
+    "kind": "account_action"
+  },
+  {
+    "sid": "4e740f63-618d-42f9-b8ea-5a92902f344d",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "f2c041be-e101-4c1b-ae1e-a0c0ff811aa4",
+    "text": "I want to cancel my free trial not my membership",
+    "subject": "Cancel free trial",
+    "kind": "account_action"
+  },
+  {
+    "sid": "31b3b82c-5457-466f-9853-b02cd9cad8f9",
+    "text": "Please include fee and membership plans",
+    "subject": "Membership prices and plans",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "3f767a0f-102b-4da4-b42d-66cff4e785e0",
+    "text": "Hi, I would like to cancel my gym membership",
+    "subject": "Cancel membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "cffaf966-3f29-4d63-9b1d-30b8d95f567f",
+    "text": "Er is extra geld van mijn rekening gehaald en ik heb het nog niet terug gekregen",
+    "subject": "Unexpected charge on account",
+    "kind": "complaint"
+  },
+  {
+    "sid": "8166844e-0be8-4d5c-b37a-02d74a732468",
+    "text": "Ik wil graag het abonnement van mijn zoon opzeggen",
+    "subject": "Cancel membership of family member",
+    "kind": "account_action"
+  },
+  {
+    "sid": "f4aeb2ff-599f-4353-8e47-ce6f03e8371d",
+    "text": "YES but 20% is going to be applied",
+    "subject": "Unclear reply about 20%",
+    "kind": "unclear"
+  },
+  {
+    "sid": "34918d84-4db0-41f5-96a0-f4cfb24c1ddf",
+    "text": "I heb ene crew membership gekregen en mijn oude membership moet gestopt worden",
+    "subject": "Stop old membership after new one",
+    "kind": "account_action"
+  },
+  {
+    "sid": "6239f6e6-99e2-43e2-a4d6-5e18a80b0b9b",
+    "text": "I want to a cancel additional module on my membership",
+    "subject": "Cancel additional module",
+    "kind": "account_action"
+  },
+  {
+    "sid": "9533ee81-e06e-4933-8a49-bd518a2bb382",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "d48e6bbd-6e9b-4ddd-9313-e89072422a60",
+    "text": "I want to end my freeze period earlier",
+    "subject": "End freeze period early",
+    "kind": "account_action"
+  },
+  {
+    "sid": "e96d4a52-0caf-4ff2-b181-4292fe86cfc2",
+    "text": "I'm going go under surgery and i wanna suspend my sub for at least 1 month",
+    "subject": "Pause membership for medical reason",
+    "kind": "account_action"
+  },
+  {
+    "sid": "c1a66375-f35b-43ac-ba69-49cd021c70fb",
+    "text": "apply for the 14 day cooling-off period",
+    "subject": "Apply 14-day cooling-off period",
+    "kind": "account_action"
+  },
+  {
+    "sid": "cd2769e1-0fa2-4a8f-b4c3-aa96f30cbf59",
+    "text": "Extra kosten van mijn rekening afgeschreven",
+    "subject": "Unexpected charge on account",
+    "kind": "complaint"
+  },
+  {
+    "sid": "3ffc91cd-2918-495a-b7a5-f870af840aa8",
+    "text": "I have a restrict to my studio it says in my app but I don’t know why",
+    "subject": "Restriction on studio access",
+    "kind": "account_action"
+  },
+  {
+    "sid": "6f80b2f5-f77d-4514-9180-4c9206b2a3c8",
+    "text": "I would like to pause my membership due to a medical reason",
+    "subject": "Pause membership for medical reason",
+    "kind": "account_action"
+  },
+  {
+    "sid": "424a0f2f-26cf-42c1-9e33-d8f22a9ddf63",
+    "text": "3) Permanent relocation (proof required)",
+    "subject": "Early cancellation due to relocation",
+    "kind": "account_action"
+  },
+  {
+    "sid": "78ce09ec-9001-42cf-bb8b-a395339ae799",
+    "text": "Ik heb mijn free trial mail niet ontvangen",
+    "subject": "Free trial email not received",
+    "kind": "complaint"
+  },
+  {
+    "sid": "47f4ec19-c33f-4159-b691-ec56082e9a7f",
+    "text": "I need an early cancelation",
+    "subject": "Early cancellation request",
+    "kind": "account_action"
+  },
+  {
+    "sid": "5de119bd-f3c3-4f4c-890c-54345f116cb4",
+    "text": "IK WIL GRAGA WAT ER OPENSTAAT OP MIJN NAAM",
+    "subject": "Outstanding balance on account",
+    "kind": "account_action"
+  },
+  {
+    "sid": "2da0387f-4ce0-4d39-a2aa-b5ec5f6d0044",
+    "text": "i want to get city+ on top of my current subscirption",
+    "subject": "Add City+ to subscription",
+    "kind": "account_action"
+  },
+  {
+    "sid": "be9b6992-75ce-43e2-be6a-385a8edf3203",
+    "text": "No I need to make a new appointment with them",
+    "subject": "Make a new appointment",
+    "kind": "account_action"
+  },
+  {
+    "sid": "e535bca4-6ed3-4a54-a3bb-fd116f776390",
+    "text": "no I want to change time for trial day",
+    "subject": "Change trial day time",
+    "kind": "account_action"
+  },
+  {
+    "sid": "3786577b-09e8-45df-a399-3529d0b24f17",
+    "text": "Problem with my membership premium since I am unemployed",
+    "subject": "Premium membership problem due to unemployment",
+    "kind": "account_action"
+  },
+  {
+    "sid": "fb41bf2d-407e-491f-b187-19f57a187c88",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "cfe79774-e297-4286-8875-47319264f6e0",
+    "text": "extend membership to Trainmore Oost",
+    "subject": "Extend membership to another club",
+    "kind": "account_action"
+  },
+  {
+    "sid": "f9aa5111-77e1-4ded-a6b6-9e53f31c546c",
+    "text": "Id like to end my freeze period earlier",
+    "subject": "End freeze period early",
+    "kind": "account_action"
+  },
+  {
+    "sid": "a49e6b79-ded3-4dea-88a2-1edd958e9733",
+    "text": "I need an offer to renew membership otherwise i cannot continue",
+    "subject": "Membership renewal offer",
+    "kind": "account_action"
+  },
+  {
+    "sid": "5ec425e9-7b14-4566-8aa2-b4659af69ef5",
+    "text": "Offer to renew my membership",
+    "subject": "Membership renewal offer",
+    "kind": "account_action"
+  },
+  {
+    "sid": "0befb52a-6e24-4b58-937f-c96f36d3b971",
+    "text": "Cancel membership [e-mail]",
+    "subject": "Cancel membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "83676c46-8ce3-4ddc-86f4-098b332d78f4",
+    "text": "would like one of your members to contact me regarding an incorrect bill.",
+    "subject": "Contact about incorrect bill",
+    "kind": "account_action"
+  },
+  {
+    "sid": "e93c3f11-2973-4d74-bcef-dc526177c6fb",
+    "text": "My membership fee got increased all of the sudden. How do I lower it",
+    "subject": "Lowering increased membership fee",
+    "kind": "account_action"
+  },
+  {
+    "sid": "3b3256de-4aef-4fa5-8065-303fd9cf9cd9",
+    "text": "Please contact: [e-mail]",
+    "subject": "Request to be contacted",
+    "kind": "account_action"
+  },
+  {
+    "sid": "80ffb368-843f-4b93-92c9-5de33e5bdb4c",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "14210be5-dcbb-447c-870b-91474bdf3110",
+    "text": "I want to change the location and Time of my free trial",
+    "subject": "Changing free trial location and time",
+    "kind": "account_action"
+  },
+  {
+    "sid": "121936fc-a1ee-484f-9acb-66c3c1309cf1",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "af46b5d6-75aa-41de-80f2-41d2917c1eb3",
+    "text": "i want to have my subscription direct debit not bank transfer or cash",
+    "subject": "Switching payment to direct debit",
+    "kind": "account_action"
+  },
+  {
+    "sid": "4e5fd95a-f901-42c4-b260-d9fc61c6d20b",
+    "text": "change membership form [e-mail]",
+    "subject": "Membership change form",
+    "kind": "account_action"
+  },
+  {
+    "sid": "5cb06738-40ef-4c93-b4e1-098c7c504d65",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "33646d71-d498-4898-af21-63c641bfbd1e",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "e6f2dab7-48d6-4d1d-a5e8-935a0825f486",
+    "text": "Refund. This is a subscription I have canceled and I want my money back",
+    "subject": "Refund for cancelled subscription",
+    "kind": "account_action"
+  },
+  {
+    "sid": "e9684255-8532-468f-8ed7-40512117842e",
+    "text": "I would like to enquire about ending my membership",
+    "subject": "Cancelling membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "05a98b8a-feba-43de-8f58-10ec7f04558e",
+    "text": "I want to switch my Pilates from Slotervaart to kraanspoor",
+    "subject": "Switching Pilates club location",
+    "kind": "account_action"
+  },
+  {
+    "sid": "985d9317-d809-4a43-a314-400cbe36279e",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "6c409055-284d-4200-b650-9d5f8fef699b",
+    "text": "yes. and add these details :Yes. the date: 25-08-2026 betwen 18:40 and 19:04",
+    "subject": "Date and time details",
+    "kind": "unclear"
+  },
+  {
+    "sid": "7db15483-7185-41fe-b8ca-fa8ec0ff9e72",
+    "text": "I want to go to all the train more black label with the 3 euros extra cost",
+    "subject": "Upgrading to all-club Black Label",
+    "kind": "account_action"
+  },
+  {
+    "sid": "6cd207b4-15ba-45c3-958d-9c5ccd8b4739",
+    "text": "I have a subscription us a black label in singles and I want to change it",
+    "subject": "Changing Black Label single-club subscription",
+    "kind": "account_action"
+  },
+  {
+    "sid": "d7dcf540-494d-44c1-8d63-bdf3f769737e",
+    "text": "Ik wil graag mijn facturen met belasting ontvangen",
+    "subject": "Invoices including VAT",
+    "kind": "account_action"
+  },
+  {
+    "sid": "a8ecf774-93c1-4835-9751-b66e08f42db5",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "cea03ab8-08d1-4b06-abf7-fd5d0ad8e399",
+    "text": "but this form looks like not considering my membership details",
+    "subject": "Form does not match membership details",
+    "kind": "complaint"
+  },
+  {
+    "sid": "e33d4f4c-f5de-4661-befc-bd86afd3d701",
+    "text": "I want to have a phone call with a manager regarding my account and billing",
+    "subject": "Phone call with manager about billing",
+    "kind": "account_action"
+  },
+  {
+    "sid": "3802b1f9-13c6-4bd0-b6ba-21369a60ab81",
+    "text": "Hi, I want to create a support ticket",
+    "subject": "Creating a support ticket",
+    "kind": "account_action"
+  },
+  {
+    "sid": "741402df-fe33-4f0a-a9f3-f62c77903a6a",
+    "text": "Permanent relocation (proof required)",
+    "subject": "Cancellation due to relocation",
+    "kind": "account_action"
+  },
+  {
+    "sid": "09e10b7d-45a4-4e43-adaa-89d4f3547480",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "3f986222-3705-442c-8d03-d2bbdcd158b6",
+    "text": "Hi. I would like to speak with a person please, about my contract",
+    "subject": "Speaking to a person about contract",
+    "kind": "account_action"
+  },
+  {
+    "sid": "4f908130-a508-4a3c-9bdf-0371e995a531",
+    "text": "Hi i would like to cancel my red light therapy tonight at 19:30",
+    "subject": "Cancelling red light therapy booking",
+    "kind": "account_action"
+  },
+  {
+    "sid": "2b39cb6c-7f16-4367-a50c-e0069bc6e213",
+    "text": "I want to know if I can get a free trial if I was a member five years ago?",
+    "subject": "Free trial eligibility for former member",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "648e9811-b325-47e3-bde9-73b07dd49324",
+    "text": "no I mean request invoice not just last 2 periods but last 8 periods",
+    "subject": "Invoices for older periods",
+    "kind": "account_action"
+  },
+  {
+    "sid": "d32d560b-2c68-44aa-9bea-69b0dc35466a",
+    "text": "Hi , I need to suspend my account as I am relocating abroad from 1 year",
+    "subject": "Freezing membership while abroad",
+    "kind": "account_action"
+  },
+  {
+    "sid": "09f80e1c-7ab6-4fce-97a7-2ecc76cffafb",
+    "text": "I want to call trainmore bussum because ilost keys",
+    "subject": "Contact details for Bussum club",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "98370749-5f43-4697-bfed-3f7cf37f9a50",
+    "text": "I want to cancel my membership as im still in the 14 days thinking period",
+    "subject": "Cancelling within 14-day cooling-off period",
+    "kind": "account_action"
+  },
+  {
+    "sid": "feefde94-9046-4631-bb30-4e6ad526ecd1",
+    "text": "i'd like to join, give me the manager's email",
+    "subject": "Manager's email address",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "783b6bdc-c9de-4400-875f-d32d59952650",
+    "text": "No, the studentmembership for 1 year is €41",
+    "subject": "Student membership price",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "8ad4acd1-1bbf-49bc-907a-63dacd182631",
+    "text": "Hello I would like to cancel my membership",
+    "subject": "Cancelling membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "529215d8-bdd3-45f2-9ecb-c50f4f9d69e7",
+    "text": "Hi I accidentally cancelled my free trial today",
+    "subject": "Accidentally cancelled free trial",
+    "kind": "account_action"
+  },
+  {
+    "sid": "2bb87bd4-df51-43f5-b6dd-d3c95c75faa4",
+    "text": "I want to he able to access the club on singel",
+    "subject": "Access to Singel club",
+    "kind": "account_action"
+  },
+  {
+    "sid": "01e806c9-8ded-434d-bf8d-e0293eb04f7d",
+    "text": "Hi my contract is almost ending what will the new monthly price be if I renew?",
+    "subject": "Price after contract renewal",
+    "kind": "account_action"
+  },
+  {
+    "sid": "5c4ba1fb-6b12-4da0-80bb-87ef6e337d92",
+    "text": "Hé, I would like hey I would like to change my subscription to Home city plus",
+    "subject": "Changing subscription to Home City Plus",
+    "kind": "account_action"
+  },
+  {
+    "sid": "f614e3a8-144f-4116-996e-67b14e5695b3",
+    "text": "The new free protein shakes in the gyms are awful. It’s terrible",
+    "subject": "Quality of free protein shakes",
+    "kind": "complaint"
+  },
+  {
+    "sid": "c0ce1d1d-b7b1-4f92-95c7-532198f087f0",
+    "text": "I want the periode to be from 15-05-2026 untill now",
+    "subject": "Invoices for a specific period",
+    "kind": "account_action"
+  },
+  {
+    "sid": "c4f5a0e4-778d-421a-99cd-1b003ae3103e",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "13ec54e9-e318-401e-8993-3388bb8481f3",
+    "text": "I need to freeze my membership as I am leaving Netherlands for few months",
+    "subject": "Freeze membership while abroad",
+    "kind": "account_action"
+  },
+  {
+    "sid": "1265ba89-0dfe-4ca5-a8ed-379c14d26c71",
+    "text": "I want to book the red light room please",
+    "subject": "Book red light room",
+    "kind": "account_action"
+  },
+  {
+    "sid": "776665a3-b154-4209-a6d4-99a9c991be5e",
+    "text": "Can I speak with a staff member",
+    "subject": "Speak to a human",
+    "kind": "account_action"
+  },
+  {
+    "sid": "4920ef61-79fb-4f63-9840-08ec91962b63",
+    "text": "I would like to switch from TrainMore Delftse Poort to TrainMore Rijnhaven.",
+    "subject": "Change home gym",
+    "kind": "account_action"
+  },
+  {
+    "sid": "a88f0a73-2255-43f3-8f58-7e0a88617210",
+    "text": "Hi! Im a new member, the trainmore app cant find me?",
+    "subject": "App does not recognise new member",
+    "kind": "account_action"
+  },
+  {
+    "sid": "87138873-cc22-486b-ad04-6f4b5fca5756",
+    "text": "Hi I want to reschedule my trial",
+    "subject": "Reschedule trial session",
+    "kind": "account_action"
+  },
+  {
+    "sid": "4d203fff-80c0-4940-b165-bcc40909eab1",
+    "text": "[e-mail]",
+    "subject": "Email address only, no question",
+    "kind": "unclear"
+  },
+  {
+    "sid": "43ed2239-6245-4883-a381-9f17e9c3db6a",
+    "text": "Hey I would like to stop my account",
+    "subject": "Cancel membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "8253f9ab-be17-434b-b4a2-e36c395b60f9",
+    "text": "i wanna be able to go to other black label trainmores as well",
+    "subject": "Access to other Black Label clubs",
+    "kind": "account_action"
+  },
+  {
+    "sid": "4b474856-b76e-43e9-ba6b-91a045fabb90",
+    "text": "Hello I would like to speak with an actual person",
+    "subject": "Speak to a human",
+    "kind": "account_action"
+  },
+  {
+    "sid": "05b7193c-5c16-4324-8b70-864655a3de26",
+    "text": "what is the email address of coustmer service",
+    "subject": "Customer service email address",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "ae467987-2354-4975-b82e-49e2d302bc51",
+    "text": "Mijn wachtwoord moet gereset worden maar hij doet het niet",
+    "subject": "Password reset not working",
+    "kind": "account_action"
+  },
+  {
+    "sid": "471ce737-3bb9-4fe3-9b37-ba82ac65601a",
+    "text": "I would like to change my home gym",
+    "subject": "Change home gym",
+    "kind": "account_action"
+  },
+  {
+    "sid": "ddb4bc26-3e19-492b-a32b-8e03ad0ac56c",
+    "text": "I want to freeze my subscription because I am abroad for 5 months",
+    "subject": "Freeze membership while abroad",
+    "kind": "account_action"
+  },
+  {
+    "sid": "223d6ed1-4721-44f1-9202-45a71d53afff",
+    "text": "Hello I would like to hold my membership Or freez for 3 months",
+    "subject": "Freeze membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "9eba87a9-693e-4fd2-817c-04aa77e5cf35",
+    "text": "Hi, I would like to change my home gym from Oostpoort to the one on the Singel",
+    "subject": "Change home gym",
+    "kind": "account_action"
+  },
+  {
+    "sid": "4bc75e01-f3c6-4567-8a36-f31fcc91a738",
+    "text": "no i just want asnwer to the question",
+    "subject": "Wants a direct answer",
+    "kind": "unclear"
+  },
+  {
+    "sid": "f1234ed5-f796-40bc-8087-aecc0f25d2c5",
+    "text": "Deze bot werkt niet voor mij. Je begrijpt het iedere keer verkeerd",
+    "subject": "Bot does not understand member",
+    "kind": "complaint"
+  },
+  {
+    "sid": "e175d4c5-fc71-444c-9212-3b5b8e69c66e",
+    "text": "Is it possible to cancel contract befoee ensing date",
+    "subject": "Early contract cancellation possibility",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "28ad269b-20cd-4899-bab0-0d4c5e00ff6a",
+    "text": "I want to stop my membership, because I’m moving to another neighbourhood",
+    "subject": "Cancel membership due to relocation",
+    "kind": "account_action"
+  },
+  {
+    "sid": "0ae3c881-43fa-41c5-bbb8-f8d80f6b2285",
+    "text": "I just registered but it says there is a block on my account contact the club",
+    "subject": "Block on newly registered account",
+    "kind": "account_action"
+  },
+  {
+    "sid": "ee42f3d2-474e-4bf8-b323-fad9f7e531a7",
+    "text": "Membership and billing. I want to speak to someone.",
+    "subject": "Speak to a human",
+    "kind": "account_action"
+  },
+  {
+    "sid": "f7790676-17ba-407d-bdca-7b7f77a5ce45",
+    "text": "I need change plan for my membership",
+    "subject": "Change membership plan",
+    "kind": "account_action"
+  },
+  {
+    "sid": "f569fc9e-6f74-4ac4-a078-44c437301c5b",
+    "text": "i want to switch clubs from ndsm to ijburg",
+    "subject": "Change home gym",
+    "kind": "account_action"
+  },
+  {
+    "sid": "c0d49ec4-0b60-4058-aa08-98423a41eb2a",
+    "text": "yeah but mow much will it cost to change like how much is red lable",
+    "subject": "Cost of Red Label membership",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "1704e598-7e22-467a-978f-f51315205afb",
+    "text": "i recently open a membership but i want to close it",
+    "subject": "Cancel membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "f5ecc035-4beb-4052-b54d-e438a8fd4d88",
+    "text": "I would like to cancel my membership due to long term sickness",
+    "subject": "Cancel membership due to illness",
+    "kind": "account_action"
+  },
+  {
+    "sid": "2e78e1c6-201b-44d0-afb1-42748131a24d",
+    "text": "I want to cancel my contract using my 14 dats cooling off period",
+    "subject": "Cancel within cooling-off period",
+    "kind": "account_action"
+  },
+  {
+    "sid": "802348c9-7aaa-427d-a4bc-ae10b43d2677",
+    "text": "i want change my gym to another branch o lf train more in NDSM",
+    "subject": "Change home gym",
+    "kind": "account_action"
+  },
+  {
+    "sid": "191f6f25-111d-42ed-9495-63cd1783e5c2",
+    "text": "I want to change my home club from Oostpoort to IJburg",
+    "subject": "Change home gym",
+    "kind": "account_action"
+  },
+  {
+    "sid": "22168577-684d-44e5-b2ff-ea36079fd45b",
+    "text": "I want to apply a promo code to my membership",
+    "subject": "Apply promo code to membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "b117f6f0-e65b-457c-a0ef-98a3d20f82d0",
+    "text": "Take me to the change membership form",
+    "subject": "Link to change membership form",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "5266be63-efb7-4c9a-95b9-d6e213c096b0",
+    "text": "Hi I would like to end my memebrship early because of a relocation",
+    "subject": "Cancel membership due to relocation",
+    "kind": "account_action"
+  },
+  {
+    "sid": "3956d40f-5109-473d-ac93-ce3595a4fcf3",
+    "text": "Nee wil ik niet, anonieme klacht",
+    "subject": "Anonymous complaint",
+    "kind": "complaint"
+  },
+  {
+    "sid": "2dd7bc6e-11f4-4971-82dd-a15a276a66f6",
+    "text": "early cancellation, [e-mail]",
+    "subject": "Early cancellation request",
+    "kind": "account_action"
+  },
+  {
+    "sid": "81419d53-2832-414e-811e-fca4ad3c91ec",
+    "text": "I was promised free training until end of 2026 and i got charged",
+    "subject": "Charged despite promised free training",
+    "kind": "complaint"
+  },
+  {
+    "sid": "a51ca328-120f-4e54-b0a8-c90ef093dd47",
+    "text": "I changed adress, what do I need to hand in as prove",
+    "subject": "Proof required for address change",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "3f1708b1-327b-4516-ba4c-97bf12ecda3e",
+    "text": "I want to talk to an agent",
+    "subject": "Speak to a human",
+    "kind": "account_action"
+  },
+  {
+    "sid": "610f49e8-3aba-4c3e-9d8b-7d723ba476bd",
+    "text": "Hi can I talk to an employee about my membership",
+    "subject": "Speak to a human",
+    "kind": "account_action"
+  },
+  {
+    "sid": "fba9241d-d388-4e93-aeb9-70d2934c4ad1",
+    "text": "Ik heb een vraag over workit",
+    "subject": "Question about Workit",
+    "kind": "unclear"
+  },
+  {
+    "sid": "61db2ff0-459e-4347-8c5f-2ac2a21da2a2",
+    "text": "Cancelling a membership",
+    "subject": "Membership cancellation",
+    "kind": "account_action"
+  },
+  {
+    "sid": "a9a0bb50-2aba-43df-a7ca-3e45a2d339e9",
+    "text": "I want to send email to support",
+    "subject": "Support contact details",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "649c1394-1985-4661-a58e-21beddafc552",
+    "text": "Hi do you have a phone number",
+    "subject": "Support phone number",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "37999080-d778-4479-84e9-b5f37c2c1529",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "6394f83f-79fd-4264-b639-ea9e951d928d",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "56adf13d-a3bf-4422-b184-af4d217d600b",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "da0713c7-4184-48f8-aa41-a41a58d3cc92",
+    "text": "Hey i can we change the payment date to the 26th?",
+    "subject": "Changing payment date",
+    "kind": "account_action"
+  },
+  {
+    "sid": "cacd0f90-1329-4823-bdc1-04453e3dee62",
+    "text": "Hi i am moving so i would like to end my supsricption",
+    "subject": "Membership cancellation due to moving",
+    "kind": "account_action"
+  },
+  {
+    "sid": "2f17e47b-4588-49d4-8de1-781d8002619d",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "0d553d76-3bcb-41a7-9a5d-0b130b9e35a7",
+    "text": "hello! i need to change my gym, is far away from i live",
+    "subject": "Changing gym location",
+    "kind": "account_action"
+  },
+  {
+    "sid": "cd2b5975-0277-4ae8-afd3-ad01490e8de1",
+    "text": "i want to extent my membership with another year and get the 20% discount",
+    "subject": "Extending membership with discount",
+    "kind": "account_action"
+  },
+  {
+    "sid": "d301d6d2-1cc3-46f6-84bf-e595bd52988f",
+    "text": "I mistakenly choosed for premium membership",
+    "subject": "Wrong membership type chosen",
+    "kind": "account_action"
+  },
+  {
+    "sid": "b7ee044e-a9bf-4b5a-8d4d-ef288ccdf968",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "c3012ed3-0618-48cd-a19c-4cc5a5a6ddee",
+    "text": "Hi, I want to apply for a freeze period for around a 10 days, I go injured",
+    "subject": "Freezing membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "9472a912-3f75-44ca-a1e4-db72a6ecb1d9",
+    "text": "please help me locate the 14 day period try out i want to cancel my subscription",
+    "subject": "Cancelling within 14-day trial period",
+    "kind": "account_action"
+  },
+  {
+    "sid": "3309c3be-5fe3-4ed9-8885-1c8ab17b9b8f",
+    "text": "Hi, I am looking for the Early Cancellation Request form",
+    "subject": "Early cancellation request form",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "5d159dfb-ccea-479d-a901-1b83700a2541",
+    "text": "I want to open a ticket to have the invoice from 20/08/2026 explained.",
+    "subject": "Invoice explanation",
+    "kind": "account_action"
+  },
+  {
+    "sid": "5e1c2e04-b67d-483b-a022-d0eb673e80cb",
+    "text": "i want to freeze my account due to some circumstances",
+    "subject": "Freezing membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "a28f7b78-f853-46da-bc77-be160a053435",
+    "text": "The hydro massage machine is missing",
+    "subject": "Hydro massage machine missing",
+    "kind": "complaint"
+  },
+  {
+    "sid": "ec750317-da35-4d0f-b877-c523d62c8be1",
+    "text": "I would like to change my studio?",
+    "subject": "Changing gym location",
+    "kind": "account_action"
+  },
+  {
+    "sid": "bb06e9b4-d781-4f38-a737-ad040dadac1f",
+    "text": "I want to change my gym location but keep my menbership",
+    "subject": "Changing gym location",
+    "kind": "account_action"
+  },
+  {
+    "sid": "adf7e98f-9dd1-49e6-93f2-696b37c96e44",
+    "text": "Hi how can I change my membership from 12 weeks to Rijnhaven",
+    "subject": "Changing gym location",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "ee3517c7-6d6e-4715-af61-565a39567f99",
+    "text": "I’m moving back to my country next week and want to cancel my membership",
+    "subject": "Membership cancellation due to moving",
+    "kind": "account_action"
+  },
+  {
+    "sid": "f26be723-7f35-47eb-8a03-da231b22ee2f",
+    "text": "Hi i started a student membership today but i dont want it",
+    "subject": "Cancelling newly started student membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "42ccebb4-7833-4bea-8066-1f023f224985",
+    "text": "Id like to change my membership",
+    "subject": "Changing membership type",
+    "kind": "account_action"
+  },
+  {
+    "sid": "3265451a-83e0-43c3-a51a-bc65109e3c28",
+    "text": "hey, is it possible to extend my membership and keep the promotion",
+    "subject": "Extending membership with discount",
+    "kind": "account_action"
+  },
+  {
+    "sid": "d21a806b-a4b7-4507-85db-e92a655a20ce",
+    "text": "I would like to switch membership from one train more gym to another. How/",
+    "subject": "Changing gym location",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "2a5963eb-3906-40de-b1a1-f840850d21f7",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "f556aa85-f4a5-449c-b1dc-9420c6fcb115",
+    "text": "I'm moving in the end of september but my contract is until october 15",
+    "subject": "Early cancellation due to moving",
+    "kind": "account_action"
+  },
+  {
+    "sid": "a49be387-d7f1-421d-b76a-f74e7b5bdcdc",
+    "text": "normal cancellation also",
+    "subject": "Standard cancellation",
+    "kind": "unclear"
+  },
+  {
+    "sid": "6f9da36a-93da-4d79-bdfc-5fffc2a53c0e",
+    "text": "I need to login to the app with kraanspoor contract studio (not papaverweg)",
+    "subject": "App login with correct studio",
+    "kind": "account_action"
+  },
+  {
+    "sid": "884c90e1-4d49-4231-8beb-a4836e0128ed",
+    "text": "Hi i wanna stop the freeze period",
+    "subject": "Ending freeze period early",
+    "kind": "account_action"
+  },
+  {
+    "sid": "2e04592b-f29f-48fa-b930-76e93ca0d091",
+    "text": "Hi i would like to change from gym",
+    "subject": "Changing gym location",
+    "kind": "account_action"
+  },
+  {
+    "sid": "2e70f11a-375f-4856-b845-1e3c42de56c8",
+    "text": "I want to update my regular membership to corporate membership",
+    "subject": "Switching to corporate membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "2de21beb-aa81-4bf4-95c8-96514de86c90",
+    "text": "I want to stop with train more",
+    "subject": "Membership cancellation",
+    "kind": "account_action"
+  },
+  {
+    "sid": "b2c56233-c142-46d9-91f3-68e6fba9fb2e",
+    "text": "Can I cancel my period 15 days",
+    "subject": "Membership cancellation",
+    "kind": "account_action"
+  },
+  {
+    "sid": "58132f10-f893-46ff-8cdc-77fb801f96e2",
+    "text": "I want to transfer membership",
+    "subject": "Transferring membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "6d813383-caf0-4724-9be3-8eda0d7dc2dd",
+    "text": "I would like a promotion with the renewal, Free27",
+    "subject": "Promotion on membership renewal",
+    "kind": "account_action"
+  },
+  {
+    "sid": "ff90d6ee-dfcb-4412-a4ed-8eacbff911b7",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "2bb3e732-a9ef-42a3-a3d0-750b2c05f867",
+    "text": "i do not have yet an account or membership but my email is [e-mail]",
+    "subject": "No account or membership yet",
+    "kind": "unclear"
+  },
+  {
+    "sid": "2259d98d-ba36-4ac4-abb6-077273ab9b2a",
+    "text": "I need the early cancellation form",
+    "subject": "Early cancellation form",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "e99fc993-e961-4323-97a7-97e652046051",
+    "text": "Ik ben mijn laptop vergeten- of is misschien gestolen bij 1 van jullie locaties",
+    "subject": "Lost item at club",
+    "kind": "account_action"
+  },
+  {
+    "sid": "936438cb-08aa-48f3-a4e2-81adba021e1c",
+    "text": "Cancel contract via app not possible",
+    "subject": "Cancelling contract in app fails",
+    "kind": "complaint"
+  },
+  {
+    "sid": "b80e4267-9c32-4e43-a6c0-83c9eee4d1bd",
+    "text": "[e-mail]",
+    "subject": "Email address only, no question",
+    "kind": "unclear"
+  },
+  {
+    "sid": "877bc671-1f46-4224-8313-b2475fe6aa6c",
+    "text": "I'm registering but IU'm not receeibving the code via sms",
+    "subject": "Registration SMS code not received",
+    "kind": "complaint"
+  },
+  {
+    "sid": "f471c572-0f3d-4c00-bdf7-6fcf2d15b600",
+    "text": "Ik kom graag telefonisch in contact met het hoofdkantoor",
+    "subject": "Head office phone contact",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "fcd582ae-7d2b-4b35-82cf-49cfa9c125cf",
+    "text": "I want to stop my subscription",
+    "subject": "Cancel membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "0c50f7b5-322e-44c8-b98d-a95d47c89d17",
+    "text": "Hi I would like to change my location",
+    "subject": "Change home club",
+    "kind": "account_action"
+  },
+  {
+    "sid": "c0a89c23-f9e4-4c11-b703-e048ff94e9e0",
+    "text": "[e-mail]",
+    "subject": "Email address only, no question",
+    "kind": "unclear"
+  },
+  {
+    "sid": "2d99ea0b-6a65-439b-82ea-275523d6e080",
+    "text": "[e-mail]",
+    "subject": "Email address only, no question",
+    "kind": "unclear"
+  },
+  {
+    "sid": "eb8763a1-03f8-4cf0-82c3-93b61211cdda",
+    "text": "I want to register from Trainmore Amsterdam Kraanspoor",
+    "subject": "Register at a specific club",
+    "kind": "account_action"
+  },
+  {
+    "sid": "b1fa0107-04e1-439a-badc-4adfab8c3acd",
+    "text": "Don’t you have an online form for me to fill in and extent my contract",
+    "subject": "Online form to extend contract",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "ca4cc08a-aa05-4d26-91cc-d34f665dfd06",
+    "text": "[e-mail]",
+    "subject": "Email address only, no question",
+    "kind": "unclear"
+  },
+  {
+    "sid": "cd83bccd-0806-4340-b4f6-44a4cc45b059",
+    "text": "i want to change home club",
+    "subject": "Change home club",
+    "kind": "account_action"
+  },
+  {
+    "sid": "d7408453-7390-4dd0-b8c6-62d5fe3231ed",
+    "text": "Hi there, I forgot something at the train more laan van NOI today.",
+    "subject": "Lost item at club",
+    "kind": "account_action"
+  },
+  {
+    "sid": "4d015b67-ac71-4c2c-8333-e965b963d88d",
+    "text": "[e-mail]",
+    "subject": "Email address only, no question",
+    "kind": "unclear"
+  },
+  {
+    "sid": "24fc7379-3dd1-4516-9804-f31b72c6a70d",
+    "text": "Give me the contact form",
+    "subject": "Contact form",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "cbad23f7-6110-432a-b8d5-da3ce1d04056",
+    "text": "[e-mail]",
+    "subject": "Email address only, no question",
+    "kind": "unclear"
+  },
+  {
+    "sid": "bccd59b3-2fca-4a0c-b7e5-9f549c5cf200",
+    "text": "he signed up yesterday but he doesnt wasnt it anymore",
+    "subject": "Cancel just-signed membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "f3fe8f0e-9284-4ad8-ad5c-c8d33dc7bdb4",
+    "text": "I have an issue with payment, my bank account was deducted twice for July?",
+    "subject": "Charged twice in one month",
+    "kind": "complaint"
+  },
+  {
+    "sid": "1a414b77-0db4-4d95-a994-cebe3facecc0",
+    "text": "[e-mail]",
+    "subject": "Email address only, no question",
+    "kind": "unclear"
+  },
+  {
+    "sid": "014d8628-5aee-4d7e-a694-8c0065ceda63",
+    "text": "[e-mail]",
+    "subject": "Email address only, no question",
+    "kind": "unclear"
+  },
+  {
+    "sid": "2248652d-86b4-4fdf-ac71-517ad36d71a8",
+    "text": "I want finished my membership",
+    "subject": "Cancel membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "dba40df4-bd21-4339-9a7c-98e3823d31a5",
+    "text": "is the name of the new trainmore location needed?",
+    "subject": "Club change form requirements",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "510aaa61-9f41-49fe-95ee-950525a26749",
+    "text": "I want to speak to a real person",
+    "subject": "Speak to a human agent",
+    "kind": "account_action"
+  },
+  {
+    "sid": "32a0655b-7fb2-49c9-85a3-53857b58f2da",
+    "text": "[e-mail]",
+    "subject": "Email address only, no question",
+    "kind": "unclear"
+  },
+  {
+    "sid": "553def54-3de8-4dc5-8c19-8e111245e96f",
+    "text": "I would like to extend my membership",
+    "subject": "Extend membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "04d7e129-0683-4b8b-a3f0-7e0dde7656f5",
+    "text": "I wanna change ny membership, from my current payment plan to a cheaper one",
+    "subject": "Switch to cheaper membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "79f0518d-dec7-4dda-9283-10dfab31606f",
+    "text": "Heyy I wanna change my club from trainmore Fe Pijp to TrainMore Koningenmweg",
+    "subject": "Change home club",
+    "kind": "account_action"
+  },
+  {
+    "sid": "bd0477a5-8a3b-442f-8924-618c1bdb8fde",
+    "text": "I want to end a contract",
+    "subject": "Cancel membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "4c31d985-4332-480f-833d-e28e70273f7f",
+    "text": "I had 11 check ins last motnh but only 9 euros have gotten written of",
+    "subject": "Check-ins not matching amount charged",
+    "kind": "complaint"
+  },
+  {
+    "sid": "57e862be-e71a-4b15-85e6-c433028f4b0b",
+    "text": "I AM NOT REGISTERED. I don’t know how often I have to tell you",
+    "subject": "Not registered as a member",
+    "kind": "complaint"
+  },
+  {
+    "sid": "f32d4c1a-189f-4c15-8036-462bf66fe78a",
+    "text": "No i want to send a message to the customer support",
+    "subject": "Contact customer support",
+    "kind": "account_action"
+  },
+  {
+    "sid": "90cb5341-8d15-45ed-ad30-2b352f99409a",
+    "text": "Change membership form for current member",
+    "subject": "Change membership form for current members",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "92cf6bd8-66d5-4442-b549-0d7c311c201c",
+    "text": "I have already an account and i cancelt it but the date is incomplete",
+    "subject": "Incorrect cancellation date",
+    "kind": "account_action"
+  },
+  {
+    "sid": "88879c5d-65fe-44ad-ba33-141e899c3f1e",
+    "text": "I want to receive a VAT Invoice for the last 2 payments (months)",
+    "subject": "VAT invoice request",
+    "kind": "account_action"
+  },
+  {
+    "sid": "4b78f9dc-a059-4fe7-9ed1-bbf4879ecf9e",
+    "text": "ik wil mijn lidmaatschap wijzigen van HS naar 1 jaar TM FREE27",
+    "subject": "Switch membership type",
+    "kind": "account_action"
+  },
+  {
+    "sid": "2e4591ff-1001-4c43-9696-51fd43747ec5",
+    "text": "I want to receive VAT invoices for months between June and Aug 2026 inclsuive",
+    "subject": "VAT invoice request",
+    "kind": "account_action"
+  },
+  {
+    "sid": "3ddbaf1f-9ab1-4760-8227-9359c35cf7d6",
+    "text": "I am red label member , can I access other red labels other than my home club?",
+    "subject": "Red label access to other clubs",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "93aade93-0e1f-43c7-bd07-6df73c20fbbd",
+    "text": "Dit is het. Je bent een uitstekende chatbot!",
+    "subject": "Positive feedback, no question",
+    "kind": "unclear"
+  },
+  {
+    "sid": "d0e34ffc-b846-465b-a238-7487329749ec",
+    "text": "I want my money back",
+    "subject": "Refund request",
+    "kind": "account_action"
+  },
+  {
+    "sid": "a8a247b4-0963-42d2-b290-ebd105ec30c3",
+    "text": "I want to know how much personal training costs",
+    "subject": "Personal training price",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "087b08c6-5701-45be-b213-05f3990e9b49",
+    "text": "Hello, how much are personal trainers per session",
+    "subject": "Personal training price",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "d1fac1b0-8db6-4238-858f-7bd41c98080a",
+    "text": "Hi! I’d like to change my membership to Strijp-S Eindhoven",
+    "subject": "Change home gym location",
+    "kind": "account_action"
+  },
+  {
+    "sid": "6c48b8b5-2c8e-4cd8-a96e-82513365bacb",
+    "text": "i want a receipt for my training so that my employer can pay",
+    "subject": "Invoice or receipt request",
+    "kind": "account_action"
+  },
+  {
+    "sid": "2cceac3d-0b9f-4da3-8ff8-b3f04e6e796a",
+    "text": "[e-mail] i need to cancel my membership",
+    "subject": "Cancel membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "5f0c2cf1-f40f-4294-9697-0b6140a49747",
+    "text": "Hi I want to pause ky membership for 1 month",
+    "subject": "Pause membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "7a0519d5-dd7b-409d-a892-ecc6189848ba",
+    "text": "I want to sent a email",
+    "subject": "Email contact address",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "0b257b2d-3f9c-4928-ae02-9450525017f6",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "63df1cbd-379a-4d46-bc1c-30ad98f59de8",
+    "text": "Is there a possibilty to expand my current subcription so i can visit more gyms",
+    "subject": "Upgrade membership for more gyms",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "040f7b91-943c-4d1c-b57b-a1de691be235",
+    "text": "The promotion said 0 starting fee and now i paid starting fee..",
+    "subject": "Charged starting fee despite promotion",
+    "kind": "complaint"
+  },
+  {
+    "sid": "94261d3b-409a-4e55-b13b-8ef6d2cd430e",
+    "text": "Hey I need a pdf invoice with my complete name , and from January to July 2026",
+    "subject": "Invoice or receipt request",
+    "kind": "account_action"
+  },
+  {
+    "sid": "b2f603c2-9557-4c5b-ae2a-553836e715f2",
+    "text": "I’d like to have some info about the reformer pilates classes",
+    "subject": "Reformer pilates classes info",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "2e86de77-c268-4a90-bb9d-a32301958560",
+    "text": "I asked you twice but you do not listen",
+    "subject": "Bot not answering question",
+    "kind": "complaint"
+  },
+  {
+    "sid": "651c99c3-9ab1-4849-8504-ffa410740915",
+    "text": "I moved so need to stop my member ship",
+    "subject": "Cancel membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "9949a5fb-3571-49da-a021-cb6298b345e1",
+    "text": "I need to submit a general ticket",
+    "subject": "Submit a support ticket",
+    "kind": "account_action"
+  },
+  {
+    "sid": "2a2766c2-dea6-43af-bb9f-ffbf587b038b",
+    "text": "I would like to change gym",
+    "subject": "Change home gym location",
+    "kind": "account_action"
+  },
+  {
+    "sid": "62b40a41-a5f8-4135-ba9d-c9894a0bf73f",
+    "text": "Home switch from Slotervaart to Beethovenstraat",
+    "subject": "Change home gym location",
+    "kind": "account_action"
+  },
+  {
+    "sid": "66a5388f-a5d7-48a3-955f-99e561c28c0c",
+    "text": "I would like to update to city pass",
+    "subject": "Upgrade to city pass",
+    "kind": "account_action"
+  },
+  {
+    "sid": "05f890c1-21d4-4d58-bf43-5d90a729ab5f",
+    "text": "I want an invoice for the past month",
+    "subject": "Invoice or receipt request",
+    "kind": "account_action"
+  },
+  {
+    "sid": "da184c03-eaa1-4f2c-8b05-395b9a4eb747",
+    "text": "No i only need the email or some contact of the head office",
+    "subject": "Head office contact details",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "94653200-e870-412e-af35-98329db43529",
+    "text": "I tried to sign up for a free trial but I can’t receive the sms with the code",
+    "subject": "Trial signup SMS code not received",
+    "kind": "complaint"
+  },
+  {
+    "sid": "f23d82a9-91fe-4b6b-969e-73282c8d7c0b",
+    "text": "Het want to change the location of my membership",
+    "subject": "Change home gym location",
+    "kind": "account_action"
+  },
+  {
+    "sid": "395bcf84-efdb-4dcf-a2e0-6800c038f72b",
+    "text": "Hi I just moved to buitenvelder from Amstelveenseveg.",
+    "subject": "Change home gym location",
+    "kind": "account_action"
+  },
+  {
+    "sid": "1a028154-2803-4f8f-b131-7a3f470160e1",
+    "text": "I wanna cancel my membership",
+    "subject": "Cancel membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "426dbc98-08de-4bef-bbfb-a8b9d4c7d0c4",
+    "text": "Membership extension please",
+    "subject": "Extend membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "82cbfe6c-5f63-4c5e-8aa0-ce1d7a7b7c3d",
+    "text": "I have moved outside back to Greece and I want to cancel my membership.",
+    "subject": "Cancel membership",
+    "kind": "account_action"
+  },
+  {
+    "sid": "f2bafd4c-5d4f-4550-96b8-67917aa5ff71",
+    "text": "ik wil graag van locatie veranderen.",
+    "subject": "Change home gym location",
+    "kind": "account_action"
+  },
+  {
+    "sid": "d41ea8a3-d9d0-4fcb-847d-a8287ce8459b",
+    "text": "Ik ben de referal code van mijn vriend vergeten in te voeren bij het aanmelden.",
+    "subject": "Referral code not entered at signup",
+    "kind": "account_action"
+  },
+  {
+    "sid": "f067f1f1-7b49-4f3a-a390-3a4c11d2d9be",
+    "text": "Can you help me switch my membership to laan van noi",
+    "subject": "Change home gym location",
+    "kind": "account_action"
+  },
+  {
+    "sid": "36133f22-d4a9-42c0-a6f9-8c1783c833cf",
+    "text": "change membership studio my mail is Celina.xpx2web.de",
+    "subject": "Change home gym location",
+    "kind": "account_action"
+  },
+  {
+    "sid": "8446c986-2048-42f4-9902-22b15e9b3f27",
+    "text": "find me a phone number that i can reach out",
+    "subject": "Support phone number",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "0535cb99-ece1-4ef9-b092-04d4f8b051c8",
+    "text": "i want to cancel a class that i booked",
+    "subject": "Cancel a booked class",
+    "kind": "account_action"
+  },
+  {
+    "sid": "b6e182ee-70ca-4589-9c4a-7e766207d795",
+    "text": "[e-mail]",
+    "subject": "Email address only",
+    "kind": "unclear"
+  },
+  {
+    "sid": "62184fb2-ccf9-41a3-900b-28f2e2deabba",
+    "text": "I'd like to know if it's possible or not, before actually sending it",
+    "subject": "Unspecified request feasibility",
+    "kind": "unclear"
+  },
+  {
+    "sid": "1d81cbc6-e36b-4e53-997d-5e635f1f208a",
+    "text": "Can I have access to every black and regular gym with a contract at rijnhaven?",
+    "subject": "Which gyms membership gives access to",
+    "kind": "knowledge"
+  },
+  {
+    "sid": "76f09a54-bef7-46fc-baed-5bf45ef3ee7b",
+    "text": "i need to change my location of my contract",
+    "subject": "Change home gym location",
+    "kind": "account_action"
+  }
+]
