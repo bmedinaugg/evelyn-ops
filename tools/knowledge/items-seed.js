@@ -74,6 +74,10 @@ function req(method, path, body) {
     matched_sessions: i.matched_sessions,
     demand_method: i.demand_method,
     demand_terms: i.demand_terms,
+    // The matching spec, so bot.knowledge_demand() can recount for any window.
+    demand_kind: i.demand_kind,
+    demand_groups: i.demand_groups,
+    demand_phrase: i.demand_phrase,
     window_from: i.window_from,
     window_to: i.window_to,
     examples: i.examples,

@@ -671,12 +671,35 @@ export interface KnowledgeItemRow {
   // conversation it came from.
   example_sessions: string[];
   verified_at: string;
+  // How bot.knowledge_demand() re-counts this item for a chosen window. The
+  // stored matched_* above are only the numbers as built.
+  // Set by the page when bot.knowledge_reach() has anything for the window:
+  // conversations where this item was actually RETRIEVED, as opposed to
+  // conversations that merely used its words. Null means nothing was logged.
+  reach_sessions?: number | null;
+  demand_kind: "terms" | "phrase" | "none" | null;
+  demand_groups: string[] | null;
+  demand_phrase: string | null;
   // Resolved from bot.knowledge_sources rather than copied onto the row.
   source_name: string | null;
   source_url: string | null;
   open_notes: number;
   total_notes: number;
 }
+
+// One row per item from bot.knowledge_demand(from, to): the same counting the
+// offline builder does, redone over live messages for a chosen window. Items
+// with no usable spec are simply absent, which reads the same as a null count.
+export type KnowledgeDemandRow = {
+  item_key: string;
+  matched_messages: number;
+  matched_sessions: number;
+  demand_terms: string[];
+  demand_need: number | null;
+  // Messages in the window, the denominator behind every count in it.
+  total_messages: number;
+};
+
 
 // One subject members raise that no knowledge item answers — the mirror of
 // KnowledgeItemRow. Counts come from a model reading every member question in

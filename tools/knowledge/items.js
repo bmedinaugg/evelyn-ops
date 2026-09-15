@@ -287,6 +287,33 @@ function titleTerms(title) {
     };
   }
 
+  // The same candidate terms, written down so the DATABASE can redo the count
+  // for any window (bot.knowledge_demand, migration 046). Deliberately NOT
+  // filtered: demandFromTerms drops a term for matching nothing, or for being
+  // carried by >10% of messages, and both of those are facts about a corpus
+  // rather than about the item. Filtering here would freeze this month's
+  // vocabulary into every future window. SQL re-decides them per window.
+  function specFromTerms(terms) {
+    const groups = terms
+      .map((t) => [t, ...(NL[t] || [])].map(norm).filter(Boolean))
+      .filter((vs) => vs.length)
+      .map((vs) => [...new Set(vs)].join('|'));
+    return {
+      demand_kind: groups.length ? 'terms' : 'none',
+      demand_groups: groups,
+      demand_phrase: null,
+    };
+  }
+
+  function specFromPhrase(phrase) {
+    const p = norm(phrase);
+    return {
+      demand_kind: p ? 'phrase' : 'none',
+      demand_groups: [],
+      demand_phrase: p || null,
+    };
+  }
+
   // Demand from a literal phrase — used for club names, where "de Pijp" is the
   // whole signal and splitting it into words would match half of Amsterdam.
   function demandFromPhrase(phrase) {
@@ -390,6 +417,7 @@ function titleTerms(title) {
       caveat: dup
         ? 'A second copy of the same Freshdesk article, written by the same sync run. Retrieval can return both. Not a separate source and nothing to correct at source — the fix is in the Clubs FAQs workflow.'
         : null,
+      ...specFromTerms(titleTerms(a.title)),
       demand_method: d.need
         ? `${d.need} of ${d.terms.length} keywords from the title`
         : 'not measurable — fewer than two distinctive words in the title',
@@ -481,6 +509,7 @@ function titleTerms(title) {
       caveat: facilities.length === 0
         ? 'Every facility column is empty or NO for this club, so the bot will say it has none of them. That is the sheet talking, not the club.'
         : null,
+      ...specFromPhrase(distinctive),
       demand_method: `the club name "${distinctive}" written out in full`,
       matched_messages: d.messages,
       matched_sessions: d.sessions,
@@ -518,6 +547,7 @@ function titleTerms(title) {
       chunks: 1,
       duplicate_of: null,
       caveat: c.known_issues,
+      ...specFromTerms(titleTerms(c.trigger_label)),
       demand_method: d.need
         ? `${d.need} of ${d.terms.length} keywords from what sets the rule off`
         : 'not measurable — fewer than two distinctive words to match on',

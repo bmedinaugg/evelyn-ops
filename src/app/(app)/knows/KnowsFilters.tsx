@@ -16,7 +16,18 @@ export type Values = {
   tag?: string;
   sort?: string;
   dupes?: string;
+  from?: string;
+  to?: string;
 };
+
+// Presets, because "last 7 days" is the question people actually arrive with
+// and typing two dates to ask it is a tax.
+function daysAgo(n: number) {
+  const d = new Date();
+  d.setUTCDate(d.getUTCDate() - n);
+  return d.toISOString().slice(0, 10);
+}
+const TODAY = () => new Date().toISOString().slice(0, 10);
 
 export function KnowsFilters({
   values,
@@ -26,6 +37,10 @@ export function KnowsFilters({
   painted,
   matching,
   total,
+  builtFrom,
+  builtTo,
+  windowMessages,
+  custom,
 }: {
   values: Values;
   topics: string[];
@@ -34,6 +49,10 @@ export function KnowsFilters({
   painted: number;
   matching: number;
   total: number;
+  builtFrom: string | null;
+  builtTo: string | null;
+  windowMessages: number | null;
+  custom: boolean;
 }) {
   const router = useRouter();
 
@@ -51,8 +70,66 @@ export function KnowsFilters({
 
   const filtered = matching !== total;
 
+  const preset = (days: number) => apply({ from: daysAgo(days), to: TODAY() });
+
   return (
     <>
+      {/* The window every number on this page is counted over. It is a control
+          rather than a caption because the counts used to be frozen at whatever
+          the offline builder last saw, and there was no way to tell from the
+          page that they had gone stale. */}
+      <div
+        className="controls"
+        style={{ marginBottom: 10, alignItems: "center", flexWrap: "wrap" }}
+      >
+        <span className="muted" style={{ fontSize: 12.5 }}>
+          Counted over
+        </span>
+        <input
+          type="date"
+          value={values.from ?? builtFrom ?? ""}
+          max={values.to ?? TODAY()}
+          onChange={(e) =>
+            apply({ from: e.target.value, to: values.to ?? builtTo ?? TODAY() })
+          }
+          aria-label="Count conversations from"
+          style={{ fontSize: 12.5 }}
+        />
+        <span className="muted" style={{ fontSize: 12.5 }}>
+          to
+        </span>
+        <input
+          type="date"
+          value={values.to ?? builtTo ?? ""}
+          min={values.from ?? builtFrom ?? undefined}
+          max={TODAY()}
+          onChange={(e) =>
+            apply({ from: values.from ?? builtFrom ?? undefined, to: e.target.value })
+          }
+          aria-label="Count conversations to"
+          style={{ fontSize: 12.5 }}
+        />
+        <button type="button" className="btn secondary" style={{ fontSize: 11.5 }}
+          onClick={() => preset(7)}>
+          last 7 days
+        </button>
+        <button type="button" className="btn secondary" style={{ fontSize: 11.5 }}
+          onClick={() => preset(30)}>
+          last 30 days
+        </button>
+        {custom && (
+          <button type="button" className="btn secondary" style={{ fontSize: 11.5 }}
+            onClick={() => apply({ from: "", to: "" })}>
+            back to the built window
+          </button>
+        )}
+        {windowMessages !== null && (
+          <span className="muted mono" style={{ fontSize: 11.5 }}>
+            {windowMessages.toLocaleString("en-GB")} member messages
+          </span>
+        )}
+      </div>
+
       <div className="controls" style={{ marginBottom: 10 }}>
         <input
           type="search"

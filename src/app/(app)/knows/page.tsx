@@ -1,6 +1,8 @@
 import Link from "next/link";
 import {
   getKnowledgeItems,
+  getKnowledgeDemand,
+  getKnowledgeReach,
   listKnowledgeItemNotes,
   getKnowledgeGaps,
 } from "@/lib/queries";
@@ -11,6 +13,12 @@ import { addKnowledgeNoteAction, resolveKnowledgeNoteAction } from "./actions";
 import { Gaps } from "./Gaps";
 
 export const dynamic = "force-dynamic";
+
+// A date the range picker could have produced. Anything else in the URL is
+// ignored rather than passed to Postgres.
+function isDate(v: string | undefined): boolean {
+  return !!v && /^\d{4}-\d{2}-\d{2}$/.test(v) && !Number.isNaN(Date.parse(v));
+}
 
 function fmtDate(d: string | null) {
   if (!d) return null;
@@ -37,7 +45,7 @@ export default async function KnowsPage({
   searchParams,
 }: {
   searchParams: Promise<
-    Values & { n?: string; open?: string }
+    Values & { n?: string; open?: string; from?: string; to?: string }
   >;
 }) {
   const sp = await searchParams;
@@ -49,13 +57,49 @@ export default async function KnowsPage({
     tag: sp.tag,
     sort: sp.sort,
     dupes: sp.dupes,
+    from: sp.from,
+    to: sp.to,
   };
 
-  const [items, notes, gaps] = await Promise.all([
-    getKnowledgeItems(),
+  const stored = await getKnowledgeItems();
+
+  // The window the numbers are counted over. Defaults to the one the offline
+  // builder used, so arriving at the page shows what it always showed; pick a
+  // range and every count on it is recomputed from live messages instead.
+  const fallbackFrom = stored[0]?.window_from ?? null;
+  const fallbackTo = stored[0]?.window_to ?? null;
+  const from = isDate(sp.from) ? sp.from! : fallbackFrom;
+  const to = isDate(sp.to) ? sp.to! : fallbackTo;
+  const custom =
+    !!from && !!to && (from !== fallbackFrom || to !== fallbackTo);
+
+  const [demand, reach, notes, gaps] = await Promise.all([
+    from && to ? getKnowledgeDemand(from, to) : Promise.resolve(null),
+    from && to ? getKnowledgeReach(from, to) : Promise.resolve([]),
     listKnowledgeItemNotes(),
     getKnowledgeGaps(),
   ]);
+  const reachByKey = new Map(reach.map((r) => [r.item_key, r]));
+
+  // Overlay the live counts. Absent from the result means the spec produced
+  // fewer than two usable terms in THIS window, which is "cannot tell" (null),
+  // never zero — the same distinction the stored numbers keep.
+  const byKey = new Map((demand ?? []).map((d) => [d.item_key, d]));
+  const items: KnowledgeItemRow[] = !demand
+    ? stored
+    : stored.map((i) => {
+        const d = byKey.get(i.key);
+        return {
+          ...i,
+          matched_messages: d ? d.matched_messages : null,
+          matched_sessions: d ? d.matched_sessions : null,
+          demand_terms: d ? d.demand_terms : i.demand_terms,
+          reach_sessions: reachByKey.get(i.key)?.sessions ?? null,
+          window_from: from,
+          window_to: to,
+        };
+      });
+  const windowMessages = demand?.[0]?.total_messages ?? null;
 
   // Notes are keyed softly, so group rather than join.
   const byItem = new Map<string, KnowledgeItemNoteRow[]>();
@@ -75,9 +119,7 @@ export default async function KnowsPage({
   const noMeasure = count((i) => i.matched_sessions === null);
   const clubs = count((i) => i.source === "club_directory");
   const memberCare = count((i) => i.source === "member_care");
-  const window = items[0]
-    ? `${fmtDate(items[0].window_from)} – ${fmtDate(items[0].window_to)}`
-    : "";
+  const window = from && to ? `${fmtDate(from)} – ${fmtDate(to)}` : "";
   const oldest = items.reduce<string | null>(
     (a, i) => (a === null || i.verified_at < a ? i.verified_at : a),
     null,
@@ -201,14 +243,21 @@ export default async function KnowsPage({
           What the number on the left is, and what it is not
         </h2>
         <p style={{ fontSize: 13.5, lineHeight: 1.6, maxWidth: "72ch" }}>
-          <strong>Nothing logs which answer was used.</strong> There is no
-          retrieval log anywhere in the database, so how often a given article
-          actually answered someone cannot be measured &mdash; only estimated.
+          <strong>There are two numbers here, and they are not the same.</strong>{" "}
+          Retrieval now writes down what it returned, so where a row says{" "}
+          <em>retrieved in N conversations</em> that is measured. It is still a
+          floor rather than a certainty &mdash; the agent can pull an article up
+          and then not use it &mdash; but nobody is guessing. That log has no
+          history: it knows only about searches made since 15 September 2026, so
+          any window before that shows nothing.
         </p>
         <p style={{ fontSize: 13.5, lineHeight: 1.6, maxWidth: "72ch" }}>
-          The estimate is this: take the distinctive words out of the
+          The big number on the left is the other kind: an estimate of the
+          subject&rsquo;s size. Take the distinctive words out of the
           item&rsquo;s own title, add their Dutch equivalents, and count how many
-          conversations in {window} carried enough of them. So the number says{" "}
+          conversations in {window} carried enough of them &mdash; recounted over
+          whatever window is set above, not frozen at whatever was last exported.
+          So that number says{" "}
           <strong>how many members raised the subject this covers</strong>{" "}
           &mdash; not how many read this article. An article about cancelling
           because of the price rise shares its words with every cancellation
@@ -279,6 +328,10 @@ export default async function KnowsPage({
           painted={painted.length}
           matching={matching.length}
           total={items.length}
+          builtFrom={fallbackFrom}
+          builtTo={fallbackTo}
+          windowMessages={windowMessages}
+          custom={custom}
         />
 
         {painted.length === 0 && (
@@ -467,6 +520,20 @@ function Item({
           {" · checked "}
           {fmtDate(i.verified_at)}
         </p>
+
+        {/* The measured figure, when there is one. Kept visually separate from
+            the estimate above rather than replacing it: they count different
+            things, and an article can be retrieved far less often than its
+            subject is raised, which is itself the interesting number. */}
+        {i.reach_sessions != null && (
+          <p
+            className="mono"
+            style={{ fontSize: 11, margin: "4px 0 0", color: "var(--good, #2f7a4d)" }}
+          >
+            retrieved in {i.reach_sessions.toLocaleString("en-GB")} conversation
+            {i.reach_sessions === 1 ? "" : "s"} &mdash; measured, not estimated
+          </p>
+        )}
 
         {i.examples.length > 0 && (
           <div style={{ margin: "10px 0 0" }}>

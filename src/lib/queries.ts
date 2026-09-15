@@ -45,6 +45,7 @@ import type {
   QuestionTraceRow,
   QuestionNoteRow,
   KnowledgeItemRow,
+  KnowledgeDemandRow,
   KnowledgeItemNoteRow,
   KnowledgeNoteKind,
   KnowledgeGapRow,
@@ -1287,6 +1288,43 @@ export async function getKnowledgeItems(): Promise<KnowledgeItemRow[]> {
   const { data, error } = await dataClient().rpc("knowledge_items_view");
   if (error) throw new Error(`knowledge items failed: ${error.message}`);
   return (data ?? []) as unknown as KnowledgeItemRow[];
+}
+
+// Demand recounted over a chosen window, from live messages rather than the
+// numbers the offline builder stamped in. Takes a couple of seconds for a week
+// and about six for a month, which is why the page asks for one window and not
+// one per item. Items whose spec yields fewer than two usable terms are absent
+// from the result, and the caller must read that as "cannot tell" — the same
+// thing a null matched_sessions means — rather than as zero.
+export async function getKnowledgeDemand(
+  from: string,
+  to: string,
+): Promise<KnowledgeDemandRow[]> {
+  await requireStaff();
+  const { data, error } = await dataClient().rpc("knowledge_demand", {
+    from_date: from,
+    to_date: to,
+  });
+  if (error) throw new Error(`knowledge demand failed: ${error.message}`);
+  return (data ?? []) as unknown as KnowledgeDemandRow[];
+}
+
+// What retrieval actually returned in a window (bot.knowledge_hits, written by
+// match_<brand>_faqs_logged). Empty before 15 Sep 2026: this is a log, so it has
+// no history — it only knows about searches that happened after it shipped.
+export async function getKnowledgeReach(
+  from: string,
+  to: string,
+): Promise<{ item_key: string; hits: number; sessions: number; top_hits: number }[]> {
+  await requireStaff();
+  const { data, error } = await dataClient().rpc("knowledge_reach", {
+    from_date: from,
+    to_date: to,
+  });
+  if (error) throw new Error(`knowledge reach failed: ${error.message}`);
+  return (data ?? []) as unknown as {
+    item_key: string; hits: number; sessions: number; top_hits: number;
+  }[];
 }
 
 // Every open note, for the queue at the top of the page. Grouped per item by
