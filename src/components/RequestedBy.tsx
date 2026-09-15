@@ -27,10 +27,11 @@ export function RequestedBy({
   updateWord: string;
 }) {
   const set = !!value;
-  // Putting your own address here is the obvious way to test this, and it is
-  // the one case that sends nothing: the notifier never mails someone their
-  // own update. Suppressing it silently makes a working feature look broken,
-  // which is exactly what happened the first time it was tried.
+  // Your own address used to be silently suppressed, which made the feature
+  // look broken to the first person who tested it the obvious way. db/045
+  // removed that: the field is an explicit instruction and now does what it
+  // says. The note stays so nobody is surprised to receive their own words
+  // back.
   const isSelf =
     set &&
     !!currentUser &&
