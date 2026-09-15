@@ -284,6 +284,42 @@ export async function createBoardItem(input: {
   if (error) throw new Error(`create board item failed: ${error.message}`);
 }
 
+// Who actually asked for this, when that is not whoever typed it in. Stored
+// lowercased and trimmed so the "don't mail someone their own update" guard in
+// bot.requester_updates_since() compares like with like — board_items holds
+// mixed-case authors while feedback holds lower case.
+export async function setRequestedBy(
+  table: "board_items" | "conversation_feedback",
+  id: string,
+  email: string,
+): Promise<void> {
+  await requireStaff();
+  const clean = email.trim().toLowerCase();
+  if (!id) return;
+  // An empty box means "nobody is waiting" and must clear the field, not store
+  // an empty string — the notifier tests for null.
+  const value = clean === "" ? null : clean;
+  if (value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+    throw new Error("That does not look like an e-mail address.");
+  }
+  // Company addresses only. This field auto-sends mail the moment an update is
+  // written, so a mistyped domain would deliver an internal work note to a
+  // stranger — or to a member — with no chance to take it back. Sign-in is
+  // already restricted to the same domain, so a requester outside it could not
+  // read the item anyway.
+  const domain = env.staffDomain;
+  if (value && domain && !value.endsWith(`@${domain.toLowerCase()}`)) {
+    throw new Error(
+      `Only @${domain} addresses can be notified — this sends them e-mail automatically.`,
+    );
+  }
+  const { error } = await dataClient()
+    .from(table)
+    .update({ requested_by: value })
+    .eq("id", id);
+  if (error) throw new Error(`set requested_by failed: ${error.message}`);
+}
+
 export async function createBoardComment(input: {
   boardItemId: string;
   body: string | null;

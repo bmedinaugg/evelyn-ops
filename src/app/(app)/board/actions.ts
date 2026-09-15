@@ -6,6 +6,7 @@ import {
   createBoardComment,
   setBoardItemStatus,
   setBoardItemPriority,
+  setRequestedBy,
 } from "@/lib/queries";
 import type { BoardPriority, BoardStatus } from "@/lib/types";
 
@@ -74,5 +75,14 @@ export async function changeBoardPriority(formData: FormData) {
   const priority = String(formData.get("priority") || "");
   if (!id || !(PRIORITIES as string[]).includes(priority)) return;
   await setBoardItemPriority(id, priority as BoardPriority);
+  revalidatePath("/board");
+}
+
+// Record who asked for this, so they hear back when it gets an update.
+export async function setBoardRequestedBy(formData: FormData) {
+  const id = String(formData.get("id") || "");
+  const email = String(formData.get("requested_by") || "");
+  if (!id) return;
+  await setRequestedBy("board_items", id, email);
   revalidatePath("/board");
 }

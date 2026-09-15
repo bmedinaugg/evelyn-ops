@@ -3,7 +3,12 @@ import React from "react";
 import { listFeedback, feedbackAuthorSummary } from "@/lib/queries";
 import { amsterdamDateTime } from "@/lib/format";
 import { feedbackTagLabel } from "@/lib/feedback-tags";
-import { changeFeedbackStatus, saveFeedbackNoteAction } from "./actions";
+import {
+  changeFeedbackStatus,
+  saveFeedbackNoteAction,
+  setFeedbackRequestedBy,
+} from "./actions";
+import { RequestedBy } from "@/components/RequestedBy";
 
 export const dynamic = "force-dynamic";
 
@@ -233,6 +238,14 @@ export default async function FeedbackPage({
                 <td>{f.session?.customer?.display_name ?? <span className="muted">—</span>}</td>
                 <td className="mono">
                   {f.author_email}
+                  {/* Who raised it, when that is not the author. They get the
+                      resolution note by e-mail; empty means nobody does. */}
+                  <RequestedBy
+                    id={f.id}
+                    value={f.requested_by}
+                    action={setFeedbackRequestedBy}
+                    updateWord="resolve it"
+                  />
                   {f.status !== "open" && f.resolved_by ? (
                     <>
                       <br />

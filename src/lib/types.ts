@@ -90,6 +90,8 @@ export interface AiSuggestion {
 
 export interface ConversationFeedback {
   id: string;
+  // Who raised it, when that is not author_email. Drives the update e-mail.
+  requested_by?: string | null;
   session_id: string;
   message_id: string | null;
   author_email: string;
@@ -138,6 +140,8 @@ export type BoardStatus = "open" | "in_progress" | "done" | "dismissed";
 
 export interface BoardItem {
   id: string;
+  // Set on the item below; see bot.board_items.requested_by.
+  requested_by?: string | null;
   title: string;
   description: string | null;
   priority: BoardPriority;

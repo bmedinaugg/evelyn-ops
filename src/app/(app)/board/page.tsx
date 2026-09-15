@@ -4,6 +4,8 @@ import { amsterdamDateTime, amsterdamToday, addDays, normaliseDate } from "@/lib
 import type { BoardItemView, BoardPriority, BoardStatus } from "@/lib/types";
 import { AddBoardItemForm } from "./AddBoardItemForm";
 import { CommentForm } from "./CommentForm";
+import { RequestedBy } from "@/components/RequestedBy";
+import { setBoardRequestedBy } from "./actions";
 import { moveBoardItem } from "./actions";
 import { DateRangePicker } from "@/components/DateRangePicker";
 
@@ -72,6 +74,13 @@ function Card({ item }: { item: BoardItemView }) {
       <div className="board-meta muted">
         {item.author_email} · {amsterdamDateTime(item.created_at)}
       </div>
+      {/* Who is waiting on this, as opposed to who typed it in. */}
+      <RequestedBy
+        id={item.id}
+        value={item.requested_by}
+        action={setBoardRequestedBy}
+        updateWord="reply"
+      />
 
       <div className="board-comments">
         <details className="board-replies">

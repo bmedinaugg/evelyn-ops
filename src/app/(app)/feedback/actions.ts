@@ -1,7 +1,11 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { setFeedbackStatus, saveFeedbackNote } from "@/lib/queries";
+import {
+  setFeedbackStatus,
+  saveFeedbackNote,
+  setRequestedBy,
+} from "@/lib/queries";
 
 export async function changeFeedbackStatus(formData: FormData) {
   const id = String(formData.get("id") || "");
@@ -21,5 +25,14 @@ export async function saveFeedbackNoteAction(formData: FormData) {
   const note = String(formData.get("note") || "");
   if (!id) return;
   await saveFeedbackNote(id, note);
+  revalidatePath("/feedback");
+}
+
+// Record who raised this feedback, so they hear back when it is resolved.
+export async function setFeedbackRequestedBy(formData: FormData) {
+  const id = String(formData.get("id") || "");
+  const email = String(formData.get("requested_by") || "");
+  if (!id) return;
+  await setRequestedBy("conversation_feedback", id, email);
   revalidatePath("/feedback");
 }
