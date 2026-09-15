@@ -9,6 +9,7 @@ import {
   setFeedbackRequestedBy,
 } from "./actions";
 import { RequestedBy } from "@/components/RequestedBy";
+import { getStaffUser } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
@@ -120,6 +121,7 @@ export default async function FeedbackPage({
   searchParams: Promise<{ status?: string; author?: string; page?: string }>;
 }) {
   const { status, author, page: pageParam } = await searchParams;
+  const me = await getStaffUser();
   // Default to "all" so resolved/dismissed items (with their "What was done"
   // note) stay visible, not just open ones.
   const active = status ?? "all";
@@ -245,6 +247,7 @@ export default async function FeedbackPage({
                     value={f.requested_by}
                     action={setFeedbackRequestedBy}
                     updateWord="resolve it"
+                    currentUser={me?.email}
                   />
                   {f.status !== "open" && f.resolved_by ? (
                     <>

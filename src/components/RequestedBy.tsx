@@ -14,16 +14,27 @@ export function RequestedBy({
   value,
   action,
   updateWord,
+  currentUser,
 }: {
   id: string;
   value: string | null | undefined;
   action: (formData: FormData) => void | Promise<void>;
+  // The signed-in user, so the one case that is deliberately silent can say so.
+  currentUser?: string;
   // What counts as an update here — a reply on the board, a resolution note on
   // feedback. Named rather than generic so the promise on screen matches what
   // bot.requester_updates_since() actually sends.
   updateWord: string;
 }) {
   const set = !!value;
+  // Putting your own address here is the obvious way to test this, and it is
+  // the one case that sends nothing: the notifier never mails someone their
+  // own update. Suppressing it silently makes a working feature look broken,
+  // which is exactly what happened the first time it was tried.
+  const isSelf =
+    set &&
+    !!currentUser &&
+    value!.trim().toLowerCase() === currentUser.trim().toLowerCase();
   return (
     <form
       action={action}
@@ -54,9 +65,14 @@ export function RequestedBy({
       <button type="submit" className="btn secondary" style={{ fontSize: 11.5, padding: "3px 9px" }}>
         Save
       </button>
-      {set && (
+      {set && !isSelf && (
         <span className="muted" style={{ fontSize: 11 }}>
           gets an e-mail when you {updateWord}
+        </span>
+      )}
+      {isSelf && (
+        <span className="badge amber" style={{ fontSize: 10.5 }}>
+          that&rsquo;s you — no e-mail is sent for your own updates
         </span>
       )}
     </form>

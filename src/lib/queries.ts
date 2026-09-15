@@ -320,6 +320,55 @@ export async function setRequestedBy(
   if (error) throw new Error(`set requested_by failed: ${error.message}`);
 }
 
+export type AppPerson = {
+  email: string;
+  handle: string;
+  writes: number;
+  last_seen: string;
+};
+
+// Everyone who has written anything in Evelyn Ops. Doubles as the tag picker
+// and as the allow-list a mention has to resolve against — a tag that matches
+// nobody here is dropped rather than mailed into the void.
+export async function listAppPeople(): Promise<AppPerson[]> {
+  await requireStaff();
+  const { data, error } = await dataClient().rpc("app_people");
+  if (error) throw new Error(`app people failed: ${error.message}`);
+  return (data ?? []) as unknown as AppPerson[];
+}
+
+// Resolve @tags in a comment to real addresses, ONCE, at write time.
+//
+// Accepts "@esther", "@esther.rumora" and "@esther.rumora@urbangymgroup.com".
+// A bare word after @ has to match the start of exactly one person's handle:
+// ambiguity is dropped rather than guessed, because mailing the wrong
+// colleague is worse than mailing nobody. The author is always removed — you
+// cannot tag yourself into your own inbox.
+export function resolveMentions(
+  body: string | null,
+  people: AppPerson[],
+  authorEmail: string,
+): string[] {
+  if (!body) return [];
+  const me = authorEmail.trim().toLowerCase();
+  const found = new Set<string>();
+  for (const raw of body.matchAll(/@([\w.+-]+(?:@[\w.-]+\.[a-z]{2,})?)/gi)) {
+    const token = raw[1].toLowerCase().replace(/[.]+$/, "");
+    if (token.includes("@")) {
+      const hit = people.find((p) => p.email === token);
+      if (hit) found.add(hit.email);
+      continue;
+    }
+    const matches = people.filter(
+      (p) => p.handle === token || p.handle.split(".")[0] === token,
+    );
+    // Exactly one, or nothing. Two people called Nick is not a guess to make.
+    if (matches.length === 1) found.add(matches[0].email);
+  }
+  found.delete(me);
+  return [...found];
+}
+
 export async function createBoardComment(input: {
   boardItemId: string;
   body: string | null;
@@ -333,11 +382,21 @@ export async function createBoardComment(input: {
     throw new Error("Add a comment or an image.");
   }
 
+  // Resolved here, at write time, and stored on the row. The notifier never
+  // re-reads the prose, so who was told is a fact on the record rather than
+  // whatever today's parser would decide.
+  const mentions = resolveMentions(
+    input.body,
+    await listAppPeople(),
+    staff.email,
+  );
+
   const { error } = await client.from("board_comments").insert({
     board_item_id: input.boardItemId,
     author_email: staff.email,
     body: input.body,
     image_paths: paths,
+    mentions,
   });
   if (error) throw new Error(`add board comment failed: ${error.message}`);
 }

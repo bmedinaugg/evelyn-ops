@@ -1,10 +1,12 @@
 import Link from "next/link";
-import { listBoardItems } from "@/lib/queries";
+import { listBoardItems, listAppPeople } from "@/lib/queries";
+import { getStaffUser } from "@/lib/auth";
 import { amsterdamDateTime, amsterdamToday, addDays, normaliseDate } from "@/lib/format";
 import type { BoardItemView, BoardPriority, BoardStatus } from "@/lib/types";
 import { AddBoardItemForm } from "./AddBoardItemForm";
 import { CommentForm } from "./CommentForm";
 import { RequestedBy } from "@/components/RequestedBy";
+import type { AppPerson } from "@/lib/queries";
 import { setBoardRequestedBy } from "./actions";
 import { moveBoardItem } from "./actions";
 import { DateRangePicker } from "@/components/DateRangePicker";
@@ -49,7 +51,15 @@ function MoveButton({
   );
 }
 
-function Card({ item }: { item: BoardItemView }) {
+function Card({
+  item,
+  people,
+  currentUser,
+}: {
+  item: BoardItemView;
+  people: AppPerson[];
+  currentUser: string;
+}) {
   return (
     <div className="board-card">
       <div className="board-card-head">
@@ -80,6 +90,7 @@ function Card({ item }: { item: BoardItemView }) {
         value={item.requested_by}
         action={setBoardRequestedBy}
         updateWord="reply"
+        currentUser={currentUser}
       />
 
       <div className="board-comments">
@@ -124,7 +135,7 @@ function Card({ item }: { item: BoardItemView }) {
             ))}
           </div>
           )}
-          <CommentForm boardItemId={item.id} />
+          <CommentForm boardItemId={item.id} people={people} />
         </details>
       </div>
 
@@ -174,6 +185,9 @@ export default async function BoardPage({
   const items = allMode
     ? await listBoardItems()
     : await listBoardItems(from, to);
+  // Who can be tagged. Fetched once for the page rather than per card.
+  const people = await listAppPeople();
+  const me = await getStaffUser();
   const byStatus = (s: BoardStatus) => items.filter((i) => i.status === s);
 
   // Preserve the active window (and expansion) across show-more / picker links.
@@ -232,7 +246,7 @@ export default async function BoardPage({
                 {col.label} <span className="muted">({colItems.length})</span>
               </h2>
               {shown.map((item) => (
-                <Card key={item.id} item={item} />
+                <Card key={item.id} item={item} people={people} currentUser={me?.email ?? ""} />
               ))}
               {colItems.length === 0 && (
                 <div className="muted board-empty">Nothing here.</div>
