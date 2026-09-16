@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { DateRangePicker } from "@/components/DateRangePicker";
 import { SOURCE, WIRING, type Sort } from "./shared";
 
 // Just the controls. The list itself is rendered on the server, which is the
@@ -74,10 +75,10 @@ export function KnowsFilters({
 
   return (
     <>
-      {/* The window every number on this page is counted over. It is a control
-          rather than a caption because the counts used to be frozen at whatever
-          the offline builder last saw, and there was no way to tell from the
-          page that they had gone stale. */}
+      {/* The window every number on this page is counted over. A control rather
+          than a caption because the counts used to be frozen at whatever the
+          offline builder last saw, with nothing on the page to say so. Same
+          picker as /conversations — one popover, not two date fields. */}
       <div
         className="controls"
         style={{ marginBottom: 10, alignItems: "center", flexWrap: "wrap" }}
@@ -85,29 +86,20 @@ export function KnowsFilters({
         <span className="muted" style={{ fontSize: 12.5 }}>
           Counted over
         </span>
-        <input
-          type="date"
-          value={values.from ?? builtFrom ?? ""}
-          max={values.to ?? TODAY()}
-          onChange={(e) =>
-            apply({ from: e.target.value, to: values.to ?? builtTo ?? TODAY() })
-          }
-          aria-label="Count conversations from"
-          style={{ fontSize: 12.5 }}
-        />
-        <span className="muted" style={{ fontSize: 12.5 }}>
-          to
-        </span>
-        <input
-          type="date"
-          value={values.to ?? builtTo ?? ""}
-          min={values.from ?? builtFrom ?? undefined}
+        <DateRangePicker
+          from={values.from ?? builtFrom ?? TODAY()}
+          to={values.to ?? builtTo ?? TODAY()}
           max={TODAY()}
-          onChange={(e) =>
-            apply({ from: values.from ?? builtFrom ?? undefined, to: e.target.value })
-          }
-          aria-label="Count conversations to"
-          style={{ fontSize: 12.5 }}
+          basePath="/knows"
+          preserved={{
+            q: values.q ?? "",
+            source: values.source ?? "",
+            wiring: values.wiring ?? "",
+            topic: values.topic ?? "",
+            tag: values.tag ?? "",
+            sort: values.sort ?? "",
+            dupes: values.dupes ?? "",
+          }}
         />
         <button type="button" className="btn secondary" style={{ fontSize: 11.5 }}
           onClick={() => preset(7)}>
