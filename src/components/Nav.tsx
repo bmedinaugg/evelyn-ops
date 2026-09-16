@@ -37,13 +37,25 @@ const SECTIONS: { title: string | null; items: NavItem[] }[] = [
       // answers — the documents and syncs behind them, including the ones that
       // produced no FAQ and the ones nothing actually reads.
       { href: "/knowledge", label: "Knowledge register", icon: "🗃️" },
-      // And a fourth, one level further IN: /knows is what is inside those
-      // documents, fact by fact, at the level where you can read a sentence,
-      // decide it is wrong and say so.
-      { href: "/knows", label: "What Evelyn knows", icon: "🧠" },
-      // The short version of all four, for anyone who wants one question
+      // The short version of all of them, for anyone who wants one question
       // traced end to end rather than a library to browse.
       { href: "/questions", label: "How a question gets answered", icon: "❓" },
+    ],
+  },
+  {
+    // Three pages, three different questions, split out of /knows once that one
+    // page had grown to answer all three and you had to scroll past two of them
+    // to reach the one you came for.
+    //   Gaps      — what she is ASKED and cannot answer
+    //   Knows     — what she CAN answer, from documents, fact by fact
+    //   Magicline — what she can LOOK UP live, which is never a document
+    // Order is deliberate: the gap comes before the answer, and the live
+    // lookups come last because they are the half nobody had written down.
+    title: "Knowledge",
+    items: [
+      { href: "/gaps", label: "Gaps", icon: "🕳️" },
+      { href: "/knows", label: "What Evelyn knows", icon: "🧠" },
+      { href: "/magicline", label: "Magicline", icon: "🔌" },
     ],
   },
   {

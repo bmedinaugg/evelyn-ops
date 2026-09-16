@@ -4,15 +4,11 @@ import {
   getKnowledgeDemand,
   getKnowledgeReach,
   listKnowledgeItemNotes,
-  getKnowledgeGaps,
-  getMagiclineCapabilities,
 } from "@/lib/queries";
 import type { KnowledgeItemRow, KnowledgeItemNoteRow } from "@/lib/types";
 import { KnowsFilters, type Values } from "./KnowsFilters";
 import { SOURCE, WIRING, KINDS, KIND_LABEL, PAGE, type Sort } from "./shared";
 import { addKnowledgeNoteAction, resolveKnowledgeNoteAction } from "./actions";
-import { Gaps } from "./Gaps";
-import { MagiclineCapabilities } from "./MagiclineCapabilities";
 
 export const dynamic = "force-dynamic";
 
@@ -75,12 +71,10 @@ export default async function KnowsPage({
   const custom =
     !!from && !!to && (from !== fallbackFrom || to !== fallbackTo);
 
-  const [demand, reach, notes, gaps, caps] = await Promise.all([
+  const [demand, reach, notes] = await Promise.all([
     from && to ? getKnowledgeDemand(from, to) : Promise.resolve(null),
     from && to ? getKnowledgeReach(from, to) : Promise.resolve([]),
     listKnowledgeItemNotes(),
-    getKnowledgeGaps(),
-    getMagiclineCapabilities(),
   ]);
   const reachByKey = new Map(reach.map((r) => [r.item_key, r]));
 
@@ -175,8 +169,7 @@ export default async function KnowsPage({
       <div className="pagehead">
         <h1>What Evelyn knows</h1>
         <p className="muted">
-          What she is asked and cannot answer, then every fact she can answer
-          from, in her own words. TrainMore.
+          Every fact she can answer from, in her own words. TrainMore.
         </p>
       </div>
 
@@ -206,15 +199,19 @@ export default async function KnowsPage({
         </p>
       </div>
 
-      <Gaps
-        gaps={gaps}
-        notesByKey={byItem}
-        back={(key) => qs(values, { n: limit, open: key })}
-      />
-
-      {/* Sits above the article list because it is the half of her knowledge
-          nobody had written down, not a footnote to the half that was. */}
-      <MagiclineCapabilities caps={caps} back={qs(values, { n: limit })} />
+      {/* The two questions this page used to answer alongside its own, now
+          each on their own page. Linked rather than duplicated: an article
+          nobody asks about and a subject nothing covers are read together. */}
+      <div className="panel">
+        <p style={{ fontSize: 13.5, lineHeight: 1.6, maxWidth: "72ch", margin: 0 }}>
+          Two neighbours.{" "}
+          <Link href="/gaps" prefetch={false}>Gaps</Link> is what members raise
+          that nothing here covers &mdash; the mirror of this list.{" "}
+          <Link href="/magicline" prefetch={false}>Magicline</Link> is the half
+          of her knowledge that is not a document at all: contract dates,
+          balances and check-ins, read live per question and stored nowhere.
+        </p>
+      </div>
 
       {/* Stated as a finding rather than left as a tag to notice: it is the one
           thing on this page that is a decision waiting to be taken. */}

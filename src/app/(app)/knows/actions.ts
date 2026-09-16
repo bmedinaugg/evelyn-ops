@@ -24,9 +24,17 @@ const KINDS: KnowledgeNoteKind[] = [
 //
 // Validated, not trusted: a form field is user input, and following it
 // anywhere but back into this page would be an open redirect.
+const BACK_ROUTES = ["/knows", "/gaps", "/magicline"];
+
 function safeBack(raw: unknown): string {
   const s = String(raw || "");
-  return s.startsWith("/knows") && !s.startsWith("//") ? s : "/knows";
+  // Three pages share these actions since the split, so the allow-list has
+  // three entries. Still an allow-list: following a form field anywhere else
+  // would be an open redirect, and "starts with /" is not good enough because
+  // "//evil.com" is a protocol-relative URL.
+  if (s.startsWith("//")) return "/knows";
+  const ok = BACK_ROUTES.some((r) => s === r || s.startsWith(r + "?"));
+  return ok ? s : "/knows";
 }
 
 // Record what an agent says about one piece of the bot's knowledge.
