@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {
   getKnowledgeItems,
+  getKnowledgeWindow,
   getKnowledgeDemand,
   getKnowledgeReach,
   listKnowledgeItemNotes,
@@ -59,19 +60,24 @@ export default async function KnowsPage({
     to: sp.to,
   };
 
-  const stored = await getKnowledgeItems();
-
   // The window the numbers are counted over. Defaults to the one the offline
   // builder used, so arriving at the page shows what it always showed; pick a
   // range and every count on it is recomputed from live messages instead.
-  const fallbackFrom = stored[0]?.window_from ?? null;
-  const fallbackTo = stored[0]?.window_to ?? null;
+  //
+  // Read from its own one-row query rather than from the items: the dates decide
+  // what the other three calls ask for, so waiting on 347KB of article bodies to
+  // learn them put that whole fetch in front of everything else. Now all four
+  // run together behind one small lookup.
+  const built = await getKnowledgeWindow();
+  const fallbackFrom = built.from;
+  const fallbackTo = built.to;
   const from = isDate(sp.from) ? sp.from! : fallbackFrom;
   const to = isDate(sp.to) ? sp.to! : fallbackTo;
   const custom =
     !!from && !!to && (from !== fallbackFrom || to !== fallbackTo);
 
-  const [demand, reach, notes] = await Promise.all([
+  const [stored, demand, reach, notes] = await Promise.all([
+    getKnowledgeItems(),
     from && to ? getKnowledgeDemand(from, to) : Promise.resolve(null),
     from && to ? getKnowledgeReach(from, to) : Promise.resolve([]),
     listKnowledgeItemNotes(),

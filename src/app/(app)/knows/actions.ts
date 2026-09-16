@@ -80,7 +80,7 @@ export async function setCapabilityAllowedAction(formData: FormData) {
   const back = safeBack(formData.get("back"));
   if (key) {
     await setMagiclineCapabilityAllowed(key, allowed);
-    revalidatePath("/knows");
+    revalidatePath("/magicline");
   }
   redirect(back);
 }
