@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import {
   addKnowledgeItemNote,
   resolveKnowledgeItemNote,
+  setMagiclineCapabilityAllowed,
 } from "@/lib/queries";
 import type { KnowledgeNoteKind } from "@/lib/types";
 
@@ -52,6 +53,25 @@ export async function resolveKnowledgeNoteAction(formData: FormData) {
   const back = safeBack(formData.get("back"));
   if (id) {
     await resolveKnowledgeItemNote(id);
+    revalidatePath("/knows");
+  }
+  redirect(back);
+}
+
+// Record whether Evelyn should answer one Magicline capability.
+//
+// This writes a PREFERENCE and nothing more. No part of the bot reads
+// bot.magicline_capabilities.allowed, so unticking a row changes what Member
+// Care has asked for and not what Evelyn does. The section on the page states
+// that in as many words — if that ever stops being true, the wording has to
+// change in the same commit as the wiring.
+export async function setCapabilityAllowedAction(formData: FormData) {
+  const key = String(formData.get("key") || "");
+  // The checkbox posts "on" only when ticked, so absence is the unticked state.
+  const allowed = formData.get("allowed") === "on";
+  const back = safeBack(formData.get("back"));
+  if (key) {
+    await setMagiclineCapabilityAllowed(key, allowed);
     revalidatePath("/knows");
   }
   redirect(back);

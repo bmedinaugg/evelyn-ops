@@ -46,6 +46,7 @@ import type {
   QuestionNoteRow,
   KnowledgeItemRow,
   KnowledgeDemandRow,
+  MagiclineCapabilityRow,
   KnowledgeItemNoteRow,
   KnowledgeNoteKind,
   KnowledgeGapRow,
@@ -1325,6 +1326,30 @@ export async function getKnowledgeReach(
   return (data ?? []) as unknown as {
     item_key: string; hits: number; sessions: number; top_hits: number;
   }[];
+}
+
+// What the Magicline API can answer, and what Member Care wants answered.
+export async function getMagiclineCapabilities(): Promise<MagiclineCapabilityRow[]> {
+  await requireStaff();
+  const { data, error } = await dataClient().rpc("magicline_capabilities_view");
+  if (error) throw new Error(`magicline capabilities failed: ${error.message}`);
+  return (data ?? []) as unknown as MagiclineCapabilityRow[];
+}
+
+// Record whether Evelyn should be answering this. Writes the decision and who
+// made it; deliberately does NOT change the bot — nothing reads `allowed` yet,
+// and the page says so rather than implying a switch.
+export async function setMagiclineCapabilityAllowed(
+  key: string,
+  allowed: boolean,
+): Promise<void> {
+  const staff = await requireStaff();
+  if (!key) return;
+  const { error } = await dataClient()
+    .from("magicline_capabilities")
+    .update({ allowed, updated_by: staff.email, updated_at: new Date().toISOString() })
+    .eq("key", key);
+  if (error) throw new Error(`set capability failed: ${error.message}`);
 }
 
 // Every open note, for the queue at the top of the page. Grouped per item by

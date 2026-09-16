@@ -690,6 +690,23 @@ export interface KnowledgeItemRow {
 // One row per item from bot.knowledge_demand(from, to): the same counting the
 // offline builder does, redone over live messages for a chosen window. Items
 // with no usable spec are simply absent, which reads the same as a null count.
+// One thing the Magicline API can answer (bot.magicline_capabilities).
+// `wired` is a fact about the build; `allowed` is what Member Care wants, and
+// NOTHING READS IT YET — it is a recorded intent, not a switch. See db/048.
+export type MagiclineCapabilityRow = {
+  key: string;
+  sort_order: number;
+  area: "account" | "clubs";
+  question: string;
+  source_api: "open_api" | "connect_api";
+  backed_by: string;
+  wired: boolean;
+  allowed: boolean;
+  note: string | null;
+  updated_by: string | null;
+  updated_at: string;
+};
+
 export type KnowledgeDemandRow = {
   item_key: string;
   matched_messages: number;
