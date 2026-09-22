@@ -45,3 +45,4 @@ for (const [want, text] of cases) {
   }
 }
 console.log(fail === 0 ? ('ALL ' + cases.length + ' GUARD4 CASES GREEN') : (fail + ' / ' + cases.length + ' FAILED'));
+process.exit(fail ? 1 : 0);

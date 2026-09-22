@@ -62,3 +62,4 @@ for (const [want, name, fu, opts] of cases) {
   }
 }
 console.log(fail === 0 ? ('ALL ' + cases.length + ' VALIDATE CASES GREEN') : (fail + ' failures'));
+process.exit(fail ? 1 : 0);

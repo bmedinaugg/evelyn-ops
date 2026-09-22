@@ -190,6 +190,23 @@ function unknownClubIn(text) {
 // A price only counts if a contract term sits within 40 characters of it, and a
 // tier only counts if it is presented as a numbered or bulleted option.
 // FAILS OPEN: no resolved club, or no tree for it, means no opinion.
+// ONE ALLOWED SET (2026-09-22). Build Priced Options now hands down the exact
+// rows it showed the member (allowed_options) and which form field they came
+// from. Preferring those removes a whole class of disagreement: the merged tree
+// built below reads cf_clubs AND cf_club_where_they_want_to_extend_at into one
+// map, later field winning, and the two fields disagree on 9 rows. Parnassusweg
+// HOME 1-year is EUR72 on the change form and EUR64 on the extension form, so
+// this gate believed EUR64 while the member was correctly shown EUR72 -- it
+// would have blocked the bot for quoting its own priced option. Bos en Lommer,
+// Scheldeplein, Rozengracht and Muntgebouw have the same split.
+// The merged tree stays as the fallback for turns where no club resolved and
+// allowed_options is therefore empty.
+let ALLOWED_OPTIONS = null;
+try {
+  const _bpo = $('Build Priced Options').first().json || {};
+  const _ao = _bpo.allowed_options;
+  if (_ao && typeof _ao === 'object' && Object.keys(_ao).length) ALLOWED_OPTIONS = _ao;
+} catch (e) {}
 const PRICE_TREE = {};
 const normClub = (s) => String(s || '').toLowerCase().normalize('NFD')
   .replace(/[̀-ͯ]/g, '')
@@ -229,8 +246,27 @@ try {
   }
 } catch (e) {}
 
+// tier -> term -> price for the club in play. Prefers what the member was
+// actually shown; falls back to the merged tree only when nothing was shown.
+function treeFor(club) {
+  if (ALLOWED_OPTIONS) {
+    const t = {};
+    for (const lv of Object.keys(ALLOWED_OPTIONS)) {
+      const tier = String(lv).split('(')[0].trim().replace(/\s+/g, '').toUpperCase();
+      for (const opt of ALLOWED_OPTIONS[lv] || []) {
+        const term = termOf(opt), p = priceOf(opt);
+        if (!term || p == null) continue;
+        t[tier] = t[tier] || {};
+        t[tier][term] = p;
+      }
+    }
+    return Object.keys(t).length ? t : null;
+  }
+  return PRICE_TREE[normClub(club)] || null;
+}
+
 function priceProblemIn(text, club) {
-  const tree = PRICE_TREE[normClub(club)];
+  const tree = treeFor(club);
   if (!tree) return null;
   const all = new Set();
   for (const tier of Object.keys(tree)) {
@@ -266,7 +302,7 @@ function priceProblemIn(text, club) {
 }
 
 function wrongFrequencyIn(text, club) {
-  const tree = PRICE_TREE[normClub(club)];
+  const tree = treeFor(club);
   if (!tree) return null;
   const all = new Set();
   for (const tier of Object.keys(tree)) {
@@ -285,7 +321,7 @@ function wrongFrequencyIn(text, club) {
 }
 
 function tierNotAtClub(text, club) {
-  const tree = PRICE_TREE[normClub(club)];
+  const tree = treeFor(club);
   if (!tree) return null;
   const offered = new Set(Object.keys(tree));
   // No trailing \b: there is no word boundary between "+" and a space, so \b

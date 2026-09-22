@@ -24,15 +24,31 @@ const TREE = {
     [HP]: ['1 - year €76', '2 - years €69', '3 - years €62', 'Flex - €96'],
     [P]: ['1 - year €94', '2 - years €87', '3 - years €80', 'Flex - €114'] }
 };
-const FORM_ROWS = [{ form_key: 'trainmore_change_membership', field_key: 'cf_clubs', options: { choices: TREE } }];
+// Parnassusweg is the live disagreement between the two form fields: HOME
+// 1-year is EUR72 on the change form and EUR64 on the extension form. It is in
+// both trees below so the fallback path really does resolve to the wrong one,
+// which is what makes the allowed_options cases below a regression test rather
+// than a restatement.
+const PARN = 'Amsterdam Parnassusweg (Regular Label)';
+const H_ONLY = 'HOME (Homeclub only)';
+TREE[PARN] = { [H_ONLY]: ['1 - year \u20ac72', '2 - years \u20ac67'] };
+const EXT_TREE = { [PARN]: { [H_ONLY]: ['1 - year \u20ac64', '2 - years \u20ac57'] } };
+const FORM_ROWS = [
+  { form_key: 'trainmore_change_membership', field_key: 'cf_clubs', options: { choices: TREE } },
+  { form_key: 'trainmore_membership_extension', field_key: 'cf_club_where_they_want_to_extend_at', options: { choices: EXT_TREE } }
+];
 
-function run(reply, resolvedClub) {
+function run(reply, resolvedClub, allowed) {
   const llm = { output: { reply_text: reply, transition: 'stay', field_updates: { category: 'membership', priority: 'medium' } } };
   const nodes = {
     'Prepare Prompt Variables': [{ json: { session_id: 's1', channel_user_id: 'c1', draft_id: 'd1', customer_id: 'm1' } }],
     'When Called by Parent': [{ json: { draft: { subject: 'x', description: 'y' }, missing_fields: [] } }],
     'Fetch Form Options': FORM_ROWS.map((r) => ({ json: r })),
-    'Build Priced Options': [{ json: { resolved_club: resolvedClub || '' } }]
+    'Build Priced Options': [{ json: {
+      resolved_club: resolvedClub || '',
+      allowed_options: allowed || undefined,
+      allowed_field: allowed ? 'cf_clubs' : undefined
+    } }]
   };
   const $ = (name) => ({ first: () => nodes[name][0], all: () => nodes[name] });
   return runNode({ first: () => ({ json: llm }) }, $)[0].json;
@@ -97,9 +113,22 @@ const cases = [
     'Next steps:\n1. Confirm your club\n2. Pick a term\n3. I file the request', NOI]
 ];
 
+// --- ONE ALLOWED SET: the gate must judge against what the member was SHOWN ---
+// Before this, the gate merged both form fields and the extension price won, so
+// it would have blocked the bot for quoting its own correct change-form option.
+const shownOnChangeForm = { [H_ONLY]: ['1 - year \u20ac72', '2 - years \u20ac67'] };
+cases.push(['pass', 'allowed_options: the price the member was actually shown is accepted',
+  'HOME at Parnassusweg is \u20ac72 per 4 weeks on a 1 year contract.', PARN, shownOnChangeForm]);
+cases.push(['reject', 'allowed_options: a price from the OTHER form field is still refused',
+  'HOME at Parnassusweg is \u20ac64 per 4 weeks on a 1 year contract.', PARN, shownOnChangeForm]);
+cases.push(['reject', 'allowed_options: a tier that was not shown is still refused',
+  'Your options:\n1. HOME\n2. PREMIUM', PARN, shownOnChangeForm]);
+cases.push(['pass', 'no allowed_options: falls back to the merged tree rather than failing shut',
+  'Which club would you like?', PARN]);
+
 let fail = 0;
-for (const [want, name, reply, club] of cases) {
-  const out = run(reply, club);
+for (const [want, name, reply, club, allowed] of cases) {
+  const out = run(reply, club, allowed);
   const got = out.reply_rejected ? 'reject' : 'pass';
   if (got !== want) {
     fail++;
@@ -112,3 +141,4 @@ for (const [want, name, reply, club] of cases) {
   }
 }
 console.log(fail === 0 ? ('ALL ' + cases.length + ' PRICE CASES GREEN') : (fail + ' failures'));
+process.exit(fail ? 1 : 0);

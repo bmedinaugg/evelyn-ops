@@ -73,3 +73,4 @@ const g = run({ user_message: '2', history_text: 'User: change to Amsterdam Sche
 check('rewrite not fired when club known', g.briefing_ask_level_rewritten === undefined);
 check('ask-level sentence kept when club known', /taken from the club options below/.test(g.form_options_text));
 console.log(fail === 0 ? 'ALL FACTS CASES GREEN (incl. rewrite)' : fail + ' failures');
+process.exit(fail ? 1 : 0);

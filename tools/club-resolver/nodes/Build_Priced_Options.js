@@ -154,6 +154,10 @@ let text;
 let allLevels = [];
 let onlyLevel = '';
 let resolvedClub = '';
+// The resolved club's own options, and which form field they came from. Empty
+// until a club resolves, which is also when the gate downstream has no opinion.
+let allowedOptions = {};
+let allowedField = '';
 if (detailsDone) {
   text = '✅ All required ticket details are already collected' + (draftDesc ? (': ' + draftDesc) : '') + '.\nDo NOT ask for the club, access level, duration, voucher, reason, or any other detail again, and do NOT ask "is that correct?". The details step is COMPLETE — proceed directly to the CONSENT CHECKBOXES gate below (do not show the ticket preview until every required consent checkbox has been agreed).';
 } else if (wantKey) {
@@ -255,6 +259,17 @@ if (detailsDone) {
     const levelsObj = tree[club] || {};
     const levelNames = Object.keys(levelsObj);
     resolvedClub = club;
+    // ONE ALLOWED SET (2026-09-22). The options this node puts in front of the
+    // member are now handed downstream verbatim, so the outbound price gate can
+    // check the reply against THE SAME rows rather than re-deriving its own.
+    // It used to merge cf_clubs and cf_club_where_they_want_to_extend_at into a
+    // single tree, later field winning, and those two fields disagree on 9 rows:
+    // Parnassusweg HOME 1-year is EUR72 on the change form and EUR64 on the
+    // extension form, so the gate believed EUR64 while this node showed EUR72 and
+    // would have blocked the bot for quoting its own correct price. Same for Bos
+    // en Lommer, Scheldeplein, Rozengracht and Muntgebouw.
+    allowedOptions = levelsObj;
+    allowedField = wantKey;
     if (levelNames.length === 1) onlyLevel = levelNames[0];
     const label = FORM_LABEL[requestType];
     const priceOf = (d) => { const m = String(d).match(/€\s*([0-9]+(?:[.,][0-9]+)?)/); return m ? parseFloat(m[1].replace(',', '.')) : null; };
@@ -392,4 +407,4 @@ for (const [fk, label] of Object.entries(CONSENT_FORM_LABEL)) {
 let consent_prompts_text = consentBlocks.join('\n\n');
 if (!consent_prompts_text) consent_prompts_text = '(no consent checkboxes resolved — fall back to the standard general consent: "I agree to the General Terms & Conditions, Promotional Terms, Privacy Policy, Cookie Policy and Club Rules.")';
 
-return [{ json: { ...prep, form_options_text: text, consent_prompts_text, only_access_level: onlyLevel, resolved_club: resolvedClub } }];
+return [{ json: { ...prep, form_options_text: text, consent_prompts_text, only_access_level: onlyLevel, resolved_club: resolvedClub, allowed_options: allowedOptions, allowed_field: allowedField } }];
