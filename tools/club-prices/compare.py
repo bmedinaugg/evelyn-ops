@@ -7,11 +7,21 @@ WHAT THE THREE SOURCES ARE
   1. The CHANGE FORM  — Freshdesk cf_clubs, read live. Source of truth by
      decision (2026-09-21): where it disagrees with Magicline, the form wins.
   1b. WHAT THE BOT QUOTES — bot.form_schemas in Supabase. The bot does NOT read
-     Freshdesk; its "Fetch Form Options" node reads this MIRROR. So a row where
-     the mirror disagrees with Freshdesk is a straight sync bug: the form is
-     right and the member is told something else. Found on the first run
-     (Den Haag Dagelijkse Groenmarkt HOME+, mirror EUR5 low on three terms),
-     which is why the mirror is a column and not an assumption.
+     Freshdesk; its "Fetch Form Options" node reads this MIRROR, fed by a
+     two-stage nightly pipeline:
+         Freshdesk cf_clubs
+           -> 02:00  bot.ticket_taxonomy
+           -> 04:00  bot.form_schemas   (Bot - Refresh Form Options, 0DURGlba65I9K1MA)
+     A row where the mirror disagrees with Freshdesk is therefore usually LAG,
+     not breakage: an edit made just after 02:00 is quoted stale for up to about
+     26 hours before both stages have run. Checked on the first run -- Den Haag
+     Dagelijkse Groenmarkt HOME+ read EUR69/62/55 in the mirror against
+     EUR74/67/60 in Freshdesk, and ticket_taxonomy already held the new numbers,
+     so the pipeline was working and the mirror was simply one cycle behind.
+     Still worth seeing: for that window members are quoted a price the form no
+     longer offers, and the outbound price guard validates against the MIRROR,
+     so it actively protects the stale number. If a row here persists across two
+     nights, that is no longer lag and the refresh workflow needs looking at.
   2. MAGICLINE        — GET /connect/v1/rate-bundle?studioId=. Every rate that
      exists as a sellable product at that club.
   3. JOIN-NOW         — trainmore.com/en-NL/join-now. What a NEW member is
@@ -210,10 +220,12 @@ for club in sorted(set(form) | set(mag)):
             stale = (botq and fp is not None
                      and (bv is None or abs(bv - fp) > 0.005))
             if stale:
-                status = "BOT OUT OF SYNC"
-                action = (f'Bot quotes €{bv:g}, the form says €{fp:g} — resync bot.form_schemas'
+                status = "bot behind the form"
+                action = (f'Bot quotes €{bv:g}, the form says €{fp:g}. Usually overnight lag — '
+                          f'if it is still here after two nights, check Bot - Refresh Form Options'
                           if bv is not None else
-                          'The form has this row and the bot\'s copy does not — resync bot.form_schemas')
+                          'The form has this row and the bot\'s copy does not yet — '
+                          'usually overnight lag; check Bot - Refresh Form Options if it persists')
             elif fv and mv is not None and fp is not None and abs(fp - mv) > 0.005:
                 status, action = "price differs", f'Form says €{fp:g}, Magicline €{mv:g}'
             elif fv and mv is None:
@@ -228,7 +240,7 @@ for club in sorted(set(form) | set(mag)):
                          (f"€{mv:g}" if mv is not None else ""),
                          status, action, link])
 
-ORDER = {"BOT OUT OF SYNC": 0, "MISSING from the form": 1, "price differs": 2, "form only": 3}
+ORDER = {"bot behind the form": 0, "MISSING from the form": 1, "price differs": 2, "form only": 3}
 diffs = sorted([r for r in rows if r[6] != "match"],
                key=lambda r: (ORDER.get(r[6], 9), r[0], TIER_ORDER.get(r[1], 9)))
 
@@ -238,7 +250,7 @@ HEAD_FILL = PatternFill("solid", fgColor="2F3E4E")
 FILLS = {"price differs": PatternFill("solid", fgColor="FDE9D9"),
          "MISSING from the form": PatternFill("solid", fgColor="FCE4E4"),
          "form only": PatternFill("solid", fgColor="FFF7D6"),
-         "BOT OUT OF SYNC": PatternFill("solid", fgColor="F4C7C3")}
+         "bot behind the form": PatternFill("solid", fgColor="F4C7C3")}
 LINK = Font(color="0563C1", underline="single")
 
 wb = Workbook()
@@ -252,9 +264,13 @@ for a, b in [
     ("1. The change form", "Freshdesk cf_clubs — what the bot offers an EXISTING member changing membership. "
                            "Source of truth by decision (21 Sep 2026): where it disagrees with Magicline, the form wins."),
     ("1b. What the bot quotes", "bot.form_schemas in Supabase. The bot does NOT read Freshdesk — its "
-                                "\"Fetch Form Options\" node reads this mirror. Where this column disagrees with "
-                                "the form, the member is being told the wrong price and nobody has to decide "
-                                "anything: it is a sync bug. Those rows sort to the top of Differences."),
+                                "\"Fetch Form Options\" node reads this mirror, fed nightly: Freshdesk → 02:00 "
+                                "ticket_taxonomy → 04:00 form_schemas. Where this column disagrees with the form "
+                                "it is usually LAG, not an error: an edit made just after 02:00 is quoted stale "
+                                "for up to about 26 hours. It still matters — for that window members hear a "
+                                "price the form no longer offers, and the bot's own price guard validates "
+                                "against this mirror, so it protects the stale number. If a row is still here "
+                                "after two nights it is not lag: check Bot - Refresh Form Options."),
     ("2. Magicline", "GET /connect/v1/rate-bundle — every rate that exists as a sellable product at that club. "
                      "Student and corporate bundles are excluded; neither is sold through this form."),
     ("3. join-now", "trainmore.com/en-NL/join-now — what a NEW member is actually offered. "
