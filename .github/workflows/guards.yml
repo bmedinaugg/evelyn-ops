@@ -1,0 +1,33 @@
+# The bot's guard suites. Separate from the deploy workflow ON PURPOSE.
+#
+# These test copies of the deployed n8n nodes, not the Next.js app, so a guard
+# regression should be loud without blocking an unrelated app release. If that
+# turns out to be the wrong call, move the step into main_evelyn-ops.yml.
+#
+# A failure means either a local edit broke a guard, or the deployed n8n node
+# changed and tools/*/nodes/ was not refreshed. Both need a person.
+name: Guard suites
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/**'
+      - '.github/workflows/guards.yml'
+  pull_request:
+    paths:
+      - 'tools/**'
+  workflow_dispatch:
+
+jobs:
+  guards:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      # No npm ci: the suites use only Node built-ins, so installing the app's
+      # dependencies would add minutes and a failure mode for nothing.
+      - name: Run guard suites
+        run: node tools/run-all-guards.js
