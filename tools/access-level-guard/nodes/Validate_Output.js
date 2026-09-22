@@ -77,8 +77,8 @@ if (fu.priority != null && !VALID_PRIORITIES.includes(fu.priority)) {
 // club), wrote both into the draft, the member accepted the preview and REAL
 // ticket #634927 was filed reading "User wants to change their membership to
 // Wibeautstraat with VIP access level." A prompt guard cannot be relied on for
-// this — and the stale-preview watchdog (egZI00OnrkqcBglq) can submit a draft
-// the member never confirmed — so the value is checked here, in code, before it
+// this -- and the stale-preview watchdog (egZI00OnrkqcBglq) can submit a draft
+// the member never confirmed -- so the value is checked here, in code, before it
 // is ever persisted. On a hit the field update is REJECTED (the previous draft
 // text is kept, so nothing invented can be auto-submitted later) and the turn
 // re-asks instead.
@@ -137,10 +137,10 @@ function badLevelIn(text) {
     candidates.push(c);
   };
   let m;
-  // "<TIER> access level" — the exact shape that reached ticket #634927.
+  // "<TIER> access level" -- the exact shape that reached ticket #634927.
   const R1 = /\b([A-Za-z][A-Za-z]{1,11}\+?)\s+(?:[Aa]ccess[ -]?[Ll]evel|[Tt]oegangsniveau)/g;
   while ((m = R1.exec(txt)) !== null) take(m[1]);
-  // "access level: <TIER>" / "toegangsniveau is <TIER>" — value-assignment only,
+  // "access level: <TIER>" / "toegangsniveau is <TIER>" -- value-assignment only,
   // so ordinary prose after the phrase cannot trigger it.
   const R2 = /(?:[Aa]ccess[ -]?[Ll]evel|[Tt]oegangsniveau)s?\s*(?::|=|\bis\b|\bwordt\b|\bnaar\b)\s*["'“‘]?([A-Za-z][A-Za-z]{1,11}\+?)/g;
   while ((m = R2.exec(txt)) !== null) take(m[1]);
@@ -172,6 +172,158 @@ function unknownClubIn(text) {
   }
   return null;
 }
+// === PRICE GATE (2026-09-22) ==============================================
+// The access-level gate above reads field_updates only, so it catches a tier
+// the model tried to RECORD and misses one it merely SAID. Three reproduced
+// failures were all of the second kind:
+//   Piet Heinkade  quoted HOME+ at EUR62 when the member asked for 1 year.
+//                  EUR62 is real there -- it is the 3-year price. Right club,
+//                  right tier, wrong row.
+//   Laan van NOI   offered HOME, which that club does not sell. HOME is a real
+//                  tier elsewhere, so the global level check passes it.
+//   Noordermarkt   "EUR96 per month". The value is right; the unit is not.
+// So this gate reads reply_text, and it checks against the tree for the
+// RESOLVED CLUB rather than against all clubs at once.
+//
+// Deliberately narrow, because a reply legitimately carries prices that are not
+// membership options -- an outstanding balance, a starter fee, a past charge.
+// A price only counts if a contract term sits within 40 characters of it, and a
+// tier only counts if it is presented as a numbered or bulleted option.
+// FAILS OPEN: no resolved club, or no tree for it, means no opinion.
+const PRICE_TREE = {};
+const normClub = (s) => String(s || '').toLowerCase().normalize('NFD')
+  .replace(/[̀-ͯ]/g, '')
+  .replace(/\((red|black|regular) label\)/g, '')
+  .replace(/[-–]\s*opens.*$/, '')
+  .replace(/\btrainmore\b/g, '')
+  .replace(/[^a-z0-9]+/g, ' ').trim();
+const termOf = (s) => {
+  if (/flex/i.test(s)) return 'flex';
+  const m = /(\d+)\s*[-–—]?\s*(?:year|years|jaar)/i.exec(s);
+  return m ? m[1] + 'y' : null;
+};
+const priceOf = (s) => {
+  const m = /€\s*([0-9]+(?:[.,][0-9]{1,2})?)/.exec(s);
+  return m ? Number(m[1].replace(',', '.')) : null;
+};
+try {
+  let fo = $('Fetch Form Options').all().map((i) => i.json);
+  if (fo.length === 1) { const b = fo[0].body ?? fo[0]; if (Array.isArray(b)) fo = b; }
+  fo = (fo || []).filter((r) => r && r.form_key);
+  for (const fk of ['cf_clubs', 'cf_club_where_they_want_to_extend_at']) {
+    const r = fo.find((x) => x.field_key === fk);
+    const tree = (r && r.options && r.options.choices) || {};
+    for (const club of Object.keys(tree)) {
+      const ck = normClub(club);
+      for (const lv of Object.keys(tree[club] || {})) {
+        const tier = String(lv).split('(')[0].trim().replace(/\s+/g, '').toUpperCase();
+        for (const opt of tree[club][lv] || []) {
+          const t = termOf(opt), p = priceOf(opt);
+          if (!t || p == null) continue;
+          PRICE_TREE[ck] = PRICE_TREE[ck] || {};
+          PRICE_TREE[ck][tier] = PRICE_TREE[ck][tier] || {};
+          PRICE_TREE[ck][tier][t] = p;
+        }
+      }
+    }
+  }
+} catch (e) {}
+
+function priceProblemIn(text, club) {
+  const tree = PRICE_TREE[normClub(club)];
+  if (!tree) return null;
+  const all = new Set();
+  for (const tier of Object.keys(tree)) {
+    for (const t of Object.keys(tree[tier])) all.add(tree[tier][t]);
+  }
+  const R = /(?:(\d)\s*[-–—]?\s*(?:years?|jaar)|\b(flex)\b)[^€\n]{0,40}€\s*([0-9]+(?:[.,][0-9]{1,2})?)|€\s*([0-9]+(?:[.,][0-9]{1,2})?)[^€\n]{0,40}(?:(\d)\s*[-–—]?\s*(?:years?|jaar)|\b(flex)\b)/gi;
+  let m;
+  while ((m = R.exec(String(text || ''))) !== null) {
+    const n = m[1] || m[5];
+    const isFlex = m[2] || m[6];
+    const price = Number(String(m[3] || m[4]).replace(',', '.'));
+    const term = isFlex ? 'flex' : (n + 'y');
+    const expected = [];
+    let ok = false;
+    for (const tier of Object.keys(tree)) {
+      const p = tree[tier][term];
+      if (p == null) continue;
+      expected.push(p);
+      if (Math.abs(p - price) < 0.005) ok = true;
+    }
+    if (!expected.length) {
+      // The club sells no contract of that length. Offering one anyway is the
+      // same failure as inventing a price, so it is treated the same way.
+      return 'no ' + term + ' contract is sold at this club';
+    }
+    if (!ok) {
+      return all.has(price)
+        ? 'price €' + price + ' is not the ' + term + ' price at this club'
+        : 'price €' + price + ' is not offered at this club';
+    }
+  }
+  return null;
+}
+
+function wrongFrequencyIn(text, club) {
+  const tree = PRICE_TREE[normClub(club)];
+  if (!tree) return null;
+  const all = new Set();
+  for (const tier of Object.keys(tree)) {
+    for (const t of Object.keys(tree[tier])) all.add(tree[tier][t]);
+  }
+  // Every consumer rate in Magicline bills every 4 weeks -- 148 of 148 checked,
+  // all four contract lengths (tools/club-prices/reconcile.py). The form labels
+  // do not say so, which is why the model keeps reaching for "per month".
+  const R = /€\s*([0-9]+(?:[.,][0-9]{1,2})?)[^€\n]{0,24}\b(?:per|a|each|elke|per\s+kalender)?\s*(month|maand|maandelijks|monthly)\b/gi;
+  let m;
+  while ((m = R.exec(String(text || ''))) !== null) {
+    const price = Number(m[1].replace(',', '.'));
+    if (all.has(price)) return '€' + price + ' billed "' + m[2] + '" (every rate is per 4 weeks)';
+  }
+  return null;
+}
+
+function tierNotAtClub(text, club) {
+  const tree = PRICE_TREE[normClub(club)];
+  if (!tree) return null;
+  const offered = new Set(Object.keys(tree));
+  // No trailing \b: there is no word boundary between "+" and a space, so \b
+  // made the engine backtrack and read "HOME+" as "HOME". A negative lookahead
+  // keeps the plus attached instead.
+  const R = /(?:^|\n)\s*(?:\d+[).]|[-*•])\s*\**\s*([A-Za-z][A-Za-z]{1,11}\+?)(?![A-Za-z])/g;
+  let m;
+  while ((m = R.exec(String(text || ''))) !== null) {
+    const tok = m[1].toUpperCase();
+    if (VALID_LEVEL_TOKENS.indexOf(tok) === -1) continue;
+    if (!offered.has(tok)) return m[1];
+  }
+  return null;
+}
+
+let replyRejected = null;
+try {
+  let rc = '';
+  try { rc = String($('Build Priced Options').first().json.resolved_club || '').trim(); } catch (e) {}
+  if (rc && typeof parsed.reply_text === 'string' && parsed.reply_text) {
+    // When the bot reports the member's OWN account, the figures come from
+    // Magicline -- a legacy rate, a promo, a rolling contract that really does
+    // bill monthly, a EUR1-per-workout discount. The form tree has no authority
+    // over those, so only the tier check (what we OFFER) applies. Measured on 21
+    // days of real replies: this exemption is the difference between 7 false
+    // positives and none, and it costs no true positives.
+    const accountReport = /\bfor your account\b|\bvoor je account\b/i.test(parsed.reply_text);
+    if (!accountReport) {
+      replyRejected = priceProblemIn(parsed.reply_text, rc);
+      if (!replyRejected) replyRejected = wrongFrequencyIn(parsed.reply_text, rc);
+    }
+    if (!replyRejected) {
+      const bt = tierNotAtClub(parsed.reply_text, rc);
+      if (bt) replyRejected = 'tier not offered at this club: ' + bt;
+    }
+  }
+} catch (e) { replyRejected = null; }
+
 let recordingRejected = null;
 try {
   const claim = String(fu.subject || '') + '\n' + String(fu.description || '');
@@ -218,6 +370,14 @@ if (finalTransition === 'ready_for_confirmation' && newMissing.length > 0) {
   finalReply = 'Almost there — I still need a bit more info. Could you tell me the ' + newMissing[0] + '?';
 }
 
+if (replyRejected && !recordingRejected) {
+  // The recorded draft may be fine; it is what the member was TOLD that is
+  // wrong. Do not advance, and re-offer from the verified list rather than
+  // letting the model restate it a second time.
+  finalTransition = 'stay';
+  finalReply = 'Sorry — let me correct that before we go on. Here are the real options and prices for this club, so you get the right figure for the term you want.';
+}
+
 if (recordingRejected) {
   // Do not advance and do not persist the rejected value. Ask for the one thing
   // we could not verify, in plain language, instead of guessing again.
@@ -240,6 +400,6 @@ return [{ json: {
   updated_draft:     merged,
   missing_fields:    newMissing,
   raw_llm_output:    null,
-  recording_rejected: recordingRejected
+  recording_rejected: recordingRejected,
+  reply_rejected:     replyRejected
 } }];
-
