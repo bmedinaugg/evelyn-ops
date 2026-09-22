@@ -158,6 +158,11 @@ let resolvedClub = '';
 // until a club resolves, which is also when the gate downstream has no opinion.
 let allowedOptions = {};
 let allowedField = '';
+// The exact words meant for the member, with no instructions wrapped around
+// them. Emitting this separately is the point of task #11: the numbers are
+// composed HERE, in code, so a guard downstream can send them verbatim instead
+// of asking the model to reproduce them a second time.
+let optionsBlock = '';
 if (detailsDone) {
   text = '✅ All required ticket details are already collected' + (draftDesc ? (': ' + draftDesc) : '') + '.\nDo NOT ask for the club, access level, duration, voucher, reason, or any other detail again, and do NOT ask "is that correct?". The details step is COMPLETE — proceed directly to the CONSENT CHECKBOXES gate below (do not show the ticket preview until every required consent checkbox has been agreed).';
 } else if (wantKey) {
@@ -302,6 +307,7 @@ if (detailsDone) {
     const guard = '\n\nNEVER paraphrase or rename access levels (e.g. never ask "Black Label or Regular Label?" — those are club types from the club name, not access levels). Quote ONLY the options in THIS message — never reuse tiers/prices from earlier turns; they may belong to a DIFFERENT club.';
     if (!chosenLevel) {
       const lvLines = levelNames.map((l, i) => { const mp = minPrice(levelsObj[l]); return '  ' + (i + 1) + ')  ' + l + (mp != null ? ('  — from €' + mp + ' per 4 weeks') : ''); });
+      optionsBlock = '📝 Which membership would you like at ' + club + '?\n\n' + lvLines.join('\n') + '\n\nReply with the number or the name.';
       text = label + ' — STEP 1 of 2 (ACCESS LEVEL). Present the block below EXACTLY as your 📝 question — verbatim, keep the numbering — and ask ONLY which access level. Do NOT list terms/durations yet. When the member replies (a number or a name), record that access level; its terms appear in your next turn.\n\n📝 Which membership would you like at ' + club + '?\n\n' + lvLines.join('\n') + '\n\nReply with the number or the name.' + guard;
     } else {
       const durs = Array.isArray(levelsObj[chosenLevel]) ? levelsObj[chosenLevel] : [];
@@ -312,6 +318,7 @@ if (detailsDone) {
         text = label + ' — SELECTION COMPLETE. The member chose access level "' + chosenLevel + '" and term "' + chosenTerm + '" at ' + club + '. RECORD this exact option VERBATIM in the description (access level "' + chosenLevel + '", term "' + chosenTerm + '") and proceed to the ticket preview. Do NOT ask about club, access level or term again.';
       } else {
         const dLines = durs.map((d, i) => '  ' + (i + 1) + ')  ' + fmtTerm(d));
+        optionsBlock = '📝 ' + chosenLevel + ' it is — which term?\n\n' + dLines.join('\n') + '\n\nReply with the number or the term.';
         const lead = levelIsOnlyOption
           ? (club + ' offers exactly ONE access level, "' + chosenLevel + '", so there is nothing for the member to choose. Tell them plainly that this club has only that one level — do NOT ask them to pick an access level, do NOT present a list of one, and do NOT offer or invent any alternative. Record access level = "' + chosenLevel + '". Then ')
           : levelJustPicked ? ('The member selected access level "' + chosenLevel + '" — record access level = "' + chosenLevel + '". Then ')
@@ -407,4 +414,4 @@ for (const [fk, label] of Object.entries(CONSENT_FORM_LABEL)) {
 let consent_prompts_text = consentBlocks.join('\n\n');
 if (!consent_prompts_text) consent_prompts_text = '(no consent checkboxes resolved — fall back to the standard general consent: "I agree to the General Terms & Conditions, Promotional Terms, Privacy Policy, Cookie Policy and Club Rules.")';
 
-return [{ json: { ...prep, form_options_text: text, consent_prompts_text, only_access_level: onlyLevel, resolved_club: resolvedClub, allowed_options: allowedOptions, allowed_field: allowedField } }];
+return [{ json: { ...prep, form_options_text: text, consent_prompts_text, only_access_level: onlyLevel, resolved_club: resolvedClub, allowed_options: allowedOptions, allowed_field: allowedField, options_block: optionsBlock } }];

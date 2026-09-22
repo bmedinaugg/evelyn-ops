@@ -38,7 +38,7 @@ const FORM_ROWS = [
   { form_key: 'trainmore_membership_extension', field_key: 'cf_club_where_they_want_to_extend_at', options: { choices: EXT_TREE } }
 ];
 
-function run(reply, resolvedClub, allowed) {
+function run(reply, resolvedClub, allowed, optionsBlock) {
   const llm = { output: { reply_text: reply, transition: 'stay', field_updates: { category: 'membership', priority: 'medium' } } };
   const nodes = {
     'Prepare Prompt Variables': [{ json: { session_id: 's1', channel_user_id: 'c1', draft_id: 'd1', customer_id: 'm1' } }],
@@ -47,7 +47,8 @@ function run(reply, resolvedClub, allowed) {
     'Build Priced Options': [{ json: {
       resolved_club: resolvedClub || '',
       allowed_options: allowed || undefined,
-      allowed_field: allowed ? 'cf_clubs' : undefined
+      allowed_field: allowed ? 'cf_clubs' : undefined,
+      options_block: optionsBlock || undefined
     } }]
   };
   const $ = (name) => ({ first: () => nodes[name][0], all: () => nodes[name] });
@@ -127,6 +128,32 @@ cases.push(['pass', 'no allowed_options: falls back to the merged tree rather th
   'Which club would you like?', PARN]);
 
 let fail = 0;
+
+// --- #11: a rejected reply must SEND the real options, not promise them -----
+// The old correction text said "here are the real options" and then gave none,
+// so the next turn went back to the same model that had just got them wrong.
+const BLOCK = '\u{1F4DD} Which membership would you like at Amsterdam Piet Heinkade (Black Label)?\n\n' +
+  '  1)  HOME+ (Homeclub + Regular Label Clubs)  \u2014 from \u20ac62 per 4 weeks\n' +
+  '  2)  PREMIUM (Homeclub + Regular & Black Label Clubs)  \u2014 from \u20ac78 per 4 weeks\n\n' +
+  'Reply with the number or the name.';
+
+{
+  const bad = 'For a 1-year contract the HOME+ price is \u20ac62 per 4 weeks.';
+  const withBlock = run(bad, PH, null, BLOCK);
+  if (!withBlock.reply_rejected) { fail++; console.log('FAIL [#11 setup: the bad reply was not rejected]'); }
+  if (withBlock.reply_text.indexOf(BLOCK) === -1) {
+    fail++; console.log('FAIL [#11 the corrected reply does not contain the code-composed options block]');
+  }
+  if (!/\u20ac76|\u20ac62/.test(withBlock.reply_text)) {
+    fail++; console.log('FAIL [#11 the corrected reply carries no prices at all]');
+  }
+  const withoutBlock = run(bad, PH);
+  if (withoutBlock.reply_text.indexOf('\u{1F4DD}') !== -1) {
+    fail++; console.log('FAIL [#11 invented an options block when none was composed]');
+  }
+  if (!withoutBlock.reply_rejected) { fail++; console.log('FAIL [#11 no-block case should still reject]'); }
+}
+
 for (const [want, name, reply, club, allowed] of cases) {
   const out = run(reply, club, allowed);
   const got = out.reply_rejected ? 'reject' : 'pass';

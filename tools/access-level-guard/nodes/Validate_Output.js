@@ -202,10 +202,14 @@ function unknownClubIn(text) {
 // The merged tree stays as the fallback for turns where no club resolved and
 // allowed_options is therefore empty.
 let ALLOWED_OPTIONS = null;
+// The member-facing list, composed in code by Build Priced Options. When this
+// gate rejects a reply it SENDS this rather than describing it.
+let OPTIONS_BLOCK = '';
 try {
   const _bpo = $('Build Priced Options').first().json || {};
   const _ao = _bpo.allowed_options;
   if (_ao && typeof _ao === 'object' && Object.keys(_ao).length) ALLOWED_OPTIONS = _ao;
+  OPTIONS_BLOCK = String(_bpo.options_block || '');
 } catch (e) {}
 const PRICE_TREE = {};
 const normClub = (s) => String(s || '').toLowerCase().normalize('NFD')
@@ -408,10 +412,17 @@ if (finalTransition === 'ready_for_confirmation' && newMissing.length > 0) {
 
 if (replyRejected && !recordingRejected) {
   // The recorded draft may be fine; it is what the member was TOLD that is
-  // wrong. Do not advance, and re-offer from the verified list rather than
-  // letting the model restate it a second time.
+  // wrong. Do not advance.
+  //
+  // The old text here PROMISED the real options and then did not give them, so
+  // the next turn went back to the same model that had just got the numbers
+  // wrong -- an invitation to loop. When Build Priced Options has composed the
+  // list, send that verbatim instead: the numbers reach the member exactly as
+  // the form has them, with no second pass through the model.
   finalTransition = 'stay';
-  finalReply = 'Sorry — let me correct that before we go on. Here are the real options and prices for this club, so you get the right figure for the term you want.';
+  finalReply = OPTIONS_BLOCK
+    ? ('Sorry — let me correct that. Here are this club’s actual options:\n\n' + OPTIONS_BLOCK)
+    : 'Sorry — let me correct that before we go on. Let me get you the right figures for this club before we carry on.';
 }
 
 if (recordingRejected) {
