@@ -247,6 +247,7 @@ return $input.all().map((it) => {
   } else if (contractState === 'IN' && direction === 'SAME') {
     rules.push('IN CONTRACT, SAME ACCESS LEVEL — this is a home club change, not an upgrade or a downgrade. Their contract carries over: same contract, same end date, same promotion. No new contract, no new term, no new price. Say YES to them clearly and say why; this is the reassurance they are asking for.');
   }
+
   // INSTRUCTIONS TO THE MODEL — NOT rules for the member (2026-09-03).
   // Feedback 613de9a1, Lowri Botham: "You're all set, Andreia! 👋 You do not yet
   // know enough to state which rule applies". The UNKNOWN case used to be
