@@ -8,16 +8,16 @@ node bodies, and 6,000 real messages replayed offline. This reads what the bot
 actually said afterwards.
 
 WHAT IS OBSERVABLE, AND WHAT IS NOT
-The price gate's verdict (reply_rejected) is returned by Validate Output and
-then dropped -- nothing persists it. So a firing is only visible through the
-correction wording it puts in the reply, which is distinctive enough to count.
-The 4a block goes into the PROMPT, not the reply, so it is not directly visible
-either; it is inferred from the pair "member asked a hypothetical" + "reply was
-not a bare form link". Both are proxies, and they are named as such below rather
-than dressed up as instrumentation.
+Since 22 Sep the verdict is REAL: Bot - Main writes metadata.guard on the
+logged assistant message whenever the price gate or the recording gate fires,
+so we now know which rule fired and on which turn, not just that something did.
+Messages logged before that change have no guard key, so the wording-based
+count is kept as a fallback and both are printed -- a gap between them on
+recent traffic means the metadata write is not landing.
 
-If these numbers matter beyond spot-checking, the honest fix is to persist
-reply_rejected alongside the message rather than infer it from wording.
+Still a proxy: the 4a block goes into the PROMPT, not the reply, so it cannot
+be seen directly. It is inferred from "member asked a hypothetical" + "reply
+was not a bare form link", and is labelled as an inference below.
 
 BASELINE BEFORE THE DEPLOY (72h to 22 Sep 00:40, all pre-deploy traffic):
     741 sessions, 3,760 assistant replies
@@ -53,7 +53,7 @@ def sb(path):
 def fetch(role, since):
     out, off = [], 0
     while True:
-        q = urllib.parse.urlencode({"select": "session_id,content,created_at", "role": f"eq.{role}",
+        q = urllib.parse.urlencode({"select": "session_id,content,created_at,metadata", "role": f"eq.{role}",
                                     "created_at": f"gte.{since}", "order": "created_at",
                                     "limit": "1000", "offset": str(off)})
         b = sb("conversation_messages?" + q)
@@ -120,6 +120,19 @@ for sid, msgs in by_session.items():
         else:
             no_link += 1
 
+# The real verdict, when the message was logged after 22 Sep.
+guarded = [m for m in bots if (m.get("metadata") or {}).get("guard")]
+price_fired, record_fired, reasons = 0, 0, {}
+for m in guarded:
+    g = m["metadata"]["guard"]
+    if g.get("reply_rejected"):
+        price_fired += 1
+        # collapse the amount so the shapes group
+        k = re.sub(r"\u20ac[0-9.,]+", "\u20acX", g["reply_rejected"])
+        reasons[k] = reasons.get(k, 0) + 1
+    if g.get("recording_rejected"):
+        record_fired += 1
+
 corrections = sum(1 for m in bots if CORRECTION.search(m["content"]))
 old_corr = sum(1 for m in bots if OLD_CORRECTION.search(m["content"]))
 blocks = sum(1 for m in bots if OPTIONS_BLOCK.search(m["content"]))
@@ -131,14 +144,24 @@ print(f"    of which EXPLORING (4a applies)    {exploring_sessions}")
 print(f"      answered without a form link     {no_link}   <- 4a working")
 print(f"      still got a form link            {got_link}   <- check these")
 print()
-print(f"  price gate fired (new wording)       {corrections}")
+print(f"  messages carrying metadata.guard     {len(guarded)}")
+print(f"  price gate fired   (from metadata)   {price_fired}")
+print(f"  recording gate fired (from metadata) {record_fired}")
+print(f"  price gate fired (wording fallback)  {corrections}   <- should match the metadata count on recent traffic")
 print(f"  price gate fired (OLD wording)       {old_corr}   <- should be 0 after 21 Sep")
+if reasons:
+    print("    which rule fired:")
+    for k, v in sorted(reasons.items(), key=lambda kv: -kv[1]):
+        print(f"      {v:>3}  {k}")
 print(f"  code-composed options block sent     {blocks}")
 print(f"  self-service form links sent         {links}")
 print()
 if exploring_sessions == 0:
     print("  No exploring conversation yet. At ~1/day this is normal for a short window;")
     print("  widen it (e.g. 72) before concluding anything.")
+if corrections and not price_fired:
+    print("  The correction wording appeared but no metadata.guard did. Either these")
+    print("  messages predate the 22 Sep change, or the metadata write is not landing.")
 if got_link:
     print("  A session classified as exploring still received a form link. That is either a")
     print("  later turn after the member decided (fine) or the bypass not holding (not fine).")
