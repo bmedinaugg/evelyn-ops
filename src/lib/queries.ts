@@ -41,6 +41,12 @@ import type {
   ChangeImpactRow,
   ScorecardValidation,
   CaseLibraryRow,
+  CaseProposalRow,
+  CaseProposalCommentRow,
+  CaseProposalKind,
+  CaseProposalStance,
+  CaseProposalStatus,
+  CaseTrialRow,
   KnowledgeSourceRow,
   QuestionTraceRow,
   QuestionNoteRow,
@@ -1462,4 +1468,194 @@ export async function resolveKnowledgeItemNote(id: string): Promise<void> {
     .update({ resolved_at: new Date().toISOString(), resolved_by: staff.email })
     .eq("id", id);
   if (error) throw new Error(`resolve knowledge note failed: ${error.message}`);
+}
+
+// ---------------------------------------------------------------------------
+// Cases — proposals against the case library (db/051).
+
+export async function isCaseApprover(): Promise<boolean> {
+  const staff = await requireStaff();
+  return env.casesApprovers.includes(staff.email.toLowerCase());
+}
+
+export async function listCaseProposals(): Promise<CaseProposalRow[]> {
+  await requireStaff();
+  const { data, error } = await dataClient().rpc("case_proposals_view");
+  if (error) throw new Error(`case proposals failed: ${error.message}`);
+  return (data ?? []) as unknown as CaseProposalRow[];
+}
+
+export async function listCaseProposalComments(
+  proposalIds: string[],
+): Promise<CaseProposalCommentRow[]> {
+  await requireStaff();
+  if (!proposalIds.length) return [];
+  const { data, error } = await dataClient()
+    .from("case_proposal_comments")
+    .select("*")
+    .in("proposal_id", proposalIds)
+    .order("created_at", { ascending: true });
+  if (error) throw new Error(`case proposal comments failed: ${error.message}`);
+  return (data ?? []) as CaseProposalCommentRow[];
+}
+
+export async function createCaseProposal(input: {
+  caseKey: string | null;
+  title: string | null;
+  kind: CaseProposalKind;
+  shouldBe: string;
+  rationale: string | null;
+  exampleSessionId: string | null;
+}): Promise<string> {
+  const staff = await requireStaff();
+  const shouldBe = input.shouldBe.trim();
+  if (!shouldBe) throw new Error("Say what the bot should do instead.");
+  if (input.kind === "missing" && !input.title?.trim()) {
+    throw new Error("A missing case needs a short title.");
+  }
+  if (input.kind !== "missing" && !input.caseKey) {
+    throw new Error("Pick the case this is about.");
+  }
+  const { data, error } = await dataClient()
+    .from("case_proposals")
+    .insert({
+      case_key: input.kind === "missing" ? null : input.caseKey,
+      title: input.kind === "missing" ? input.title!.trim() : null,
+      kind: input.kind,
+      should_be: shouldBe,
+      rationale: input.rationale?.trim() || null,
+      example_session_id: input.exampleSessionId?.trim() || null,
+      proposed_by: staff.email,
+    })
+    .select("id")
+    .single();
+  if (error) {
+    // The partial unique index: someone already has an open proposal on this
+    // case. Say so in words the page can show, and point at where to go.
+    if (error.code === "23505") {
+      throw new Error(
+        "There is already an open proposal on this case. Agree or object on that one instead of opening a second.",
+      );
+    }
+    throw new Error(`create proposal failed: ${error.message}`);
+  }
+  return (data as { id: string }).id;
+}
+
+export async function addCaseProposalComment(input: {
+  proposalId: string;
+  stance: CaseProposalStance;
+  body: string | null;
+}): Promise<void> {
+  const staff = await requireStaff();
+  const body = input.body?.trim() || null;
+  // An objection without a reason is a vote, not feedback; a bare comment is
+  // nothing. Only "agree" may stand alone.
+  if (input.stance !== "agree" && !body) {
+    throw new Error(input.stance === "object" ? "Say why you object." : "Write something, or pick agree / object.");
+  }
+  const { error } = await dataClient().from("case_proposal_comments").insert({
+    proposal_id: input.proposalId,
+    author_email: staff.email,
+    stance: input.stance,
+    body,
+  });
+  if (error) throw new Error(`add comment failed: ${error.message}`);
+}
+
+// accepted / rejected / implemented are the approver's calls; withdrawn is the
+// proposer's own. Both paths go through here so the audit columns are set the
+// same way.
+export async function setCaseProposalStatus(input: {
+  proposalId: string;
+  status: Exclude<CaseProposalStatus, "open">;
+  note: string | null;
+}): Promise<void> {
+  const staff = await requireStaff();
+  const approver = env.casesApprovers.includes(staff.email.toLowerCase());
+  if (input.status === "withdrawn") {
+    const { data } = await dataClient()
+      .from("case_proposals")
+      .select("proposed_by")
+      .eq("id", input.proposalId)
+      .single();
+    const mine = data?.proposed_by?.toLowerCase() === staff.email.toLowerCase();
+    if (!mine && !approver) throw new Error("Only the proposer can withdraw this.");
+  } else if (!approver) {
+    throw new Error("Only an approver can decide a proposal.");
+  }
+  const { error } = await dataClient()
+    .from("case_proposals")
+    .update({
+      status: input.status,
+      decided_by: staff.email,
+      decided_at: new Date().toISOString(),
+      decision_note: input.note?.trim() || null,
+    })
+    .eq("id", input.proposalId);
+  if (error) throw new Error(`set proposal status failed: ${error.message}`);
+}
+
+// "Try it" on a case: run one member message through the real sub-workflow
+// behind it, via the regression harness, and keep the reply (db/052).
+export async function listCaseTrials(caseKey: string, limit = 12): Promise<CaseTrialRow[]> {
+  await requireStaff();
+  const { data, error } = await dataClient()
+    .from("case_trials")
+    .select("*")
+    .eq("case_key", caseKey)
+    .order("ran_at", { ascending: false })
+    .limit(limit);
+  if (error) throw new Error(`case trials failed: ${error.message}`);
+  return (data ?? []) as CaseTrialRow[];
+}
+
+export async function runCaseTrial(input: {
+  caseKey: string;
+  targetWorkflowId: string;
+  message: string;
+  proposalId: string | null;
+}): Promise<CaseTrialRow> {
+  const staff = await requireStaff();
+  const message = input.message.trim();
+  if (!message) throw new Error("Type the message a member would send.");
+  if (message.length > 1000) throw new Error("Keep the message under 1000 characters.");
+
+  // The harness returns only the output keys named in expected_result, so
+  // naming reply_text is how the reply is asked for. `passed` is meaningless
+  // here and ignored.
+  const started = Date.now();
+  let reply: string | null = null;
+  let err: string | null = null;
+  try {
+    const r = await runHarnessFixture({
+      fixture_key: `trial:${input.caseKey}`,
+      target_workflow_id: input.targetWorkflowId,
+      input_payload: { user_message: message, history: [] },
+      expected_result: { reply_text: null },
+    });
+    const text = r.actual_result?.reply_text;
+    reply = typeof text === "string" && text.trim() ? text.trim() : null;
+    if (!reply) err = r.notes ?? "The bot returned no reply.";
+  } catch (e) {
+    err = e instanceof Error ? e.message : "Harness call failed.";
+  }
+  const ms = Date.now() - started;
+
+  const { data, error } = await dataClient()
+    .from("case_trials")
+    .insert({
+      case_key: input.caseKey,
+      proposal_id: input.proposalId,
+      target_workflow_id: input.targetWorkflowId,
+      message,
+      reply,
+      error: err,
+      ms,
+      ran_by: staff.email,
+    })
+    .select("*")
+    .single();
+  if (error) throw new Error(`record trial failed: ${error.message}`);
+  return data as CaseTrialRow;
 }

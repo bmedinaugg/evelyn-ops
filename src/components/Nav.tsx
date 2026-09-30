@@ -28,11 +28,12 @@ const SECTIONS: { title: string | null; items: NavItem[] }[] = [
       { href: "/sentiment", label: "Sentiment", icon: "🌡️" },
       { href: "/evaluation", label: "Bot evaluation", icon: "🎯" },
       { href: "/tickets", label: "Tickets", icon: "🎫" },
-      // Two libraries, deliberately separate: /scenarios is what the bot
-      // RECOGNISES, /library is what it DOES about it and where the answer
-      // comes from.
+      // Cases is what the bot DOES about each thing a member asks, where the
+      // answer comes from, and the one place to propose it be different. It
+      // replaced /library. /scenarios stays separate: that is what the bot
+      // RECOGNISES, with measured misfire rates.
+      { href: "/cases", label: "Cases", icon: "📚" },
       { href: "/scenarios", label: "Scenario library", icon: "📖" },
-      { href: "/library", label: "Case library", icon: "📚" },
       // And a third, one level further back: /knowledge is what FEEDS the
       // answers — the documents and syncs behind them, including the ones that
       // produced no FAQ and the ones nothing actually reads.

@@ -56,6 +56,15 @@ export const env = {
       .map((e) => e.trim().toLowerCase())
       .filter(Boolean);
   },
+  // Who can accept, reject or mark implemented a case proposal. Everyone else
+  // can propose, agree, object and comment. Comma-separated; one person by
+  // default because a single point of consistency is the point.
+  get casesApprovers() {
+    return (process.env.CASES_APPROVERS || "bryan.medina.per@urbangymgroup.com")
+      .split(",")
+      .map((e) => e.trim().toLowerCase())
+      .filter(Boolean);
+  },
   get staffExtraEmails() {
     return (process.env.STAFF_EXTRA_EMAILS || "")
       .split(",")

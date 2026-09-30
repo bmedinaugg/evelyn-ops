@@ -14,6 +14,10 @@ export interface HarnessResult {
 
 export async function runHarnessFixture(input: {
   fixture_key: string;
+  // When set, the harness calls this live sub-workflow with input_payload
+  // instead of a ported fixture, and returns the output keys named in
+  // expected_result (db/010).
+  target_workflow_id?: string;
   input_payload: Record<string, unknown>;
   expected_result: Record<string, unknown>;
 }): Promise<HarnessResult> {

@@ -4,9 +4,11 @@ import {
   getConversation,
   getFormSchemas,
   listConversationFeedback,
+  getCaseLibrary,
 } from "@/lib/queries";
 import { freshdeskUrl, normaliseDate } from "@/lib/format";
 import { FeedbackPanel } from "./FeedbackPanel";
+import { ProposeForm } from "../../cases/ProposeForm";
 import { ProposeFaqForm } from "./ProposeFaqForm";
 import { CreateTicketForm } from "./CreateTicketForm";
 import { SubmitDraftButton } from "./SubmitDraftButton";
@@ -33,11 +35,12 @@ export default async function ConversationDetailPage({
   const { date: rawDate } = await searchParams;
   const date = normaliseDate(rawDate);
 
-  const [conv, feedback, formSchemas, abandonedDraft] = await Promise.all([
+  const [conv, feedback, formSchemas, abandonedDraft, caseOptions] = await Promise.all([
     getConversation(sessionId),
     listConversationFeedback(sessionId),
     getFormSchemas(),
     getAbandonedTicketDraft(sessionId),
+    getCaseLibrary(30),
   ]);
 
   const backLink = `/conversations?date=${date}`;
@@ -165,6 +168,19 @@ export default async function ConversationDetailPage({
       </div>
 
       <FeedbackPanel sessionId={sessionId} items={feedback} />
+
+      {/* Feedback that names the CASE it is about, with this conversation
+          attached as the example. Lands on /cases, where one open proposal per
+          case keeps two reviewers from contradicting each other unseen. */}
+      <div className="section" style={{ marginTop: 18 }}>
+        <h2>Propose a change to a case</h2>
+        <div className="panel" style={{ padding: 16 }}>
+          <ProposeForm
+            sessionId={sessionId}
+            cases={caseOptions.map((c) => ({ key: c.key, label: c.trigger_label, area: c.area, source: c.source_kind }))}
+          />
+        </div>
+      </div>
 
       <div style={{ height: 18 }} />
       <ProposeFaqForm sessionId={sessionId} />
