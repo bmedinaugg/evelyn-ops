@@ -47,6 +47,10 @@ import type {
   CaseProposalStance,
   CaseProposalStatus,
   CaseTrialRow,
+  TestProfileRow,
+  TestScenarioRow,
+  TestRunRow,
+  TestTurnSpec,
   KnowledgeSourceRow,
   QuestionTraceRow,
   QuestionNoteRow,
@@ -1658,4 +1662,102 @@ export async function runCaseTrial(input: {
     .single();
   if (error) throw new Error(`record trial failed: ${error.message}`);
   return data as CaseTrialRow;
+}
+
+// ---------------------------------------------------------------------------
+// Test harness (db/054).
+
+export async function listTestProfiles(): Promise<TestProfileRow[]> {
+  await requireStaff();
+  const { data, error } = await dataClient().from("test_profiles").select("*").order("key");
+  if (error) throw new Error(`test profiles failed: ${error.message}`);
+  return (data ?? []) as TestProfileRow[];
+}
+
+export async function saveTestProfile(input: {
+  key: string;
+  email: string | null;
+  loginChoice: string | null;
+  notes: string | null;
+  active: boolean;
+}): Promise<void> {
+  const staff = await requireStaff();
+  const email = input.email?.trim().toLowerCase() || null;
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    throw new Error("That does not look like an e-mail address.");
+  }
+  const { error } = await dataClient()
+    .from("test_profiles")
+    .update({
+      email,
+      login_choice: input.loginChoice?.trim() || null,
+      notes: input.notes?.trim() || null,
+      active: input.active,
+      updated_at: new Date().toISOString(),
+      updated_by: staff.email,
+    })
+    .eq("key", input.key);
+  if (error) throw new Error(`save profile failed: ${error.message}`);
+}
+
+export async function listTestScenarios(): Promise<TestScenarioRow[]> {
+  await requireStaff();
+  const { data, error } = await dataClient().from("test_scenarios").select("*").order("key");
+  if (error) throw new Error(`test scenarios failed: ${error.message}`);
+  return (data ?? []) as TestScenarioRow[];
+}
+
+export async function getTestScenario(key: string): Promise<TestScenarioRow | null> {
+  await requireStaff();
+  const { data, error } = await dataClient().from("test_scenarios").select("*").eq("key", key).maybeSingle();
+  if (error) throw new Error(`test scenario failed: ${error.message}`);
+  return (data as TestScenarioRow | null) ?? null;
+}
+
+export async function saveTestScenario(input: {
+  key: string;
+  title: string;
+  profileKey: string | null;
+  caseKey: string | null;
+  turns: TestTurnSpec[];
+  active: boolean;
+}): Promise<void> {
+  const staff = await requireStaff();
+  const key = input.key.trim().toLowerCase().replace(/[^a-z0-9_-]+/g, "_").replace(/^_+|_+$/g, "");
+  if (!key) throw new Error("A scenario needs a key.");
+  if (!input.title.trim()) throw new Error("A scenario needs a title.");
+  const turns = input.turns.filter((t) => t.say.trim());
+  if (!turns.length) throw new Error("Add at least one turn.");
+  for (const t of turns) {
+    if (t.matches) {
+      try { new RegExp(t.matches); } catch { throw new Error(`Bad pattern: ${t.matches}`); }
+    }
+  }
+  const { error } = await dataClient().from("test_scenarios").upsert({
+    key,
+    title: input.title.trim(),
+    profile_key: input.profileKey || null,
+    case_key: input.caseKey || null,
+    turns,
+    active: input.active,
+    created_by: staff.email,
+    updated_at: new Date().toISOString(),
+  });
+  if (error) throw new Error(`save scenario failed: ${error.message}`);
+}
+
+export async function listTestRuns(limit = 40, scenarioKey?: string): Promise<TestRunRow[]> {
+  await requireStaff();
+  let q = dataClient().from("test_runs").select("*").order("started_at", { ascending: false }).limit(limit);
+  if (scenarioKey) q = q.eq("scenario_key", scenarioKey);
+  const { data, error } = await q;
+  if (error) throw new Error(`test runs failed: ${error.message}`);
+  return (data ?? []) as TestRunRow[];
+}
+
+export async function getTestRun(id: string): Promise<TestRunRow | null> {
+  await requireStaff();
+  const { data, error } = await dataClient().from("test_runs").select("*").eq("id", id).maybeSingle();
+  if (error) throw new Error(`test run failed: ${error.message}`);
+  return (data as TestRunRow | null) ?? null;
 }

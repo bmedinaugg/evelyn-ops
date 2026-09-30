@@ -846,3 +846,73 @@ export interface CaseTrialRow {
   ran_by: string;
   ran_at: string;
 }
+
+// ---------------------------------------------------------------------------
+// Test harness (db/054): the runner plays scenarios against the real bot
+// through its web-chat entry point as a 'test-…' identity.
+
+export interface TestProfileRow {
+  key: string;
+  label: string;
+  email: string | null;
+  expected_status: string;
+  login_choice: string | null;
+  notes: string | null;
+  active: boolean;
+  updated_at: string;
+  updated_by: string | null;
+}
+
+export type TestOutcome = "no_ticket" | "ticket_filed";
+
+// One turn the runner speaks, and what the reply must satisfy.
+export interface TestTurnSpec {
+  say: string;
+  contains?: string[];
+  not_contains?: string[];
+  matches?: string | null;
+  outcome?: TestOutcome | null;
+}
+
+export interface TestScenarioRow {
+  key: string;
+  title: string;
+  profile_key: string | null;
+  case_key: string | null;
+  turns: TestTurnSpec[];
+  active: boolean;
+  created_by: string | null;
+  updated_at: string;
+}
+
+export interface TestCheck {
+  kind: "contains" | "not_contains" | "matches" | "outcome" | "login";
+  value: string;
+  ok: boolean;
+  detail?: string;
+}
+
+export interface TestTurnResult {
+  phase: "login" | "scenario";
+  say: string;
+  reply: string;
+  ms: number;
+  checks: TestCheck[];
+}
+
+export type TestRunStatus = "running" | "passed" | "failed" | "error";
+
+export interface TestRunRow {
+  id: string;
+  scenario_key: string;
+  profile_key: string | null;
+  external_id: string;
+  session_id: string | null;
+  status: TestRunStatus;
+  started_at: string;
+  finished_at: string | null;
+  turns: TestTurnResult[];
+  error: string | null;
+  tickets_closed: string[];
+  ran_by: string;
+}

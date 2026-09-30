@@ -59,6 +59,20 @@ export const env = {
   // Who can accept, reject or mark implemented a case proposal. Everyone else
   // can propose, agree, object and comment. Comma-separated; one person by
   // default because a single point of consistency is the point.
+  // The bot's own hosted web-chat webhook (Bot - Main, "When chat message
+  // received"). The test runner posts to it exactly as the widget does. Not a
+  // secret — the widget URL is public — but overridable.
+  get n8nChatWebhookUrl() {
+    return (
+      process.env.N8N_CHAT_WEBHOOK_URL ||
+      "https://urbangymgroup-prod.app.n8n.cloud/webhook/d690408a-2200-4003-b237-efd5d4c57f67/chat"
+    );
+  },
+  // Purge the session a test run created once it is recorded. Default on;
+  // set TEST_KEEP_SESSIONS=1 to keep them for debugging.
+  get testKeepSessions() {
+    return process.env.TEST_KEEP_SESSIONS === "1";
+  },
   get casesApprovers() {
     return (process.env.CASES_APPROVERS || "bryan.medina.per@urbangymgroup.com")
       .split(",")
