@@ -780,3 +780,69 @@ export interface KnowledgeItemNoteRow {
   resolved_at: string | null;
   resolved_by: string | null;
 }
+
+// ---------------------------------------------------------------------------
+// Cases — proposals against the case library (db/051).
+//
+// The case is the unit of feedback. A proposal names the case_library row it
+// would change, there is one open proposal per case, and a second opinion is a
+// comment with a stance on that proposal rather than a second proposal.
+
+export type CaseProposalKind =
+  | "wrong_fact"
+  | "wrong_source"
+  | "wrong_behaviour"
+  | "missing";
+
+export type CaseProposalStatus =
+  | "open"
+  | "accepted"
+  | "implemented"
+  | "rejected"
+  | "withdrawn";
+
+export type CaseProposalStance = "agree" | "object" | "comment";
+
+export interface CaseProposalRow {
+  id: string;
+  // Soft reference to bot.case_library.key; null when kind = 'missing'.
+  case_key: string | null;
+  title: string | null;
+  kind: CaseProposalKind;
+  should_be: string;
+  rationale: string | null;
+  example_session_id: string | null;
+  status: CaseProposalStatus;
+  proposed_by: string;
+  created_at: string;
+  decided_by: string | null;
+  decided_at: string | null;
+  decision_note: string | null;
+  agree_n: number;
+  object_n: number;
+  comment_n: number;
+}
+
+export interface CaseProposalCommentRow {
+  id: string;
+  proposal_id: string;
+  author_email: string;
+  stance: CaseProposalStance;
+  body: string | null;
+  created_at: string;
+}
+
+// One "Try it" run on a case (db/052): the message sent, the reply the real
+// sub-workflow gave, and which proposal was open at the time.
+export interface CaseTrialRow {
+  id: string;
+  case_key: string;
+  proposal_id: string | null;
+  target_workflow_id: string;
+  message: string;
+  reply: string | null;
+  error: string | null;
+  ms: number | null;
+  ran_by: string;
+  ran_at: string;
+}
