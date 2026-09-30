@@ -106,3 +106,19 @@ export async function createFreshdeskTicket(input: {
   const data = (await res.json()) as { id: number };
   return String(data.id);
 }
+
+// A test run that reached the ticket step filed a REAL ticket — there is no
+// gate in the bot. Tag it and close it so it is filterable and off every
+// agent's queue. PUT replaces tags, so the bot's own tag is re-stated.
+export async function closeFreshdeskTicketAsTest(ticketId: string): Promise<void> {
+  const auth = Buffer.from(`${env.freshdeskApiKey}:X`).toString("base64");
+  const res = await fetch(`https://${env.freshdeskDomain}/api/v2/tickets/${ticketId}`, {
+    method: "PUT",
+    headers: { Authorization: `Basic ${auth}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ status: 5, tags: ["evelyn-bot", "evelyn-test"] }),
+  });
+  if (!res.ok) {
+    const body = await res.text().catch(() => "");
+    throw new Error(`Freshdesk close failed (HTTP ${res.status}): ${body.slice(0, 200)}`);
+  }
+}

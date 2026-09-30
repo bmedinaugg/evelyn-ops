@@ -33,6 +33,9 @@ const SECTIONS: { title: string | null; items: NavItem[] }[] = [
       // replaced /library. /scenarios stays separate: that is what the bot
       // RECOGNISES, with measured misfire rates.
       { href: "/cases", label: "Cases", icon: "📚" },
+      // Scenarios played against the real bot as a test identity. Member Care
+      // runs them; results are transcripts with pass/fail per check.
+      { href: "/tests", label: "Test runs", icon: "🧪" },
       { href: "/scenarios", label: "Scenario library", icon: "📖" },
       // And a third, one level further back: /knowledge is what FEEDS the
       // answers — the documents and syncs behind them, including the ones that
