@@ -1,24 +1,22 @@
 import Link from "next/link";
-import { getDigestDetails } from "@/lib/queries";
+import { getDigestDetailsForDays } from "@/lib/queries";
 import {
-  normaliseDate,
   addDays,
-  amsterdamToday,
-  rangeDays,
   freshdeskUrl,
+  resolveWindow,
+  MAX_RANGE_DAYS,
   OUTCOME_LABELS,
   OUTCOME_TONE,
 } from "@/lib/format";
 import type { Outcome, DigestSession } from "@/lib/types";
 import { ConversationFilters } from "./ConversationFilters";
 import { DateRangePicker } from "@/components/DateRangePicker";
+import { Pager, PAGE_SIZE, pageFrom } from "@/components/Pager";
 
 // A session tagged with the day it came from (for a multi-day window).
 type Row = DigestSession & { _day: string };
 
 export const dynamic = "force-dynamic";
-
-const MAX_DAYS = 7;
 
 const OUTCOMES: Outcome[] = [
   "ticket_created",
@@ -42,21 +40,13 @@ export default async function ConversationsPage({
     preview?: string;
     ticket?: string;
     noreply?: string;
+    page?: string;
   }>;
 }) {
   const sp = await searchParams;
 
-  // Window is [from, to] inclusive Amsterdam days, capped at MAX_DAYS.
-  // Back-compat: old links use `date` (window end) + `range` (1|7).
-  let to = normaliseDate(sp.to || sp.date);
-  let from = sp.from
-    ? normaliseDate(sp.from)
-    : addDays(to, -((sp.range === "7" ? MAX_DAYS : 1) - 1));
-  if (from > to) [from, to] = [to, from]; // ISO strings sort chronologically
-  const clamped = rangeDays(from, to) > MAX_DAYS;
-  if (clamped) from = addDays(to, -(MAX_DAYS - 1));
-  const days = clamped ? MAX_DAYS : rangeDays(from, to);
-  const today = amsterdamToday();
+  // Window is [from, to] inclusive Amsterdam days, capped at MAX_RANGE_DAYS.
+  const { from, to, days, clamped, today } = resolveWindow(sp);
 
   const f = {
     outcome: sp.outcome || "",
@@ -69,9 +59,7 @@ export default async function ConversationsPage({
 
   // Fetch each day in the window and tag every session with its day.
   const dates = Array.from({ length: days }, (_, i) => addDays(to, -i)); // newest → oldest
-  const perDay = await Promise.all(
-    dates.map(async (d) => ({ d, details: await getDigestDetails(d) })),
-  );
+  const perDay = await getDigestDetailsForDays(dates);
   const allSessions: Row[] = perDay.flatMap(({ d, details }) =>
     details.sessions.map((s) => ({ ...s, _day: d })),
   );
@@ -111,8 +99,27 @@ export default async function ConversationsPage({
     f.outcome || f.state || f.member || f.preview || f.ticket || f.noreply,
   );
 
+  // A month is ~9,000 conversations; the table renders every row server-side,
+  // so it pages. Filters don't carry `page`, so changing one lands on page 1.
+  const page = pageFrom(sp.page, rows.length);
+  const pageRows = rows.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
   const windowQuery = `from=${from}&to=${to}`;
   const clearHref = `/conversations?${windowQuery}`;
+  const pageHref = (n: number) => {
+    const p = new URLSearchParams({ from, to });
+    for (const [k, v] of Object.entries({
+      outcome: f.outcome,
+      state: f.state,
+      member: f.member,
+      preview: f.preview,
+      ticket: f.ticket,
+      noreply: f.noreply ? "1" : "",
+    }))
+      if (v) p.set(k, v);
+    if (n > 1) p.set("page", String(n));
+    return `/conversations?${p.toString()}`;
+  };
   const windowLabel =
     from === to
       ? from
@@ -128,7 +135,7 @@ export default async function ConversationsPage({
             to={to}
             max={today}
             basePath="/conversations"
-            maxDays={MAX_DAYS}
+            maxDays={MAX_RANGE_DAYS}
             preserved={{
               outcome: f.outcome,
               state: f.state,
@@ -146,7 +153,7 @@ export default async function ConversationsPage({
         {from === to ? `on ${from}` : `over ${windowLabel}`}
         {clamped && (
           <span className="badge amber" style={{ marginLeft: 6 }}>
-            capped at {MAX_DAYS} days
+            capped at {MAX_RANGE_DAYS} days
           </span>
         )}
         {anyFilter && (
@@ -195,7 +202,7 @@ export default async function ConversationsPage({
             />
           </thead>
           <tbody>
-            {rows.map((s) => {
+            {pageRows.map((s) => {
               const url = freshdeskUrl(s.ticket?.fd_id);
               return (
                 <tr key={s.session_id}>
@@ -253,6 +260,8 @@ export default async function ConversationsPage({
           </tbody>
         </table>
       </div>
+
+      <Pager page={page} total={rows.length} href={pageHref} />
     </>
   );
 }

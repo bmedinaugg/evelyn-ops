@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { rangePresets } from "@/lib/format";
 
 const WEEKDAYS = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 const MONTHS = [
@@ -22,11 +23,13 @@ const ordinal = (k: string) => {
 };
 
 /**
- * Single-popover calendar range picker. Click a start day, then an end day.
+ * Single-popover calendar range picker. Click a start day, then an end day —
+ * or take one of the presets along the top, which apply immediately.
  * When `maxDays` is set the window is capped: once a start is chosen, days
- * more than maxDays-1 away are disabled. Future days beyond `max` (today)
- * are always disabled. Navigates to `basePath` with from/to (+ any
- * `preserved` query params kept intact).
+ * more than maxDays-1 away are disabled, and presets that would not fit are
+ * not offered. Future days beyond `max` (today) are always disabled.
+ * Navigates to `basePath` with from/to (+ any `preserved` query params kept
+ * intact).
  */
 export function DateRangePicker({
   from,
@@ -87,10 +90,7 @@ export function DateRangePicker({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, from, to]);
 
-  const apply = () => {
-    if (!start) return;
-    const a = start;
-    const b = end ?? start; // a lone start day = a 1-day window
+  const applyRange = (a: string, b: string) => {
     const params = new URLSearchParams();
     params.set("from", a);
     params.set("to", b);
@@ -98,6 +98,9 @@ export function DateRangePicker({
     setOpen(false);
     router.push(`${basePath}?${params.toString()}`);
   };
+
+  // A lone start day = a 1-day window.
+  const apply = () => start && applyRange(start, end ?? start);
 
   const pick = (k: string) => {
     // No start yet, or a complete range exists → begin a fresh selection.
@@ -138,6 +141,9 @@ export function DateRangePicker({
     return o >= ordinal(a) && o <= ordinal(b);
   };
 
+  // One-click windows — see rangePresets(). `max` is today in Amsterdam.
+  const presets = rangePresets(max, maxDays);
+
   // Build the visible month grid (Monday-first).
   const daysInMonth = new Date(Date.UTC(view.y, view.m + 1, 0)).getUTCDate();
   const lead = (new Date(Date.UTC(view.y, view.m, 1)).getUTCDay() + 6) % 7;
@@ -168,6 +174,22 @@ export function DateRangePicker({
 
       {open && (
         <div className="cal panel" role="dialog" aria-label="Select date range">
+          <div className="cal-presets">
+            {presets.map((p) => (
+              <button
+                key={p.label}
+                type="button"
+                className={
+                  "secondary cal-preset" +
+                  (from === p.from && to === p.to ? " active" : "")
+                }
+                onClick={() => applyRange(p.from, p.to)}
+              >
+                {p.label}
+              </button>
+            ))}
+          </div>
+
           <div className="cal-head">
             <button
               type="button"

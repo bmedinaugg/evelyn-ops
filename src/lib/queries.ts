@@ -158,6 +158,56 @@ export async function getDigestDetails(date: string): Promise<DigestDetails> {
   return (date >= amsterdamToday() ? detailsFresh : detailsStable)(date);
 }
 
+// --- Windowed digest fetches ------------------------------------------------
+//
+// The range pages (Dashboard, Conversations, Bot helped) want a whole window,
+// not a day, and the window is now a month rather than a week. Each day is one
+// `daily_digest_details` RPC — its own statement under PostgREST's 8s
+// statement_timeout — and they all go out at once.
+//
+// Measured against prod on 21 Oct 2026, fetching September (30 days, ~8,600
+// sessions, 4MB of JSON), three runs each:
+//
+//   all 30 at once   ~2.9s      slowest single RPC ~3.5s
+//   12 at a time    ~12.1s      slowest single RPC ~9.2s
+//    6 at a time    ~14.7s      slowest single RPC ~3.9s
+//
+// Throttling the fan-out makes it several times SLOWER, not safer: a round of
+// calls costs about the same wall-clock however many are in it, so the only
+// effect of a ceiling is more rounds. (The 9.2s above is queueing in front of
+// PostgREST, not statement time — nothing returned 57014.) The real ceiling on
+// this is MAX_RANGE_DAYS, which is why it lives next to the window maths.
+//
+// Both helpers return one entry per date, in the order given. Days are cached
+// individually (see getDigestDetails), so a second look at the same month, or
+// any window overlapping it, costs nothing.
+
+/** Digest details for each of `dates`, in the order given. */
+export async function getDigestDetailsForDays(
+  dates: string[],
+): Promise<{ d: string; details: DigestDetails }[]> {
+  await requireStaff();
+  return Promise.all(
+    dates.map(async (d) => ({ d, details: await getDigestDetails(d) })),
+  );
+}
+
+/** Digest stats + details for each of `dates`, in the order given. */
+export async function getDigestDaysForDays(
+  dates: string[],
+): Promise<{ d: string; stats: DigestStats; details: DigestDetails }[]> {
+  await requireStaff();
+  return Promise.all(
+    dates.map(async (d) => {
+      const [stats, details] = await Promise.all([
+        getDigestStats(d),
+        getDigestDetails(d),
+      ]);
+      return { d, stats, details };
+    }),
+  );
+}
+
 export async function getConversation(
   sessionId: string,
 ): Promise<Conversation> {
