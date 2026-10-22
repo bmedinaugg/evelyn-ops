@@ -76,6 +76,97 @@ export function rangeDays(from: string, to: string): number {
   return Math.round(ms / 86_400_000) + 1;
 }
 
+/**
+ * Longest window the date-range pages (Dashboard, Conversations, Bot helped)
+ * will fetch, in days. One full calendar month — Member Care asked for
+ * "the whole month of September" and a 31-day cap covers every month.
+ *
+ * This is the real ceiling on the per-day RPC fan-out in queries.ts, which is
+ * deliberately unthrottled — see the measurements there. September costs ~3s
+ * and ~4MB cold, nothing on a second look, and no single statement comes near
+ * PostgREST's 8s timeout. Raising it further is a data-volume question rather
+ * than a timeout one: a month is already ~8,600 sessions, which is why the
+ * tables that render them page.
+ */
+export const MAX_RANGE_DAYS = 31;
+
+export type DateWindow = {
+  from: string;
+  to: string;
+  days: number;
+  /** The requested window was longer than maxDays and got trimmed. */
+  clamped: boolean;
+  today: string;
+};
+
+/**
+ * Resolve the [from, to] inclusive Amsterdam-day window a range page renders.
+ *
+ * Back-compat: older links carry `date` (the window end) plus `range`, which
+ * used to be "1" or "7"; any positive integer is accepted now, so `range=30`
+ * works for a link written by hand.
+ */
+export function resolveWindow(
+  sp: { from?: string; to?: string; date?: string; range?: string },
+  maxDays: number = MAX_RANGE_DAYS,
+): DateWindow {
+  let to = normaliseDate(sp.to || sp.date);
+  const span = Number(sp.range);
+  let from = sp.from
+    ? normaliseDate(sp.from)
+    : addDays(to, -((Number.isInteger(span) && span >= 1 ? span : 1) - 1));
+  if (from > to) [from, to] = [to, from]; // ISO strings sort chronologically
+  const clamped = rangeDays(from, to) > maxDays;
+  if (clamped) from = addDays(to, -(maxDays - 1));
+  return { from, to, days: rangeDays(from, to), clamped, today: amsterdamToday() };
+}
+
+const MONTH_ABBR = [
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+];
+
+export type RangePreset = { label: string; from: string; to: string };
+
+/**
+ * The one-click windows offered by the date picker, built from `today`.
+ *
+ * The named months are the point: Member Care asks for "the whole month of
+ * September" far more often than for an arbitrary span, and picking 30 days
+ * one click at a time was what made the old 7-day cap intolerable. "This
+ * month" ends today rather than running into the future.
+ *
+ * A preset longer than `maxDays` is dropped rather than quietly shortened —
+ * a button labelled "Sep" that returns 7 days is worse than no button.
+ */
+export function rangePresets(
+  today: string,
+  maxDays: number = MAX_RANGE_DAYS,
+): RangePreset[] {
+  const [y, m] = today.split("-").map(Number);
+  const key = (yy: number, mm: number, dd: number) =>
+    `${yy}-${String(mm + 1).padStart(2, "0")}-${String(dd).padStart(2, "0")}`;
+  // Month index is 0-based from here on; `m` arrives 1-based.
+  const thisM = { y, m: m - 1 };
+  const prev = new Date(Date.UTC(y, m - 2, 1));
+  const prevM = { y: prev.getUTCFullYear(), m: prev.getUTCMonth() };
+  const lastDay = (p: { y: number; m: number }) =>
+    new Date(Date.UTC(p.y, p.m + 1, 0)).getUTCDate();
+
+  return [
+    { label: "Today", from: today, to: today },
+    { label: "7 days", from: addDays(today, -6), to: today },
+    { label: "30 days", from: addDays(today, -29), to: today },
+    { label: "This month", from: key(thisM.y, thisM.m, 1), to: today },
+    {
+      label:
+        prevM.y === y ? MONTH_ABBR[prevM.m] : `${MONTH_ABBR[prevM.m]} ${prevM.y}`,
+      from: key(prevM.y, prevM.m, 1),
+      to: key(prevM.y, prevM.m, lastDay(prevM)),
+    },
+  ].filter((p) => rangeDays(p.from, p.to) <= maxDays);
+}
+
 /** [start, end) UTC ISO bounds covering the Amsterdam days from..to inclusive. */
 export function amsterdamRangeIso(from: string, to: string) {
   return {

@@ -1,22 +1,16 @@
 import Link from "next/link";
 import {
-  getDigestDetails,
+  getDigestDetailsForDays,
   reviewedSessionIds,
   defectsBySession,
 } from "@/lib/queries";
-import {
-  normaliseDate,
-  addDays,
-  amsterdamToday,
-  rangeDays,
-} from "@/lib/format";
+import { addDays, resolveWindow, MAX_RANGE_DAYS } from "@/lib/format";
 import type { DigestSession } from "@/lib/types";
 import { DateRangePicker } from "@/components/DateRangePicker";
+import { Pager, PAGE_SIZE, pageFrom } from "@/components/Pager";
 import { markHelpedAction, markNotHelpedAction } from "./actions";
 
 export const dynamic = "force-dynamic";
-
-const MAX_DAYS = 7;
 
 // A session tagged with the day it came from.
 type Row = DigestSession & { _day: string };
@@ -83,27 +77,17 @@ export default async function HelpedPage({
     to?: string;
     date?: string;
     range?: string;
+    page?: string;
   }>;
 }) {
   const sp = await searchParams;
 
-  // Window is [from, to] inclusive, capped at MAX_DAYS.
-  // Back-compat: old links use `date` (window end) + `range` (1|7).
-  let to = normaliseDate(sp.to || sp.date);
-  let from = sp.from
-    ? normaliseDate(sp.from)
-    : addDays(to, -((sp.range === "7" ? MAX_DAYS : 1) - 1));
-  if (from > to) [from, to] = [to, from];
-  const clamped = rangeDays(from, to) > MAX_DAYS;
-  if (clamped) from = addDays(to, -(MAX_DAYS - 1));
-  const days = clamped ? MAX_DAYS : rangeDays(from, to);
-  const today = amsterdamToday();
+  // Window is [from, to] inclusive, capped at MAX_RANGE_DAYS.
+  const { from, to, days, today } = resolveWindow(sp);
 
   const dates = Array.from({ length: days }, (_, i) => addDays(to, -i)); // newest → oldest
   const [perDay, reviewed, verdicts] = await Promise.all([
-    Promise.all(
-      dates.map(async (d) => ({ d, details: await getDigestDetails(d) })),
-    ),
+    getDigestDetailsForDays(dates),
     reviewedSessionIds(),
     defectsBySession(from, to),
   ]);
@@ -114,6 +98,13 @@ export default async function HelpedPage({
   // Said out loud: a day the scorecard has not reached yet cannot contribute,
   // and a quietly short list is indistinguishable from a quiet week.
   const unscored = allSessions.filter((s) => !verdicts.has(s.session_id)).length;
+
+  // A month's worth of helped conversations is ~450 rows, each carrying two
+  // review forms — more than one page should render at once.
+  const page = pageFrom(sp.page, rows.length);
+  const pageRows = rows.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const pageHref = (n: number) =>
+    `/helped?from=${from}&to=${to}${n > 1 ? `&page=${n}` : ""}`;
 
   const windowLabel =
     from === to ? from : `${from} → ${to} (${days} day${days > 1 ? "s" : ""})`;
@@ -128,7 +119,7 @@ export default async function HelpedPage({
             to={to}
             max={today}
             basePath="/helped"
-            maxDays={MAX_DAYS}
+            maxDays={MAX_RANGE_DAYS}
           />
         </div>
       </div>
@@ -193,7 +184,7 @@ export default async function HelpedPage({
             </tr>
           </thead>
           <tbody>
-            {rows.map((s) => (
+            {pageRows.map((s) => (
               <tr key={s.session_id}>
                 <td className="mono">
                   <Link href={`/conversations/${s.session_id}?date=${s._day}`}>
@@ -262,6 +253,8 @@ export default async function HelpedPage({
           </tbody>
         </table>
       </div>
+
+      <Pager page={page} total={rows.length} href={pageHref} />
     </>
   );
 }

@@ -1,16 +1,8 @@
 import Link from "next/link";
-import { getDigestStats, getDigestDetails } from "@/lib/queries";
-import {
-  normaliseDate,
-  addDays,
-  amsterdamToday,
-  rangeDays,
-  freshdeskUrl,
-} from "@/lib/format";
+import { getDigestDaysForDays } from "@/lib/queries";
+import { addDays, freshdeskUrl, resolveWindow, MAX_RANGE_DAYS } from "@/lib/format";
 import type { Outcome } from "@/lib/types";
 import { DateRangePicker } from "@/components/DateRangePicker";
-
-const MAX_DAYS = 7;
 
 export const dynamic = "force-dynamic";
 
@@ -51,29 +43,13 @@ export default async function DashboardPage({
 }) {
   const sp = await searchParams;
 
-  // Window is [from, to] inclusive, capped at MAX_DAYS.
-  // Back-compat: old links use `date` (window end) + `range` (1|7).
-  let to = normaliseDate(sp.to || sp.date);
-  let from = sp.from
-    ? normaliseDate(sp.from)
-    : addDays(to, -((sp.range === "7" ? MAX_DAYS : 1) - 1));
-  if (from > to) [from, to] = [to, from];
-  if (rangeDays(from, to) > MAX_DAYS) from = addDays(to, -(MAX_DAYS - 1));
-  const days = rangeDays(from, to);
-  const today = amsterdamToday();
+  // Window is [from, to] inclusive, capped at MAX_RANGE_DAYS.
+  const { from, to, days, today } = resolveWindow(sp);
 
   // Dates in the window, oldest → newest (endDate is `to`).
   const dates = Array.from({ length: days }, (_, i) => addDays(from, i));
 
-  const perDay = await Promise.all(
-    dates.map(async (d) => {
-      const [stats, details] = await Promise.all([
-        getDigestStats(d),
-        getDigestDetails(d),
-      ]);
-      return { d, stats, details };
-    }),
-  );
+  const perDay = await getDigestDaysForDays(dates);
 
   // Aggregate headline stats across the window.
   const agg = perDay.reduce(
@@ -122,7 +98,7 @@ export default async function DashboardPage({
             to={to}
             max={today}
             basePath="/dashboard"
-            maxDays={MAX_DAYS}
+            maxDays={MAX_RANGE_DAYS}
           />
         </div>
       </div>
